@@ -1,4 +1,5 @@
-export let serverurl = 'http://127.0.0.1:9000';
+// export let serverurl = 'http://127.0.0.1:9000';
+export let serverurl = 'http://127.0.0.1:8000';
 // export let serverurl = 'http://192.168.200.119:8000';
 // export let serverurl = 'http://192.168.1.41:5600';
 // export let serverurl = 'http://192.168.214.181:9000';

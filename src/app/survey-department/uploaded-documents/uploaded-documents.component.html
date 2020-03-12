@@ -4,11 +4,11 @@
         <strong>Documents Pending Meta Data Capture</strong>
       </div>
       <div class="card-body">
-        <div class="float-left form-group col-md-2 col-sm-6 col-xs-12">
-  
-        
+       
+        <app-dynamic-form [fields]="regConfig" (submit)="submit($event)"></app-dynamic-form>
+        <div class="margin-top">
+          {{ form.value | json }}
         </div>
-  
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
           class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
           <thead>
