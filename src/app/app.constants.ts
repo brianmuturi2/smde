@@ -14,4 +14,5 @@ export let rejected_documents_url = serverurl + API_VERSION +'edms/user-uploaded
 export let approved_documents_url = serverurl + API_VERSION +'edms/user-uploaded-documents/approved-documents';
 export let clerk_analytics_url = serverurl + API_VERSION +'edms/user-uploaded-documents/clerk-analytics';
 export let clerk_dashboard_analytics_url = serverurl + API_VERSION +'edms/user-uploaded-documents/clerk-analytics';
+export let user_registration_form_url = serverurl + API_VERSION +'ict-support/user-registration-form';
 // ng build --prod --aot --build-optimizer  --output-path /Users/africancoder/Documents/edms_front_build --watch --output-hashing none

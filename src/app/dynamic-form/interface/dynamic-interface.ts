@@ -10,9 +10,9 @@ export interface Validator {
   export interface FieldConfig {
     label?: string;
     name?: string;
-    // width?:string;
+    width?:number;
     inputType?: string;
-    options?: string[];
+    options?:any[];
     collections?: any;
     type: string;
     value?: any;

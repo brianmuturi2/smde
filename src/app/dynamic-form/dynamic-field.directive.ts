@@ -6,13 +6,18 @@ import {
 import { FieldConfig } from './interface/dynamic-interface';
 import { FormGroup } from "@angular/forms";
 import { DynamicInputComponent }  from './dynamic-input/dynamic-input.component';
+import { DynamicSelectComponent } from './dynamic-select/dynamic-select.component';
+import { DynamicRadioComponent } from './dynamic-radio/dynamic-radio.component';
+import { DynamicCheckboxComponent } from './dynamic-checkbox/dynamic-checkbox.component';
+import { DynamicButtonComponent } from './dynamic-button/dynamic-button.component';
+import { DynamicDatepickerComponent } from './dynamic-datepicker/dynamic-datepicker.component';
 const componentMapper = {
-  input: DynamicInputComponent
-  // button: ButtonComponent,
-  // select: SelectComponent,
-  // date: DateComponent,
-  // radiobutton: RadiobuttonComponent,
-  // checkbox: CheckboxComponent
+  input: DynamicInputComponent,
+  button: DynamicButtonComponent,
+  select: DynamicSelectComponent,
+  date: DynamicDatepickerComponent,
+  radiobutton: DynamicRadioComponent,
+  checkbox: DynamicCheckboxComponent
   };
 @Directive({
   selector: '[dynamicField]'

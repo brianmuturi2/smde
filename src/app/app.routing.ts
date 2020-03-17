@@ -40,8 +40,13 @@ export const routes: Routes = [
         path: 'surveyofkenya',
         loadChildren: () => import('./survey-department/survey-department/survey-department.module').then(m => m.SurveyDepartmentModule)
       },
+      {
+        path: 'account-management',
+        loadChildren: () => import('./support/support/support.module').then(m => m.SupportModule)
+      },
     ]
   },
+  
   {
     path: '',
     component: AdministrationManagementBaseComponent,

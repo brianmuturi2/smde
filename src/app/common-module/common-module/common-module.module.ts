@@ -19,11 +19,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AdministrationManagementBaseComponent } from '../../administration/containers/administration-management-base/administration-management-base.component';
-
+import { CommonErrorComponent } from '../../containers/common-error/common-error.component';
 
 // import { ToastrModule } from 'ngx-toastr';
 @NgModule({
-  declarations: [],
+  declarations: [CommonErrorComponent],
   imports: [
     AppAsideModule,
     AppBreadcrumbModule,
@@ -60,7 +60,8 @@ import { AdministrationManagementBaseComponent } from '../../administration/cont
     BsDatepickerModule,
     NgxSpinnerModule,
     AlertModule,
-    ModalModule
+    ModalModule,
+    CommonErrorComponent
 
 
   ]
