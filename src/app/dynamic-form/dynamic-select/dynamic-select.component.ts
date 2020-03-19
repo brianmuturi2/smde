@@ -6,7 +6,7 @@ import { FieldConfig} from '../interface/dynamic-interface';
   template: `
   <form [formGroup]="group">
     <div class="form-group col-md-{{field.width}}">
-    <label>{{field.name | titlecase}} </label>
+    <label>{{field.label | titlecase}} </label>
                                   <select class="form-control" [formControlName]="field.name">
                                   <option *ngFor="let item of field.options" [value]="item.id">{{item.name}}</option>
                                   

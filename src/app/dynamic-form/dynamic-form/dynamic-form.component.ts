@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { FieldConfig, Validator } from "../interface/dynamic-interface";
-
+import { ToastService } from '../../survey-department/shared-service/toast.service';
 @Component({
   selector: 'app-dynamic-form',
   exportAs: "dynamicForm",
@@ -16,10 +16,11 @@ export class DynamicFormComponent implements OnInit {
 
   form: FormGroup;
 
+
   get value() {
     return this.form.value;
   }
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,public toastService:ToastService) {}
 
   ngOnInit() {
     const group = this.fb.group({});
@@ -27,7 +28,6 @@ export class DynamicFormComponent implements OnInit {
     
   }
   initialize_form(newfield){
-    console.log("New fields",newfield)
     this.fields = newfield;
     this.form = this.createControl(newfield);
   }
@@ -35,11 +35,10 @@ export class DynamicFormComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    alert("status"+this.form.valid);
     if (this.form.valid) {
       this.submit.emit(this.form.value);
     } else {
-      alert("corrct form fields")
+      this.toastService.showToastNotification('error','Kindly correct the errors highlighted','');
       this.validateAllFormFields(this.form);
     }
   }
@@ -68,7 +67,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   validateAllFormFields(formGroup: FormGroup) {
-    alert("Validate field");
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
     

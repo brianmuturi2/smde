@@ -12,9 +12,12 @@ import { DataTablesModule } from 'angular-datatables';
 
 import { SharedModule } from '../../../common-module/common-module/common-module.module';
 import { AdministrationManagementBaseComponent } from '../../containers/administration-management-base/administration-management-base.component';
+import {AdministrationManagementSidemenuComponent } from '../../containers/administration-management-sidemenu/administration-management-sidemenu.component';
+import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-form.module';
 @NgModule({
   declarations: [
-    // AdministrationManagementSidemenuComponent,
+    AdministrationManagementBaseComponent,
+    AdministrationManagementSidemenuComponent,
     StaffregistrationComponent,
     StafflistingComponent,
     RevokeDocumentComponent,
@@ -28,12 +31,9 @@ import { AdministrationManagementBaseComponent } from '../../containers/administ
     CommonModule,
     FormsModule,
     BsDatepickerModule,
+    DynamicFormModule,
     ReactiveFormsModule,DataTablesModule,
     AdministrationRoutingModule
-  ],
-  exports:[
-    // AdministrationManagementSidemenuComponent
-
   ]
 })
 export class AdministrationModule { }

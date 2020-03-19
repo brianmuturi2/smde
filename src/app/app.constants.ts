@@ -1,8 +1,8 @@
 // export let serverurl = 'http://127.0.0.1:9000';
-export let serverurl = 'http://127.0.0.1:8000';
+// export let serverurl = 'http://127.0.0.1:8000';
 // export let serverurl = 'http://192.168.200.119:8000';
 // export let serverurl = 'http://192.168.1.41:5600';
-// export let serverurl = 'http://192.168.214.181:9000';
+export let serverurl = 'http://192.168.214.151:8000';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION +'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION +'edms/upload-document';
@@ -15,4 +15,14 @@ export let approved_documents_url = serverurl + API_VERSION +'edms/user-uploaded
 export let clerk_analytics_url = serverurl + API_VERSION +'edms/user-uploaded-documents/clerk-analytics';
 export let clerk_dashboard_analytics_url = serverurl + API_VERSION +'edms/user-uploaded-documents/clerk-analytics';
 export let user_registration_form_url = serverurl + API_VERSION +'ict-support/user-registration-form';
+export let list_user_roles = serverurl + API_VERSION + "account-management/list-roles";
+export let list_departments = serverurl + API_VERSION + "department";
+export let create_user_url = serverurl + API_VERSION + "ict-support/create-user";
 // ng build --prod --aot --build-optimizer  --output-path /Users/africancoder/Documents/edms_front_build --watch --output-hashing none
+export let list_staff_url = serverurl + API_VERSION + "account-management/filter-by-username";
+export let swap_user_department_url = serverurl + API_VERSION +'ict-support/swap-user-department';
+export let suspend_user_url = serverurl + API_VERSION +'ict-support/suspend-user';
+export let unsuspend_user_url = serverurl + API_VERSION +'ict-support/un-suspend-user';
+export let reset_password_url = serverurl + API_VERSION +'ict-support/reset-user-password';
+export let get_user_details_url = serverurl + API_VERSION +'account-management/get-user-details';
+export let change_password_url = serverurl + API_VERSION +'account-management/change-password';

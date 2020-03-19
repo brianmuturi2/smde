@@ -4,12 +4,6 @@
       <div class="card-header">
           Create New User
       </div>
-      <select (change)="populateform($event.target.value)">   
-       
-
-        <option value="peter">Peterson</option>
-        <option value="peter3">Peterson2</option>
-      </select>
       <div class="card-body">
         <!-- <dynamic-form-builder [fields]="getFields()" (submit)="registeruser($event)"></dynamic-form-builder> -->
     
@@ -18,11 +12,10 @@
         <app-dynamic-form  (submit)="registeruser($event)">
         </app-dynamic-form>
         <div class="margin-top">
-          <!-- {{ form.value | json }} -->
         </div>
           </div>
           </div>
           </div>
 
 
-          <!-- https://stackblitz.com/edit/angular-dynamic-form-builder-fqhyvh?file=app%2Fdynamic-form-builder%2Fdynamic-form-builder.module.ts -->
+          <app-common-loader></app-common-loader>

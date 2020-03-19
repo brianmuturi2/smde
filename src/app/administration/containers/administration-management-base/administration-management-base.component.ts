@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { navItems } from '../administration-management-sidemenu';
 @Component({
-  selector: 'app-administration-dashboard',
+  selector: 'app-dashboard',
   templateUrl: './administration-management-base.component.html',
   styleUrls: ['./administration-management-base.component.css']
 })
