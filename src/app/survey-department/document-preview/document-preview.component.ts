@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import  { FixedBoundaryCard} from '../interfaces/survey';
 import {SurveyService } from '../services/survey.service';
@@ -8,12 +8,15 @@ import { DocumentsList } from '../interfaces/survey';
 import { ToastService } from '../../survey-department/shared-service/toast.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SweetalertService } from '../../survey-department/shared-service/sweetalerts.service';
+
+
 @Component({
   selector: 'app-document-preview',
   templateUrl: './document-preview.component.html',
   styleUrls: ['./document-preview.component.css']
 })
 export class DocumentPreviewComponent implements OnInit {
+  
   public surveyForm: FormGroup;
   surveyInputRecords: Array<FixedBoundaryCard> = [];
   public show_edit:boolean = false;
@@ -94,7 +97,6 @@ export class DocumentPreviewComponent implements OnInit {
       };
   
       this.surveyInputRecords.push(this.surveyrecord_info);
-      console.log(this.surveyInputRecords)
       // this.toastr.success('New row added successfully', 'New Row');
       this.surveyForm.reset();
       return true;
@@ -111,15 +113,6 @@ deleteRow(index) {
   
   var matchedIndex = this.surveyInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
   this.surveyInputRecords.splice(matchedIndex, 1);
-  // if(this.surveyInputRecords.length ==1) {
-  //   // this.toastr.error("Can't delete the row when there is only one row", 'Warning');
-  //     return false;
-  // } else {
-  //     this.surveyInputRecords.splice(index, 1);
-  //     // this.toastr.warning('Row deleted successfully', 'Delete row');
-  //     return true;
-  // }
-
 
 }
   editRow(index){

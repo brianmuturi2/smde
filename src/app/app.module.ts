@@ -26,13 +26,14 @@ import { SafePipe } from './safepipe';
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
 }
-import { AdministrationManagementBaseComponent } from './administration/containers/administration-management-base/administration-management-base.component';
+
+
 import { SharedModule } from './common-module/common-module/common-module.module';
 const APP_CONTAINERS = [
-  DefaultLayoutComponent,AdministrationManagementBaseComponent
+  DefaultLayoutComponent
   
 ];
-
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   AppAsideModule,
   AppBreadcrumbModule,
@@ -49,8 +50,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ToastrModule } from 'ngx-toastr';
-import { CommonFooterComponent } from './containers/common-footer/common-footer.component';
-import { CommonHeaderComponent } from './containers/common-header/common-header.component';
+
+import { ValuationSheetComponent } from './department-of-valuation/valuation-sheet/valuation-sheet.component';
+
+import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.module';
+
 
 
 
@@ -66,6 +70,9 @@ import { CommonHeaderComponent } from './containers/common-header/common-header.
     AppFooterModule,
     AppHeaderModule,
     AppSidebarModule,
+    FormsModule,
+    DynamicFormModule,
+    ReactiveFormsModule,
     PerfectScrollbarModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
@@ -88,8 +95,9 @@ import { CommonHeaderComponent } from './containers/common-header/common-header.
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    CommonFooterComponent,
-    CommonHeaderComponent
+    ValuationSheetComponent,
+ 
+
     
   ],
   providers: [{

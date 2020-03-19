@@ -14,6 +14,7 @@ import { SafePipe } from '../../safepipe';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PendingDocumentsComponent } from '../pending-documents/pending-documents.component';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
+import { DynamicFormModule } from '../../dynamic-form/dynamic-form/dynamic-form.module'
 @NgModule({
   declarations: [
     UploadFileComponent,
@@ -30,6 +31,7 @@ import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-da
     CommonModule,
     FormsModule,
     BsDatepickerModule,
+    DynamicFormModule,
     ReactiveFormsModule,DataTablesModule,
     SurveyDepartmentRoutingModule
   ]

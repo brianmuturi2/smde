@@ -1,5 +1,6 @@
 <div class="animated fadeIn">
     <div class="card">
+    
       <div class="card-header">
       </div>
       <div class="card-body">
@@ -8,12 +9,13 @@
         
               
                 <div class="box-header">
-                  <h3 class="box-title">Document Preview</h3>
+                  <h3 class="box-title">Document Preview  {{preview_file}}</h3>
                 </div>
                 <div class="box-body " >
                   <div class="card">
                     <div class="card-body">
-                      <embed  [src]="preview_file | safe" type="application/pdf" width="100%" height="600px" navpanes = "1" toolbar= "0"/>
+                      <!-- [src]="preview_file | safe" -->
+                      <embed  src="http://127.0.0.1:8000/media/documents/408ed0fb-409e-45cf-af05-3c18b15999c5.pdf" type="application/pdf" width="100%" height="600px" navpanes = "1" toolbar= "0"/>
                       </div>
                     </div>
                 
@@ -27,9 +29,12 @@
                 <div class="box-header">
                     <h3 class="box-title">Document Details</h3>
                   </div>
+                
                   <div class="col-md-12">
+                    <label for="firstname">Purpose *</label>
                         <select class="form-control col-md-12 " id="exportLink">
-                            <option value="fixedboundarycard"> Fixed Boundary Card </option>
+                            <!-- <option value="fixedboundarycard"> Fixed Boundary Card </option> -->
+                            <option value="valuationforstampduty"> Valuation For Stamp Duty</option>
                         </select>
                         </div>
 
@@ -42,18 +47,14 @@
                                   <label for="firstname">Serial Number *</label>
                                   <input type="text" class="form-control" formControlName="serial_number">
                                 </div>
-                                <div class="form-group col-md-12">
+                                <!-- <div class="form-group col-md-12">
                                   <label for="middlename">File Number</label>
                                   <input type="text" class="form-control"  formControlName="file_number"  >
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-12">
-                                  <label for="middlename">Folio Number</label>
-                                  <input type="text" class="form-control"  formControlName="folio_number"  >
-                                </div>
-                                <div class="form-group col-md-12">
-                                  <label for="firstname">Parcel Type *</label>
+                                  <label for="firstname">Parcel Numbering Type *</label>
                                   <select class="form-control col-md-12 " formControlName="parcel_type">
-                                    <option>--Select  Parcel Type--- </option>
+                                    <option>--Select  Parcel Numbering Type--- </option>
                                     
                                     <option value="PARCEL_NUMBER"> Parcel Number </option>
                                     <option value="LR_NUMBER"> LR Number </option>
@@ -63,22 +64,6 @@
                                   <label for="firstname">Plot Number *</label>
                                   <input type="text" class="form-control" formControlName="plot_number" >
                                 </div>
-                                <div class="form-group col-md-12">
-                                  <label for="block_name">Unit Number</label>
-                                  <input type="text" class="form-control" formControlName="unit_number" >
-                                </div>
-                                <div class="form-group col-md-12">
-                                  <label for="block_name">Block Name</label>
-                                  <input type="text" class="form-control" formControlName="block_name" >
-                                </div>
-                                <div class="form-group col-md-12">
-                                  <label for="firstname">Date</label>
-                                  <!-- <input type="text" class="form-control" formControlName="date" id="startdate" bsDatepicker
-                                  [bsConfig]="{ isAnimated: true,adaptivePosition: true, dateInputFormat: 'YYYY-MM-DD' }"
-                                 placeholder="Select  Date"> -->
-                                  <input type="text" class="form-control" formControlName="date">
-                                </div>
-                               
                                 <div class="form-group col-md-12">
                                   <label for="middlename">Area</label>
                                   <input type="text" class="form-control"  formControlName="area"  >
@@ -90,26 +75,49 @@
                                     <option value="HECTARES"> HECTARES</option>
                                     <option value="ACRES"> ACRES</option>
                                     <option value="SQUARE_METERS">Square Metres</option>
+                                    <option value="SQUARE_FEET">Square FEET</option>
                                 </select>
                                 </div>
                                 <div class="form-group col-md-12">
-                                  <label for="middlename">New LR Number</label>
-                                  <input type="text" class="form-control"  formControlName="new_lr_number"  >
+                                  <label for="middlename">Zone</label>
+                                  <input type="text" class="form-control"  formControlName="zone"  >
                                 </div>
                                 <div class="form-group col-md-12">
-                                  <label for="middlename">Original Number</label>
-                                  <input type="text" class="form-control"  formControlName="original_number"  >
+                                  <label for="middlename">VOS</label>
+                                  <input type="text" class="form-control"  formControlName="vos"  >
                                 </div>
                                 <div class="form-group col-md-12">
-                                  <label for="middlename">Plan Number</label>
-                                  <input type="text" class="form-control"  formControlName="plan_number"  >
+                                  <label for="middlename">User</label>
+                                  <input type="text" class="form-control"  formControlName="user"  >
+                                </div>
+                                <div class="form-group col-md-12">
+                                  <label for="middlename">Situated At</label>
+                                  <input type="text" class="form-control"  formControlName="situated_at"  >
+                                </div>
+                                <div class="form-group col-md-12">
+                                  <label for="middlename">Amount Declared</label>
+                                  <input type="text" class="form-control"  formControlName="amount_declared"  >
+                                </div>
+                                
+                                <div class="form-group col-md-12">
+                                  <label for="block_name">Amount Valued</label>
+                                  <input type="text" class="form-control" formControlName="amount_valued" >
+                                </div>
+                                <div class="form-group col-md-12">
+                                  <label for="firstname">Date</label>
+                                  <!-- <input type="text" class="form-control" formControlName="date" id="startdate" bsDatepicker
+                                  [bsConfig]="{ isAnimated: true,adaptivePosition: true, dateInputFormat: 'YYYY-MM-DD' }"
+                                 placeholder="Select  Date"> -->
+                                  <input type="text" class="form-control" formControlName="date_of_valuation">
                                 </div>
                                
+                           
+<!--                                
                                 <div class="form-group col-md-12">
                                   <label for="middlename">Remarks</label>
                                   <textarea type="text" class="form-control"  formControlName="remarks"  >
                                     </textarea>
-                                </div>
+                                </div> -->
                                 
                               
                                 

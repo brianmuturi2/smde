@@ -38,10 +38,25 @@ export const navItems: INavData[] = [
     icon: 'fa fa-window-close'
   },
   {
-    name: 'Administrative',
+    name: 'User Registration',
+    url: '/account-management/register-account',
+    icon: 'fa fa-window-close'
+  },
+  {
+    name: 'ADMIN',
     url: '/administration/staff-registration',
     icon: 'fa fa-window-close'
   },
+  {
+    name: 'Profile',
+    url: '/profile',
+    icon: 'fa fa-window-close'
+  },
+  
+
+
+
+  
 
   
   // {

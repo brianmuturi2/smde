@@ -19,11 +19,15 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AdministrationManagementBaseComponent } from '../../administration/containers/administration-management-base/administration-management-base.component';
-
-
+import { CommonErrorComponent } from '../../containers/common-error/common-error.component';
+import { CommonHeaderComponent } from '../../containers/common-header/common-header.component';
+import { CommonLoaderComponent } from '../../containers/common-loader/common-loader.component';
+import { CommonFooterComponent } from '../../containers/common-footer/common-footer.component';
+import { CommonProfileComponent } from '../../containers/common-profile/common-profile.component';
 // import { ToastrModule } from 'ngx-toastr';
 @NgModule({
-  declarations: [],
+  declarations: [CommonErrorComponent,CommonLoaderComponent,
+    CommonFooterComponent,CommonHeaderComponent,CommonProfileComponent],
   imports: [
     AppAsideModule,
     AppBreadcrumbModule,
@@ -41,6 +45,7 @@ import { AdministrationManagementBaseComponent } from '../../administration/cont
     BsDatepickerModule,
     NgxSpinnerModule,
     AlertModule,
+    ModalModule,
     
   ],
   exports:[
@@ -60,7 +65,11 @@ import { AdministrationManagementBaseComponent } from '../../administration/cont
     BsDatepickerModule,
     NgxSpinnerModule,
     AlertModule,
-    ModalModule
+    ModalModule,
+    CommonErrorComponent,
+    CommonLoaderComponent,
+    CommonFooterComponent,CommonHeaderComponent,
+    CommonProfileComponent
 
 
   ]

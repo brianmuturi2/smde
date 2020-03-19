@@ -7,12 +7,35 @@ import { all_uploaded_documents_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentsList } from '../interfaces/survey';
 import { Router } from '@angular/router';
+import { FieldConfig} from '../../dynamic-form/interface/dynamic-interface';
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
+import { Validators } from "@angular/forms";
 @Component({
   selector: 'app-uploaded-documents',
   templateUrl: './uploaded-documents.component.html',
   styleUrls: ['./uploaded-documents.component.css']
 })
 export class UploadedDocumentsComponent implements OnInit {
+  @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
+  regConfig: FieldConfig[] = [
+    {
+      type: "input",
+      label: "Username",
+      inputType: "text",
+      name: "name",
+      validations: [
+        {
+          name: "required",
+          validator: Validators.required,
+          message: "Name Required"
+        },
+        {
+          name: "pattern",
+          validator: Validators.pattern("^[a-zA-Z]+$"),
+          message: "Accept only text"
+        }
+      ]
+    }]
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   dtOptions: any = {};

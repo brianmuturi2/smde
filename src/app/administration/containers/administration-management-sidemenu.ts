@@ -33,102 +33,53 @@ interface NavAttributes {
   export const navItems: NavData[] = [
     {
       title: true,
-      name: 'Sacco Management Menu'
+      name: 'System Administration'
     },
+    
+    
     {
-      name: 'Main Home',
-      url: '/sacco-management/dashboard/',
-      icon: 'fa fa-home',
-      permission: 'can_view_dashboard_menu'
-    },
-    {
-      name: 'Dashboard',
-      url: '/sacco-management/dashboard/',
-      icon: 'fa fa-area-chart',
-      permission: 'can_view_dashboard_menu'
-    },
-    {
-      name: 'Record Setup',
-      url: '/base',
-      icon: 'fa fa-cogs',
+      name: 'User Management',
+      url: '/',
+      icon: 'fa fa-group',
       permission: 'can_view_device_explorer_menu',
       
       children: [
         {
-          name: 'Account Category',
-          url: '/sacco-management/account-category/',
-          icon: 'fa fa-eraser',
+          name: 'Staff Listing',
+          url: '/administration/staff-listing',
+          icon: 'fa fa-users',
           permission: 'can_add_business_accounts'
         },
         {
-          name: 'Account Type',
-          url: '/sacco-management/account-type/',
-          icon: 'fa fa-code-fork',
+          name: 'New Staff',
+          url: '/administration/staff-registration',
+          icon: 'fa fa-user-plus',
           permission: 'can_add_business_accounts'
-        },
-        {
-          name: 'Stage',
-          url: '/sacco-management/stage/',
-          icon: 'fa fa-institution',
-          permission: 'can_add_business_accounts'
-        },
-        {
-          name: 'Stage Items',
-          url: '/sacco-management/stage-items/',
-          icon: 'fa fa-cube',
-          permission: 'can_add_business_accounts'
-        },
-        {
-          name: 'Stage Defaults',
-          url: '/sacco-management/stage-item-default/',
-          icon: 'fa fa-cubes',
-          permission: 'can_add_business_accounts'
-        },
-        {
-          name: 'Vehicle Capacity',
-          url: '/sacco-management/vehicle-capacity/',
-          icon: 'fa fa-car',
-          permission: 'can_add_business_accounts'
-        },
+        }
       ]
     },
     {
-      name: 'Client Records',
-      url: '/base',
-      icon: 'fa fa-cogs',
+      name: 'Document Manager',
+      url: '/',
+      icon: 'fa fa-suitcase',
       permission: 'can_view_device_explorer_menu',
       
       children: [
-        
         {
-          name: 'Member Dashboard',
-          url: '/sacco-management/member-dashboard/',
-          icon: 'fa fa-bar-chart',
+          name: 'Document Listing',
+          url: '/document-manager/document-listing',
+          icon: 'fa fa-hdd-o',
           permission: 'can_add_business_accounts'
         },
         {
-          name: 'Account Registration',
-          url: '/sacco-management/member-registration/',
-          icon: 'fa fa-id-card',
+          name: 'Revoked Documents',
+          url: '/document-manager/revoked-documents',
+          icon: 'fa fa-exclamation-triangle',
           permission: 'can_add_business_accounts'
-        },
-        {
-          name: 'Account Type',
-          url: '/sacco-management/account-type/',
-          icon: 'fa fa-code-fork',
-          permission: 'can_add_business_accounts'
-        },
+        }
       ]
     },
     
-    // {
-    //   name: 'Logout',
-    //   url: '/',
-    //   icon: 'icon-cloud-download',
-    //   class: 'mt-auto',
-    //   variant: 'success',
-    //   attributes: { target: '_blank', rel: 'noopener' }
-    // },
   
   
     

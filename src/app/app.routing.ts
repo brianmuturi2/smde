@@ -3,10 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
-import { AdministrationManagementBaseComponent } from './administration/containers/administration-management-base/administration-management-base.component';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-
+import { CommonProfileComponent } from './containers/common-profile/common-profile.component';
 
 export const routes: Routes = [
   
@@ -37,23 +36,27 @@ export const routes: Routes = [
     },
     children: [
       {
+        path: 'profile',
+        component: CommonProfileComponent,
+        data: {
+          title: 'Profile Details'
+        }
+      },
+      
+      {
         path: 'surveyofkenya',
         loadChildren: () => import('./survey-department/survey-department/survey-department.module').then(m => m.SurveyDepartmentModule)
       },
-    ]
-  },
-  {
-    path: '',
-    component: AdministrationManagementBaseComponent,
-    data: {
-      title: 'Administration Home'
-    },
-    children: [
       {
-        path: 'administration',
-        loadChildren: () => import('./administration/administration/administration/administration.module').then(m => m.AdministrationModule)
+        path: 'account-management',
+        loadChildren: () => import('./support/support/support.module').then(m => m.SupportModule)
       },
     ]
+  },
+  
+  {
+    path: 'administration',
+    loadChildren: () => import('./administration/administration/administration/administration.module').then(m => m.AdministrationModule)
   },
   { path: '**', component: P404Component }
 ];
