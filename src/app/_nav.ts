@@ -50,8 +50,8 @@ export const navItems: INavData[] = [
   {
     name: 'Profile',
     url: '/profile',
-    icon: 'fa fa-window-close'
-  },
+    icon: 'fa fa-street-view'
+  }
   
 
 

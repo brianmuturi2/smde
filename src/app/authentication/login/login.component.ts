@@ -4,7 +4,7 @@ import { ValidationErrorMessages } from '../validators/authentication.messages';
 import { NameValidator,PasswordValidator,OtpValidator } from '../validators/authentication.validators';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './login.component.html',

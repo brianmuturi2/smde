@@ -51,9 +51,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { ToastrModule } from 'ngx-toastr';
 
-import { ValuationSheetComponent } from './department-of-valuation/valuation-sheet/valuation-sheet.component';
 
 import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.module';
+
 
 
 
@@ -95,8 +95,6 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.modu
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    ValuationSheetComponent,
- 
 
     
   ],

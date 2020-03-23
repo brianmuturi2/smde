@@ -1,7 +1,7 @@
 import {Component } from '@angular/core';
 import { navItems } from '../../_nav';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
-import { SweetalertService} from '../../survey-department/shared-service/sweetalerts.service';
+import { SweetalertService} from '../../common-module/shared-service/sweetalerts.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'

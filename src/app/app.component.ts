@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   checkifAuthenticated(){
     this.authservice.authenticationState.subscribe(state =>{
       if(state){
-        this.router.navigate(['surveyofkenya/clerk-dashboard']);
+        this.router.navigate(['clerk-view/clerk-dashboard']);
         
       }else{
         this.router.navigate(['authentication/login']);

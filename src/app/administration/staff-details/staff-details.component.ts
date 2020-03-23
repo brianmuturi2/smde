@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 import { list_departments, list_user_roles, swap_user_department_url,suspend_user_url,unsuspend_user_url,reset_password_url,get_user_details_url } from '../../app.constants';
 import { AdministrationService } from '../services/administration.service';
-import { SweetalertService } from '../../survey-department/shared-service/sweetalerts.service';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 @Component({

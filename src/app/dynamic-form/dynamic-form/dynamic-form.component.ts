@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { FieldConfig, Validator } from "../interface/dynamic-interface";
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 @Component({
   selector: 'app-dynamic-form',
   exportAs: "dynamicForm",
@@ -45,7 +45,7 @@ export class DynamicFormComponent implements OnInit {
   createControl(newfields) {
     const group = this.fb.group({});
     newfields.forEach(field => {
-      if (field.type === "button") return;
+      if (field.field_type === "button") return;
       const control = this.fb.control(
         field.value,
         this.bindValidations(field.validations || [])
@@ -53,6 +53,9 @@ export class DynamicFormComponent implements OnInit {
       group.addControl(field.name, control);
     });
     return group;
+  }
+  setControlValue(updatefields) {
+    this.form.patchValue(updatefields);
   }
 
   bindValidations(validations: any) {

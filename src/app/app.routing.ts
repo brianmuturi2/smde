@@ -41,22 +41,22 @@ export const routes: Routes = [
         data: {
           title: 'Profile Details'
         }
-      },
-      
-      {
-        path: 'surveyofkenya',
-        loadChildren: () => import('./survey-department/survey-department/survey-department.module').then(m => m.SurveyDepartmentModule)
-      },
-      {
-        path: 'account-management',
-        loadChildren: () => import('./support/support/support.module').then(m => m.SupportModule)
-      },
+      }
     ]
   },
   
   {
     path: 'administration',
     loadChildren: () => import('./administration/administration/administration/administration.module').then(m => m.AdministrationModule)
+  },
+
+  {
+    path: 'clerk-view',
+    loadChildren: () => import('./clerk-view/clerk-view/clerk-view.module').then(m => m.ClerkViewModule)
+  },
+  {
+    path: 'validator-view',
+    loadChildren: () => import('./validator-view/validator/validator/validator.module').then(m => m.ValidatorModule)
   },
   { path: '**', component: P404Component }
 ];

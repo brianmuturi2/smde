@@ -8,13 +8,14 @@ export interface Validator {
     message: string;
   }
   export interface FieldConfig {
+    id?: string;
     label?: string;
     name?: string;
     width?:number;
-    inputType?: string;
+    input_type?: string;
     options?:any[];
     collections?: any;
-    type: string;
+    field_type: string;
     value?: any;
     validations?: Validator[];
   }
