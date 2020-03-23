@@ -1,8 +1,8 @@
 import { Component, OnInit,OnDestroy,ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { ValidatorService } from '../services/validator.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 import { filter_document_by_file_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentsList } from '../interfaces/validator';

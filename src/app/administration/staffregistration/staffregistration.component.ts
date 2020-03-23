@@ -5,9 +5,9 @@ import { FieldConfig} from '../../dynamic-form/interface/dynamic-interface';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 import { AdministrationService } from '../services/administration.service';
 import { list_departments,list_user_roles,create_user_url} from '../../app.constants';
-import { SweetalertService} from '../../survey-department/shared-service/sweetalerts.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
+import { SweetalertService} from '../../common-module/shared-service/sweetalerts.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 
 @Component({
   selector: 'app-staffregistration',

@@ -1,8 +1,8 @@
 import { Component, OnInit,OnDestroy,ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import {SurveyService } from '../services/survey.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 import { clerk_rejected_documents_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentsList } from '../interfaces/survey';

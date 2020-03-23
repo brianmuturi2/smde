@@ -3,8 +3,8 @@
 import { Component, OnInit,OnDestroy,ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { AdministrationService } from '../services/administration.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 import { list_staff_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { UserList } from '../interfaces/administration';

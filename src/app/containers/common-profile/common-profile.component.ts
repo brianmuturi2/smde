@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { SweetalertService } from '../../survey-department/shared-service/sweetalerts.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { change_password_url } from '../../app.constants';
 import { AuthenticationService } from '../../authentication/services/authentication.service';

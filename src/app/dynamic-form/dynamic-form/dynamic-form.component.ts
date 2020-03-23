@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { FieldConfig, Validator } from "../interface/dynamic-interface";
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 @Component({
   selector: 'app-dynamic-form',
   exportAs: "dynamicForm",

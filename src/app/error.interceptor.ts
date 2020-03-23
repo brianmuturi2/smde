@@ -5,8 +5,8 @@ HttpHandler, HttpEvent, HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ToastService } from './survey-department/shared-service/toast.service';
-import { LoadingService } from './survey-department/shared-service/loading.service';
+import { LoadingService } from './common-module/shared-service/loading.service';
+import { ToastService } from './common-module/shared-service/toast.service';
 import { AuthenticationService } from './authentication/services/authentication.service';
 @Injectable({
 providedIn: 'root'

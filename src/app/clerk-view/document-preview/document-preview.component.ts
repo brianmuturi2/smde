@@ -2,12 +2,12 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import  { FixedBoundaryCard} from '../interfaces/survey';
 import {SurveyService } from '../services/survey.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { document_detail_url,serverurl,fixed_boundary_document_post } from '../../app.constants';
 import { DocumentsList } from '../interfaces/survey';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 import { Router,ActivatedRoute } from '@angular/router';
-import { SweetalertService } from '../../survey-department/shared-service/sweetalerts.service';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 
 
 @Component({

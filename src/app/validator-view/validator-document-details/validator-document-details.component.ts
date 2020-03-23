@@ -1,8 +1,8 @@
 import { Component, OnInit,OnDestroy,ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { ValidatorService } from '../services/validator.service';
-import { LoadingService } from '../../survey-department/shared-service/loading.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
 import { fetch_document_records_url,fetch_document_record_details_url,validators_approve_document_url,validators_reject_document_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentsList } from '../interfaces/validator';
@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { SweetalertService } from '../../survey-department/shared-service/sweetalerts.service';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 @Component({
   selector: 'app-validator-document-details',
   templateUrl: './validator-document-details.component.html',

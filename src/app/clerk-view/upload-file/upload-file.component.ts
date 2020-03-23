@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SurveyService } from '../services/survey.service';
-import { ToastService } from '../../survey-department/shared-service/toast.service';
-import { SweetalertService } from '../../survey-department/shared-service/sweetalerts.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({

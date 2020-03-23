@@ -10,7 +10,16 @@ import { ApprovedDocumentsComponent } from '../approved-documents/approved-docum
 import { PendingDocumentsComponent } from '../pending-documents/pending-documents.component';
 import { AuthenticationGuard } from '../../authentication/guards/authguard.guard';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
+import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view-base.component';
+import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/clerk-view-sidemenu.component';
 const routes: Routes = [
+  {
+    path: '',
+    component: ClerkViewBaseComponent,
+    data: {
+      
+    },
+    children: [
   {
     path: '',
     redirectTo: 'upload-file',
@@ -72,7 +81,8 @@ const routes: Routes = [
     },
     canActivate: [AuthenticationGuard],
   },
-
+    ]
+  }
 ];
 
 @NgModule({
