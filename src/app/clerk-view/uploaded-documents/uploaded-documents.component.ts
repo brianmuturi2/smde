@@ -76,7 +76,7 @@ export class UploadedDocumentsComponent implements OnInit {
      });
    }
    capture_metadata(file_id){
-     this.router.navigate(['surveyofkenya/document-preview',file_id]);
+     this.router.navigate(['clerk-view/document-preview',file_id]);
 
    }
 

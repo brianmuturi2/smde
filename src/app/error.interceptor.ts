@@ -43,8 +43,40 @@ export class ErrorHandler{
    else if (err.status==400){
       let error = err.error;
       let errordetail = error['details'];
-      console.log(errordetail);
-      this.toastService.showToastNotification('error',errordetail,'')
+      let error_type = typeof(errordetail)
+      if(error_type == "string"){
+         this.toastService.showToastNotification('error',errordetail,'')
+
+      }
+      else{
+         let error_log = []
+         for(let items of Object.keys(errordetail)){
+            let selected_items = errordetail[items];
+            for(let [newitems,newvalues] of Object.entries(selected_items)){
+              
+               error_log.push({
+                  "key":newitems,
+                  "error":newvalues
+   
+               })
+   
+            }
+            //     }
+   
+         }
+         for(let item of error_log){
+            let arraykey = item.key;
+            this.toastService.showToastNotification('error',item.error,arraykey.toUpperCase())
+   
+      }
+      
+
+     
+      }
+      // for (let [key, value] of Object.entries(errordetail)) {
+      //    console.log(`${key}: ${value}`);
+      //  }
+      // this.toastService.showToastNotification('error',errordetail,'')
 
    }
 

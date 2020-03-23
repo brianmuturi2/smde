@@ -33,7 +33,7 @@ export interface NavData {
 export const navItems: NavData[] = [
   {
     title: true,
-    name: 'Validator Menu'
+    name: 'Clerk Menu'
   },
   {
     name: 'Document',
@@ -44,32 +44,38 @@ export const navItems: NavData[] = [
     children: [
       {
         name: 'Analytics',
-        url: '/validator-view/analytics',
+        url: '/clerk-view/clerk-dashboard',
         icon: 'fa fa-line-chart',
         permission: 'can_add_business_accounts'
       },
       {
-        name: 'Validate Document',
-        url: '/validator-view/pending-documents',
-        icon: 'fa fa-gavel',
+        name: 'Upload Document',
+        url: '/clerk-view/upload-file',
+        icon: 'fa fa-cloud-upload',
         permission: 'can_add_business_accounts'
       },
       {
-        name: 'Approved Docs',
-        url: '/validator-view/approved-documents',
+        name: 'My Documents',
+        url: '/clerk-view/my-document',
+        icon: 'fa fa-hand-lizard-o',
+        permission: 'can_add_business_accounts'
+      },
+      {
+        name: 'Pending Documents',
+        url: '/clerk-view/pending-validation',
+        icon: 'fa fa-exchange',
+        permission: 'can_add_business_accounts'
+      },
+      {
+        name: 'Approved',
+        url: '/clerk-view/approved-documents',
         icon: 'fa fa-check-square',
         permission: 'can_add_business_accounts'
       },
       {
-        name: 'Rejected Docs',
-        url: '/validator-view/rejected-documents',
+        name: 'Rejected',
+        url: '/clerk-view/rejected-documents',
         icon: 'fa fa-times',
-        permission: 'can_add_business_accounts'
-      },
-      {
-        name: 'Resubmitted Docs',
-        url: '/validator-view/rejected-documents',
-        icon: 'fa fa-reply',
         permission: 'can_add_business_accounts'
       }
     ]

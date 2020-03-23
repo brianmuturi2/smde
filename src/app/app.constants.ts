@@ -42,3 +42,6 @@ export let validators_reject_document_url = serverurl + API_VERSION +'edms/valid
 export let filter_document_by_file_url = serverurl + API_VERSION +'edms/document/filter-document-by-file-no';
 export let fetch_document_records_url = serverurl + API_VERSION +'edms/document/fetch-document-records';
 export let fetch_document_record_details_url = serverurl + API_VERSION +'edms/document/fetch-document-records-details';
+export let fetch_user_document_types_url = serverurl + API_VERSION + 'edms/document-types/user-document-types';
+export let fetch_document_type_fields_url = serverurl + API_VERSION + 'edms/document-types/get-document-fields';
+export let post_document_fields_url = serverurl + API_VERSION + 'edms/clerk-view/post-document-records';
