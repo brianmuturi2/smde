@@ -30,7 +30,8 @@ fileData:File = null;
       
       // this.toastService.showToastNotification('success','File Successfully uploaded','')
       this.sweetalertsService.showAlert('Success','File Has Been Successfully Uploaded','success');
-      this.router.navigate(['surveyofkenya/upload-file']);
+      this.router.navigate(['clerk-view/upload-file']);
+      
 
 
     });

@@ -21,11 +21,6 @@ const routes: Routes = [
     },
     children: [
   {
-    path: '',
-    redirectTo: 'upload-file',
-    pathMatch: 'full',
-  },
-  {
     path: 'clerk-dashboard',
     component: ClerkDashboardComponent,
     data: {
@@ -66,7 +61,7 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
   },
   {
-    path: 'rejected',
+    path: 'rejected-documents',
     component: RejectedDocumentsComponent,
     data: {
       title: 'Rejected Documents'
@@ -74,7 +69,7 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
   },
   {
-    path: 'approved',
+    path: 'approved-documents',
     component: ApprovedDocumentsComponent,
     data: {
       title: 'Approved Documents'

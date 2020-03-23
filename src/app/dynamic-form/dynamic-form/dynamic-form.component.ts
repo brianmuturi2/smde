@@ -57,6 +57,9 @@ export class DynamicFormComponent implements OnInit {
   setControlValue(updatefields) {
     this.form.patchValue(updatefields);
   }
+  resetForm() {
+    this.form.reset();
+  }
 
   bindValidations(validations: any) {
     if (validations.length > 0) {
@@ -77,7 +80,5 @@ export class DynamicFormComponent implements OnInit {
       control.markAsDirty({ onlySelf: true });
     });
   }
-  resetForm(){
-    this.form.reset()
-  }
+ 
 }

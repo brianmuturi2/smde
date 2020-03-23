@@ -3,54 +3,64 @@ import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import  { FixedBoundaryCard} from '../interfaces/survey';
 import {SurveyService } from '../services/survey.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
-import { document_detail_url,serverurl,fixed_boundary_document_post } from '../../app.constants';
+import { document_detail_url,serverurl,fixed_boundary_document_post,fetch_user_document_types_url ,fetch_document_type_fields_url,post_document_fields_url} from '../../app.constants';
 import { DocumentsList } from '../interfaces/survey';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 
-
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 @Component({
   selector: 'app-document-preview',
   templateUrl: './document-preview.component.html',
   styleUrls: ['./document-preview.component.css']
 })
 export class DocumentPreviewComponent implements OnInit {
-  
+  @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
   public surveyForm: FormGroup;
-  surveyInputRecords: Array<FixedBoundaryCard> = [];
+  public documentTypeForm: FormGroup;
+  formInputRecords = [];
   public show_edit:boolean = false;
   surveyrecord_info: any = {};
   preview_file :string = '';
   records: DocumentsList[] = [];
+  document_list_items = [];
   tenant_client: string;
   reference_serial_number :string;
   constructor(private router: Router,public sweetalertsService:SweetalertService,private loadingService:LoadingService,private formBuilder: FormBuilder,public surveyService:SurveyService,private toastService:ToastService,private route: ActivatedRoute,) { 
-    this.surveyForm = this.formBuilder.group({
-      id: new FormControl('', Validators.compose([])),
-      serial_number: new FormControl('', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(100) ])),
-      parcel_type: new FormControl('', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(100) ])),
-      plot_number: new FormControl('', Validators.compose([Validators.required,Validators.minLength(2),Validators.maxLength(100) ])),
-      date: new FormControl('', Validators.compose([])),
-      area: new FormControl('', Validators.compose([])),
-      plan_number: new FormControl('', Validators.compose([])),
-      new_lr_number: new FormControl('', Validators.compose([])),
-      remarks: new FormControl('', Validators.compose([])),
-      file_number: new FormControl('', Validators.compose([])),
-      folio_number: new FormControl('', Validators.compose([])),
-      original_number: new FormControl('', Validators.compose([])),
-      block_name: new FormControl('', Validators.compose([])),
-      units: new FormControl('', Validators.compose([])),
-      unit_number:new FormControl('', Validators.compose([])),
-      
-      
+    this.documentTypeForm = this.formBuilder.group({
+      document_type: new FormControl('', Validators.compose([Validators.required])),
     });
+   
   }
 
   ngOnInit(): void {
     // let tenant_client: string = this.route.params['id'];
     this.tenant_client = this.route.snapshot.paramMap.get('id');
     this.fetchRecords(this.tenant_client);
+    this.fetch_document_types();
+
+  }
+  fetch_document_types(){
+    let payload = {
+
+    }
+    this.surveyService.getrecorddetail(fetch_user_document_types_url,payload).subscribe((res)=>{
+      console.log("ssdsdsdsdsd",res)
+      // this.document_list_items.push(res);
+      this.document_list_items = res;
+    });
+
+  }
+  fetchdocumenttypeform(value){
+    let payload = {
+      "doc_key_word":value
+    };
+    this.surveyService.getrecorddetail(fetch_document_type_fields_url,payload).subscribe((res)=>{
+      let form_values = res['fields'];
+      this.inputForm.initialize_form(form_values);
+
+    });
 
   }
 
@@ -68,102 +78,67 @@ export class DocumentPreviewComponent implements OnInit {
  
      },(err)=>{
        this.loadingService.hideloading();
-       
      });
    }
-  addRow() {  
-    
-    if(this.surveyForm.valid){
-      this.reference_serial_number = this.surveyForm.value['serial_number'];
-      this.surveyrecord_info = {
-        id:Number(new Date()),
-        serial_number:this.surveyForm.value['serial_number'],
-        parcel_type:this.surveyForm.value['parcel_type'],
-        plot_number:this.surveyForm.value['plot_number'],
-        date:this.surveyForm.value['date'],
-        area:this.surveyForm.value['area'],
-        plan_number:this.surveyForm.value['plan_number'],
-        new_lr_number:this.surveyForm.value['new_lr_number'],
-        remarks:this.surveyForm.value['remarks'],
-        file_number:this.surveyForm.value['file_number'],
-        folio_number:this.surveyForm.value['folio_number'],
-        original_number:this.surveyForm.value['original_number'],
-        block_name:this.surveyForm.value['block_name'],
-        units:this.surveyForm.value['units'],
-        unit_number:this.surveyForm.value['unit_number'],
-        
-
-        
-      };
-  
-      this.surveyInputRecords.push(this.surveyrecord_info);
-      // this.toastr.success('New row added successfully', 'New Row');
-      this.surveyForm.reset();
-      return true;
-    }
-    else{
-      
-      this.toastService.showToastNotification('error','Kindly Cross Check your input to proceed','');
-    }
-   
+  addRow() { 
+    let payload = this.inputForm.value;
+    payload['id'] = Number(new Date());
+    this.formInputRecords.push(payload);
+    console.log(payload)
+    this.inputForm.resetForm();
+    return true;
 }
-
 deleteRow(index) {
   var selected_obj = index.id;
-  
-  var matchedIndex = this.surveyInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
-  this.surveyInputRecords.splice(matchedIndex, 1);
+  var matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
+  this.formInputRecords.splice(matchedIndex, 1);
 
 }
   editRow(index){
     var selected_obj = index.id;
-
-    // var get_specific_index = this.surveyInputRecords.find(item => item.id === selected_obj);
-    var matchedIndex = this.surveyInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
-    // var marvelHeroes =  this.surveyInputRecords.filter(function(hero) {
-    //   if(index.id == hero.id){
-    //     return index;
-    //   }
-    // });
-  
+    var matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
     this.show_edit = true;
-    this.surveyForm.setValue(index);
-    this.surveyInputRecords.splice(matchedIndex, 1);
+    this.inputForm.setControlValue(index);
+    this.formInputRecords.splice(matchedIndex, 1);
     
   
   
   }
   saveformData(){
-   
-      
-    let item_length = this.surveyInputRecords.length;
-    if(item_length <= 0 ){
-      this.toastService.showToastNotification('error','Atleast One Record Is required','');
+    if(!this.documentTypeForm.valid){
+      this.toastService.showToastNotification('error','Invalid Document Type Selected','');
     }
     else{
-      this.sweetalertsService.showConfirmation('Data Submission','Do you to proceed saving the records?').then((res)=>{
-        if(res){
-          var records_passed = {
-            "document_id":this.tenant_client,
-            "document_type":"fixedboundarycard",
-            "serial_number":this.reference_serial_number,
-            "records_passed":this.surveyInputRecords
-          };
-          this.surveyService.postrecord(fixed_boundary_document_post,records_passed).subscribe(res =>{
-            this.sweetalertsService.showAlert('Success','Successfully Submitted for Validation','success');
-            // this.toastService.showToastNotification('success','Successfully Submitted for Validation','');
-            this.surveyInputRecords = [];
-            this.surveyForm.reset();
-            this.router.navigate(['surveyofkenya/my-document']);
+      let item_length = this.formInputRecords.length;
+      if(item_length <= 0 ){
+        this.toastService.showToastNotification('error','Atleast One Record Is required','');
+      }
+      else{
+        this.sweetalertsService.showConfirmation('Data Submission','Do you to proceed saving the records?').then((res)=>{
+          if(res){
+            var records_passed = {
+              "document_id":this.tenant_client,
+              "document_keyword":this.documentTypeForm.value['document_type'],
+              "metadata_records":this.formInputRecords
+            };
+            this.surveyService.postrecord(post_document_fields_url,records_passed).subscribe(res =>{
+              this.sweetalertsService.showAlert('Success','Successfully Submitted for Validation','success');
+              // this.toastService.showToastNotification('success','Successfully Submitted for Validation','');
+              this.formInputRecords = [];
+              this.inputForm.resetForm();
+              this.router.navigate(['clerk-view/my-document']);
+        
+            });
+    
+          }
+        });
+   
+    
+  
+      }
       
-          });
-  
-        }
-      });
- 
-  
-
     }
+   
     
 
   }
