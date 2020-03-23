@@ -79,6 +79,19 @@ interface NavAttributes {
         }
       ]
     },
+    {
+      name: 'Profile',
+      url: '/profile',
+      icon: 'fa fa-street-view'
+    },
+    {
+      name: 'Validator View',
+      url: '/validator-view/pending-documents',
+      icon: 'fa fa-street-view'
+    }
+
+    
+
     
   
   

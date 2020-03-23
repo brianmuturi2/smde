@@ -58,6 +58,10 @@ export const routes: Routes = [
     path: 'administration',
     loadChildren: () => import('./administration/administration/administration/administration.module').then(m => m.AdministrationModule)
   },
+  {
+    path: 'validator-view',
+    loadChildren: () => import('./validator-view/validator/validator/validator.module').then(m => m.ValidatorModule)
+  },
   { path: '**', component: P404Component }
 ];
 

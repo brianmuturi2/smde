@@ -68,7 +68,7 @@ export class StaffregistrationComponent {
         this.toastService.showToastNotification("warning","User Cancelled Action","");
 
       }else{
-        this.loadingService.showloading();
+        // this.loadingService.showloading();
         this.administrationService.postrecord(create_user_url,payload).subscribe((res)=>{
           if(res){
             this.sweetalertService.showAlert("Success","User Created Successfully","success");
@@ -88,9 +88,9 @@ export class StaffregistrationComponent {
   populateform(){
       let new_config = [
         {
-          type: "input",
-          label: "ID Number",
-          inputType: "text",
+          field_type: "input",
+          label: "ID SJDHSKD Number",
+          input_type: "text",
           name: "id_number",
           width:6,
           validations: [
@@ -102,9 +102,9 @@ export class StaffregistrationComponent {
           ]
         },
         {
-          type: "input",
+          field_type: "input",
           label: "First Name",
-          inputType: "text",
+          input_type: "text",
           name: "first_name",
           width:6,
           validations: [
@@ -116,9 +116,9 @@ export class StaffregistrationComponent {
           ]
         },
         {
-          type: "input",
+          field_type: "input",
           label: "Last Name",
-          inputType: "text",
+          input_type: "text",
           name: "last_name",
           width:6,
           validations: [
@@ -130,7 +130,7 @@ export class StaffregistrationComponent {
           ]
         },
         {
-          type: "select",
+          field_type: "select",
           label: "User Role",
           name: "role_name",
           width:6,
@@ -144,7 +144,7 @@ export class StaffregistrationComponent {
           ]
         },
         {
-          type: "select",
+          field_type: "select",
           label: "Department",
           width:6,
           name: "department_id",
@@ -158,7 +158,7 @@ export class StaffregistrationComponent {
           ]
         },
         {
-          type: "button",
+          field_type: "button",
           width:6,
           label: "Save"
         }
