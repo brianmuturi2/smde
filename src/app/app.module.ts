@@ -56,7 +56,8 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.modu
 
 
 
-
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { CommonSidebarComponent } from './containers/common-sidebar/common-sidebar.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.modu
     TabsModule.forRoot(),
     ToastrModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    NgxPermissionsModule.forRoot(),
     NgxSpinnerModule,
     JwtModule.forRoot({
       config: {
@@ -95,6 +97,7 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.modu
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
+    CommonSidebarComponent,
 
     
   ],

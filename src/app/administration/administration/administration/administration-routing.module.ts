@@ -19,7 +19,11 @@ const routes: Routes = [
         path: 'staff-registration',
         component: StaffregistrationComponent,
         data: {
-          title: 'Staff Registration'
+          title: 'Staff Registration',
+          permissions: {
+            only: ['DATA_DEPARTMENT_HEAD'],
+              redirectTo: '/500'
+              }
         },
         canActivate: [AuthenticationGuard],
       },
@@ -27,7 +31,11 @@ const routes: Routes = [
         path: 'staff-listing',
         component: StafflistingComponent,
         data: {
-          title: 'Staff Listing'
+          title: 'Staff Listing',
+          permissions: {
+            only: ['DATA_DEPARTMENT_HEAD'],
+              redirectTo: '/500'
+              }
         },
         canActivate: [AuthenticationGuard],
       },
@@ -35,7 +43,11 @@ const routes: Routes = [
         path: 'staff-details/:id',
         component: StaffDetailsComponent,
         data: {
-          title: 'Staff Details'
+          title: 'Staff Details',
+          permissions: {
+            only: ['DATA_DEPARTMENT_HEAD'],
+              redirectTo: '/500'
+              }
         },
         canActivate: [AuthenticationGuard],
       },
@@ -43,7 +55,11 @@ const routes: Routes = [
         path: 'revoke-document',
         component: RevokeDocumentComponent,
         data: {
-          title: 'Revoke Document'
+          title: 'Revoke Document',
+          permissions: {
+            only: ['DATA_DEPARTMENT_HEAD'],
+              redirectTo: '/500'
+              }
         },
         canActivate: [AuthenticationGuard],
       },

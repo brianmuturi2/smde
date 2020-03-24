@@ -57,6 +57,7 @@ export class DocumentPreviewComponent implements OnInit {
       "doc_key_word":value
     };
     this.surveyService.getrecorddetail(fetch_document_type_fields_url,payload).subscribe((res)=>{
+      this.formInputRecords = [];
       let form_values = res['fields'];
       this.inputForm.initialize_form(form_values);
 

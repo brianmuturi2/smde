@@ -11,20 +11,25 @@ import { PendingDocumentsComponent } from '../pending-documents/pending-document
 import { AuthenticationGuard } from '../../authentication/guards/authguard.guard';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
 import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view-base.component';
+import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
 import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/clerk-view-sidemenu.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
 const routes: Routes = [
   {
     path: '',
     component: ClerkViewBaseComponent,
-    data: {
-      
-    },
+    
     children: [
   {
     path: 'clerk-dashboard',
     component: ClerkDashboardComponent,
     data: {
-      title: 'Clerk Dashboard'
+      title: 'Clerk Dashboard',
+      extraParameter: 'dashboardMenu',
+      permissions: {
+      only: ['DATA_CLERK'],
+        redirectTo: '/500'
+          }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -32,7 +37,11 @@ const routes: Routes = [
     path: 'upload-file',
     component: UploadFileComponent,
     data: {
-      title: 'Upload New Document'
+      title: 'Upload New Document',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -40,7 +49,23 @@ const routes: Routes = [
     path: 'document-preview/:id',
     component: DocumentPreviewComponent,
     data: {
-      title: 'Preview Document'
+      title: 'Preview Document',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
+    },
+    canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'document-detail/:id',
+    component: ClerkDocumentDetailsComponent,
+    data: {
+      title: 'Document Detail',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -48,7 +73,11 @@ const routes: Routes = [
     path: 'pending-validation',
     component: PendingDocumentsComponent,
     data: {
-      title: 'Pending Validation Documents'
+      title: 'Pending Validation Documents',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -56,7 +85,11 @@ const routes: Routes = [
     path: 'my-document',
     component: UploadedDocumentsComponent,
     data: {
-      title: 'Uploaded Documents'
+      title: 'Uploaded Documents',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -64,7 +97,11 @@ const routes: Routes = [
     path: 'rejected-documents',
     component: RejectedDocumentsComponent,
     data: {
-      title: 'Rejected Documents'
+      title: 'Rejected Documents',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -72,7 +109,11 @@ const routes: Routes = [
     path: 'approved-documents',
     component: ApprovedDocumentsComponent,
     data: {
-      title: 'Approved Documents'
+      title: 'Approved Documents',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
     },
     canActivate: [AuthenticationGuard],
   },

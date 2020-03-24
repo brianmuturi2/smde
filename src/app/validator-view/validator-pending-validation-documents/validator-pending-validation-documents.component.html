@@ -40,7 +40,7 @@
              [ngSwitch]="recordinstance.document_status">
               <td>{{i + 1}}</td>
               <td>{{ recordinstance.file_no }}</td>
-              <td>{{ recordinstance.document_keyword }}</td>
+              <td>{{ recordinstance.document_keyword | uppercase }}</td>
               <td>
                 <div *ngSwitchCase="'APPROVED'">
                   <span class="badge badge-success">
