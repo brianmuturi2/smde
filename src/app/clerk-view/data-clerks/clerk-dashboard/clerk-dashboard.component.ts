@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { clerk_analytics_url } from '../../../app.constants';
 import {SurveyService } from '../../services/survey.service';
+import { NgxPermissionsModule } from 'ngx-permissions';
 @Component({
   selector: 'app-clerk-dashboard',
   templateUrl: './clerk-dashboard.component.html',
@@ -27,6 +28,9 @@ export class ClerkDashboardComponent implements OnInit {
     this.fetchrecordanalytics();
 
   }
+  // fetchpermissions(){
+  //   var permisions = NgxPermissionsService.get
+  // }
   fetchrecordanalytics(){
     this.surveyService.getrecord(clerk_analytics_url).subscribe((res)=>{
       this.uploaded = res['uploaded'];

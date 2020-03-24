@@ -18,6 +18,7 @@ import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view
 import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/clerk-view-sidemenu.component';
 import { DynamicFormModule } from '../../dynamic-form/dynamic-form/dynamic-form.module';
 import { SharedModule } from '../../common-module/common-module/common-module.module';
+import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
 @NgModule({
   declarations: [
     UploadFileComponent,
@@ -29,7 +30,8 @@ import { SharedModule } from '../../common-module/common-module/common-module.mo
     PendingDocumentsComponent,
     ClerkDashboardComponent,
     ClerkViewBaseComponent,
-    ClerkViewSidemenuComponent
+    ClerkViewSidemenuComponent,
+    ClerkDocumentDetailsComponent
     
   ],
   imports: [

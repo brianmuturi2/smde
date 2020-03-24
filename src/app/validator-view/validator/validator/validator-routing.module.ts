@@ -22,7 +22,11 @@ const routes: Routes = [
     path: 'analytics',
     component: ValidatorAnalyticsComponent,
     data: {
-      title: 'Validator Analytics'
+      title: 'Validator Analytics',
+      permissions: {
+        only: ['DATA_ANALYST'],
+          redirectTo: '/500'
+          }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -30,7 +34,11 @@ const routes: Routes = [
     path: 'pending-documents',
     component: ValidatorPendingValidationDocumentsComponent,
     data: {
-      title: 'Pending Validation Documents'
+      title: 'Pending Validation Documents',
+      permissions: {
+        only: ['DATA_ANALYST'],
+          redirectTo: '/500'
+          }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -38,7 +46,11 @@ const routes: Routes = [
     path: 'rejected-documents',
     component: ValidatorRejectedDocumentsComponent,
     data: {
-      title: 'Rejected Documents'
+      title: 'Rejected Documents',
+      permissions: {
+        only: ['DATA_ANALYST'],
+          redirectTo: '/500'
+          }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -46,7 +58,11 @@ const routes: Routes = [
     path: 'approved-documents',
     component: ValidatorApprovedDocumentsComponent,
     data: {
-      title: 'Approved Documents'
+      title: 'Approved Documents',
+      permissions: {
+        only: ['DATA_ANALYST'],
+          redirectTo: '/500'
+          }
     },
     canActivate: [AuthenticationGuard],
   },
@@ -54,7 +70,11 @@ const routes: Routes = [
     path: 'validator-document-details/:id',
     component: ValidatorDocumentDetailsComponent,
     data: {
-      title: 'Document Details'
+      title: 'Document Details',
+      permissions: {
+        only: ['DATA_ANALYST'],
+          redirectTo: '/500'
+          }
     },
     canActivate: [AuthenticationGuard],
   },

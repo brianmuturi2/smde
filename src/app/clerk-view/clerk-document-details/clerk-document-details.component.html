@@ -1,0 +1,89 @@
+<div bsModal #createModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-success  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Document Preview</h4> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4 class="modal-title">Document Type: <span style="color: red;">{{doc_keyword | uppercase}}</span> </h4>
+        <button type="button" class="close" (click)="createModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-6">
+                <embed  src="http://127.0.0.1:8000/media/documents/735e33c8-8983-41cd-b061-8827af53eac6.pdf" type="application/pdf" width="100%" height="800px" navpanes = "1" toolbar= "0"/>
+                <!-- <embed  [src]="doc_url_reference" type="application/pdf" width="100%" height="600px" navpanes = "1" toolbar= "0"/> -->
+              </div>
+              <div class="col-md-6">
+                <app-dynamic-form (submit)="editRecord()">
+                </app-dynamic-form>
+            </div>
+            
+
+          </div>
+      </div>
+      
+      <div class="modal-footer">
+        <!-- <button   class="btn btn-warning col-md-4" (click)="resetForm()">Reset</button>
+        <button  type="submit" [disabled]="!createRecordForm.valid" (click)="createRecord()" class="btn btn-success col-md-4">Save</button> -->
+      
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="animated fadeIn">
+    <div class="card">
+      <div class="card-header">
+        <strong>Document Records</strong>
+      </div>
+      <div class="card-body">
+        <div class="float-left form-group col-md-2 col-sm-6 col-xs-12">
+  
+        
+        </div>
+  
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+          class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>File Number</th>
+              <th>Folio Number</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="records?.length != 0">
+            <tr *ngFor="let recordinstance of records; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{ recordinstance.file_number}}</td>
+              <td>{{ recordinstance.folio_number }}</td>
+              
+             
+             <td>
+                <button type="button" class="btn btn-primary  btn-sm " (click)="preview_document(recordinstance.id)"> <i
+                    class="fa fa-pencil"></i> </button>
+                
+              </td> 
+  
+            </tr>
+          </tbody>
+          <tbody *ngIf="records?.length == 0">
+            <tr>
+              <td colspan="9" class="no-data-available">No records to show</td>
+            </tr>
+          <tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+     
+        
+          <button type="button" class="btn btn-success col-md-3" (click)="actiondocument()"><i class="fa fa-share">ReSubmit</i></button>
+     
+      </div>
+    </div>
+    
+  </div>
+  

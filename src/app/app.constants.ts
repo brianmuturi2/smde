@@ -45,3 +45,5 @@ export let fetch_document_record_details_url = serverurl + API_VERSION +'edms/do
 export let fetch_user_document_types_url = serverurl + API_VERSION + 'edms/document-types/user-document-types';
 export let fetch_document_type_fields_url = serverurl + API_VERSION + 'edms/document-types/get-document-fields';
 export let post_document_fields_url = serverurl + API_VERSION + 'edms/clerk-view/post-document-records';
+export let get_user_roles_url = serverurl + API_VERSION + 'account-management/list-user-roles';
+export let edit_document_record_url = serverurl + API_VERSION + 'edms/clerk-view/edit-document-record';

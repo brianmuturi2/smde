@@ -26,13 +26,19 @@
               <td>{{i + 1}}</td>
               <td>{{ recordinstance.original_file_name }}</td>
               <td>{{ recordinstance.uploaded_time }}</td>
-              <td>{{ recordinstance.document_status }}</td>
+              <td>
+                <div>
+                  <span class="badge badge-danger">
+                    {{ recordinstance.document_status }}
+                    </span>
+                </div>
+              </td>
               <td>{{ recordinstance.file_no }}</td>
               
              
               <td>
-                <button type="button" class="btn btn-primary  btn-md " (click)="capture_metadata(recordinstance.id)"> <i
-                    class="fa fa-pencil "></i> </button>
+                <button type="button" class="btn btn-success  btn-md " (click)="capture_metadata(recordinstance.id)"> <i
+                    class="fa fa-recycle"> </i> </button>
                 
               </td>
   

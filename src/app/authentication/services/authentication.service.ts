@@ -7,6 +7,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { decode } from 'punycode';
+import { NgxPermissionsService } from 'ngx-permissions';
 const TOKEN_KEY = 'edms_token';
 
 export interface NavData {
@@ -28,10 +29,12 @@ export class AuthenticationService {
   user = null;
   authenticationState = new BehaviorSubject(false);
  
-  constructor(private http: HttpClient, private helper: JwtHelperService) {
+  constructor(private http: HttpClient, private helper: JwtHelperService,private permissionsService: NgxPermissionsService,) {
     this.checkToken();
   }
- 
+  flushuserpermissions(){
+    this.permissionsService.flushPermissions();
+  }
   checkToken() {
     var token = localStorage.getItem(TOKEN_KEY);
     if (token) {
@@ -47,6 +50,7 @@ export class AuthenticationService {
 
 
     }
+    
 
 
     // localStorage.getItem(TOKEN_KEY).key(token => {
@@ -112,6 +116,7 @@ else{
   
   login(credentials) {
     // flush all permissions just in case
+    this.flushuserpermissions();
     return this.http.post(loginurl, credentials)
       .pipe(
         tap(res => {
@@ -140,7 +145,9 @@ else{
   }
  
   logout() {
+    this.flushuserpermissions();
     localStorage.removeItem(TOKEN_KEY);
+    
     this.authenticationState.next(false);
     window.location.reload();
     // localStorage.removeItem(TOKEN_KEY).then(() => {
@@ -185,6 +192,13 @@ else{
         
       })
     )
+
+  }
+  getrecords(endpointurl,payload){
+    let options = {
+      params : payload
+    };
+    return this.http.get<[]>(endpointurl,options);
 
   }
 

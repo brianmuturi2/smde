@@ -1,5 +1,5 @@
 import {Component } from '@angular/core';
-import { navItems } from '../../_nav';
+// import { navItems } from '../../_nav';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { SweetalertService} from '../../common-module/shared-service/sweetalerts.service';
 @Component({
@@ -8,7 +8,7 @@ import { SweetalertService} from '../../common-module/shared-service/sweetalerts
 })
 export class DefaultLayoutComponent {
   public sidebarMinimized = false;
-  public navItems = navItems;
+
   loggedinusername:any;
   constructor(public authService:AuthenticationService,public sweetalertService:SweetalertService){
 this.fetchuserDetails();

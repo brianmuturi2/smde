@@ -25,6 +25,7 @@ import { CommonLoaderComponent } from '../../containers/common-loader/common-loa
 import { CommonFooterComponent } from '../../containers/common-footer/common-footer.component';
 import { CommonProfileComponent } from '../../containers/common-profile/common-profile.component';
 // import { ToastrModule } from 'ngx-toastr';
+import { NgxPermissionsModule } from 'ngx-permissions';
 @NgModule({
   declarations: [CommonErrorComponent,CommonLoaderComponent,
     CommonFooterComponent,CommonHeaderComponent,CommonProfileComponent],
@@ -37,7 +38,7 @@ import { CommonProfileComponent } from '../../containers/common-profile/common-p
     CollapseModule,
     CommonModule,
     PerfectScrollbarModule,
-    TabsModule,
+    TabsModule,NgxPermissionsModule,
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
@@ -56,6 +57,7 @@ import { CommonProfileComponent } from '../../containers/common-profile/common-p
     AppSidebarModule,
     CollapseModule,
     CommonModule,
+    NgxPermissionsModule,
     PerfectScrollbarModule,
     TabsModule,
     BsDropdownModule,
