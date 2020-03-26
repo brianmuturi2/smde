@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./validator-analytics.component.css']
 })
 export class ValidatorAnalyticsComponent implements OnInit {
-
+  approved:any;
+  rejected:any;
   constructor() { }
 
   ngOnInit(): void {
