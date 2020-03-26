@@ -89,7 +89,7 @@ export class StaffregistrationComponent {
       let new_config = [
         {
           field_type: "input",
-          label: "ID Number",
+          label: "ID SJDHSKD Number",
           input_type: "text",
           name: "id_number",
           width:6,

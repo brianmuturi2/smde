@@ -41,20 +41,20 @@ interface NavAttributes {
       name: 'User Management',
       url: '/',
       icon: 'fa fa-group',
-      permission: 'DATA_DEPARTMENT_HEAD',
+      permission: 'can_view_device_explorer_menu',
       
       children: [
         {
           name: 'Staff Listing',
           url: '/administration/staff-listing',
           icon: 'fa fa-users',
-          permission: 'DATA_DEPARTMENT_HEAD'
+          permission: 'can_add_business_accounts'
         },
         {
           name: 'New Staff',
           url: '/administration/staff-registration',
           icon: 'fa fa-user-plus',
-          permission: 'DATA_DEPARTMENT_HEAD'
+          permission: 'can_add_business_accounts'
         }
       ]
     },
@@ -62,26 +62,31 @@ interface NavAttributes {
       name: 'Document Manager',
       url: '/',
       icon: 'fa fa-suitcase',
-      permission: 'DATA_DEPARTMENT_HEAD',
+      permission: 'can_view_device_explorer_menu',
       
       children: [
-        // {
-        //   name: 'Document Listing',
-        //   url: '/document-manager/document-listing',
-        //   icon: 'fa fa-hdd-o',
-        //   permission: 'DATA_DEPARTMENT_HEAD'
-        // },
-        // {
-        //   name: 'Revoked Documents',
-        //   url: '/document-manager/revoked-documents',
-        //   icon: 'fa fa-exclamation-triangle',
-        //   permission: 'DATA_DEPARTMENT_HEAD'
-        // }
+        {
+          name: 'Document Listing',
+          url: '/document-manager/document-listing',
+          icon: 'fa fa-hdd-o',
+          permission: 'can_add_business_accounts'
+        },
+        {
+          name: 'Revoked Documents',
+          url: '/document-manager/revoked-documents',
+          icon: 'fa fa-exclamation-triangle',
+          permission: 'can_add_business_accounts'
+        }
       ]
     },
     {
       name: 'Profile',
       url: '/profile',
+      icon: 'fa fa-street-view'
+    },
+    {
+      name: 'Validator View',
+      url: '/validator-view/pending-documents',
       icon: 'fa fa-street-view'
     }
 

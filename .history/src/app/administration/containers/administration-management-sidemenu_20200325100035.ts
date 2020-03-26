@@ -65,18 +65,18 @@ interface NavAttributes {
       permission: 'DATA_DEPARTMENT_HEAD',
       
       children: [
-        // {
-        //   name: 'Document Listing',
-        //   url: '/document-manager/document-listing',
-        //   icon: 'fa fa-hdd-o',
-        //   permission: 'DATA_DEPARTMENT_HEAD'
-        // },
-        // {
-        //   name: 'Revoked Documents',
-        //   url: '/document-manager/revoked-documents',
-        //   icon: 'fa fa-exclamation-triangle',
-        //   permission: 'DATA_DEPARTMENT_HEAD'
-        // }
+        {
+          name: 'Document Listing',
+          url: '/document-manager/document-listing',
+          icon: 'fa fa-hdd-o',
+          permission: 'DATA_DEPARTMENT_HEAD'
+        },
+        {
+          name: 'Revoked Documents',
+          url: '/document-manager/revoked-documents',
+          icon: 'fa fa-exclamation-triangle',
+          permission: 'DATA_DEPARTMENT_HEAD'
+        }
       ]
     },
     {
