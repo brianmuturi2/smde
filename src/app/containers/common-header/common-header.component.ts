@@ -1,6 +1,7 @@
 import {Component,ViewChild } from '@angular/core';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { SweetalertService} from '../../common-module/shared-service/sweetalerts.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-common-header',
   templateUrl: './common-header.component.html',
@@ -10,7 +11,7 @@ export class CommonHeaderComponent {
   public sidebarMinimized = false;
   loggedinusername:any;
  
-  constructor(public authService:AuthenticationService,public sweetalertService:SweetalertService){
+  constructor(private router: Router,public authService:AuthenticationService,public sweetalertService:SweetalertService){
   
 this.fetchuserDetails();
 
@@ -27,7 +28,8 @@ this.fetchuserDetails();
     this.sidebarMinimized = e;
   }
   changepassword(){
-  
+   
+    this.router.navigate(['profile']);
     
 
   }

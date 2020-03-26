@@ -18,7 +18,7 @@
               <th>Date Uploaded</th>
               <th>Status</th>
               <th>File Number</th>
-              <th>Action</th>
+              <!-- <th>Action</th> -->
             </tr>
           </thead>
           <tbody *ngIf="records?.length != 0">
@@ -30,11 +30,11 @@
               <td>{{ recordinstance.file_no }}</td>
               
              
-              <td>
+              <!-- <td>
                 <button type="button" class="btn btn-primary  btn-sm " (click)="capture_metadata(recordinstance.id)"> <i
                     class="fa fa-pencil"></i> </button>
                 
-              </td>
+              </td> -->
   
             </tr>
           </tbody>
