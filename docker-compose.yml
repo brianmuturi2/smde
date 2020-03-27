@@ -6,7 +6,7 @@ services:
       - .env
     container_name: nginxedmsv2frontend
     ports:
-      - "8000:8000"
+      # - "8000:8000"
       - "5600:5600"
     volumes:
       - .:/src
@@ -21,4 +21,4 @@ services:
     volumes:
       - .:/src
     expose:
-      - "8000"
+      - "5600"
