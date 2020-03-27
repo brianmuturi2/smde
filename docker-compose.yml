@@ -4,7 +4,7 @@ services:
     image: nginx:latest
     env_file:
       - .env
-    container_name: ng01
+    container_name: nginxedmsv2frontend
     ports:
       - "8000:8000"
       - "5600:5600"
@@ -17,7 +17,7 @@ services:
     env_file:
       - .env
     build: .
-    container_name: dg01
+    container_name: ngedmsv2frontend
     volumes:
       - .:/src
     expose:
