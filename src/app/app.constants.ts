@@ -1,9 +1,9 @@
 // export let serverurl = 'http://127.0.0.1:9000';
-export let serverurl = 'http://127.0.0.1:8000';
+// export let serverurl = 'http://127.0.0.1:8000';
 // export let serverurl = 'http://192.168.200.119:8000';
 // export let serverurl = 'http://192.168.1.41:5600';
 // export let serverurl = 'http://192.168.214.151:8000';
-// export let serverurl = 'http://192.168.17.226:8000';
+export let serverurl = 'http://192.168.17.226:8000';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION +'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION +'edms/clerk-view/upload-document';
