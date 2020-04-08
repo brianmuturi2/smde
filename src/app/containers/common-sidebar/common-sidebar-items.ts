@@ -76,6 +76,15 @@ export const navItems: INavData[] = [
     permission: 'DATA_DEPARTMENT_HEAD',
   },
   {
+    name: 'ANALYTICS',
+    url: '/analyst-view/data-clerk-analytics',
+    icon: 'fa fa-users',
+    permission: '',
+  },
+
+
+  
+  {
     name: 'Profile',
     url: '/profile',
     icon: 'fa fa-street-view',

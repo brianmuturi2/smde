@@ -1,9 +1,9 @@
 // export let serverurl = 'http://127.0.0.1:9000';
-// export let serverurl = 'http://127.0.0.1:8000';
+export let serverurl = 'http://127.0.0.1:8000';
 // export let serverurl = 'http://192.168.200.119:8000';
 // export let serverurl = 'http://192.168.1.41:5600';
 // export let serverurl = 'http://192.168.214.151:8000';
-export let serverurl = 'http://192.168.17.226:8000';
+// export let serverurl = 'http://192.168.17.226:8000';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION +'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION +'edms/clerk-view/upload-document';
@@ -48,3 +48,7 @@ export let fetch_document_type_fields_url = serverurl + API_VERSION + 'edms/docu
 export let post_document_fields_url = serverurl + API_VERSION + 'edms/clerk-view/post-document-records';
 export let get_user_roles_url = serverurl + API_VERSION + 'account-management/list-user-roles';
 export let edit_document_record_url = serverurl + API_VERSION + 'edms/clerk-view/edit-document-record';
+
+
+export let data_clerk_analytics_url = serverurl + API_VERSION + 'edms/clerk-view/edit-document-record';
+export let document_status_analytics_url = serverurl + API_VERSION + 'analytics-view/document-status';

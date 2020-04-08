@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { FieldValidationService } from '../../common-module/services/field-validation.service';
  
 @Component({
-  selector: 'app-common-error',
+  selector: 'error-message',
   templateUrl: './common-error.component.html',
   styleUrls: ['./common-error.component.css']
 })

@@ -58,6 +58,10 @@ export const routes: Routes = [
     path: 'validator-view',
     loadChildren: () => import('./validator-view/validator/validator/validator.module').then(m => m.ValidatorModule)
   },
+  {
+    path: 'analyst-view',
+    loadChildren: () => import('./businessanalyst/businessanalyst/businessanalyst.module').then(m => m.BusinessanalystModule)
+  },
   { path: '**', component: P404Component }
 ];
 
