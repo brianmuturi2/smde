@@ -5,6 +5,7 @@ import { ToastService } from '../../common-module/shared-service/toast.service';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 import { DateService } from '../../common-module/shared-service/date.service';
 import { AnalyticsService } from '../services/analytics.service';
+import { document_status_analytics_url } from '../../app.constants';
 @Component({
   selector: 'app-data-clerk-analytics',
   templateUrl: './data-clerk-analytics.component.html',
