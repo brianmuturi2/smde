@@ -7,7 +7,7 @@ export class DateService {
 
   constructor(public datepipe: DatePipe) { }
   convertDate(inputdate){
-    let formatted_date =this.datepipe.transform(inputdate, 'yyyy-MM-dd HH:mm:SS');
+    let formatted_date =this.datepipe.transform(inputdate, 'yyyy-MM-dd HH:mm:ss');
     return formatted_date
   }
 }

@@ -1,51 +1,126 @@
 <div class="animated fadeIn">
-    <div class="card">
-        <div class="card-header">
-          <strong>Approved Documents</strong>
-        </div>
-        <div class="card-body">
-           
-            <form [formGroup]="filterForm">
-                 <div class="row">
-               
-
-               
-                <div class="form-group col-sm-3">
-                  <label for="startdate">From</label>
-                  <input [owlDateTime]="dt1"  formControlName="from_date" [owlDateTimeTrigger]="dt1" class="form-control" placeholder="Date Time" [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.from_date.errors }">
-<owl-date-time #dt1></owl-date-time>
-                    <error-message [control]="filterForm.controls.from_date"
-                              *ngIf="filterformstatus"></error-message>
-                              
-                </div>
-                <div class="form-group col-sm-3">
-                    <label for="startdate">To</label>
-                    <input [owlDateTime]="dt2"  formControlName="to_date" [owlDateTimeTrigger]="dt2" class="form-control" placeholder="Date Time" [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.to_date.errors }">
-                    <owl-date-time #dt2></owl-date-time>
-                      <error-message [control]="filterForm.controls.to_date"
-                                *ngIf="filterformstatus"></error-message>
-                  </div>
-                <div class="form-group col-sm-2">
-                  <label for="country">Department</label>
-                  <select class="form-control" id="ccmonth">
-                    <option>Nairobi</option>
-                  </select>
-                </div>
-                <div class="form-group col-sm-2">
-                  <label for="country">User</label>
-                  <select class="form-control" id="ccmonth">
-                    <option>Nyeri</option>
-                  </select>
-                </div>
-                <div class="form-group col-sm-2">
-                  <label for="country">&nbsp;&nbsp;</label>
-                  <button type="button" class="btn form-control  btn-success btn-md " (click)="filterrecords()"> <i
-                      class="fa fa-search"></i> Search </button>
-                </div>
-           
-              </div>
-            </form>
-          </div>
-        </div>
-
+  <div class="card">
+    <div class="card-header" (click)="isFilterCollapsed = !isFilterCollapsed"
+    [attr.aria-expanded]="!isFilterCollapsed">
+      <strong>Filter Criteria</strong>
     </div>
+    <div class="card-body"  [collapse]="isFilterCollapsed" [isAnimated]="true" >
+
+      <form [formGroup]="filterForm">
+        <div class="row">
+
+
+
+          <div class="form-group col-sm-2">
+            <label for="startdate">From</label>
+            <input [owlDateTime]="dt1" formControlName="from_date" [owlDateTimeTrigger]="dt1" class="form-control"
+              placeholder="Date Time"
+              [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.from_date.errors }">
+            <owl-date-time #dt1></owl-date-time>
+            <error-message [control]="filterForm.controls.from_date" *ngIf="filterformstatus"></error-message>
+
+          </div>
+          <div class="form-group col-sm-2">
+            <label for="startdate">To</label>
+            <input [owlDateTime]="dt2" formControlName="to_date" [owlDateTimeTrigger]="dt2" class="form-control"
+              placeholder="Date Time"
+              [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.to_date.errors }">
+            <owl-date-time #dt2></owl-date-time>
+            <error-message [control]="filterForm.controls.to_date" *ngIf="filterformstatus"></error-message>
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="country">Department</label>
+            <select class="form-control" formControlName="department"
+              [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.department.errors }">
+              <option value="all">-- All --</option>
+              <option *ngFor="let department of all_departments" value={{department.id}}> {{department.name}} </option>
+
+            </select>
+            <error-message [control]="filterForm.controls.department" *ngIf="filterformstatus"></error-message>
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="country">User</label>
+            <select class="form-control" formControlName="users"
+              [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.users.errors }">
+              <option value="all">-- All --</option>
+              <option *ngFor="let user of all_users" value={{user.id}}> {{user.username}} -- {{user.first_name}}
+                {{user.last_name}} </option>
+
+            </select>
+            <error-message [control]="filterForm.controls.users" *ngIf="filterformstatus"></error-message>
+          </div>
+          <div class="form-group col-sm-2">
+            <label for="country">&nbsp;&nbsp;</label>
+            <button type="button" class="btn form-control  btn-success btn-md " (click)="filterrecords()"> <i
+                class="fa fa-search"></i> Search </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+<div class="card">
+  <div class="card-header" (click)="isVisualizationCollapsed = !isVisualizationCollapsed"
+  [attr.aria-expanded]="!isVisualizationCollapsed" >
+    <strong>Visualization</strong>
+  </div>
+  <div class="card-body" [collapse]="isVisualizationCollapsed" [isAnimated]="true">
+    <div id="analyticscontainer" style="min-width: 310px; height: 400px; max-width: 900px; margin: 0 auto"></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header" (click)="isTabularCollapsed = !isTabularCollapsed"
+  [attr.aria-expanded]="!isTabularCollapsed">
+    <strong>Tabular Format</strong>
+  </div>
+  <div class="card-body" [collapse]="isTabularCollapsed" [isAnimated]="true" >
+   
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+    class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Username</th>
+        <th>Department</th>
+        <th>Uploaded</th>
+        <th>Metadata Captured</th>
+        <th>Approved</th>
+        <th>Rejected</th>
+        <th>Revoked</th>
+        <th>Total</th>
+        <!-- <th>Action</th> -->
+      </tr>
+    </thead>
+    <tbody *ngIf="records?.length != 0">
+      <tr *ngFor="let recordinstance of records; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{ recordinstance.user__first_name}}  {{recordinstance.user__last_name}}</td>
+        <td>{{ recordinstance.user__username }}</td>
+        <td>{{ recordinstance.document__department__name }}</td>
+        <td>{{ recordinstance.uploaded_documents }}</td>
+        <td>{{ recordinstance.metadata_captured_documents }}</td>
+        <td>{{ recordinstance.approved_documents }}</td>
+        <td>{{ recordinstance.rejected_documents }}</td>
+        <td>{{ recordinstance.revoked_documents }}</td>
+        <td>{{ recordinstance.total_count }}</td>
+        
+       
+        <!-- <td>
+          <button type="button" class="btn btn-primary  btn-sm " (click)="capture_metadata(recordinstance.id)"> <i
+              class="fa fa-pencil"></i> </button>
+          
+        </td> -->
+
+      </tr>
+    </tbody>
+    <tbody *ngIf="records?.length == 0">
+      <tr>
+        <td colspan="9" class="no-data-available">No records to show</td>
+      </tr>
+    <tbody>
+  </table>
+  </div>
+</div>
