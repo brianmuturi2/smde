@@ -53,7 +53,7 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     AppHeaderModule,
     AppFooterModule,
     AppSidebarModule,
-    CollapseModule,
+    CollapseModule.forRoot(),
     CommonModule,
     PerfectScrollbarModule,
     TabsModule,NgxPermissionsModule,
