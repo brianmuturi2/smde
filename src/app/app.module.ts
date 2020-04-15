@@ -58,6 +58,7 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.modu
 
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CommonSidebarComponent } from './containers/common-sidebar/common-sidebar.component';
+import { DocumentDetailsComponent } from './administration/document-details/document-details.component';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import { CommonSidebarComponent } from './containers/common-sidebar/common-sideb
     P404Component,
     P500Component,
     CommonSidebarComponent,
+    DocumentDetailsComponent,
 
     
   ],
