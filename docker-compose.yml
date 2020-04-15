@@ -1,23 +1,29 @@
 version: "2"
 services:
-  nginx:
-    image: nginx:latest
-    env_file:
-      - .env
-    container_name: nginxedmsfrontend
-    ports:
-      - "5600:5600"
-    volumes:
-      - .:/src
-      - ./config:/etc/nginx/conf.d
-    depends_on:
-      - web
-  web:
-    env_file:
-      - .env
-    build: .
-    container_name: ngedmsfrontend
-    volumes:
-      - .:/src
-    expose:
-      - "5601"
+    nginx:
+      image: nginx:latest
+      env_file:
+        - .env
+      container_name: nginxedmsfrontend
+      restart: always
+      ports:
+        - "5600:5600"
+      volumes:
+        - .:/src
+        - asset-volume:/home
+        - ./config:/etc/nginx/conf.d
+      depends_on:
+        - web
+    web:
+      env_file:
+        - .env
+      build: .
+      container_name: ngedmsfrontend
+      restart: always
+      volumes:
+        - asset-volume:/home
+        - .:/src
+      expose:
+        - "5601"
+volumes:
+  asset-volume:
