@@ -38,32 +38,9 @@ $ touch .env
   NGINX_SERVER_NAME= <IP Address or Domain>
 
 
-## What's included
-
-Within the project you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
-
-```
-free-angular-admin-template/
-├── e2e/
-├── src/
-│   ├── app/
-│   ├── assets/
-│   ├── environments/
-│   ├── scss/
-│   ├── index.html
-│   └── ...
-├── .angular-cli.json
-├── ...
-├── package.json
-└── ...
-```
-
-
 
 ## Creators
 
 **Geo Project**
 
-
-**Andrzej Kopański**
 
