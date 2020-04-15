@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
     <div class="card">
       <div class="card-header">
-        <strong>Record Listing</strong>
+        <strong>Document Listing</strong>
       </div>
       <div class="card-body">
         <form [formGroup]="searchForm">
@@ -13,7 +13,7 @@
           </div>
           <div class="form-group col-sm-3">
             <label for="country">&nbsp;&nbsp;</label>
-            <button type="button" class="btn form-control  btn-success btn-md " (click)="filterusers()" > <i
+            <button type="button" class="btn form-control  btn-success btn-md " (click)="filterdocuments()" > <i
                 class="fa fa-search"></i> Search </button>
           </div>
        
@@ -27,28 +27,63 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Account Status</th>
+              <th>File Number</th>
+              <th>Document Type</th>
+              <th>Uploaded By</th>
+              <th>Original File Name</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody *ngIf="records?.length != 0">
             <tr *ngFor="let recordinstance of records; let i = index">
               <td>{{i + 1}}</td>
-              <td>{{ recordinstance.first_name }}</td>
-              <td>{{ recordinstance.last_name }}</td>
+              <td>{{ recordinstance.file_no }}</td>
+              
+              <td>{{ recordinstance.document_keyword }}</td>
+              <td>{{ recordinstance.uploader }}</td>
+              <td>{{ recordinstance.original_file_name }}</td>
 
               <td>
                
-                <div *ngIf="recordinstance.is_suspended == 'True'">
-                  <span class="badge badge-danger">
-                    Suspended
+                <div *ngIf="recordinstance.document_status == 'DOCUMENT_UPLOADED'">
+                  <span class="badge badge-primary">
+                    Uploaded Stage
                     </span>
                 </div>
-                <div *ngIf="recordinstance.is_suspended == 'False'">
+                <div *ngIf="recordinstance.document_status == 'DATA_CAPTURED'">
+                  <span class="badge badge-warning">
+                   Captured Stage
+                    </span>
+                </div>
+                <div *ngIf="recordinstance.document_status == 'DATA_PREVALIDATION'">
+                  <span class="badge badge-warning">
+                    Prevalidation Stage
+                    </span>
+                </div>
+                <div *ngIf="recordinstance.document_status == 'DATA_VALIDATION'">
+                  <span class="badge badge-warning">
+                    Validation Stage
+                    </span>
+                </div>
+                <div *ngIf="recordinstance.document_status == 'APPROVED'">
                   <span class="badge badge-success">
-                    Active
+                    Approved
+                    </span>
+                </div>
+                <div *ngIf="recordinstance.document_status == 'ESCALATED'">
+                  <span class="badge badge-primary">
+                    Escalated
+                    </span>
+                </div>
+                <div *ngIf="recordinstance.document_status == 'REJECTED'">
+                  <span class="badge badge-danger">
+                    Rejected
+                    </span>
+                </div>
+                <div *ngIf="recordinstance.document_status == 'REVOKED'">
+                  <span class="badge badge-danger">
+                    Rejected
                     </span>
                 </div>
               </td>

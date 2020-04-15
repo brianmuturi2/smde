@@ -62,3 +62,4 @@ export let data_validators_analytics_url = serverurl + API_VERSION + 'analytics/
 export let data_department_analytics_url = serverurl + API_VERSION + 'analytics/department-analytics';
 export let data_document_status_analytics_url = serverurl + API_VERSION + 'analytics/document-status-analytics';
 
+export let list_document_by_file_number_url = serverurl + API_VERSION + 'edms/document/filter-document-by-file-no';

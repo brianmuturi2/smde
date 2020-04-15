@@ -7,3 +7,12 @@ export interface UserList {
     last_name: string;
     is_suspended:string;
   }
+
+  export interface DocumentList {
+    id:string;
+    uploader: string;
+    document_status: string;
+    original_file_name:string;
+    file_no:string;
+    document_keyword:string;
+  }
