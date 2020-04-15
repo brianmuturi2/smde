@@ -39,8 +39,8 @@ interface NavAttributes {
     
     {
       name: 'Analytics',
-      url: '/',
-      icon: 'fa fa-group',
+      url: '/analyst-view/data-clerk-analytics',
+      icon: 'fa fa-bar-chart-o',
       permission: 'BUSINESS_ANALYST',
       
       children: [
@@ -53,19 +53,19 @@ interface NavAttributes {
         {
           name: 'Validator Analytics',
           url: '/analyst-view/data-validator-analytics',
-          icon: 'fa fa-users',
+          icon: 'fa fa-address-book',
           permission: 'BUSINESS_ANALYST'
         },
         {
           name: 'Document Analytics',
           url: '/analyst-view/data-document-analytics',
-          icon: 'fa fa-users',
+          icon: 'fa fa-envelope-o',
           permission: 'BUSINESS_ANALYST'
         },
         {
           name: 'Department Analytics',
           url: '/analyst-view/data-department-analytics',
-          icon: 'fa fa-users',
+          icon: 'fa fa-cubes',
           permission: 'BUSINESS_ANALYST'
         }
       ]

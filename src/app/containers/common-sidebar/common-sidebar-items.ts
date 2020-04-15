@@ -79,7 +79,7 @@ export const navItems: INavData[] = [
     name: 'ANALYTICS',
     url: '/analyst-view/data-clerk-analytics',
     icon: 'fa fa-users',
-    permission: '',
+    permission: 'BUSINESS_ANALYST',
   },
 
 

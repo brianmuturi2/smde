@@ -59,3 +59,6 @@ export let list_departments_url = serverurl + API_VERSION + 'analytics/list-depa
 
 export let data_clerk_analytics_url = serverurl + API_VERSION + 'analytics/data-clerk-analytics';
 export let data_validators_analytics_url = serverurl + API_VERSION + 'analytics/data-validator-analytics';
+export let data_department_analytics_url = serverurl + API_VERSION + 'analytics/department-analytics';
+export let data_document_status_analytics_url = serverurl + API_VERSION + 'analytics/document-status-analytics';
+

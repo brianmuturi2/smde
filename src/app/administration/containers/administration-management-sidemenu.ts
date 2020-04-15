@@ -65,12 +65,12 @@ interface NavAttributes {
       permission: 'DATA_DEPARTMENT_HEAD',
       
       children: [
-        // {
-        //   name: 'Document Listing',
-        //   url: '/document-manager/document-listing',
-        //   icon: 'fa fa-hdd-o',
-        //   permission: 'DATA_DEPARTMENT_HEAD'
-        // },
+        {
+          name: 'Revoke Document',
+          url: '/administration/revoke-document',
+          icon: 'fa fa-hdd-o',
+          permission: 'DATA_DEPARTMENT_HEAD'
+        },
         // {
         //   name: 'Revoked Documents',
         //   url: '/document-manager/revoked-documents',

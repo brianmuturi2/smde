@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,AfterViewInit,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
@@ -32,7 +32,7 @@ export interface DocumentsList {
 })
 
 
-export class DataClerkAnalyticsComponent implements OnInit {
+export class DataClerkAnalyticsComponent implements OnInit,AfterViewInit {
   public filterForm: FormGroup;
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -67,15 +67,37 @@ export class DataClerkAnalyticsComponent implements OnInit {
   }
 initializetable(){
   this.dtOptions = {
+
     pagingType: 'full_numbers',
-    pageLength: 5,
     responsive: true,
-    retrieve:true,
+      pageLength: 5,
+      retrieve: true,
+      destroy : true,
+      lengthMenu: [ [ 10, 25,50, 100,-1], [ 10,25,50,100,"All"] ],
+      data: [],
+      lengthChange: true,
+
+    // pagingType: 'full_numbers',
+    // responsive: true, 
+    // 'columnDefs': [ {'targets': 0,'checkboxes': {'selectRow': true} }],
+    // 'select': {'style': 'multi'},
+    // 'order': [[1, 'asc']],"lengthChange": true,
+    // "searching": true,"ordering": true,
+    // "info": true,"scrollX": true,
+    // destroy : true,
+    // // "scrollY":"500px","scrollCollapse": true,
+    // "paging":true,"data": [],
+    // "retrieve": true
 
 
 
   };
+ 
 }
+ngAfterViewInit(): void {
+  this.dtTrigger.next();
+}
+
   fetchdataclerks() {
     let params = {
     }
@@ -100,8 +122,10 @@ initializetable(){
         "user_id": this.filterForm.value['users']
       }
       this.loadingService.showloading();
+      
       this.analyticsService.getrecords(data_clerk_analytics_url, payload).subscribe((res) => {
-
+        // this.rerenderTable();
+        this.destroy_chart();
         let approved_documents: any = 0;
         let rejected_documents: any = 0;
         let revoked_documents: any = 0;
@@ -110,10 +134,14 @@ initializetable(){
         let resubmitted_documents: any = 0;
         const returned_records: [] = res['records'];
         const total_count:any = res['total_count'];
-        this.records = returned_records;
-        this.destroy_chart();
+      
+        // this.dtTrigger.next();
+       
+        this.allfieldsstatus.length = 0;
         if(total_count > 0){
-          this.dtTrigger.next();
+          // this.rerenderTable();
+          this.records = returned_records;
+          
           for (let records of returned_records) {
 
             approved_documents += parseInt(records['approved_documents'], 10);
@@ -123,6 +151,7 @@ initializetable(){
             metadata_captured_documents += parseInt(records['metadata_captured_documents'], 10);
             resubmitted_documents += parseInt(records['resubmitted_documents'], 10);
           }
+          this.redrawTable();
           this.allfieldsstatus.push({
             'name': 'Approved',
             'y': parseInt(approved_documents, 10)
@@ -154,9 +183,11 @@ initializetable(){
           this.isFilterCollapsed = true;
   
         }else{
+          
+          this.allfieldsstatus.length = 0;
           this.records = [];
-          this.rerenderTable();
-          this.dtTrigger.next();
+          this.redrawTable();
+          // this.dtTrigger.next();
           this.toastService.showToastNotification('warning','No Records Found Within the Search Criteria','');
           // this.drawpiechartanalytics([]);
           this.isVisualizationCollapsed = true;
@@ -179,10 +210,21 @@ initializetable(){
 
 
   }
+  
   rerenderTable(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
-      dtInstance.destroy();
+      // dtInstance.draw();
+      dtInstance.clear().draw();
+      // dtInstance.draw();
+    });
+  }
+  redrawTable(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      // dtInstance.draw();
+      dtInstance.draw();
+      // dtInstance.draw();
     });
   }
 destroy_chart(){
