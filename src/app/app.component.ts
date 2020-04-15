@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     
           }
           else if(all_roles =="BUSINESS_ANALYST"){
-            this.router.navigate(['/']);
+            this.router.navigate(['/analyst-view/data-document-analytics']);
     
           }
     
