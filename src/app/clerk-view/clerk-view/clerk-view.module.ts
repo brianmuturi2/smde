@@ -8,9 +8,9 @@ import { DocumentPreviewComponent} from '../document-preview/document-preview.co
 import { UploadedDocumentsComponent } from '../uploaded-documents/uploaded-documents.component';
 import { RejectedDocumentsComponent } from '../rejected-documents/rejected-documents.component';
 import { ApprovedDocumentsComponent } from '../approved-documents/approved-documents.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
-import { SafePipe } from '../../safepipe';
+
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PendingDocumentsComponent } from '../pending-documents/pending-documents.component';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
@@ -22,7 +22,7 @@ import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-d
 @NgModule({
   declarations: [
     UploadFileComponent,
-    SafePipe,
+
     UploadedDocumentsComponent,
     RejectedDocumentsComponent,
     ApprovedDocumentsComponent,
@@ -32,7 +32,7 @@ import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-d
     ClerkViewBaseComponent,
     ClerkViewSidemenuComponent,
     ClerkDocumentDetailsComponent
-    
+
   ],
   imports: [
     CommonModule,
@@ -40,7 +40,7 @@ import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-d
     BsDatepickerModule,
     DynamicFormModule,
     SharedModule,
-    ReactiveFormsModule,DataTablesModule,
+    ReactiveFormsModule, DataTablesModule,
     ClerkViewRoutingModule
   ]
 })
