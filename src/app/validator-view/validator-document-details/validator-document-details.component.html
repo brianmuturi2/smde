@@ -12,8 +12,8 @@
       <div class="modal-body">
           <div class="row">
               <div class="col-md-6">
-                <embed  src="http://127.0.0.1:8000/media/documents/735e33c8-8983-41cd-b061-8827af53eac6.pdf" type="application/pdf" width="100%" height="800px" navpanes = "1" toolbar= "0"/>
-                <!-- <embed  [src]="doc_url_reference" type="application/pdf" width="100%" height="600px" navpanes = "1" toolbar= "0"/> -->
+                <!-- <embed  src="http://127.0.0.1:8000/media/documents/735e33c8-8983-41cd-b061-8827af53eac6.pdf" type="application/pdf" width="100%" height="800px" navpanes = "1" toolbar= "0"/> -->
+                <embed  [src]="doc_url_reference | safe" type="application/pdf" width="100%" height="600px" navpanes = "1" toolbar= "0"/>
               </div>
               <div class="col-md-6">
                 <app-dynamic-form>
