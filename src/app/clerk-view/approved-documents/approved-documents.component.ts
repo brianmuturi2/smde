@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy,ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import {SurveyService } from '../services/survey.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
@@ -18,32 +18,33 @@ export class ApprovedDocumentsComponent implements OnInit {
   dtOptions: any = {};
   public dtTrigger = new Subject<any>();
   records: DocumentsList[] = [];
-  constructor(private router: Router,private loadingService:LoadingService,public toastService:ToastService,public surveyService:SurveyService,) { }
+  searchString: string;
+  constructor(private router: Router, private loadingService: LoadingService, public toastService: ToastService, public surveyService: SurveyService, ) { }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
       responsive: true,
-      retrieve:true,
-  
+      retrieve: true,
 
 
-    }; 
+
+    };
     this.fetchRecords();
   }
 
-  fetchRecords(){
+  fetchRecords() {
     this.loadingService.showloading();
-     this.surveyService.getrecord(clerk_approved_documents_url).subscribe((res)=>{
+     this.surveyService.getrecord(clerk_approved_documents_url).subscribe((res) => {
        this.records = res;
        this.loadingService.hideloading();
- 
+
        this.dtTrigger.next();
- 
-     },(err)=>{
+
+     }, (err) => {
        this.loadingService.hideloading();
-       
+
      });
    }
    rerenderTable(): void {
@@ -52,8 +53,8 @@ export class ApprovedDocumentsComponent implements OnInit {
        dtInstance.destroy();
      });
    }
-   capture_metadata(file_id){
-     this.router.navigate(['surveyofkenya/document-preview',file_id]);
+   capture_metadata(file_id) {
+     this.router.navigate(['surveyofkenya/document-preview', file_id]);
 
    }
 

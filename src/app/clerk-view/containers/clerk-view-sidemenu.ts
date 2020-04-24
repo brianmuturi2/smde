@@ -39,8 +39,8 @@ export const navItems: NavData[] = [
     name: 'Document',
     url: '/',
     icon: 'fa fa-suitcase',
- 
-    
+
+
     children: [
       {
         name: 'Analytics',
@@ -72,9 +72,16 @@ export const navItems: NavData[] = [
         icon: 'fa fa-check-square',
         permission: 'DATA_CLERK'
       },
+
       {
         name: 'Rejected',
         url: '/clerk-view/rejected-documents',
+        icon: 'fa fa-times',
+        permission: 'DATA_CLERK'
+      },
+      {
+        name: 'Resubmitted',
+        url: '/clerk-view/resubmitted-documents',
         icon: 'fa fa-times',
         permission: 'DATA_CLERK'
       }
@@ -86,10 +93,10 @@ export const navItems: NavData[] = [
     icon: 'fa fa-street-view'
   }
 
-  
-
-  
 
 
-  
+
+
+
+
 ];

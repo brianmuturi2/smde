@@ -14,11 +14,12 @@ import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view
 import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
 import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/clerk-view-sidemenu.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { ResubmittedDocumentsComponent } from '../resubmitted-documents/resubmitted-documents.component';
 const routes: Routes = [
   {
     path: '',
     component: ClerkViewBaseComponent,
-    
+
     children: [
   {
     path: 'clerk-dashboard',
@@ -105,6 +106,19 @@ const routes: Routes = [
     },
     canActivate: [AuthenticationGuard],
   },
+  {
+    path: 'resubmitted-documents',
+    component: ResubmittedDocumentsComponent,
+    data: {
+      title: 'Resubmitted Documents',
+      permissions: {
+        only: ['DATA_CLERK'],
+          redirectTo: '/500'
+            }
+    },
+    canActivate: [AuthenticationGuard],
+  },
+
   {
     path: 'approved-documents',
     component: ApprovedDocumentsComponent,

@@ -40,7 +40,7 @@ export const navItems: NavData[] = [
     url: '/',
     icon: 'fa fa-suitcase',
     permission: 'can_view_device_explorer_menu',
-    
+
     children: [
       {
         name: 'Analytics',
@@ -66,18 +66,18 @@ export const navItems: NavData[] = [
         icon: 'fa fa-times',
         permission: 'can_add_business_accounts'
       },
-      {
-        name: 'Resubmitted Docs',
-        url: '/validator-view/rejected-documents',
-        icon: 'fa fa-reply',
-        permission: 'can_add_business_accounts'
-      }
+      // {
+      //   name: 'Resubmitted Docs',
+      //   url: '/validator-view/rejected-documents',
+      //   icon: 'fa fa-reply',
+      //   permission: 'can_add_business_accounts'
+      // }
     ]
   },
   {
     name: 'My Profile',
     url: '/profile',
-    icon: 'fa fa-street-view'
+    icon: 'fa fa-re-vi'
   }
 
   

@@ -5,12 +5,21 @@
       </div>
       <div class="card-body">
        
-     
-        <div class="margin-top">
-       
-        </div>
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-          class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
+        <div class="row">
+          <div class="col-sm-4 col-md-4 col-lg-4 offset-md-8">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+              <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="searchString">
+            </div>
+          </div>
+          </div>
+          <br>
+          <div class="table-responsive">
+
+        
+        <table [mfData]="records" #mf="mfDataTable"
+        [mfRowsOnPage]="10"
+          class="table table-bordered table-striped row-border hover" style="width:100%">
           <thead>
             <tr>
               <th>#</th>
@@ -22,10 +31,10 @@
             </tr>
           </thead>
           <tbody *ngIf="records?.length != 0">
-            <tr *ngFor="let recordinstance of records; let i = index">
+            <tr *ngFor="let recordinstance of mf.data | filter : searchString ; let i = index">
               <td>{{i + 1}}</td>
               <td>{{ recordinstance.original_file_name }}</td>
-              <td>{{ recordinstance.uploaded_time }}</td>
+              <td>{{ recordinstance.uploaded_time | date : 'medium' }}</td>
               <td>{{ recordinstance.document_status }}</td>
               <td>{{ recordinstance.file_no }}</td>
               
@@ -44,6 +53,7 @@
             </tr>
           <tbody>
         </table>
+      </div>
       </div>
     </div>
   </div>

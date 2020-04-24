@@ -18,10 +18,10 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptor } from './app.interceptor';
 
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { SafePipe } from './safepipe';
 export function jwtTokenGetter() {
   return localStorage.getItem('access_token');
@@ -31,9 +31,9 @@ export function jwtTokenGetter() {
 import { SharedModule } from './common-module/common-module/common-module.module';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
-  
+
 ];
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   AppAsideModule,
   AppBreadcrumbModule,
@@ -61,6 +61,8 @@ import { CommonSidebarComponent } from './containers/common-sidebar/common-sideb
 import { DocumentDetailsComponent } from './administration/document-details/document-details.component';
 
 
+
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -85,7 +87,7 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     NgxSpinnerModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter:jwtTokenGetter,
+        tokenGetter: jwtTokenGetter,
         whitelistedDomains: ['localhost:3000'],
         blacklistedRoutes: ['http://39d27368.ngrok.io']
       }
@@ -100,8 +102,9 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     P500Component,
     CommonSidebarComponent,
     DocumentDetailsComponent,
-
     
+
+
   ],
   providers: [{
     provide: LocationStrategy,

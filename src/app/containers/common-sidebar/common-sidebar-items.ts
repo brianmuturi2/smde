@@ -50,13 +50,13 @@ export interface INavData {
 }
 
 export const navItems: INavData[] = [
-  
+
   {
     title: true,
     name: 'Main Menu',
     permission: '',
   },
- 
+
   {
     name: 'Clerk Menu',
     url: '/clerk-view/clerk-dashboard',
@@ -81,22 +81,28 @@ export const navItems: INavData[] = [
     icon: 'fa fa-users',
     permission: 'BUSINESS_ANALYST',
   },
+  {
+    name: 'CLEANER',
+    url: '/cleaner-view/file-search',
+    icon: 'fa fa-users',
+    permission: 'DATA_CLEANER',
+  },
 
 
-  
+
   {
     name: 'Profile',
     url: '/profile',
     icon: 'fa fa-street-view',
     permission: '',
   }
-  
 
 
 
-  
 
-  
+
+
+
   // {
   //   name: 'Logout',
   //   url: '/theme/typography',

@@ -3,8 +3,8 @@
 // export let serverurl = 'http://192.168.200.119:8000';
 // export let serverurl = 'http://192.168.1.41:5600';
 // export let serverurl = 'http://192.168.214.151:8000';
-// export let serverurl = 'http://192.168.17.226:8000';
-export let serverurl = 'http://192.168.17.232:5602';
+export let serverurl = 'http://192.168.17.226:5600';
+// export let serverurl = 'http://192.168.17.232:5602';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION + 'edms/clerk-view/upload-document';
@@ -15,6 +15,7 @@ export let fixed_boundary_document_post = serverurl + API_VERSION + 'edms/docume
 export let clerk_rejected_documents_url = serverurl + API_VERSION + 'edms/clerk-view/rejected-documents';
 export let clerk_approved_documents_url = serverurl + API_VERSION + 'edms/clerk-view/approved-documents';
 export let clerk_resubmitted_url = serverurl + API_VERSION + 'edms/clerk-view/resubmitted-documents';
+export let clerk_resubmit_document_url = serverurl + API_VERSION + 'edms/clerk-view/resubmit-document';
 export let clerk_analytics_url = serverurl + API_VERSION + 'edms/clerk-view/analytics';
 export let clerk_dashboard_analytics_url = serverurl + API_VERSION + 'edms/clerk-view/analytics';
 

@@ -35,6 +35,7 @@ export class DocumentAnalyticsComponent implements OnInit, AfterViewInit {
   isVisualizationCollapsed: boolean = true;
   isTabularCollapsed: boolean = true;
   isFilterCollapsed: boolean = false;
+  searchString: string;
   records: DocumentsList[] = [];
   constructor(private formBuilder: FormBuilder,
     public loadingService: LoadingService, public toastService: ToastService,
@@ -61,7 +62,7 @@ initializetable() {
       pageLength: 5,
       retrieve: true,
       destroy : true,
-      lengthMenu: [ [ 10, 25, 50, 100, -1], [ 10, 25, 50, 100,'All'] ],
+      lengthMenu: [ [ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, 'All'] ],
       data: [],
       lengthChange: true,
 
@@ -182,7 +183,7 @@ destroy_chart() {
      }
   drawpiechartanalytics(chartseriesdata) {
 
-    let seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
+    const seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
     Highcharts.chart('analyticscontainer', {
 
       chart: {
