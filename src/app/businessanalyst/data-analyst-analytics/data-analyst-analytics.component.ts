@@ -44,6 +44,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
   isTabularCollapsed: boolean = true;
   isFilterCollapsed: boolean = false;
   records: DocumentsList[] = [];
+  searchString: string;
   constructor(private formBuilder: FormBuilder,
     public loadingService: LoadingService, public toastService: ToastService,
     public sweetalertService: SweetalertService, public dateService: DateService,
@@ -71,12 +72,12 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
       pageLength: 5,
       retrieve: true,
       destroy: true,
-      lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+      lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
       data: [],
       lengthChange: true,
 
       // pagingType: 'full_numbers',
-      // responsive: true, 
+      // responsive: true,
       // 'columnDefs': [ {'targets': 0,'checkboxes': {'selectRow': true} }],
       // 'select': {'style': 'multi'},
       // 'order': [[1, 'asc']],"lengthChange": true,
@@ -97,15 +98,15 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
   }
 
   fetchdataclerks() {
-    let params = {
-    }
+    const params = {
+    };
     this.analyticsService.getrecords(list_data_validators_url, params).subscribe((res) => {
       this.all_users = res;
     });
   }
   fetchdepartments() {
-    let params = {
-    }
+    const params = {
+    };
     this.analyticsService.getrecords(list_departments_url, params).subscribe((res) => {
       this.all_departments = res;
     });
@@ -113,12 +114,12 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
 
   filterrecords() {
     if (this.filterForm.valid) {
-      let payload = {
-        "from_date": this.dateService.convertDate(this.filterForm.value['from_date']),
-        "to_date": this.dateService.convertDate(this.filterForm.value['to_date']),
-        "department_id": this.filterForm.value['department'],
-        "user_id": this.filterForm.value['users']
-      }
+      const payload = {
+        'from_date': this.dateService.convertDate(this.filterForm.value['from_date']),
+        'to_date': this.dateService.convertDate(this.filterForm.value['to_date']),
+        'department_id': this.filterForm.value['department'],
+        'user_id': this.filterForm.value['users']
+      };
       this.loadingService.showloading();
 
       this.analyticsService.getrecords(data_validators_analytics_url, payload).subscribe((res) => {
@@ -140,7 +141,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
           // this.rerenderTable();
           this.records = returned_records;
 
-          for (let records of returned_records) {
+          for (const records of returned_records) {
 
             approved_documents += parseInt(records['approved_documents'], 10);
             rejected_documents += parseInt(records['rejected_documents'], 10);
@@ -202,7 +203,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
 
     } else {
       this.filterformstatus = true;
-      this.toastService.showToastNotification("error", "Kindly correct the highlighted errors to proceed", "")
+      this.toastService.showToastNotification('error', 'Kindly correct the highlighted errors to proceed', '');
 
     }
 
@@ -231,7 +232,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
   }
   drawpiechartanalytics(chartseriesdata) {
 
-    var seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
+    let seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
     Highcharts.chart('analyticscontainer', {
 
       chart: {

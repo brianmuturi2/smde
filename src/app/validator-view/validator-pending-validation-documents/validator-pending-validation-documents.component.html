@@ -19,24 +19,35 @@
        
         </div>
       </form>
-        <br>
-       
+        <!-- <br> -->
+        <div class="row">
+          <div class="col-sm-4 col-md-4 col-lg-4 offset-md-8">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+              <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="searchString">
+            </div>
+          </div>
+          </div>
+          <br>
+          <div class="table-responsive">
   
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-          class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
+        <table [mfData]="records" #mf="mfDataTable"
+        [mfRowsOnPage]="10"
+          class="table table-bordered table-striped row-border hover" style="width:100%">
           <thead>
             <tr>
               <th>#</th>
               <th>File Number</th>
               <th>Document Type</th>
               <th> Status</th>
+              <th> Uploaded By</th>
               <th>File Name</th>
               <th>Date Uploaded</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody *ngIf="records?.length != 0">
-            <tr *ngFor="let recordinstance of records; let i = index"
+            <tr *ngFor="let recordinstance of mf.data | filter : searchString ; let i = index"
              [ngSwitch]="recordinstance.document_status">
               <td>{{i + 1}}</td>
               <td>{{ recordinstance.file_no }}</td>
@@ -59,9 +70,9 @@
                 </div>
              
               </td>
-              
+              <td>{{ recordinstance.uploader }}</td>
               <td>{{ recordinstance.original_file_name }}</td>
-              <td>{{ recordinstance.uploaded_time }}</td>
+              <td>{{ recordinstance.uploaded_time | date : 'medium' }}</td>
               
              
              <td>
@@ -72,12 +83,20 @@
   
             </tr>
           </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="12">
+                Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
           <tbody *ngIf="records?.length == 0">
             <tr>
               <td colspan="9" class="no-data-available">No records to show</td>
             </tr>
           <tbody>
         </table>
+        </div>
       </div>
     </div>
   </div>

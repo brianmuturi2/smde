@@ -3,7 +3,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { ValidatorService } from '../services/validator.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
-import { fetch_document_records_url, fetch_document_record_details_url, validators_approve_document_url, validators_reject_document_url } from '../../app.constants';
+import { fetch_document_records_url,
+  fetch_document_record_details_url, validators_approve_document_url,
+   validators_reject_document_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentsList } from '../interfaces/validator';
 import { FieldConfig } from '../../dynamic-form/interface/dynamic-interface';
@@ -28,10 +30,13 @@ export class ValidatorDocumentDetailsComponent implements OnInit {
   doc_keyword: any;
   doc_url_reference: any;
   request_id: any;
+  searchString: string;
+  comments: [];
+  commentsearchString: string;
   @ViewChild('createModal') public createModal: ModalDirective;
   action_list = [
-    {'id':'approve','name':'Approve'},
-    {'id':'reject','name':'Reject'},
+    {'id': 'approve', 'name': 'Approve'},
+    {'id': 'reject', 'name': 'Reject'},
   ];
   public DocumentActivityForm: FormGroup;
   constructor(private loadingService: LoadingService, public toastService: ToastService, public validatorService: ValidatorService, private route: ActivatedRoute, private formBuilder: FormBuilder, public sweetalertService: SweetalertService, ) {
@@ -61,24 +66,19 @@ export class ValidatorDocumentDetailsComponent implements OnInit {
     };
      this.validatorService.getrecords(fetch_document_records_url, payload).subscribe((res) => {
        this.records = res['document_records'];
+       this.comments = res['comments'];
        this.loadingService.hideloading();
 
-       this.dtTrigger.next();
 
      }, (err) => {
        this.loadingService.hideloading();
 
      });
    }
-   rerenderTable(): void {
-     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-       // Destroy the table first
-       dtInstance.destroy();
-     });
-   }
+
    actiondocument() {
     if (this.DocumentActivityForm.valid) {
-      let action = this.DocumentActivityForm.value['action'];
+      const action = this.DocumentActivityForm.value['action'];
       let endpoint_to_post_url = '';
       let success_message  = '';
       let confirmation_message = '';
@@ -90,7 +90,7 @@ export class ValidatorDocumentDetailsComponent implements OnInit {
       } else if (action == 'reject') {
         endpoint_to_post_url = validators_reject_document_url;
         success_message  = 'Document Rejected Successfully';
-        confirmation_message = 'Do you wish to proceed rejecting the document?'
+        confirmation_message = 'Do you wish to proceed rejecting the document?';
       }
 
       const payload = {

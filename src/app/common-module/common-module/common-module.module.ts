@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTablesModule } from 'angular-datatables';
 import {
   OwlDateTimeModule,
   OwlNativeDateTimeModule
@@ -30,6 +29,8 @@ import { CommonHeaderComponent } from '../../containers/common-header/common-hea
 import { CommonLoaderComponent } from '../../containers/common-loader/common-loader.component';
 import { CommonFooterComponent } from '../../containers/common-footer/common-footer.component';
 import { CommonProfileComponent } from '../../containers/common-profile/common-profile.component';
+import {DataTableModule} from 'angular2-datatable';
+
 // import { ToastrModule } from 'ngx-toastr';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { DatePipe } from '@angular/common';
@@ -43,11 +44,11 @@ export const MY_CUSTOM_FORMATS = {
   monthYearA11yLabel: 'MMMM YYYY'
   };
 import { SafePipe } from '../../safepipe';
-
+import { FilterPipe } from '../shared-pipes/filter.pipe';
 import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 @NgModule({
   declarations: [CommonErrorComponent, CommonLoaderComponent,
-    CommonFooterComponent, CommonHeaderComponent, CommonProfileComponent, SafePipe],
+    CommonFooterComponent, CommonHeaderComponent, CommonProfileComponent, SafePipe, FilterPipe],
   imports: [
     AppAsideModule,
     AppBreadcrumbModule,
@@ -61,13 +62,13 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     BsDatepickerModule,
     NgxSpinnerModule,
     AlertModule,
     ModalModule,
+    DataTableModule,
 
   ],
   exports: [
@@ -84,18 +85,19 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule,
     BsDatepickerModule,
     NgxSpinnerModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     AlertModule,
     ModalModule,
+    DataTableModule,
     CommonErrorComponent,
     CommonLoaderComponent,
     CommonFooterComponent, CommonHeaderComponent,
     CommonProfileComponent,
-SafePipe
+SafePipe,
+FilterPipe
 
 
   ],

@@ -19,6 +19,7 @@ import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/cl
 import { DynamicFormModule } from '../../dynamic-form/dynamic-form/dynamic-form.module';
 import { SharedModule } from '../../common-module/common-module/common-module.module';
 import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
+import { ResubmittedDocumentsComponent } from '../resubmitted-documents/resubmitted-documents.component';
 @NgModule({
   declarations: [
     UploadFileComponent,
@@ -31,6 +32,7 @@ import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-d
     ClerkDashboardComponent,
     ClerkViewBaseComponent,
     ClerkViewSidemenuComponent,
+    ResubmittedDocumentsComponent,
     ClerkDocumentDetailsComponent
 
   ],

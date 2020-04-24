@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit,ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
@@ -10,7 +10,7 @@ import * as Highcharts from 'highcharts';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 export interface DocumentsList {
-  id:string;
+  id: string;
   user__last_name: string;
   user__first_name: string;
   user__username: string;
@@ -18,7 +18,7 @@ export interface DocumentsList {
   rejected_documents: string;
   approved_documents: string;
   revoked_documents: string;
-  resubmitted_documents:string;
+  resubmitted_documents: string;
   metadata_captured_documents: string;
   uploaded_documents: string;
   total_count: string;
@@ -32,7 +32,7 @@ export interface DocumentsList {
 })
 
 
-export class DataClerkAnalyticsComponent implements OnInit,AfterViewInit {
+export class DataClerkAnalyticsComponent implements OnInit, AfterViewInit {
   public filterForm: FormGroup;
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -46,6 +46,7 @@ export class DataClerkAnalyticsComponent implements OnInit,AfterViewInit {
   isTabularCollapsed: boolean = true;
   isFilterCollapsed: boolean = false;
   records: DocumentsList[] = [];
+  searchString: string;
   constructor(private formBuilder: FormBuilder,
     public loadingService: LoadingService, public toastService: ToastService,
     public sweetalertService: SweetalertService, public dateService: DateService,
@@ -65,7 +66,7 @@ export class DataClerkAnalyticsComponent implements OnInit,AfterViewInit {
     this.initializetable();
 
   }
-initializetable(){
+initializetable() {
   this.dtOptions = {
 
     pagingType: 'full_numbers',
@@ -73,12 +74,12 @@ initializetable(){
       pageLength: 5,
       retrieve: true,
       destroy : true,
-      lengthMenu: [ [ 10, 25,50, 100,-1], [ 10,25,50,100,"All"] ],
+      lengthMenu: [ [ 10, 25, 50, 100, -1], [ 10, 25, 50, 100,'All'] ],
       data: [],
       lengthChange: true,
 
     // pagingType: 'full_numbers',
-    // responsive: true, 
+    // responsive: true,
     // 'columnDefs': [ {'targets': 0,'checkboxes': {'selectRow': true} }],
     // 'select': {'style': 'multi'},
     // 'order': [[1, 'asc']],"lengthChange": true,
@@ -92,22 +93,22 @@ initializetable(){
 
 
   };
- 
+
 }
 ngAfterViewInit(): void {
   this.dtTrigger.next();
 }
 
   fetchdataclerks() {
-    let params = {
-    }
+    const params = {
+    };
     this.analyticsService.getrecords(list_data_clerks_url, params).subscribe((res) => {
       this.all_users = res;
     });
   }
   fetchdepartments() {
-    let params = {
-    }
+    const params = {
+    };
     this.analyticsService.getrecords(list_departments_url, params).subscribe((res) => {
       this.all_departments = res;
     });
@@ -115,14 +116,14 @@ ngAfterViewInit(): void {
 
   filterrecords() {
     if (this.filterForm.valid) {
-      let payload = {
-        "from_date": this.dateService.convertDate(this.filterForm.value['from_date']),
-        "to_date": this.dateService.convertDate(this.filterForm.value['to_date']),
-        "department_id": this.filterForm.value['department'],
-        "user_id": this.filterForm.value['users']
-      }
+      const payload = {
+        'from_date': this.dateService.convertDate(this.filterForm.value['from_date']),
+        'to_date': this.dateService.convertDate(this.filterForm.value['to_date']),
+        'department_id': this.filterForm.value['department'],
+        'user_id': this.filterForm.value['users']
+      };
       this.loadingService.showloading();
-      
+
       this.analyticsService.getrecords(data_clerk_analytics_url, payload).subscribe((res) => {
         // this.rerenderTable();
         this.destroy_chart();
@@ -133,16 +134,16 @@ ngAfterViewInit(): void {
         let metadata_captured_documents: any = 0;
         let resubmitted_documents: any = 0;
         const returned_records: [] = res['records'];
-        const total_count:any = res['total_count'];
-      
+        const total_count: any = res['total_count'];
+
         // this.dtTrigger.next();
-       
+
         this.allfieldsstatus.length = 0;
-        if(total_count > 0){
+        if (total_count > 0) {
           // this.rerenderTable();
           this.records = returned_records;
-          
-          for (let records of returned_records) {
+
+          for (const records of returned_records) {
 
             approved_documents += parseInt(records['approved_documents'], 10);
             rejected_documents += parseInt(records['rejected_documents'], 10);
@@ -181,21 +182,21 @@ ngAfterViewInit(): void {
           this.isVisualizationCollapsed = false;
           this.isTabularCollapsed = true;
           this.isFilterCollapsed = true;
-  
-        }else{
-          
+
+        } else {
+
           this.allfieldsstatus.length = 0;
           this.records = [];
           this.redrawTable();
           // this.dtTrigger.next();
-          this.toastService.showToastNotification('warning','No Records Found Within the Search Criteria','');
+          this.toastService.showToastNotification('warning', 'No Records Found Within the Search Criteria', '');
           // this.drawpiechartanalytics([]);
           this.isVisualizationCollapsed = true;
           this.isTabularCollapsed = false;
           this.isFilterCollapsed = false;
         }
-    
-      
+
+
         this.loadingService.hideloading();
       });
 
@@ -204,13 +205,13 @@ ngAfterViewInit(): void {
 
     } else {
       this.filterformstatus = true;
-      this.toastService.showToastNotification("error", "Kindly correct the highlighted errors to proceed", "")
+      this.toastService.showToastNotification('error', 'Kindly correct the highlighted errors to proceed', '');
 
     }
 
 
   }
-  
+
   rerenderTable(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -227,13 +228,13 @@ ngAfterViewInit(): void {
       // dtInstance.draw();
     });
   }
-destroy_chart(){
+destroy_chart() {
       const chart = Highcharts.chart('analyticscontainer', {});
       chart.destroy();
      }
   drawpiechartanalytics(chartseriesdata) {
 
-    var seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
+    let seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
     Highcharts.chart('analyticscontainer', {
 
       chart: {

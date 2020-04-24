@@ -8,7 +8,7 @@ import { P500Component } from './views/error/500.component';
 import { CommonProfileComponent } from './containers/common-profile/common-profile.component';
 
 export const routes: Routes = [
-  
+
   {
     path: '404',
     component: P404Component,
@@ -44,7 +44,7 @@ export const routes: Routes = [
       }
     ]
   },
-  
+
   {
     path: 'administration',
     loadChildren: () => import('./administration/administration/administration/administration.module').then(m => m.AdministrationModule)
@@ -61,6 +61,10 @@ export const routes: Routes = [
   {
     path: 'analyst-view',
     loadChildren: () => import('./businessanalyst/businessanalyst/businessanalyst.module').then(m => m.BusinessanalystModule)
+  },
+  {
+    path: 'cleaner-view',
+    loadChildren: () => import('./cleaner-view/cleaner-view/cleaner-view.module').then(m => m.CleanerViewModule)
   },
   { path: '**', component: P404Component }
 ];

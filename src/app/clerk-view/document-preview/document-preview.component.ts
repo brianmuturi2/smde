@@ -20,6 +20,7 @@ export class DocumentPreviewComponent implements OnInit {
   public surveyForm: FormGroup;
   public documentTypeForm: FormGroup;
   formInputRecords = [];
+  searchString: string;
   public show_edit: boolean = false;
   surveyrecord_info: any = {};
   preview_file: string = '';
