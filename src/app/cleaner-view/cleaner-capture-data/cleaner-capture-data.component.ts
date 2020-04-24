@@ -27,6 +27,7 @@ export class CleanerCaptureDataComponent implements OnInit {
   document_list_items = [];
   tenant_client: string;
   reference_serial_number: string;
+  records: [];
   constructor(private router: Router, public sweetalertsService: SweetalertService,
      private loadingService: LoadingService, private formBuilder: FormBuilder,
      public cleanerService: CleanerService, private toastService: ToastService,

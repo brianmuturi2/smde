@@ -1,7 +1,7 @@
-FROM node:10.13-alpine as build-step
+FROM node:12.16.2-alpine as build-step
 RUN mkdir /src
 WORKDIR /src
-# COPY package.json ./
+COPY package.json ./
 COPY . /src/
 RUN npm install
 RUN npm run build
