@@ -1,5 +1,5 @@
 
-export let serverurl = 'http://192.168.17.226:5600';
+export let serverurl = 'http://192.168.17.232:5600';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION + 'edms/clerk-view/upload-document';
