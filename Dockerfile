@@ -6,6 +6,7 @@ COPY . /src/
 RUN npm install
 RUN npm run build
 FROM nginx:1.17.9-alpine as prod-stage
+RUN rm -rf /home/*
 COPY --from=build-step /src/dist/ /home/
 EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
