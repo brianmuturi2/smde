@@ -42,20 +42,20 @@ interface NavAttributes {
 
 
       children: [
+        // {
+        //   name: 'Analytics',
+        //   url: '/cleaner-view/cleaner-dashboard',
+        //   icon: 'fa fa-line-chart',
+        //   permission: 'DATA_CLEANER'
+        // },
+        // {
+        //   name: 'Check List',
+        //   url: '/cleaner-view/file-search',
+        //   icon: 'fa fa-exchange',
+        //   permission: 'DATA_CLEANER'
+        // },
         {
-          name: 'Analytics',
-          url: '/cleaner-view/cleaner-dashboard',
-          icon: 'fa fa-line-chart',
-          permission: 'DATA_CLEANER'
-        },
-        {
-          name: 'File Search',
-          url: '/cleaner-view/file-search',
-          icon: 'fa fa-exchange',
-          permission: 'DATA_CLEANER'
-        },
-        {
-          name: 'Capture Data',
+          name: 'Check List',
           url: '/cleaner-view/capture-data',
           icon: 'fa fa-exchange',
           permission: 'DATA_CLEANER'
