@@ -43,6 +43,7 @@ export const MY_CUSTOM_FORMATS = {
   dateA11yLabel: 'LL',
   monthYearA11yLabel: 'MMMM YYYY'
   };
+  import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SafePipe } from '../../safepipe';
 import { FilterPipe } from '../shared-pipes/filter.pipe';
 import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
@@ -55,7 +56,7 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     AppHeaderModule,
     AppFooterModule,
     AppSidebarModule,
-    CollapseModule.forRoot(),
+    CollapseModule,
     CommonModule,
     PerfectScrollbarModule,
     TabsModule, NgxPermissionsModule,
@@ -69,6 +70,7 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     AlertModule,
     ModalModule,
     DataTableModule,
+    NgbModule,
 
   ],
   exports: [
@@ -92,6 +94,7 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     AlertModule,
     ModalModule,
     DataTableModule,
+    NgbModule,
     CommonErrorComponent,
     CommonLoaderComponent,
     CommonFooterComponent, CommonHeaderComponent,

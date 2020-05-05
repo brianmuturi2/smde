@@ -8,12 +8,8 @@ import { FormGroup } from '@angular/forms';
 export class CleanerService {
 
   constructor(public http: HttpClient, ) { }
-  getrecord(endpointurl) {
 
-    return this.http.get<[]>(endpointurl);
-
-  }
-  getrecorddetail(endpointurl, payload) {
+  getrecord(endpointurl, payload) {
     const options = {
       params : payload
     };
