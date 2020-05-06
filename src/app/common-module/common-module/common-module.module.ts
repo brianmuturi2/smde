@@ -47,6 +47,7 @@ export const MY_CUSTOM_FORMATS = {
 import { SafePipe } from '../../safepipe';
 import { FilterPipe } from '../shared-pipes/filter.pipe';
 import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-nested-form.module';
 @NgModule({
   declarations: [CommonErrorComponent, CommonLoaderComponent,
     CommonFooterComponent, CommonHeaderComponent, CommonProfileComponent, SafePipe, FilterPipe],
@@ -71,6 +72,7 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     ModalModule,
     DataTableModule,
     NgbModule,
+    DynamicNestedFormModule,
 
   ],
   exports: [
@@ -100,7 +102,8 @@ import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng
     CommonFooterComponent, CommonHeaderComponent,
     CommonProfileComponent,
 SafePipe,
-FilterPipe
+FilterPipe,
+DynamicNestedFormModule
 
 
   ],
