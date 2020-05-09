@@ -1,22 +1,27 @@
-<form [formGroup]="usersForm" (ngSubmit)="onSubmit()">
-    <ng-container *ngFor="let userFormGroup of usersForm.controls.users.controls; let i = index">
-      <div [formGroup]="userFormGroup">
-        <label>
-          First name:
-          <input type="text" formControlName="firstName">
-        </label>
-        <label>
-          Last name:
-          <input type="text" formControlName="lastName">
-        </label>
-        <label>
-          Email:
-          <input type="text" formControlName="email">
-        </label>
-        <label>
-          <button (click)="removeFormControl(i)">remove formGroup</button>
-        </label>
+<select multiple [(ngModel)]="selectItems" (change)="changeEvent($event)">
+  <option *ngFor="let template of templates" [value]="template.key">{{template.value}}</option>
+</select>
+
+<!-- {{selectItems|json}} -->
+<div *ngIf="form">
+<form [formGroup]="form">
+<div formArrayName="template_details">
+  <div *ngFor="let item of this.form.get('template_details').controls;let i=index" [formGroupName]="i">
+
+  <br />
+    <input formControlName="template_name">
+
+    <div formArrayName="template_data">
+      <div *ngFor="let child of item.get('template_data').controls;let j=index" [formGroupName]="j">
+        <strong>>>>>> SELCTED FEATURE IS {{[i][j]}}</strong>
+     <input [formControlName]="controlNames[i][j]">
       </div>
-    </ng-container>
-  </form>
-  <button (click)="addFormControl()">add new user formGroup</button>
+    </div>
+  </div>
+</div>
+</form>
+</div>
+<button (click)="submitdata()">Submit Data</button>
+<pre>
+{{form?.value|json}}
+</pre>
