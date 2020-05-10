@@ -33,21 +33,7 @@ export class DynamicNestedFormComponent  {
       ]
             },
           ]
-    },
-    {
-      key: 2, value: "Template two",
-      personTwoChild: [
-        { property_name: "Property three" },
-        { property_name: "Property four" },
-        { property_name: "Property five" }
-      ]
-    },
-    {
-      key: 3, value: "Template three",
-      personThreeChild: [
-        { property_name: "Property six" },
-        { property_name: "Property seven" }
-      ],
+    
       // templates = [
         // {
         //   key: 1, value: "Certificate of Lease",
@@ -113,7 +99,6 @@ export class DynamicNestedFormComponent  {
               let child_data = template.child_component;
               let info_sec = [];
               for (let kid_data of child_data){
-                console.log("enter enter",kid_data)
                 arrayControls.push(this.createFormGroup(kid_data.value,kid_data.children));
                 controlNames.push(this.getControlNames(kid_data.children));
               }
@@ -139,6 +124,28 @@ export class DynamicNestedFormComponent  {
   }
   submitdata(){
     console.log(this.form.value)
+  }
+  addAddress(i) {
+    console.log("form to add is",i)
+    // const control = <FormArray>this.form.get('template_details').controls[i].get('template_data');
+    // // console.log(control);
+    // control.push(this.changeEvent(1));
+  }
+  removeFormControl(i) {
+    let usersArray = this.form.controls.template_details as FormArray;
+    usersArray.removeAt(i);
+  }
+
+  addFormControl(i) {
+    let usersArray = this.form.controls.template_details as FormArray;
+    usersArray.push(i)
+    // console.log(i)
+    // let usersArray = this.form.
+
+
+    // let newUsergroup: FormGroup = this.form
+
+    // usersArray.insert(arraylen, newUsergroup);
   }
 
 }

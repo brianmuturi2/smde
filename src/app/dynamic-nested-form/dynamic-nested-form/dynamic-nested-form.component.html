@@ -15,6 +15,9 @@
       <div *ngFor="let child of item.get('template_data').controls;let j=index" [formGroupName]="j">
         <strong>>>>>> SELCTED FEATURE IS {{[i][j]}}</strong>
      <input [formControlName]="controlNames[i][j]">
+     <button  (click)="removeFormControl(i)" type="button">-----</button>
+     <br /><br />
+     <button  (click)="addFormControl(i)" type="button">+</button>
       </div>
     </div>
   </div>
