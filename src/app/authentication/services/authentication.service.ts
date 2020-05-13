@@ -24,15 +24,15 @@ export interface NavData {
   providedIn: 'root'
 })
 export class AuthenticationService {
- 
+
 
   user = null;
   authenticationState = new BehaviorSubject(false);
- 
-  constructor(private http: HttpClient, private helper: JwtHelperService,private permissionsService: NgxPermissionsService,) {
+
+  constructor(private http: HttpClient, private helper: JwtHelperService, private permissionsService: NgxPermissionsService, ) {
     this.checkToken();
   }
-  flushuserpermissions(){
+  flushuserpermissions() {
     this.permissionsService.flushPermissions();
   }
   checkToken() {
@@ -50,14 +50,14 @@ export class AuthenticationService {
 
 
     }
-    
+
 
 
     // localStorage.getItem(TOKEN_KEY).key(token => {
     //   if (token) {
     //     let decoded = this.helper.decodeToken(token);
     //     let isExpired = this.helper.isTokenExpired(token);
- 
+
     //     if (!isExpired) {
     //       this.user = decoded;
     //       this.authenticationState.next(true);
@@ -67,53 +67,53 @@ export class AuthenticationService {
     //   }
     // });
   }
- getUserDetails(){
-  return new Promise((resolve, reject) => {
+  getUserDetails() {
+    return new Promise((resolve, reject) => {
 
-var token = localStorage.getItem(TOKEN_KEY);
-let decoded = this.helper.decodeToken(token);
-if (token) {
-  var user = decoded;
-  var currentusername = user['username'];
- 
-  resolve(currentusername);
- 
+      var token = localStorage.getItem(TOKEN_KEY);
+      let decoded = this.helper.decodeToken(token);
+      if (token) {
+        var user = decoded;
+        var currentusername = user['username'];
 
-
-
-}
-else{
-  reject("No uSER");
-
-}
+        resolve(currentusername);
 
 
 
 
+      }
+      else {
+        reject("No uSER");
+
+      }
 
 
-  //   localStorage.get(TOKEN_KEY).then(token => {
-  //   let decoded = this.helper.decodeToken(token);
-  //   if (token) {
-  //     var user = decoded;
-  //     var currentusername = user['username'];
-     
-  //     resolve(currentusername);
-     
 
-    
 
-  //   }
 
-  // },(error) =>{
-  //   reject("No uSER");
 
-  // }
-  // );
-});
+      //   localStorage.get(TOKEN_KEY).then(token => {
+      //   let decoded = this.helper.decodeToken(token);
+      //   if (token) {
+      //     var user = decoded;
+      //     var currentusername = user['username'];
 
- }
-  
+      //     resolve(currentusername);
+
+
+
+
+      //   }
+
+      // },(error) =>{
+      //   reject("No uSER");
+
+      // }
+      // );
+    });
+
+  }
+
   login(credentials) {
     // flush all permissions just in case
     this.flushuserpermissions();
@@ -121,87 +121,87 @@ else{
       .pipe(
         tap(res => {
           var token = res['token'];
-            localStorage.setItem(TOKEN_KEY, res['token']);
-            this.user = this.helper.decodeToken(res['token']);
+          localStorage.setItem(TOKEN_KEY, res['token']);
+          this.user = this.helper.decodeToken(res['token']);
           this.authenticationState.next(true);
           return true;
 
-          
-          
+
+
         }),
         catchError(e => {
-      
-          var error:any = e.error;
-          
-            let status = error.code;
-            let message = error.message;
-            // this.alertService.showAlert('Error',message,'error');
-            
-            throw new Error(e.error);
-            
-            
-          })
+
+          var error: any = e.error;
+
+          let status = error.code;
+          let message = error.message;
+          // this.alertService.showAlert('Error',message,'error');
+
+          throw new Error(e.error);
+
+
+        })
       );
   }
- 
+
   logout() {
     this.flushuserpermissions();
     localStorage.removeItem(TOKEN_KEY);
-    
+
     this.authenticationState.next(false);
     window.location.reload();
     // localStorage.removeItem(TOKEN_KEY).then(() => {
     //   this.authenticationState.next(false);
     // });
   }
- 
- 
- 
+
+
+
   isAuthenticated() {
     return this.authenticationState.value;
   }
- 
- 
-  passwordreset(endpoint,postdata){
-  
-    return this.http.post<NavData>(endpoint,postdata).pipe(map(res =>{
-      var response:any = res;
+
+
+  passwordreset(endpoint, postdata) {
+
+    return this.http.post<NavData>(endpoint, postdata).pipe(map(res => {
+      var response: any = res;
       var code = response.code;
       var message = response.message;
-     
-      if(code == 200){
+
+      if (code == 200) {
         return response.recordsfound;
 
       }
-      else{
+      else {
         return [];
 
       }
 
     }),
-    catchError(e => {
-      var error:any = e.error;
-      
-      
+      catchError(e => {
+        var error: any = e.error;
+
+
         let status = error.code;
         let message = error.message;
         // this.alertService.showAlert('Error',message,'error');
-        
+
         throw new Error(e.error);
-        
-        
+
+
       })
     )
 
   }
-  getrecords(endpointurl,payload){
+  getrecords(endpointurl, payload) {
     let options = {
-      params : payload
+      params: payload
     };
-    return this.http.get<[]>(endpointurl,options);
+    return this.http.get<[]>(endpointurl, options);
 
   }
 
 
-  
+
 }

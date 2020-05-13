@@ -6,13 +6,13 @@ import { StaffregistrationComponent } from '../../staffregistration/staffregistr
 import { StafflistingComponent } from '../../stafflisting/stafflisting.component';
 import { RevokeDocumentComponent } from '../../revoke-document/revoke-document.component';
 import { StaffDetailsComponent } from '../../staff-details/staff-details.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DataTablesModule } from 'angular-datatables';
 
 import { SharedModule } from '../../../common-module/common-module/common-module.module';
 import { AdministrationManagementBaseComponent } from '../../containers/administration-management-base/administration-management-base.component';
-import {AdministrationManagementSidemenuComponent } from '../../containers/administration-management-sidemenu/administration-management-sidemenu.component';
+import { AdministrationManagementSidemenuComponent } from '../../containers/administration-management-sidemenu/administration-management-sidemenu.component';
 import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-form.module';
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-fo
     StaffDetailsComponent
 
 
-    
+
   ],
   imports: [
     SharedModule,
@@ -32,7 +32,7 @@ import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-fo
     FormsModule,
     BsDatepickerModule,
     DynamicFormModule,
-    ReactiveFormsModule,DataTablesModule,
+    ReactiveFormsModule, DataTablesModule,
     AdministrationRoutingModule
   ]
 })

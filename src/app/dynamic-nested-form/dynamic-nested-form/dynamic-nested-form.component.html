@@ -1,27 +1,61 @@
-<select multiple [(ngModel)]="selectItems" (change)="changeEvent($event)">
-  <option *ngFor="let template of templates" [value]="template.key">{{template.value}}</option>
-</select>
 
-<!-- {{selectItems|json}} -->
-<div *ngIf="form">
-<form [formGroup]="form">
-<div formArrayName="template_details">
-  <div *ngFor="let item of this.form.get('template_details').controls;let i=index" [formGroupName]="i">
-
-  <br />
-    <input formControlName="template_name">
-
-    <div formArrayName="template_data">
-      <div *ngFor="let child of item.get('template_data').controls;let j=index" [formGroupName]="j">
-        <strong>>>>>> SELCTED FEATURE IS {{[i][j]}}</strong>
-     <input [formControlName]="controlNames[i][j]">
+<!-- <form [formGroup]="skillsForm" >
+  <p>
+    <button type="button" (click)="populateform()">Add</button>
+  </p>
+   
+  <p>
+    <label for="name">Name </label>
+    <input type="text" id="name" name="name" formControlName="template_name">
+  </p>
+  <div formArrayName="skills">
+    <div *ngFor="let skill of skills.controls; let i=index">
+      <div [formGroupName]="i">
+    
+        skill name : {{skill}}
+ 
+        <button (click)="removeSkill(i)">Remove</button>
       </div>
     </div>
   </div>
-</div>
+ 
 </form>
-</div>
-<button (click)="submitdata()">Submit Data</button>
-<pre>
-{{form?.value|json}}
-</pre>
+{{this.skillsForm.value | json}} -->
+
+
+
+<form [formGroup]="productionForm">
+    <div *ngFor="let group of prodData.groups; let i = index">
+      <p>
+        {{group.name}}
+        <label for="name">Name </label>
+        <!-- formControlName="{{group.name}}" -->
+        <input type="text" id="name" name="{{group.name}}" >
+      </p>
+  
+      <div formArrayName="production">
+      
+        <div *ngFor="let product of group.products; let j=index" [formGroupName]="i + j">
+          begTally  <input type="number" formControlName="begTally">
+          endTally   <input type="number" formControlName="endTally">
+          <button (click)="addCreds(j)">Add</button>
+          <!-- <td>{{product.name}}</td>
+          {{j.control}}
+          <td>
+            <input type="number" formControlName="begTally">
+          </td>
+  
+          <td>
+            <input type="number" formControlName="endTally">
+          </td>
+  
+          <td>
+            {{ product.begTally + product.endTally }} 
+          </td> -->
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  
+  {{ productionForm.value | json }}
