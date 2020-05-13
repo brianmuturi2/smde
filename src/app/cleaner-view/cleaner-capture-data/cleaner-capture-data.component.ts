@@ -288,5 +288,6 @@ deleteparcelRow(index) {
       this.parcelForm.patchValue(new_form_data);
 
   }
+  saveformData(){}
 
 }
