@@ -80,6 +80,27 @@ interface NavAttributes {
       ]
     },
     {
+      name: 'Department Management',
+      url: '/',
+      icon: 'fa fa-suitcase',
+      permission: 'DATA_DEPARTMENT_HEAD',
+      
+      children: [
+        {
+          name: 'Department Listing',
+          url: '/administration/department-listing',
+          icon: 'fa fa-hdd-o',
+          permission: 'DATA_DEPARTMENT_HEAD'
+        },
+        // {
+        //   name: 'Revoked Documents',
+        //   url: '/document-manager/revoked-documents',
+        //   icon: 'fa fa-exclamation-triangle',
+        //   permission: 'DATA_DEPARTMENT_HEAD'
+        // }
+      ]
+    },
+    {
       name: 'Profile',
       url: '/profile',
       icon: 'fa fa-street-view'

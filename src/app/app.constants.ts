@@ -1,7 +1,8 @@
 
 // export let serverurl = 'http://192.168.17.232:5600';
 // export let serverurl = 'http://127.0.0.1:8000';
-export let serverurl = 'http://192.168.17.240:5600';
+// export let serverurl = 'http://192.168.17.240:5600';
+export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
@@ -63,3 +64,25 @@ export let data_department_analytics_url = serverurl + API_VERSION + 'analytics/
 export let data_document_status_analytics_url = serverurl + API_VERSION + 'analytics/document-status-analytics';
 
 export let list_document_by_file_number_url = serverurl + API_VERSION + 'edms/document/filter-document-by-file-no';
+
+export let create_department_url = serverurl + API_VERSION + 'edms/department/create';
+export let edit_department_url = serverurl + API_VERSION + 'edms/department/edit-view';
+export let list_department_url = serverurl + API_VERSION + 'edms/department/list-departments';
+export let delete_department_url = serverurl + API_VERSION + 'edms/department/delete-view';
+export let department_detail_url = serverurl + API_VERSION + 'edms/department/detail-view';
+
+
+export let list_document_types_url = serverurl + API_VERSION + 'edms/document-types-config/list-document-types';
+export let create_document_types_url = serverurl + API_VERSION + 'edms/document-types-config/create';
+export let edit_document_types_url = serverurl + API_VERSION + 'edms/document-types-config/edit-view';
+export let delete_document_types_url = serverurl + API_VERSION + 'edms/document-types-config/delete-view';
+export let detail_document_types_url = serverurl + API_VERSION + 'edms/document-types-config/detail-view';
+
+
+export let list_document_fields_url = serverurl + API_VERSION + 'edms/document-fields-config/list-document-fields';
+export let create_document_fields_url = serverurl + API_VERSION + 'edms/document-fields-config/create';
+export let edit_document_fields_url = serverurl + API_VERSION + 'edms/document-fields-config/edit-view';
+export let delete_document_fields_url = serverurl + API_VERSION + 'edms/document-fields-config/delete-view';
+export let detail_document_fields_url = serverurl + API_VERSION + 'edms/document-fields-config/detail-view';
+
+export let list_input_types_url = serverurl + API_VERSION + 'edms/document-fields-config/list-input-types';
