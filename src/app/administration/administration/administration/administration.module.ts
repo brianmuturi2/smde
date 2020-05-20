@@ -14,6 +14,10 @@ import { SharedModule } from '../../../common-module/common-module/common-module
 import { AdministrationManagementBaseComponent } from '../../containers/administration-management-base/administration-management-base.component';
 import { AdministrationManagementSidemenuComponent } from '../../containers/administration-management-sidemenu/administration-management-sidemenu.component';
 import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-form.module';
+import { DepartmentListingComponent } from '../../department-management/department-listing/department-listing.component';
+import { DocumentTypeListingComponent } from '../../department-management/document-type-listing/document-type-listing.component';
+import { DocumentFieldListingComponent } from '../../department-management/document-field-listing/document-field-listing.component';
+
 @NgModule({
   declarations: [
     AdministrationManagementBaseComponent,
@@ -21,7 +25,10 @@ import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-fo
     StaffregistrationComponent,
     StafflistingComponent,
     RevokeDocumentComponent,
-    StaffDetailsComponent
+    StaffDetailsComponent,
+    DepartmentListingComponent,
+    DocumentTypeListingComponent,
+DocumentFieldListingComponent
 
 
 

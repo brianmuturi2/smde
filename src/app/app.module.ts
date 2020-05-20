@@ -62,7 +62,6 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
 
 
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -102,7 +101,6 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     P500Component,
     CommonSidebarComponent,
     DocumentDetailsComponent,
-    
 
 
   ],

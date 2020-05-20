@@ -16,3 +16,10 @@ export interface UserList {
     file_no:string;
     document_keyword:string;
   }
+
+
+  export interface Department {
+    name: string;
+
+
+}
