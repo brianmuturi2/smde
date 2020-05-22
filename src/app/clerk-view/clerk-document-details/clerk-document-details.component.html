@@ -12,8 +12,6 @@
       <div class="modal-body">
           <div class="row">
               <div class="col-md-6">
-                <!-- <embed  src="http://127.0.0.1:8000/media/documents/735e33c8-8983-41cd-b061-8827af53eac6.pdf" type="application/pdf" width="100%" height="800px" navpanes = "1" toolbar= "0"/> -->
-                <!-- <embed  [src]="doc_url_reference" type="application/pdf" width="100%" height="600px" navpanes = "1" toolbar= "0"/> -->
                 <embed  [src]="doc_url_reference | safe"  type="application/pdf" width="100%" height="600px" navpanes = "1" toolbar= "0"/>
               </div>
               <div class="col-md-6">
@@ -26,14 +24,43 @@
       </div>
       
       <div class="modal-footer">
-        <!-- <button   class="btn btn-warning col-md-4" (click)="resetForm()">Reset</button>
-        <button  type="submit" [disabled]="!createRecordForm.valid" (click)="createRecord()" class="btn btn-success col-md-4">Save</button> -->
-      
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Revoke Document</h4>
+        <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="revokeDocumentForm" >
+
+    <strong>   <h4 class="text-danger"> Kindly Enter your remarks to proceed revoking document </h4> </strong>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="input-small">Remarks</label>
+            <div class="col-sm-9">
+              <textarea class="form-control form-control-md" rows="4" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="revocation_remarks" >
+
+              </textarea>
+            </div>
+          </div>
+        
+        
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="editModal.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="request_document_revoke()">Submit</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
+</div>
 
 <div class="animated fadeIn">
     <div class="card">
@@ -150,9 +177,19 @@
       </div>
       
       <div class="card-footer">
-     
+        <div class="row">
+          <div class="form-group col-sm-6">
+            <label for="lastname">&nbsp;</label>
+            <button type="button" class="btn btn-danger col-sm-12" (click)="revokedocument()"><i class="fa fa-close"> Revoke</i></button>
+        </div>
+        <div class="form-group col-sm-6">
+            <label>&nbsp;</label>
+    <button type="button" class="btn btn-success col-sm-12" (click)="resubmitdocument()"><i class="fa fa-share"> Resubmit</i> </button>
+        </div>
+        </div>
         
-          <button type="button" class="btn btn-success col-md-3" (click)="resubmitdocument()"><i class="fa fa-share">ReSubmit</i></button>
+          <!-- <button type="button" class="btn btn-success col-md-3" (click)="resubmitdocument()"><i class="fa fa-share">ReSubmit</i></button>
+          <button type="button" class="btn btn-success col-md-3 col-md-offset-4" (click)="resubmitdocument()"><i class="fa fa-share">Revoke</i></button> -->
      
       </div>
     </div>

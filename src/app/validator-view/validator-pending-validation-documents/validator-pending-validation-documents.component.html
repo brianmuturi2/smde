@@ -59,10 +59,16 @@
                     </span>
                 </div>
                 <div *ngSwitchCase="'REJECTED'">
-                  <span class="badge badge-danger">
+                  <span class="badge badge-warning">
                     REJECTED
                     </span>
                 </div>
+                <div *ngSwitchCase="'REVOKED'">
+                  <span class="badge badge-danger">
+                    REVOKED
+                    </span>
+                </div>
+                
                 <div *ngSwitchDefault>
                   <span class="badge badge-primary">
                     {{recordinstance.document_status}}
