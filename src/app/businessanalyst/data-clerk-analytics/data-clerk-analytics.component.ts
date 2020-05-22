@@ -55,7 +55,6 @@ export class DataClerkAnalyticsComponent implements OnInit, AfterViewInit {
       from_date: new FormControl('', Validators.compose([Validators.required])),
       to_date: new FormControl('', Validators.compose([Validators.required])),
       department: new FormControl('', Validators.compose([Validators.required])),
-      users: new FormControl('', Validators.compose([Validators.required])),
     });
   }
 
@@ -67,36 +66,10 @@ export class DataClerkAnalyticsComponent implements OnInit, AfterViewInit {
 
   }
 initializetable() {
-  this.dtOptions = {
 
-    pagingType: 'full_numbers',
-    responsive: true,
-      pageLength: 5,
-      retrieve: true,
-      destroy : true,
-      lengthMenu: [ [ 10, 25, 50, 100, -1], [ 10, 25, 50, 100,'All'] ],
-      data: [],
-      lengthChange: true,
-
-    // pagingType: 'full_numbers',
-    // responsive: true,
-    // 'columnDefs': [ {'targets': 0,'checkboxes': {'selectRow': true} }],
-    // 'select': {'style': 'multi'},
-    // 'order': [[1, 'asc']],"lengthChange": true,
-    // "searching": true,"ordering": true,
-    // "info": true,"scrollX": true,
-    // destroy : true,
-    // // "scrollY":"500px","scrollCollapse": true,
-    // "paging":true,"data": [],
-    // "retrieve": true
-
-
-
-  };
 
 }
 ngAfterViewInit(): void {
-  this.dtTrigger.next();
 }
 
   fetchdataclerks() {
@@ -152,7 +125,7 @@ ngAfterViewInit(): void {
             metadata_captured_documents += parseInt(records['metadata_captured_documents'], 10);
             resubmitted_documents += parseInt(records['resubmitted_documents'], 10);
           }
-          this.redrawTable();
+
           this.allfieldsstatus.push({
             'name': 'Approved',
             'y': parseInt(approved_documents, 10)
@@ -187,8 +160,6 @@ ngAfterViewInit(): void {
 
           this.allfieldsstatus.length = 0;
           this.records = [];
-          this.redrawTable();
-          // this.dtTrigger.next();
           this.toastService.showToastNotification('warning', 'No Records Found Within the Search Criteria', '');
           // this.drawpiechartanalytics([]);
           this.isVisualizationCollapsed = true;
@@ -220,21 +191,13 @@ ngAfterViewInit(): void {
       // dtInstance.draw();
     });
   }
-  redrawTable(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      // dtInstance.draw();
-      dtInstance.draw();
-      // dtInstance.draw();
-    });
-  }
 destroy_chart() {
       const chart = Highcharts.chart('analyticscontainer', {});
       chart.destroy();
      }
   drawpiechartanalytics(chartseriesdata) {
 
-    let seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
+    const seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
     Highcharts.chart('analyticscontainer', {
 
       chart: {
