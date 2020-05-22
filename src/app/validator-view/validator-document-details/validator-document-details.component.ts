@@ -14,17 +14,14 @@ import {ModalDirective} from 'ngx-bootstrap/modal';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 @Component({
   selector: 'app-validator-document-details',
   templateUrl: './validator-document-details.component.html',
   styleUrls: ['./validator-document-details.component.css']
 })
 export class ValidatorDocumentDetailsComponent implements OnInit {
-  @ViewChild(DataTableDirective, {static: false})
   @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
-  dtElement: DataTableDirective;
-  dtOptions: any = {};
-  public dtTrigger = new Subject<any>();
   // records: DocumentsList[] = [];
   records = [];
   doc_keyword: any;
@@ -34,30 +31,55 @@ export class ValidatorDocumentDetailsComponent implements OnInit {
   comments: [];
   commentsearchString: string;
   @ViewChild('createModal') public createModal: ModalDirective;
-  action_list = [
-    {'id': 'approve', 'name': 'Approve'},
-    {'id': 'reject', 'name': 'Reject'},
-  ];
+  // action_list = [
+  //   {'id': 'approve', 'name': 'Approve'},
+  //   {'id': 'reject', 'name': 'Reject'},
+  // ];
+  action_list = [];
+  user_permissions = [];
   public DocumentActivityForm: FormGroup;
-  constructor(private loadingService: LoadingService, public toastService: ToastService, public validatorService: ValidatorService, private route: ActivatedRoute, private formBuilder: FormBuilder, public sweetalertService: SweetalertService, ) {
+  constructor(private loadingService: LoadingService, public toastService: ToastService,
+    public validatorService: ValidatorService, private route: ActivatedRoute,
+     private formBuilder: FormBuilder, public sweetalertService: SweetalertService,
+     private permissionsService: NgxPermissionsService ) {
     this.DocumentActivityForm = this.formBuilder.group({
       action: new FormControl('', Validators.compose([Validators.required])),
       remarks: new FormControl('', Validators.compose([Validators.required])),
     });
+    this.fetch_permissions();
    }
 
   ngOnInit(): void {
    this.request_id = this.route.snapshot.paramMap.get('id');
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      responsive: true,
-      retrieve: true,
-    };
+
     this.fetchRecords(this.request_id);
 
-  }
 
+  }
+  fetch_permissions() {
+    const allowable_approve_roles = 'DATA_ANALYST';
+
+    this.permissionsService.permissions$.subscribe((permissions) => {
+      const assigned_perm = permissions;
+      const keys =  Object.keys(permissions);
+      const permission_key = keys[0];
+      this.user_permissions.push(permission_key);
+  });
+  const can_approve = this.user_permissions.includes(allowable_approve_roles);
+      if (can_approve) {
+       this.action_list = [
+            {'id': 'approve', 'name': 'Approve'},
+            {'id': 'reject', 'name': 'Reject'},
+          ];
+
+      } else {
+        this.action_list = [
+          {'id': 'reject', 'name': 'Reject'},
+        ];
+
+      }
+
+  }
   fetchRecords(request_id) {
     this.loadingService.showloading();
     const payload = {
