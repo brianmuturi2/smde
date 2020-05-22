@@ -36,10 +36,10 @@ export class AuthenticationService {
     this.permissionsService.flushPermissions();
   }
   checkToken() {
-    var token = localStorage.getItem(TOKEN_KEY);
+    const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
-      let decoded = this.helper.decodeToken(token);
-      let isExpired = this.helper.isTokenExpired(token);
+      const decoded = this.helper.decodeToken(token);
+      const isExpired = this.helper.isTokenExpired(token);
       if (!isExpired) {
         this.user = decoded;
         this.authenticationState.next(true);
@@ -70,57 +70,60 @@ export class AuthenticationService {
   getUserDetails() {
     return new Promise((resolve, reject) => {
 
-      var token = localStorage.getItem(TOKEN_KEY);
-      let decoded = this.helper.decodeToken(token);
+      const token = localStorage.getItem(TOKEN_KEY);
+      const decoded = this.helper.decodeToken(token);
       if (token) {
-        var user = decoded;
-        var currentusername = user['username'];
+        const user = decoded;
+        const currentusername = user['username'];
 
         resolve(currentusername);
 
 
 
 
-      }
-      else {
-        reject("No uSER");
+      } else {
+        reject('No uSER');
 
       }
-
-
-
-
-
-
-      //   localStorage.get(TOKEN_KEY).then(token => {
-      //   let decoded = this.helper.decodeToken(token);
-      //   if (token) {
-      //     var user = decoded;
-      //     var currentusername = user['username'];
-
-      //     resolve(currentusername);
-
-
-
-
-      //   }
-
-      // },(error) =>{
-      //   reject("No uSER");
-
-      // }
-      // );
     });
 
   }
+  getuserprofileInfo() {
+    return new Promise((resolve, reject) => {
 
+      const token = localStorage.getItem(TOKEN_KEY);
+      const decoded = this.helper.decodeToken(token);
+      if (token) {
+        const user = decoded;
+        const department = user['department'];
+        const staff = user['staff'];
+        const user_id = user['id'];
+        const response_info = {
+          'department_id': department ,
+          'staff': staff,
+          'user_id':  user_id
+        };
+
+
+        resolve(response_info);
+
+
+
+
+      } else {
+        reject('No uSER');
+
+      }
+    });
+
+  }
   login(credentials) {
     // flush all permissions just in case
     this.flushuserpermissions();
     return this.http.post(loginurl, credentials)
       .pipe(
         tap(res => {
-          var token = res['token'];
+          const token = res['token'];
           localStorage.setItem(TOKEN_KEY, res['token']);
           this.user = this.helper.decodeToken(res['token']);
           this.authenticationState.next(true);
@@ -131,10 +134,10 @@ export class AuthenticationService {
         }),
         catchError(e => {
 
-          var error: any = e.error;
+          const error: any = e.error;
 
-          let status = error.code;
-          let message = error.message;
+          const status = error.code;
+          const message = error.message;
           // this.alertService.showAlert('Error',message,'error');
 
           throw new Error(e.error);
@@ -165,37 +168,36 @@ export class AuthenticationService {
   passwordreset(endpoint, postdata) {
 
     return this.http.post<NavData>(endpoint, postdata).pipe(map(res => {
-      var response: any = res;
-      var code = response.code;
-      var message = response.message;
+      const response: any = res;
+      const code = response.code;
+      const message = response.message;
 
       if (code == 200) {
         return response.recordsfound;
 
-      }
-      else {
+      } else {
         return [];
 
       }
 
     }),
       catchError(e => {
-        var error: any = e.error;
+        const error: any = e.error;
 
 
-        let status = error.code;
-        let message = error.message;
+        const status = error.code;
+        const message = error.message;
         // this.alertService.showAlert('Error',message,'error');
 
         throw new Error(e.error);
 
 
       })
-    )
+    );
 
   }
   getrecords(endpointurl, payload) {
-    let options = {
+    const options = {
       params: payload
     };
     return this.http.get<[]>(endpointurl, options);
