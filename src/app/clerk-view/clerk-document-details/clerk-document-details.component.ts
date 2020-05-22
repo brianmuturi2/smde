@@ -1,14 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
 import { SurveyService } from '../services/survey.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { fetch_document_records_url, fetch_document_record_details_url,
-  edit_document_record_url, clerk_resubmit_document_url} from '../../app.constants';
-import { Subject } from 'rxjs';
-import { DocumentsList } from '../interfaces/survey';
-import { FieldConfig } from '../../dynamic-form/interface/dynamic-interface';
-import { ActivatedRoute } from '@angular/router';
+  edit_document_record_url, clerk_resubmit_document_url, revoke_document_url} from '../../app.constants';
+import { ActivatedRoute, Router } from '@angular/router';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -19,14 +15,11 @@ import { SweetalertService } from '../../common-module/shared-service/sweetalert
   styleUrls: ['./clerk-document-details.component.css']
 })
 export class ClerkDocumentDetailsComponent implements OnInit {
-  @ViewChild(DataTableDirective, {static: false})
   @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
-  dtElement: DataTableDirective;
-  dtOptions: any = {};
-  public dtTrigger = new Subject<any>();
   // records: DocumentsList[] = [];
   records = [];
   doc_keyword: any;
+  formSubmitted = false;
   doc_url_reference: any;
   request_id: any;
   record_instance_id: any;
@@ -34,23 +27,24 @@ export class ClerkDocumentDetailsComponent implements OnInit {
   searchString: string;
   commentsearchString: string;
   @ViewChild('createModal') public createModal: ModalDirective;
+  @ViewChild('editModal') public editModal: ModalDirective;
 
   public DocumentActivityForm: FormGroup;
+  public revokeDocumentForm: FormGroup;
   constructor(private loadingService: LoadingService,
     public toastService: ToastService, public clerkService: SurveyService,
-    private route: ActivatedRoute, private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder,
+    private router: Router,
     public sweetalertService: SweetalertService, ) {
+      this.revokeDocumentForm = this.formBuilder.group({
+        revocation_remarks: new FormControl('',
+         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(1000)])),
+      });
 
    }
 
   ngOnInit(): void {
-   this.request_id = this.route.snapshot.paramMap.get('id');
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      responsive: true,
-      retrieve: true,
-    };
+   this.request_id = this.activatedRoute.snapshot.paramMap.get('id');
     this.fetchRecords(this.request_id);
 
   }
@@ -65,20 +59,11 @@ export class ClerkDocumentDetailsComponent implements OnInit {
        console.log(res);
        this.records = res['document_records'];
        this.comments = res['comments'];
-       console.log(this.comments);
        this.loadingService.hideloading();
-
-       this.dtTrigger.next();
 
      }, (err) => {
        this.loadingService.hideloading();
 
-     });
-   }
-   rerenderTable(): void {
-     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-       // Destroy the table first
-       dtInstance.destroy();
      });
    }
    resubmitdocument() {
@@ -98,8 +83,6 @@ export class ClerkDocumentDetailsComponent implements OnInit {
           }
         });
         this.loadingService.hideloading();
-      } else {
-
       }
     });
   }
@@ -150,8 +133,30 @@ export class ClerkDocumentDetailsComponent implements OnInit {
 
    }
 
+   revokedocument() {
+    this.editModal.show();
+   }
+   request_document_revoke() {
+     if (this.revokeDocumentForm.valid) {
+       const payload = {
+         'document_id': this.request_id,
+         'remarks': this.revokeDocumentForm.value['revocation_remarks'],
+       };
+       this.clerkService.postrecord(revoke_document_url, payload).subscribe((res) => {
+         if (res) {
+           this.sweetalertService.showAlert('Success', 'Document Successfully Revoked', 'success');
+           this.router.navigate(['clerk-view/rejected-documents']);
 
+         }
+       });
 
+     } else {
+       this.formSubmitted =  true;
+       this.toastService.showToastNotification('error',
+       'Kindly Correct the errors to proceed', '');
+     }
+
+   }
 
 
 }

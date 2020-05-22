@@ -82,7 +82,8 @@ export class DocumentFieldListingComponent implements OnInit {
     const params = {
 
     };
-    this.administrationService.getrecords(list_input_types_url, params).subscribe((res) => {
+    this.administrationService.getrecords(list_input_types_url,
+      params).subscribe((res) => {
       this.input_type_list = res;
       this.loadingService.hideloading();
 
@@ -104,7 +105,8 @@ export class DocumentFieldListingComponent implements OnInit {
     } else {
 
       const selected_obj = recordinstance.id;
-      const matchedIndex = this.selectedRow.map(function (obj) { return obj.id; }).indexOf(selected_obj);
+      const matchedIndex = this.selectedRow.map(function (obj) {
+        return obj.id; }).indexOf(selected_obj);
       this.selectedRow.splice(matchedIndex, 1);
 
 
@@ -136,7 +138,8 @@ export class DocumentFieldListingComponent implements OnInit {
       'document_type_id': this.document_type_id,
 
     };
-    this.administrationService.getrecords(list_document_fields_url, params).subscribe((res) => {
+    this.administrationService.getrecords(list_document_fields_url,
+      params).subscribe((res) => {
       this.records = res['fields'];
       this.document_type_name = res['document_type']['name'];
       this.department_name = res['document_type']['department']['name'];
@@ -152,16 +155,21 @@ export class DocumentFieldListingComponent implements OnInit {
       'request_id': objectinstance
     };
 
-    this.administrationService.getrecords(detail_document_fields_url, filter_params).subscribe((res) => {
+    this.administrationService.getrecords(detail_document_fields_url,
+      filter_params).subscribe((res) => {
 
       const forminstance = {
+
         'id': res['id'],
         'name': res['name'],
-        'keyword': res['keyword'],
-        'model': res['model'],
-        'is_visible': this.administrationService.getreverseBoolean(res['is_visible']),
-        'department_id': res['department']['id'],
-
+        'label': res['label'],
+        'input_type': res['input_type'],
+        'field_type': res['field_type'],
+        'options': res['options'],
+        'width': res['width'],
+        'field_no': res['field_no'],
+        'is_mandatory': this.administrationService.getreverseBoolean(res['is_mandatory']),
+        'is_enforced': this.administrationService.getreverseBoolean(res['is_enforced']),
 
       };
       this.editRecordForm.setValue(forminstance);
@@ -175,7 +183,8 @@ export class DocumentFieldListingComponent implements OnInit {
     this.sweetalertService.showConfirmation('Confirmation',
       'Do you wish to proceed deleting record? This process is irreversible').then((res) => {
         if (res) {
-          this.administrationService.deleterecord(delete_document_fields_url, filter_params).subscribe((res) => {
+          this.administrationService.deleterecord(delete_document_fields_url,
+            filter_params).subscribe((res) => {
 
             this.toastService.showToastNotification('success', 'Successfully Deleted', '');
             this.deleteModal.hide();
@@ -198,17 +207,28 @@ export class DocumentFieldListingComponent implements OnInit {
         'Kindly Correct the errors highlighted to proceed', '');
 
     } else {
-      this.sweetalertService.showConfirmation('Confirmation', 'Do you wish to proceed creating record?').then((res) => {
+      this.sweetalertService.showConfirmation('Confirmation',
+      'Do you wish to proceed creating record?').then((res) => {
         if (res) {
           const payload = {
             'name': this.createRecordForm.get('name').value,
-            'keyword': this.createRecordForm.get('keyword').value,
-            'model': this.createRecordForm.get('model').value,
+            'label': this.createRecordForm.get('label').value,
+            'input_type': this.createRecordForm.get('input_type').value,
+            'field_type': this.createRecordForm.get('field_type').value,
+            'options': this.createRecordForm.get('options').value,
+            'width': this.createRecordForm.get('width').value,
+            'field_no': this.createRecordForm.get('field_no').value,
             'department': this.department_id,
-            'is_visible': this.administrationService.getBoolean(this.createRecordForm.get('is_visible').value)
+            'document_type_id': this.document_type_id,
+            'is_mandatory':
+             this.administrationService.getBoolean(this.createRecordForm.get('is_mandatory').value),
+            'is_enforced':
+            this.administrationService.getBoolean(this.createRecordForm.get('is_enforced').value),
+
           };
 
-          this.administrationService.postrecord(create_document_fields_url, payload).subscribe((data) => {
+          this.administrationService.postrecord(create_document_fields_url,
+            payload).subscribe((data) => {
             if (data) {
               this.fetchRecords();
               this.toastService.showToastNotification('success', 'Successfully Created', '');
@@ -225,7 +245,8 @@ export class DocumentFieldListingComponent implements OnInit {
   }
 
   viewDocumentFields(request_id) {
-    this.router.navigate(['administration/document-field-listing', this.department_id , request_id]);
+    this.router.navigate(['administration/document-field-listing',
+     this.department_id , request_id]);
 
   }
   saveEditChanges() {
@@ -240,10 +261,18 @@ export class DocumentFieldListingComponent implements OnInit {
           const payload = {
             'request_id': this.editRecordForm.get('id').value,
             'name': this.editRecordForm.get('name').value,
-            'keyword': this.editRecordForm.get('keyword').value,
-            'model': this.editRecordForm.get('model').value,
-            'department': this.editRecordForm.get('department_id').value,
-            'is_visible': this.administrationService.getBoolean(this.editRecordForm.get('is_visible').value)
+            'label': this.editRecordForm.get('label').value,
+            'input_type': this.editRecordForm.get('input_type').value,
+            'field_type': this.editRecordForm.get('field_type').value,
+            'options': this.editRecordForm.get('options').value,
+            'width': this.editRecordForm.get('width').value,
+            'field_no': this.editRecordForm.get('field_no').value,
+            'department': this.department_id,
+            'document_type_id': this.document_type_id,
+            'is_mandatory':
+             this.administrationService.getBoolean(this.editRecordForm.get('is_mandatory').value),
+            'is_enforced':
+            this.administrationService.getBoolean(this.editRecordForm.get('is_enforced').value),
           };
 
           this.administrationService.updaterecord(edit_document_fields_url, payload).subscribe((data) => {

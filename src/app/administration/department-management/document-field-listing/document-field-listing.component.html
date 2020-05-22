@@ -14,7 +14,7 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Name</label>
             <div class="col-sm-9">
-              <input type="text"  name="name" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="name" required >
+              <input type="text"  name="name" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="name"  >
             </div>
           </div>
           <div class="form-group row">
@@ -22,7 +22,7 @@
             <div class="col-sm-9">
               <input type="text"  name="label" class="form-control form-control-md"
                placeholder="" [ngClass]="{'form-submitted': formSubmitted}" 
-               formControlName="label" required >
+               formControlName="label"  >
             </div>
           </div>
           <div class="form-group row">
@@ -40,13 +40,13 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Field Type</label>
             <div class="col-sm-9">
-              <input type="text"  name="field_type" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_type" required >
+              <input type="text"  name="field_type" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_type"  >
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Options</label>
             <div class="col-sm-9">
-              <textarea class="form-control form-control-md" rows="4" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="options" required>
+              <textarea class="form-control form-control-md" rows="4" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="options">
 
               </textarea>
             </div>
@@ -54,13 +54,13 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Width</label>
             <div class="col-sm-9">
-              <input type="number"  name="width" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="width" required >
+              <input type="number"  name="width" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="width"  >
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Field Number</label>
             <div class="col-sm-9">
-              <input type="number"  name="field_no" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_no" required >
+              <input type="number"  name="field_no" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_no"  >
             </div>
           </div>
           <div class="form-group row">
@@ -68,12 +68,12 @@
             <div class="col-sm-8 col-form-label">
               <div class="form-check form-check-inline mr-1" id="inline-radios">
                 <input class="form-check-input" type="radio" name="is_mandatory" value="true"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory" required checked>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory"  checked>
                 <label class="form-check-label" >Yes</label>
               </div>
               <div class="form-check form-check-inline mr-1">
                 <input class="form-check-input" type="radio" name="is_mandatory" value="false"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory" required>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory" >
                 <label class="form-check-label" >No</label>
                 &nbsp;&nbsp; <div *ngIf="createRecordForm.get('is_mandatory').invalid " class="error-message">
                   Select A Value
@@ -87,12 +87,12 @@
             <div class="col-sm-8 col-form-label">
               <div class="form-check form-check-inline mr-1" id="inline-radios">
                 <input class="form-check-input" type="radio" name="is_enforced" value="true"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced" required checked>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced"  checked>
                 <label class="form-check-label">Yes</label>
               </div>
               <div class="form-check form-check-inline mr-1">
                 <input class="form-check-input" type="radio" name="is_enforced" value="false"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced" required>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced" >
                 <label class="form-check-label">No</label>
                 &nbsp;&nbsp; <div *ngIf="createRecordForm.get('is_enforced').invalid " class="error-message">
                   Select A Value
@@ -129,14 +129,14 @@
           <!-- <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Id</label>
             <div class="col-sm-9"> -->
-              <input type="text"  hidden  name="input-small" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="id" required >
+              <input type="text"  hidden  name="input-small" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="id"  >
             <!-- </div>
           </div> -->
           
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Name</label>
             <div class="col-sm-9">
-              <input type="text"  name="name" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="name" required >
+              <input type="text"  name="name" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="name"  >
             </div>
           </div>
           <div class="form-group row">
@@ -144,7 +144,7 @@
             <div class="col-sm-9">
               <input type="text"  name="label" class="form-control form-control-md"
                placeholder="" [ngClass]="{'form-submitted': formSubmitted}" 
-               formControlName="label" required >
+               formControlName="label"  >
             </div>
           </div>
           <div class="form-group row">
@@ -162,13 +162,13 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Field Type</label>
             <div class="col-sm-9">
-              <input type="text"  name="field_type" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_type" required >
+              <input type="text"  name="field_type" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_type"  >
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Options</label>
             <div class="col-sm-9">
-              <textarea class="form-control form-control-md" rows="4" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="options" required>
+              <textarea class="form-control form-control-md" rows="4" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="options" >
 
               </textarea>
             </div>
@@ -176,13 +176,13 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Width</label>
             <div class="col-sm-9">
-              <input type="number"  name="width" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="width" required >
+              <input type="number"  name="width" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="width"  >
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="input-small">Field Number</label>
             <div class="col-sm-9">
-              <input type="number"  name="field_no" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_no" required >
+              <input type="number"  name="field_no" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="field_no"  >
             </div>
           </div>
           <div class="form-group row">
@@ -190,14 +190,14 @@
             <div class="col-sm-8 col-form-label">
               <div class="form-check form-check-inline mr-1" id="inline-radios">
                 <input class="form-check-input" type="radio" name="is_mandatory" value="true"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory" required checked>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory"  checked>
                 <label class="form-check-label" >Yes</label>
               </div>
               <div class="form-check form-check-inline mr-1">
                 <input class="form-check-input" type="radio" name="is_mandatory" value="false"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory" required>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_mandatory" >
                 <label class="form-check-label" >No</label>
-                &nbsp;&nbsp; <div *ngIf="createRecordForm.get('is_mandatory').invalid " class="error-message">
+                &nbsp;&nbsp; <div *ngIf="editRecordForm.get('is_mandatory').invalid " class="error-message">
                   Select A Value
                 </div>
               </div>
@@ -209,14 +209,14 @@
             <div class="col-sm-8 col-form-label">
               <div class="form-check form-check-inline mr-1" id="inline-radios">
                 <input class="form-check-input" type="radio" name="is_enforced" value="true"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced" required checked>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced"  checked>
                 <label class="form-check-label">Yes</label>
               </div>
               <div class="form-check form-check-inline mr-1">
                 <input class="form-check-input" type="radio" name="is_enforced" value="false"
-                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced" required>
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_enforced" >
                 <label class="form-check-label">No</label>
-                &nbsp;&nbsp; <div *ngIf="createRecordForm.get('is_enforced').invalid " class="error-message">
+                &nbsp;&nbsp; <div *ngIf="editRecordForm.get('is_enforced').invalid " class="error-message">
                   Select A Value
                 </div>
               </div>
@@ -304,22 +304,22 @@
             <th style="width: 2%">
                #
               </th>
-              <th style="width: 20%">
+              <th style="width: 30%">
                 <mfDefaultSorter by="name">Name</mfDefaultSorter>
               </th>
-              <th style="width: 20%">
+              <th style="width: 30%">
                 <mfDefaultSorter by="label">Label</mfDefaultSorter>
               </th>
-              <th style="width: 20%">
+              <th style="width: 30%">
                 <mfDefaultSorter by="keyword">Field Number</mfDefaultSorter>
               </th>
-              <th style="width: 20%">
+              <th style="width: 30%">
                 <mfDefaultSorter by="keyword">Field Type</mfDefaultSorter>
               </th>
-              <th style="width: 20%">
+              <th style="width: 30%">
                 <mfDefaultSorter by="keyword">Input Type</mfDefaultSorter>
               </th>
-              <th style="width: 20%">
+              <th style="width: 30%">
                 <mfDefaultSorter by="model">Mandatory</mfDefaultSorter>
               </th>
               <th style="width: 10%">

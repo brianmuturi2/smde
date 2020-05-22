@@ -1,9 +1,10 @@
 
 // export let serverurl = 'http://192.168.17.232:5600';
-// export let serverurl = 'http://127.0.0.1:8000';
+// export let serverurl = 'http://192.168.18.52:8000';
 // export let serverurl = 'http://192.168.17.240:5600';
-export let serverurl = 'http://192.168.17.243:5600';
+// export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
+export let serverurl = 'http://127.0.0.1:8000';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION + 'edms/clerk-view/upload-document';
@@ -86,3 +87,4 @@ export let delete_document_fields_url = serverurl + API_VERSION + 'edms/document
 export let detail_document_fields_url = serverurl + API_VERSION + 'edms/document-fields-config/detail-view';
 
 export let list_input_types_url = serverurl + API_VERSION + 'edms/document-fields-config/list-input-types';
+export let revoke_document_url = serverurl + API_VERSION + 'edms/document/revoke-document';
