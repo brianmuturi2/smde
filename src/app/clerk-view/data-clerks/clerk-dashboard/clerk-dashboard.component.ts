@@ -5,22 +5,29 @@ import * as Highcharts from 'highcharts';
 import { clerk_analytics_url } from '../../../app.constants';
 import {SurveyService } from '../../services/survey.service';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-clerk-dashboard',
   templateUrl: './clerk-dashboard.component.html',
   styleUrls: ['./clerk-dashboard.component.css']
 })
 export class ClerkDashboardComponent implements OnInit {
-  transactionseries:any= [];
-  monthseries:any= [];
-  tenant_tag:string;
-  uploaded:number;
-  pending:number;
-  approved:number;
-  rejected:number;
+  transactionseries: any = [];
+  monthseries: any = [];
+  tenant_tag: string;
+  uploaded: number;
+  pending: number;
+  approved: number;
+  rejected: number;
+  public filterForm: FormGroup;
 
-  constructor(public surveyService:SurveyService) {
-  
+  constructor(public surveyService: SurveyService, private formBuilder: FormBuilder, ) {
+    this.filterForm = this.formBuilder.group({
+      from_date: new FormControl('', Validators.compose([Validators.required])),
+      to_date: new FormControl('', Validators.compose([Validators.required])),
+      department: new FormControl('', Validators.compose([Validators.required])),
+      users: new FormControl('', Validators.compose([Validators.required])),
+    });
    }
 
   ngOnInit() {
@@ -31,98 +38,98 @@ export class ClerkDashboardComponent implements OnInit {
   // fetchpermissions(){
   //   var permisions = NgxPermissionsService.get
   // }
-  fetchrecordanalytics(){
-    this.surveyService.getrecord(clerk_analytics_url).subscribe((res)=>{
+  fetchrecordanalytics() {
+    this.surveyService.getrecord(clerk_analytics_url).subscribe((res) => {
       this.uploaded = res['uploaded'];
       this.pending = res['pending'];
       this.approved = res['approved'];
       this.rejected = res['rejected'];
 
-      
+
     });
 
   }
 
-  fetchreport(){
-    this.surveyService.getrecord(clerk_analytics_url).subscribe((res)=>{
+  fetchreport() {
+    this.surveyService.getrecord(clerk_analytics_url).subscribe((res) => {
       this.uploaded = res['uploaded'];
       this.pending = res['pending'];
       this.approved = res['approved'];
       this.rejected = res['rejected'];
 
-      
+
     });
     // this.garbagecollectionService.getCollectionvalues().subscribe((response)=>{
-     let response = [
+     const response = [
         {
-            "month":"Jan",
-            "collectionvalue":"100"
+            'month':'Jan',
+            'collectionvalue':'100'
         },
         {
-            "month":"Feb",
-            "collectionvalue":"200"
+            'month':'Feb',
+            'collectionvalue':'200'
         },
         {
-            "month":"Mar",
-            "collectionvalue":"300"
+            'month':'Mar',
+            'collectionvalue':'300'
         },
         {
-            "month":"Apr",
-            "collectionvalue":"500"
+            'month':'Apr',
+            'collectionvalue':'500'
         },
         {
-            "month":"May",
-            "collectionvalue":"300"
+            'month':'May',
+            'collectionvalue':'300'
         },
         {
-            "month":"Jun",
-            "collectionvalue":"340"
+            'month':'Jun',
+            'collectionvalue':'340'
         },
         {
-            "month":"Jul",
-            "collectionvalue":"255"
+            'month':'Jul',
+            'collectionvalue':'255'
         },
-        
+
         {
-            "month":"Aug",
-            "collectionvalue":"267"
-        },
-        {
-            "month":"Sep",
-            "collectionvalue":"189"
+            'month':'Aug',
+            'collectionvalue':'267'
         },
         {
-            "month":"Oct",
-            "collectionvalue":"309"
+            'month':'Sep',
+            'collectionvalue':'189'
         },
         {
-            "month":"Nov",
-            "collectionvalue":"457"
+            'month':'Oct',
+            'collectionvalue':'309'
         },
         {
-            "month":"Dec",
-            "collectionvalue":"250"
+            'month':'Nov',
+            'collectionvalue':'457'
+        },
+        {
+            'month':'Dec',
+            'collectionvalue':'250'
         }
-    
+
     ];
-    
-      let alldata = response;
-      for (let data of alldata){
+
+      const alldata = response;
+      for (const data of alldata) {
         this.monthseries.push(data['month']);
         this.transactionseries.push(
           parseInt(data['collectionvalue']));
-       
+
       }
-      let seriesdata = [{
-        "name":"Total",
-        "data":this.transactionseries
+      const seriesdata = [{
+        'name':'Total',
+        'data': this.transactionseries
       }
 
       ];
-      this.showchart(this.monthseries,seriesdata);
+      this.showchart(this.monthseries, seriesdata);
     // })
   }
-  showchart(monthseriesinfo,transactionseriesinfo){
+  showchart(monthseriesinfo, transactionseriesinfo) {
 
     Highcharts.chart('analyticscontainer', {
       colors: ['#5D2CA4'],
@@ -149,7 +156,7 @@ export class ClerkDashboardComponent implements OnInit {
           y: 100,
           floating: true,
           borderWidth: 1
-         
+
       },
       exporting: {
           buttons: {
@@ -161,7 +168,7 @@ export class ClerkDashboardComponent implements OnInit {
             },
           }
         },
-    
+
       tooltip: {
           shared: true,
           valuePrefix: ''
@@ -174,7 +181,7 @@ export class ClerkDashboardComponent implements OnInit {
               fillOpacity: 0.5
           }
       },
-      series:transactionseriesinfo
+      series: transactionseriesinfo
   });
 
 

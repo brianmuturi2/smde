@@ -55,7 +55,6 @@ export class DataClerkAnalyticsComponent implements OnInit, AfterViewInit {
       from_date: new FormControl('', Validators.compose([Validators.required])),
       to_date: new FormControl('', Validators.compose([Validators.required])),
       department: new FormControl('', Validators.compose([Validators.required])),
-      users: new FormControl('', Validators.compose([Validators.required])),
     });
   }
 
@@ -74,7 +73,7 @@ initializetable() {
       pageLength: 5,
       retrieve: true,
       destroy : true,
-      lengthMenu: [ [ 10, 25, 50, 100, -1], [ 10, 25, 50, 100,'All'] ],
+      lengthMenu: [ [ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, 'All'] ],
       data: [],
       lengthChange: true,
 
@@ -234,7 +233,7 @@ destroy_chart() {
      }
   drawpiechartanalytics(chartseriesdata) {
 
-    let seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
+    const seriesdata: any = [{ name: 'Total', colorByPoint: true, data: chartseriesdata }];
     Highcharts.chart('analyticscontainer', {
 
       chart: {
