@@ -28,6 +28,10 @@ export class ClerkDashboardComponent implements OnInit {
   isFilterCollapsed: boolean = false;
   searchString: string;
   records = [];
+  uploaded = 0;
+  pending = 0;
+  approved = 0;
+  rejected = 0;
   constructor(public surveyService: SurveyService, private formBuilder: FormBuilder,
     public dateService: DateService,
     public loadingService: LoadingService, public toastService: ToastService,
