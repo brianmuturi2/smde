@@ -81,12 +81,13 @@ export const navItems: INavData[] = [
     icon: 'fa fa-users',
     permission: 'BUSINESS_ANALYST',
   },
-  {
-    name: 'CLEANER',
-    url: '/cleaner-view/file-search',
-    icon: 'fa fa-users',
-    permission: 'DATA_CLEANER',
-  },
+  // {
+  //   name: 'CLEANER',
+  //   url: '/cleaner-view/capture-data',
+  //   icon: 'fa fa-credit-card-alt',
+  //   // permission: '',
+  //   permission: 'DATA_CLEANER',
+  // },
 
 
 

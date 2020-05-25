@@ -13,45 +13,64 @@ import { AuthenticationService } from '../../authentication/services/authenticat
 })
 export class CommonProfileComponent implements OnInit {
   public ChangePasswordForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, public sweetalertService: SweetalertService, public toastService: ToastService, public loadingService: LoadingService, public administrationService: AdministrationService,public authenticationService:AuthenticationService) {
+  action_required_menu = false;
+  newpasswordFieldType: boolean;
+  current_passwordFieldType: boolean;
+  confirm_passwordFieldType: boolean;
+  constructor(private formBuilder: FormBuilder,
+     public sweetalertService: SweetalertService, public toastService: ToastService,
+      public loadingService: LoadingService,
+      public administrationService: AdministrationService,
+      public authenticationService: AuthenticationService) {
     this.ChangePasswordForm = this.formBuilder.group({
       current_password: new FormControl('', Validators.compose([Validators.required])),
       new_password: new FormControl('', Validators.compose([Validators.required])),
       confirm_password: new FormControl('', Validators.compose([Validators.required])),
 
     });
+    this.action_required_menu =  this.authenticationService.requiresPasswordChange();
 
 
 
   }
+  togglenewpasswordFieldType() {
+    this.newpasswordFieldType = !this.newpasswordFieldType;
+  }
+  togglecurrent_passwordFieldType() {
+    this.current_passwordFieldType = !this.current_passwordFieldType;
+  }
+  toggleconfirm_passwordFieldType() {
+    this.confirm_passwordFieldType = !this.confirm_passwordFieldType;
+  }
+
+
   changepassword() {
 
     if (this.ChangePasswordForm.valid) {
 
-      let payload = {
-        "current_password": this.ChangePasswordForm.value['current_password'],
-        "new_password": this.ChangePasswordForm.value['new_password'],
-        "confirm_password": this.ChangePasswordForm.value['confirm_password']
-      }
+      const payload = {
+        'current_password': this.ChangePasswordForm.value['current_password'],
+        'new_password': this.ChangePasswordForm.value['new_password'],
+        'confirm_password': this.ChangePasswordForm.value['confirm_password']
+      };
       this.loadingService.showloading();
       this.administrationService.postrecord(change_password_url, payload).subscribe((res) => {
         if (res) {
           this.loadingService.hideloading();
           this.ChangePasswordForm.reset();
-          this.sweetalertService.showAlert("Success", "Password Has been Changed Successfully,Log out to effect", "success");
-         
+          this.sweetalertService.showAlert('Success', 'Password Has been Changed Successfully,Log out to effect', 'success');
+          this.authenticationService.logout();
+
           // this.authenticationService.logout();
 
-        }
-        else{
+        } else {
           this.loadingService.hideloading();
         }
-      })
+      });
 
 
-    }
-    else {
-      this.toastService.showToastNotification("error", "KIndly correct the errors highlighted to proceed", "")
+    } else {
+      this.toastService.showToastNotification('error', 'KIndly correct the errors highlighted to proceed', '');
       this.administrationService.markFormAsDirty(this.ChangePasswordForm);
 
     }

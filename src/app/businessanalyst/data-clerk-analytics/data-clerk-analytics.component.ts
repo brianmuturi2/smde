@@ -54,6 +54,7 @@ export class DataClerkAnalyticsComponent implements OnInit, AfterViewInit {
     this.filterForm = this.formBuilder.group({
       from_date: new FormControl('', Validators.compose([Validators.required])),
       to_date: new FormControl('', Validators.compose([Validators.required])),
+      users: new FormControl('', Validators.compose([Validators.required])),
       department: new FormControl('', Validators.compose([Validators.required])),
     });
   }
@@ -77,6 +78,7 @@ ngAfterViewInit(): void {
     };
     this.analyticsService.getrecords(list_data_clerks_url, params).subscribe((res) => {
       this.all_users = res;
+      console.log(this.all_users);
     });
   }
   fetchdepartments() {

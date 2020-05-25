@@ -1,12 +1,12 @@
 <div class="row">
    
-    <!--/.col-->
+  
     <div class="col-6 col-lg-3">
       <div class="card">
         <div class="card-body p-3 clearfix">
           <i class="fa fa-book bg-primary p-3 font-2xl mr-3 float-left"></i>
-          <div class="h5 text-primary mb-0 mt-2">{{uploaded}}</div>
-          <div class="text-muted text-uppercase font-weight-bold font-xs">Uploaded</div>
+          <div class="h5 text-primary mb-0 mt-2">Uploaded</div>
+          <!-- <div class="text-muted text-uppercase font-weight-bold font-xs">Uploaded</div> -->
         </div>
         <div class="card-footer px-3 py-2">
           <a class="font-weight-bold font-xs btn-block text-muted" href="/#/clerk-view/my-document">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
@@ -18,8 +18,8 @@
       <div class="card">
         <div class="card-body p-3 clearfix">
           <i class="fa fa-battery-1 bg-warning p-3 font-2xl mr-3 float-left"></i>
-          <div class="h5 text-info mb-0 mt-2">{{pending}}</div>
-          <div class="text-muted text-uppercase font-weight-bold font-xs">Pending</div>
+          <div class="h5 text-info mb-0 mt-2">Pending</div>
+          <!-- <div class="text-muted text-uppercase font-weight-bold font-xs">Pending</div> -->
         </div>
         <div class="card-footer px-3 py-2">
           <a class="font-weight-bold font-xs btn-block text-muted" href="/#/clerk-view/pending-validation">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
@@ -31,8 +31,8 @@
       <div class="card">
         <div class="card-body p-3 clearfix">
           <i class="fa fa-check-square-o bg-success p-3 font-2xl mr-3 float-left"></i>
-          <div class="h5 text-warning mb-0 mt-2">{{approved}}</div>
-          <div class="text-muted text-uppercase font-weight-bold font-xs">Approved</div>
+          <div class="h5 text-warning mb-0 mt-2">Approved</div>
+          <!-- <div class="text-muted text-uppercase font-weight-bold font-xs">Approved</div> -->
         </div>
         <div class="card-footer px-3 py-2">
        <a class="font-weight-bold font-xs btn-block text-muted" href="/#/clerk-view/approved-documents">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
@@ -44,8 +44,8 @@
       <div class="card">
         <div class="card-body p-3 clearfix">
           <i class="fa fa-window-close bg-danger p-3 font-2xl mr-3 float-left"></i>
-          <div class="h5 text-danger mb-0 mt-2">{{rejected}}</div>
-          <div class="text-muted text-uppercase font-weight-bold font-xs">Rejected</div>
+          <div class="h5 text-danger mb-0 mt-2">Rejected</div>
+          <!-- <div class="text-muted text-uppercase font-weight-bold font-xs">Rejected</div> -->
         </div>
         <div class="card-footer px-3 py-2">
           <a class="font-weight-bold font-xs btn-block text-muted" href="/#/clerk-view/rejected-documents">View More <i class="fa fa-angle-right float-right font-lg"></i></a>
@@ -94,7 +94,7 @@
         </div>
       </form>
         
-              <div id="analyticscontainer" style="min-width: 310px; height: 400px; max-width: 900px; margin: 0 auto"></div>
+          
               
             
             </div>
@@ -102,4 +102,88 @@
     
     </div>
   </div>
-  
+  <div class="card">
+    <div class="card-header" (click)="isVisualizationCollapsed = !isVisualizationCollapsed"
+    [attr.aria-expanded]="!isVisualizationCollapsed" >
+      <strong>Visualization</strong>
+    </div>
+    <div class="card-body" [collapse]="isVisualizationCollapsed" [isAnimated]="true">
+      <div id="analyticscontainer" style="min-width: 310px; height: 400px; max-width: 900px; margin: 0 auto"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" (click)="isTabularCollapsed = !isTabularCollapsed"
+    [attr.aria-expanded]="!isTabularCollapsed">
+      <strong>Tabular Format</strong>
+    </div>
+    <div class="card-body" [collapse]="isTabularCollapsed" [isAnimated]="true" >
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4 offset-md-8">
+          <div class="input-group">
+            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+            <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="searchString">
+          </div>
+        </div>
+        </div>
+        <br>
+        <div class="table-responsive">
+      <table  [mfData]="records" #mf="mfDataTable"
+      [mfRowsOnPage]="10"
+      class="table table-bordered table-striped  row-border hover" >
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Full Name</th>
+          <th>Username</th>
+          <th>Department</th>
+          <th>Document Status</th>
+          <!-- <th>Uploaded</th>
+          <th>Metadata Captured</th>
+          <th>Approved</th>
+          <th>Rejected</th>
+          <th>Revoked</th> -->
+          <th>Total</th>
+          <!-- <th>Action</th> -->
+        </tr>
+      </thead>
+      <tbody *ngIf="records?.length != 0">
+        <tr *ngFor="let recordinstance of mf.data | filter : searchString ; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{ recordinstance.user__first_name}}  {{recordinstance.user__last_name}}</td>
+          <td>{{ recordinstance.user__username }}</td>
+          <td>{{ recordinstance.document__department__name }}</td>
+          <td>{{ recordinstance.document_status }}</td>
+          <!-- <td>{{ recordinstance.uploaded_documents }}</td>
+          <td>{{ recordinstance.metadata_captured_documents }}</td>
+          <td>{{ recordinstance.approved_documents }}</td>
+          <td>{{ recordinstance.rejected_documents }}</td>
+          <td>{{ recordinstance.revoked_documents }}</td> -->
+          <td>{{ recordinstance.total_count }}</td>
+        </tr>
+        
+        <tr >
+          
+          <td>Total Documents</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+          <td>{{ total_documents }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="12">
+            Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,100,1000]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody *ngIf="records?.length == 0">
+        <tr>
+          <td colspan="9" class="no-data-available">No records to show</td>
+        </tr>
+      <tbody>
+    </table>
+    </div>
+    </div>
+  </div>

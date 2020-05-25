@@ -4,7 +4,7 @@
         <strong>Document Listing</strong>
       </div>
       <div class="card-body">
-        <form [formGroup]="searchForm">
+        <form [formGroup]="searchForm" (ngSubmit)="filterdocuments()">
         <div class="row">
          
           <div class="form-group col-sm-6">
@@ -13,7 +13,7 @@
           </div>
           <div class="form-group col-sm-3">
             <label for="country">&nbsp;&nbsp;</label>
-            <button type="button" class="btn form-control  btn-success btn-md " (click)="filterdocuments()" > <i
+            <button type="submit" class="btn form-control  btn-success btn-md "> <i
                 class="fa fa-search"></i> Search </button>
           </div>
        

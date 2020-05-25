@@ -21,6 +21,7 @@ export class DocumentPreviewComponent implements OnInit {
   public documentTypeForm: FormGroup;
   formInputRecords = [];
   searchString: string;
+  documenttypeformstatus = false;;
   public show_edit: boolean = false;
   surveyrecord_info: any = {};
   preview_file: string = '';
@@ -74,7 +75,7 @@ export class DocumentPreviewComponent implements OnInit {
     };
      this.surveyService.getrecorddetail(document_detail_url, params).subscribe((res) => {
       //  this.records = res;
-      let alldocs = res;
+      const alldocs = res;
        this.preview_file = alldocs['document'];
        this.loadingService.hideloading();
 
@@ -91,14 +92,14 @@ export class DocumentPreviewComponent implements OnInit {
     return true;
 }
 deleteRow(index) {
-  let selected_obj = index.id;
-  let matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
+  const selected_obj = index.id;
+  const matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
   this.formInputRecords.splice(matchedIndex, 1);
 
 }
   editRow(index) {
-    let selected_obj = index.id;
-    let matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
+    const selected_obj = index.id;
+    const matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
     this.show_edit = true;
     this.inputForm.setControlValue(index);
     this.formInputRecords.splice(matchedIndex, 1);
@@ -116,7 +117,7 @@ deleteRow(index) {
       } else {
         this.sweetalertsService.showConfirmation('Data Submission', 'Do you to proceed saving the records?').then((res) => {
           if (res) {
-            let records_passed = {
+            const records_passed = {
               'document_id': this.tenant_client,
               'document_keyword': this.documentTypeForm.value['document_type'],
               'metadata_records': this.formInputRecords
