@@ -23,6 +23,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { AdministrationManagementBaseComponent } from '../../administration/containers/administration-management-base/administration-management-base.component';
 import { CommonErrorComponent } from '../../containers/common-error/common-error.component';
 import { CommonHeaderComponent } from '../../containers/common-header/common-header.component';
@@ -72,6 +73,7 @@ import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-neste
     ModalModule,
     DataTableModule,
     NgbModule,
+    NgSelectModule,
     DynamicNestedFormModule,
 
   ],
@@ -97,6 +99,7 @@ import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-neste
     ModalModule,
     DataTableModule,
     NgbModule,
+    NgSelectModule,
     CommonErrorComponent,
     CommonLoaderComponent,
     CommonFooterComponent, CommonHeaderComponent,

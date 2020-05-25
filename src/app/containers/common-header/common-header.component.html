@@ -11,7 +11,12 @@
     </li>
   </ul>
   <ul class="nav navbar-nav ml-auto">
-    Logged In as {{loggedinusername}}
+  <strong>
+<span class="text-primary">{{department_name}}</span>  |
+  <span class="text-success">Logged in as : {{loggedinusername}}</span>
+    </strong>
+
+
     <li class="nav-item dropdown" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
         <img src="assets/kenya.png" class="img-avatar" alt="more settings"/>

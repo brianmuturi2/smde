@@ -40,13 +40,21 @@
             </div>
             <div class="form-group col-sm-3">
               <label for="country">User</label>
-              <select class="form-control" formControlName="users"
-                [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.users.errors }">
-                <option value="all">-- All --</option>
-                <option *ngFor="let user of all_users" value={{user.id}}> {{user.username}} -- {{user.first_name}}
-                  {{user.last_name}} </option>
   
-              </select>
+              <ng-select
+              [searchable]="true" 
+              [clearable]="true"
+             
+              formControlName="users"
+              name = "users"
+              [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.users.errors }" 
+              >
+              <ng-option [value]="user.id"  *ngFor="let user of all_users">
+                
+                {{user.username}} -- {{user.first_name}}
+                {{user.last_name}}
+              </ng-option>
+    </ng-select>
               <error-message [control]="filterForm.controls.users" *ngIf="filterformstatus"></error-message>
             </div>
             <div class="form-group col-sm-2">

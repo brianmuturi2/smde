@@ -33,7 +33,7 @@ interface NavAttributes {
   export const navItems: NavData[] = [
     {
       title: true,
-      name: 'Clerk Menu'
+      name: 'Cleaning Menu'
     },
     {
       name: 'Document',
@@ -57,8 +57,9 @@ interface NavAttributes {
         {
           name: 'Check List',
           url: '/cleaner-view/capture-data',
-          icon: 'fa fa-exchange',
-          permission: 'DATA_CLEANER'
+          icon: 'fa fa-credit-card-alt',
+          // permission: 'DATA_CLEANER'
+          permission: ''
         },
 
       ]

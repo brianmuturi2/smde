@@ -25,30 +25,30 @@ const routes: Routes = [
     },
     // canActivate: [AuthenticationGuard],
   },
-  {
-    path: 'file-search',
-    component: FileSearchComponent,
-    data: {
-      title: 'File Search',
-      // permissions: {
-      //   only: ['DATA_CLERK'],
-      //     redirectTo: '/500'
-      //       }
-    },
-    // canActivate: [AuthenticationGuard],
-  },
-  {
-    path: 'capture-data',
-    component: CleanerCaptureDataComponent,
-    data: {
-      title: 'Document Capture',
-      // permissions: {
-      //   only: ['DATA_CLERK'],
-      //     redirectTo: '/500'
-      //       }
-    },
-    // canActivate: [AuthenticationGuard],
-  },
+  // {
+  //   path: 'file-search',
+  //   component: FileSearchComponent,
+  //   data: {
+  //     title: 'File Search',
+  //     // permissions: {
+  //     //   only: ['DATA_CLERK'],
+  //     //     redirectTo: '/500'
+  //     //       }
+  //   },
+  //   // canActivate: [AuthenticationGuard],
+  // },
+  // {
+  //   path: 'capture-data',
+  //   component: CleanerCaptureDataComponent,
+  //   data: {
+  //     title: 'Document Capture',
+  //     // permissions: {
+  //     //   only: ['DATA_CLERK'],
+  //     //     redirectTo: '/500'
+  //     //       }
+  //   },
+  //   // canActivate: [AuthenticationGuard],
+  // },
     ]
   }
 ];

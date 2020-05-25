@@ -3,8 +3,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { CleanerService } from '../services/cleaner.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
-import { filter_document_by_file_url,
-  fetch_document_records_url, fetch_document_record_details_url } from '../../app.constants';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
+import { filter_document_by_file_url, fetch_user_document_types_url,
+  fetch_document_records_url, fetch_document_record_details_url, cleaner_post_validation_data_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentList } from '../interfaces/cleaner';
 import { Router } from '@angular/router';
@@ -25,33 +26,26 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   public datacleaningForm: FormGroup;
   public isDocumentSearchCollapsed = false;
   public isDocumentTypeCollapsed = false;
-  public parcelformstatus  = false;
+  public parceldetailsformstatus  = false;
+  public parcelownershipformstatus  = false;
   public documenttypeformstatus  = false;
+  public remarkformstatus  = false;
   records: DocumentList[] = [];
   public DocumentTypeForm: FormGroup;
-  public parcelForm: FormGroup;
-  department_documents = [
-    {
-    'id': 'certificateoftitle',
-    'name': 'Certificate of Title'
-  },
-  {
-    'id': 'grant',
-    'name': 'Grant'
-  },
-  {
-    'id': 'leasedocument',
-    'name': 'Lease Document'
-  }
-];
+  public parcelDetailsForm: FormGroup;
+  public parcelOwnershipForm: FormGroup;
+  public remarksForm: FormGroup;
+
+
+  department_documents = [];
 validation_status = [
   {
-    'id': 'yes',
-    'name': 'Yes'
+    'id': 'YES',
+    'name': 'YES'
   },
   {
-    'id': 'no',
-    'name': 'No'
+    'id': 'NO',
+    'name': 'NO'
   }
 ];
 parcel_numbering_type = [
@@ -71,17 +65,80 @@ parcel_numbering_type = [
 ];
 ownership_type = [
   {
-    'id': 'INDIVIDUAL',
-    'name': 'INDIVIDUAL'
+    'id': 'SOLE',
+    'name': 'SOLE'
   },
   {
-    'id': 'COMPANY',
-    'name': 'COMPANY'
+    'id': 'JOINT',
+    'name': 'JOINT'
   },
   {
-    'id': 'JOINT_TENURESHIP',
-    'name': 'JOINT TENURESHIP'
+    'id': 'COMMON',
+    'name': 'COMMON'
   },
+
+];
+owner_identification_type = [
+  {
+    'id': 'NATIONAL_ID',
+    'name': 'National Identification Number'
+  },
+  {
+    'id': 'PASSPORT',
+    'name': 'Passport'
+  },
+  {
+    'id': 'BUSINESS_REGISTRATION_NUMBER',
+    'name': 'Business Registration Number'
+  },
+
+];
+document_general_status = [
+  {
+    'id': 'FINAL_APPROVAL',
+    'name': 'Approved'
+  },
+  {
+    'id': 'REJECTED',
+    'name': 'Rejected'
+  },
+  {
+    'id': 'AWAITING_CONFIRMATION',
+    'name': 'Awaiting Confirmation'
+  },
+  {
+    'id': 'PENDING_LIMS_CONFIRMATION',
+    'name': 'Pending LIMS Confirmation'
+  },
+
+];
+parcel_status = [
+  {
+    'id': 'ACTIVE',
+    'name': 'Active'
+  },
+  {
+    'id': 'REVOKED',
+    'name': 'Revoked'
+  },
+  {
+    'id': 'CANCELLED',
+    'name': 'Cancelled'
+  }, {
+    'id': 'SUSPENDED',
+    'name': 'Suspended'
+  }
+
+];
+system = [
+  {
+    'id': 'EDMS',
+    'name': 'EDMS'
+  },
+  {
+    'id': 'LIMS',
+    'name': 'LIMS'
+  }
 
 ];
 document_details = [];
@@ -98,7 +155,8 @@ document_details = [];
   request_id: any;
   constructor(private router: Router, private loadingService: LoadingService,
      public toastService: ToastService, public cleanerService: CleanerService,
-     private formBuilder: FormBuilder, ) {
+     private formBuilder: FormBuilder,
+     public sweetalertService: SweetalertService ) {
     this.searchForm = this.formBuilder.group({
       search_value: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
@@ -113,35 +171,50 @@ document_details = [];
       validity_status: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
     });
-    this.parcelForm = this.formBuilder.group({
+    this.parcelDetailsForm = this.formBuilder.group({
       parcel_numbering_type: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
       parcel_prefix: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
       parcel_number: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-      parcel_owner_type: new FormControl('',
+      block_number: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-      parcel_owner_identification_number: new FormControl('',
-       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-      parcel_owner: new FormControl('',
+
+      parcel_owner_type: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
       file_number: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
       parcel_status: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
     });
+    this.parcelOwnershipForm = this.formBuilder.group({
+      parcel_system: new FormControl('',
+      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+      parcel_owner_identification_type: new FormControl('',
+       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+       parcel_owner_identification_number: new FormControl('',
+       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+       parcel_owner_name: new FormControl('',
+      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+    });
+    this.remarksForm = this.formBuilder.group({
+      remarks: new FormControl('',
+       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+      general_status: new FormControl('',
+      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+    });
    }
 
   ngOnInit(): void {
-
+this.fetchdocumenttypes();
 
 
   }
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;
   }
-  addRow() {
+  addDocumenttypeRow() {
     if (this.DocumentTypeForm.valid) {
       this.documenttypeformstatus = false;
     const payload = this.DocumentTypeForm.value;
@@ -154,43 +227,43 @@ document_details = [];
     this.documenttypeformstatus = true;
   }
 }
-deleteRow(index) {
+deleteDocumenttypeRow(index) {
   const selected_obj = index.id;
   const matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
   this.formInputRecords.splice(matchedIndex, 1);
 
 }
-  editRow(index) {
+  editDocumenttypeRow(index) {
     const selected_obj = index.id;
     const matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
     this.DocumentTypeForm.patchValue(index);
     this.formInputRecords.splice(matchedIndex, 1);
 
   }
-  addparcelRow() {
-    if (this.parcelForm.valid) {
-      this.parcelformstatus = false;
-      const payload = this.parcelForm.value;
+  addparcelownerRow() {
+    if (this.parcelOwnershipForm.valid) {
+      this.parcelownershipformstatus = false;
+      const payload = this.parcelOwnershipForm.value;
       payload['id'] = Number(new Date());
       this.parcelInputRecords.push(payload);
 
-      this.parcelForm.reset();
+      this.parcelOwnershipForm.reset();
       return true;
     } else {
-      this.parcelformstatus = true;
+      this.parcelownershipformstatus = true;
     }
 
 }
-deleteparcelRow(index) {
+deleteparcelownerRow(index) {
   const selected_obj = index.id;
   const matchedIndex = this.parcelInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
   this.parcelInputRecords.splice(matchedIndex, 1);
 
 }
-  editparcelRow(index) {
+  editparceownerlRow(index) {
     const selected_obj = index.id;
     const matchedIndex = this.parcelInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
-    this.parcelForm.patchValue(index);
+    this.parcelOwnershipForm.patchValue(index);
     this.parcelInputRecords.splice(matchedIndex, 1);
 
   }
@@ -221,6 +294,14 @@ deleteparcelRow(index) {
 
    ngOnDestroy() {
 
+}
+fetchdocumenttypes() {
+  const payload = {
+
+  };
+  this.cleanerService.getrecord(fetch_user_document_types_url, payload ).subscribe((records) => {
+    this.department_documents = records;
+  });
 }
    viewdetails(request_id) {
      this.selectTab(1);
@@ -263,7 +344,7 @@ deleteparcelRow(index) {
     this.createModal.show();
 
   }
-  approveparcel() {
+  submitparcel() {
     const doc_type_length = this.formInputRecords.length;
     const parcel_length = this.parcelInputRecords.length;
     if (doc_type_length <= 0) {
@@ -274,7 +355,54 @@ deleteparcelRow(index) {
     } else if (parcel_length <= 0) {
       this.toastService.showToastNotification('error', 'Atleast One Parcel Record Is required', '');
       this.selectTab(3);
-      this.parcelformstatus = true;
+      this.parcelownershipformstatus = true;
+    } else if (!this.parcelDetailsForm.valid) {
+      this.toastService.showToastNotification('error', 'Kindly Correct the errors highlighted to proceed', '');
+      this.selectTab(3);
+      this.parceldetailsformstatus = true;
+    } else if (!this.remarksForm.valid) {
+      this.toastService.showToastNotification('error', 'Kindly Correct the errors highlighted to proceed', '');
+      this.selectTab(4);
+      this.remarkformstatus = true;
+    } else {
+      const payload = {
+        'parcel_info': {
+          'file_no': this.parcelDetailsForm.value['file_number'],
+        'parcel_numbering_type': this.parcelDetailsForm.value['parcel_numbering_type'],
+        'parcel_prefix': this.parcelDetailsForm.value['parcel_prefix'],
+        'parcel_number': this.parcelDetailsForm.value['parcel_number'],
+        'block_number': this.parcelDetailsForm.value['block_number'],
+        'parcel_ownership_type': this.parcelDetailsForm.value['parcel_owner_type'],
+        'parcel_status': this.parcelDetailsForm.value['parcel_status']
+        },
+        'document_type_details': this.formInputRecords,
+        'parcel_owners': this.parcelInputRecords,
+        'cleaning_section': {
+          'remarks': this.remarksForm.value['remarks'],
+        'general_status': this.remarksForm.value['general_status'],
+        },
+
+
+
+
+      };
+      this.sweetalertService.showConfirmation('Confirmation',
+      'Do you wish to proceed submitting the data').then((res) => {
+        if (res) {
+          this.cleanerService.postrecord(cleaner_post_validation_data_url, payload).subscribe((res) => {
+            if (res) {
+              this.sweetalertService.showAlert('Success', 'Successfully Submitted', 'success');
+              this.parcelDetailsForm.reset();
+              this.remarksForm.reset();
+              this.formInputRecords = [];
+              this.parcelInputRecords = [];
+              this.document_details = [];
+              this.selectTab(0);
+
+            }
+          });
+        }
+      });
     }
 
 
@@ -285,9 +413,9 @@ deleteparcelRow(index) {
         'file_number': file_number
 
       };
-      this.parcelForm.patchValue(new_form_data);
+      this.parcelDetailsForm.patchValue(new_form_data);
 
   }
-  saveformData(){}
+  saveformData() {}
 
 }

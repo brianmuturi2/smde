@@ -9,6 +9,7 @@ import { RejectedDocumentsComponent } from '../rejected-documents/rejected-docum
 import { ApprovedDocumentsComponent } from '../approved-documents/approved-documents.component';
 import { PendingDocumentsComponent } from '../pending-documents/pending-documents.component';
 import { AuthenticationGuard } from '../../authentication/guards/authguard.guard';
+import { ChangePasswordGuard } from '../../authentication/guards/change-password.guard';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
 import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view-base.component';
 import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: '',
     component: ClerkViewBaseComponent,
+    canActivate: [AuthenticationGuard, ChangePasswordGuard],
 
     children: [
   {
@@ -32,7 +34,7 @@ const routes: Routes = [
         redirectTo: '/500'
           }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
   {
     path: 'upload-file',
@@ -44,7 +46,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
   {
     path: 'document-preview/:id',
@@ -56,7 +58,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
   {
     path: 'document-detail/:id',
@@ -68,7 +70,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
   {
     path: 'pending-validation',
@@ -80,7 +82,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
   {
     path: 'my-document',
@@ -92,7 +94,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
   {
     path: 'rejected-documents',
@@ -104,7 +106,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
   {
     path: 'resubmitted-documents',
@@ -116,7 +118,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
 
   {
@@ -129,7 +131,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-    canActivate: [AuthenticationGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
     ]
   }

@@ -77,13 +77,13 @@ export const navItems: NavData[] = [
   {
     name: 'My Profile',
     url: '/profile',
-    icon: 'fa fa-re-vi'
+    icon: 'fa fa-street-view'
   }
 
-  
-
-  
 
 
-  
+
+
+
+
 ];

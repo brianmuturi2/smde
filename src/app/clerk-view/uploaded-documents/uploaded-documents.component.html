@@ -6,7 +6,7 @@
       <div class="card-body">
        
         <div class="row">
-          <div class="col-sm-4 col-md-4 col-lg-4 offset-md-8">
+          <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
             <div class="input-group">
               <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
               <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="searchString">
@@ -19,7 +19,7 @@
         
         <table [mfData]="records" #mf="mfDataTable"
         [mfRowsOnPage]="10"
-          class="table table-bordered table-striped row-border hover" style="width:100%">
+          class="table table-bordered table-sm table-striped row-border hover" style="width:100%">
           <thead>
             <tr>
               <th>#</th>
@@ -50,7 +50,7 @@
           <tfoot>
             <tr>
               <td colspan="12">
-                Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,100]"></mfBootstrapPaginator>
+                Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,100,250,1000]"></mfBootstrapPaginator>
               </td>
             </tr>
           </tfoot>

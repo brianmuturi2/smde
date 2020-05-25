@@ -28,7 +28,7 @@ export class AuthenticationService {
 
   user = null;
   authenticationState = new BehaviorSubject(false);
-
+  changepasswordState = new BehaviorSubject(false);
   constructor(private http: HttpClient, private helper: JwtHelperService, private permissionsService: NgxPermissionsService, ) {
     this.checkToken();
   }
@@ -42,6 +42,7 @@ export class AuthenticationService {
       const isExpired = this.helper.isTokenExpired(token);
       if (!isExpired) {
         this.user = decoded;
+
         this.authenticationState.next(true);
       } else {
         // localStorage.remove(TOKEN_KEY);
@@ -95,13 +96,22 @@ export class AuthenticationService {
       const decoded = this.helper.decodeToken(token);
       if (token) {
         const user = decoded;
-        const department = user['department'];
+        const department_id = user['department_id'];
         const staff = user['staff'];
         const user_id = user['id'];
+        const currentusername = user['username'];
+        const department_name = user['department_name'];
+        const password_change_status = user['password_change_status'];
+        this.changepasswordState.next(password_change_status);
+
+
+
         const response_info = {
-          'department_id': department ,
+          'department_id': department_id,
+          'department_name': department_name,
           'staff': staff,
-          'user_id':  user_id
+          'user_id':  user_id,
+          'currentusername': currentusername
         };
 
 
@@ -126,6 +136,7 @@ export class AuthenticationService {
           const token = res['token'];
           localStorage.setItem(TOKEN_KEY, res['token']);
           this.user = this.helper.decodeToken(res['token']);
+          this.changepasswordState.next(this.user['password_change_status']);
           this.authenticationState.next(true);
           return true;
 
@@ -162,6 +173,9 @@ export class AuthenticationService {
 
   isAuthenticated() {
     return this.authenticationState.value;
+  }
+  requiresPasswordChange() {
+    return this.changepasswordState.value;
   }
 
 
