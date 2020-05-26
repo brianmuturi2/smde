@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import  { FixedBoundaryCard} from '../interfaces/survey';
 import {SurveyService } from '../services/survey.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
-import { document_detail_url, serverurl, fixed_boundary_document_post, fetch_user_document_types_url , fetch_document_type_fields_url, post_document_fields_url} from '../../app.constants';
+import { document_detail_url, serverurl,
+   fixed_boundary_document_post, fetch_user_document_types_url ,
+   fetch_document_type_fields_url, post_document_fields_url} from '../../app.constants';
 import { DocumentsList } from '../interfaces/survey';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,7 +23,7 @@ export class DocumentPreviewComponent implements OnInit {
   public documentTypeForm: FormGroup;
   formInputRecords = [];
   searchString: string;
-  documenttypeformstatus = false;;
+  documenttypeformstatus = false;
   public show_edit: boolean = false;
   surveyrecord_info: any = {};
   preview_file: string = '';
@@ -29,7 +31,9 @@ export class DocumentPreviewComponent implements OnInit {
   document_list_items = [];
   tenant_client: string;
   reference_serial_number: string;
-  constructor(private router: Router, public sweetalertsService: SweetalertService, private loadingService: LoadingService, private formBuilder: FormBuilder, public surveyService: SurveyService, private toastService: ToastService, private route: ActivatedRoute, ) {
+  constructor(private router: Router, public sweetalertsService: SweetalertService,
+    private loadingService: LoadingService, private formBuilder: FormBuilder,
+    public surveyService: SurveyService, private toastService: ToastService, private route: ActivatedRoute, ) {
     this.documentTypeForm = this.formBuilder.group({
       document_type: new FormControl('', Validators.compose([Validators.required])),
     });
@@ -55,6 +59,7 @@ export class DocumentPreviewComponent implements OnInit {
 
   }
   fetchdocumenttypeform(value) {
+    console.log(value);
     const payload = {
       'doc_key_word': value
     };
