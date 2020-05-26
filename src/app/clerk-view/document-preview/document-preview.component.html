@@ -38,12 +38,13 @@
                       [clearable]="true"
                       
                      
-                      formControlName="document_type"
+                      
                       name = "document_type"
                       [ngClass]="{ 'is-invalid': documenttypeformstatus &amp;&amp; documentTypeForm.controls.document_type.errors }" 
-                      (change)="fetchdocumenttypeform($event.target.value)"
+                      (change)="fetchdocumenttypeform($event)"
+                      formControlName="document_type"
                       >
-                      <ng-option [value]="doc_types.id"  *ngFor="let doc_types of document_list_items">
+                      <ng-option value="{{doc_types.id}}"  *ngFor="let doc_types of document_list_items">
                         
                           {{doc_types.name}}
                       </ng-option>
