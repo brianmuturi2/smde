@@ -52,20 +52,31 @@ export class DocumentPreviewComponent implements OnInit {
 
     };
     this.surveyService.getrecorddetail(fetch_user_document_types_url, payload).subscribe((res) => {
-      console.log('ssdsdsdsdsd', res);
       // this.document_list_items.push(res);
       this.document_list_items = res;
     });
 
   }
   fetchdocumenttypeform(value) {
-    console.log(value);
     const payload = {
       'doc_key_word': value
     };
     this.surveyService.getrecorddetail(fetch_document_type_fields_url, payload).subscribe((res) => {
       this.formInputRecords = [];
       const form_values = res['fields'];
+      const save_button_value = {
+        'field_no': '',
+        'field_type': 'button',
+        'input_type': 'button',
+        'is_enforced': true,
+        'is_mandatory': true,
+        'label': 'Add New',
+        'name': 'save',
+        'options': '',
+        'validations': [],
+        'width': 12
+      };
+    form_values.push(save_button_value);
       this.inputForm.initialize_form(form_values);
 
     });
@@ -92,7 +103,6 @@ export class DocumentPreviewComponent implements OnInit {
     const payload = this.inputForm.value;
     payload['id'] = Number(new Date());
     this.formInputRecords.push(payload);
-    console.log(payload);
     this.inputForm.resetForm();
     return true;
 }

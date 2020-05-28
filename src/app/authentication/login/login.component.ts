@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
       username: new FormControl('',
       Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(40)])),
       password: new FormControl('',
-       Validators.compose([PasswordValidator.validPassword, Validators.required, Validators.minLength(4), Validators.maxLength(20)])),
+       Validators.compose([PasswordValidator.validPassword, Validators.required, Validators.minLength(3), Validators.maxLength(20)])),
     });
     this.validation_messages = ValidationErrorMessages.validationMessages;
   }

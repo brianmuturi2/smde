@@ -328,12 +328,8 @@
           </tr>
         </thead>
         <tbody *ngIf="records?.length != 0">
-             <!-- <tr *ngFor="let recordinstance of  mf.data | filter : searchString  ; let i = index"> -->
+        
               <tr *ngFor="let recordinstance of mf.data | filter : searchString; let i = index">
-                
-            <!-- <td class=" text-left" width="20">
-              <input type="checkbox">
-            </td> -->
             <td>{{i + 1}}</td>
             <td>{{ recordinstance.name }}</td>
             <td>{{ recordinstance.label }}</td>
@@ -353,8 +349,6 @@
             <td>
               <button type="button" class="btn btn-primary  btn-sm " (click)="editRecord(recordinstance.id)"> <i
                   class="fa fa-pencil "></i> </button>
-                  <!-- <button type="button" class="btn btn-success  btn-sm " (click)="viewDocumentFields(recordinstance.id)"> <i
-                    class="fa fa-eye"></i> </button> -->
               <button type="button" class="btn btn-danger  btn-sm " (click)="deleteRecord(recordinstance.id)"> <i
                   class="fa fa-trash "></i> </button>
             </td>

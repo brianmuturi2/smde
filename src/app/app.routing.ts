@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
 import { P404Component } from './views/error/404.component';
-import { P500Component } from './views/error/500.component';
+import { P403Component } from './views/error/403.component';
 import { CommonProfileComponent } from './containers/common-profile/common-profile.component';
 import { AuthenticationGuard } from './authentication/guards/authguard.guard';
 import { ChangePasswordGuard } from './authentication/guards/change-password.guard';
@@ -19,7 +19,7 @@ export const routes: Routes = [
   },
   {
     path: '500',
-    component: P500Component,
+    component: P403Component,
     data: {
       title: 'Page 500'
     }

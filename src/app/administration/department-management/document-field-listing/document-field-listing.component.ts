@@ -165,7 +165,7 @@ export class DocumentFieldListingComponent implements OnInit {
         'label': res['label'],
         'input_type': res['input_type'],
         'field_type': res['field_type'],
-        'options': res['options'],
+        'options': JSON.stringify(res['options']),
         'width': res['width'],
         'field_no': res['field_no'],
         'is_mandatory': this.administrationService.getreverseBoolean(res['is_mandatory']),

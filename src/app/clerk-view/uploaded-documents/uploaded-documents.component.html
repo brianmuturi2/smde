@@ -33,7 +33,13 @@
           <tbody *ngIf="records?.length != 0">
             <tr *ngFor="let recordinstance of mf.data | filter : searchString ; let i = index">
               <td>{{i + 1}}</td>
-              <td>{{ recordinstance.original_file_name }}</td>
+               <td>
+                 
+                <a target="_blank" [routerLink]="['/clerk-view/document-preview/',recordinstance.id]">
+                  {{ recordinstance.original_file_name }}
+                </a>
+              </td>
+              <!-- <td>{{ recordinstance.original_file_name }}</td> -->
               <td>{{ recordinstance.uploaded_time | date : 'medium' }}</td>
               <td>{{ recordinstance.document_status }}</td>
               <td>{{ recordinstance.file_no }}</td>
