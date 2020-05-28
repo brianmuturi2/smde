@@ -10,17 +10,19 @@ import { ApprovedDocumentsComponent } from '../approved-documents/approved-docum
 import { PendingDocumentsComponent } from '../pending-documents/pending-documents.component';
 import { AuthenticationGuard } from '../../authentication/guards/authguard.guard';
 import { ChangePasswordGuard } from '../../authentication/guards/change-password.guard';
+import { ClerkGuard } from '../../authentication/guards/clerk.guard';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
 import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view-base.component';
 import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
 import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/clerk-view-sidemenu.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 import { ResubmittedDocumentsComponent } from '../resubmitted-documents/resubmitted-documents.component';
 const routes: Routes = [
   {
     path: '',
     component: ClerkViewBaseComponent,
-    canActivate: [AuthenticationGuard, ChangePasswordGuard],
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
 
     children: [
   {
@@ -34,7 +36,7 @@ const routes: Routes = [
         redirectTo: '/500'
           }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'upload-file',
@@ -46,7 +48,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'document-preview/:id',
@@ -58,7 +60,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'document-detail/:id',
@@ -70,7 +72,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'pending-validation',
@@ -82,7 +84,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'my-document',
@@ -94,7 +96,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'rejected-documents',
@@ -106,7 +108,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'resubmitted-documents',
@@ -118,7 +120,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
 
   {
@@ -131,7 +133,7 @@ const routes: Routes = [
           redirectTo: '/500'
             }
     },
-   canActivate: [AuthenticationGuard, ChangePasswordGuard],
+   canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
     ]
   }

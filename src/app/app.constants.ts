@@ -4,8 +4,8 @@
 // export let serverurl = 'http://192.168.17.240:5600';
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
-// export let serverurl = 'http://127.0.0.1:8000';
-export let serverurl = 'http://192.168.17.230:5600';
+export let serverurl = 'http://127.0.0.1:8000';
+// export let serverurl = 'http://192.168.17.230:5600';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION + 'edms/clerk-view/upload-document';
@@ -32,6 +32,8 @@ export let unsuspend_user_url = serverurl + API_VERSION + 'ict-support/un-suspen
 export let reset_password_url = serverurl + API_VERSION + 'ict-support/reset-user-password';
 export let get_user_details_url = serverurl + API_VERSION + 'account-management/get-user-details';
 export let change_password_url = serverurl + API_VERSION + 'account-management/change-password';
+export let edit_user_url = serverurl + API_VERSION + 'ict-support/edit-user';
+
 
 
 export let validators_approved_documents_url = serverurl + API_VERSION + 'edms/validator-view/approved-documents';

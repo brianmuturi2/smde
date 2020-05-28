@@ -24,24 +24,26 @@ export class AppComponent implements OnInit {
           this.permissionsService.addPermission(all_roles, (permissionName, permissionsObject) => {
             return !!permissionsObject[permissionName];
         });
-        console.log(all_roles);
-          if (all_roles == 'DATA_CLERK') {
-            this.router.navigate(['/clerk-view/clerk-dashboard']);
+        this.router.navigate(['/']);
+          // if (all_roles == 'DATA_CLERK') {
+          //   this.router.navigate(['/clerk-view/clerk-dashboard']);
 
 
-          } else if (all_roles == 'DATA_ANALYST') {
-            this.router.navigate(['/validator-view/analytics']);
+          // }
+          // if (all_roles == 'DATA_ANALYST') {
+          //  this.router.navigate(['/validator-view/analytics']);
 
-          } else if (all_roles == 'DATA_DEPARTMENT_HEAD') {
-            this.router.navigate(['/administration/staff-listing']);
+          // }
+          // else if (all_roles == 'DATA_DEPARTMENT_HEAD') {
+          //   this.router.navigate(['/administration/staff-listing']);
 
-          } else if (all_roles == 'BUSINESS_ANALYST') {
-            this.router.navigate(['/analyst-view/data-document-analytics']);
+          // } else if (all_roles == 'BUSINESS_ANALYST') {
+          //   this.router.navigate(['/analyst-view/data-document-analytics']);
 
-          } else if (all_roles == 'DATA_CLEANER') {
-            this.router.navigate(['/cleaner-view/capture-data']);
+          // } else if (all_roles == 'DATA_CLEANER') {
+          //   this.router.navigate(['/cleaner-view/capture-data']);
 
-          }
+          // }
 
 
 

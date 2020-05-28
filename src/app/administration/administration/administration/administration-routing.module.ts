@@ -5,12 +5,14 @@ import { StaffregistrationComponent } from '../../staffregistration/staffregistr
 import { StafflistingComponent } from '../../stafflisting/stafflisting.component';
 import { RevokeDocumentComponent } from '../../revoke-document/revoke-document.component';
 import { StaffDetailsComponent } from '../../staff-details/staff-details.component';
-import { AuthenticationGuard } from '../../../authentication/guards/authguard.guard';
 import { AdministrationManagementBaseComponent } from '../../containers/administration-management-base/administration-management-base.component';
 import { DepartmentListingComponent } from '../../department-management/department-listing/department-listing.component';
 import { DocumentTypeListingComponent } from '../../department-management/document-type-listing/document-type-listing.component';
 import { DocumentFieldListingComponent } from '../../department-management/document-field-listing/document-field-listing.component';
 
+import { ChangePasswordGuard } from '../../../authentication/guards/change-password.guard';
+import { AuthenticationGuard } from '../../../authentication/guards/authguard.guard';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 const routes: Routes = [
   {
     path: '',
@@ -29,7 +31,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+       canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
       },
       {
         path: 'staff-listing',
@@ -41,7 +43,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+       canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
       },
       {
         path: 'staff-details/:id',
@@ -53,7 +55,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+       canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
       },
       {
         path: 'revoke-document',
@@ -65,7 +67,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+       canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
       },
       {
         path: 'department-listing',
@@ -77,7 +79,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+       canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
       },
       {
         path: 'document-type-listing/:department_id',
@@ -89,7 +91,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+       canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
       },
       {
         path: 'document-field-listing/:department_id/:document_type_id',
@@ -101,7 +103,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+       canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
       },
 
 

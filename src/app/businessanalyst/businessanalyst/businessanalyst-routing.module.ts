@@ -8,6 +8,7 @@ import { DataClerkAnalyticsComponent } from '../data-clerk-analytics/data-clerk-
 import { DataAnalystAnalyticsComponent } from '../data-analyst-analytics/data-analyst-analytics.component';
 import { DocumentAnalyticsComponent } from '../document-analytics/document-analytics.component';
 import { DepartmentAnalyticsComponent } from '../department-analytics/department-analytics.component';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 const routes: Routes = [
   {
     path: '',
@@ -26,7 +27,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+        canActivate: [AuthenticationGuard, NgxPermissionsGuard],
       },
       {
         path: 'data-validator-analytics',
@@ -38,7 +39,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+        canActivate: [AuthenticationGuard, NgxPermissionsGuard],
       },
       {
         path: 'data-document-analytics',
@@ -50,7 +51,7 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+        canActivate: [AuthenticationGuard, NgxPermissionsGuard],
       },
       {
         path: 'data-department-analytics',
@@ -62,11 +63,11 @@ const routes: Routes = [
               redirectTo: '/500'
               }
         },
-        canActivate: [AuthenticationGuard],
+        canActivate: [AuthenticationGuard, NgxPermissionsGuard],
       },
-      
 
-      
+
+
     ]
   },
 ];

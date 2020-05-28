@@ -7,16 +7,14 @@ import { ValidatorApprovedDocumentsComponent } from '../../validator-approved-do
 import { ValidatorAnalyticsComponent } from '../../validator-analytics/validator-analytics.component';
 import { ValidatorViewBaseComponent } from '../../containers/validator-view-base/validator-view-base.component';
 import { ValidatorDocumentDetailsComponent } from '../../validator-document-details/validator-document-details.component';
-
+import { ChangePasswordGuard } from '../../../authentication/guards/change-password.guard';
 import { AuthenticationGuard } from '../../../authentication/guards/authguard.guard';
-
+import { NgxPermissionsGuard } from 'ngx-permissions';
 const routes: Routes = [
   {
     path: '',
     component: ValidatorViewBaseComponent,
-    data: {
-      
-    },
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
     children: [
   {
     path: 'analytics',
@@ -28,7 +26,7 @@ const routes: Routes = [
           redirectTo: '/500'
           }
     },
-    canActivate: [AuthenticationGuard],
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'pending-documents',
@@ -40,7 +38,7 @@ const routes: Routes = [
           redirectTo: '/500'
           }
     },
-    canActivate: [AuthenticationGuard],
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'rejected-documents',
@@ -52,7 +50,7 @@ const routes: Routes = [
           redirectTo: '/500'
           }
     },
-    canActivate: [AuthenticationGuard],
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'approved-documents',
@@ -64,7 +62,7 @@ const routes: Routes = [
           redirectTo: '/500'
           }
     },
-    canActivate: [AuthenticationGuard],
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
   {
     path: 'validator-document-details/:id',
@@ -76,7 +74,7 @@ const routes: Routes = [
           redirectTo: '/500'
           }
     },
-    canActivate: [AuthenticationGuard],
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
 ]
   }

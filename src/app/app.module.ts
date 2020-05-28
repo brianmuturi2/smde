@@ -17,7 +17,7 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
-import { P500Component } from './views/error/500.component';
+import { P403Component } from './views/error/403.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptor } from './app.interceptor';
 
@@ -98,7 +98,7 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     // SafePipe,
     ...APP_CONTAINERS,
     P404Component,
-    P500Component,
+    P403Component,
     CommonSidebarComponent,
     DocumentDetailsComponent,
 

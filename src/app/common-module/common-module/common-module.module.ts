@@ -61,7 +61,7 @@ import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-neste
     CollapseModule,
     CommonModule,
     PerfectScrollbarModule,
-    TabsModule, NgxPermissionsModule,
+    TabsModule, NgxPermissionsModule.forChild(),
     BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
