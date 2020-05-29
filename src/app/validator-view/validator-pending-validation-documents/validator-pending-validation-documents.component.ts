@@ -3,40 +3,51 @@ import { DataTableDirective } from 'angular-datatables';
 import { ValidatorService } from '../services/validator.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
-import { filter_document_by_file_url } from '../../app.constants';
-import { Subject } from 'rxjs';
+import { filter_document_by_file_url, fetch_document_records_url,
+  validators_approve_document_url,
+  validators_reject_document_url } from '../../app.constants';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { DocumentsList } from '../interfaces/validator';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 @Component({
   selector: 'app-validator-pending-validation-documents',
   templateUrl: './validator-pending-validation-documents.component.html',
   styleUrls: ['./validator-pending-validation-documents.component.css']
 })
 export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnDestroy {
+  public DocumentActivityForm: FormGroup;
   public searchForm: FormGroup;
-  @ViewChild(DataTableDirective, {static: false})
-  dtElement: DataTableDirective;
-  dtOptions: any = {};
-  public dtTrigger = new Subject<any>();
+  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   records: DocumentsList[] = [];
+  request_id: any;
+  document_details = [];
+  comments = [];
   searchString: string;
-  constructor(private router: Router, private loadingService: LoadingService, public toastService: ToastService, public validatorService: ValidatorService, private formBuilder: FormBuilder, ) {
+  commentsearchString: string;
+  action_list = [];
+  documentrecordsString: string;
+  user_permissions = [];
+
+  constructor(private router: Router, private loadingService: LoadingService,
+    public toastService: ToastService, public validatorService: ValidatorService,
+    private formBuilder: FormBuilder,
+    public sweetalertService: SweetalertService,
+    private permissionsService: NgxPermissionsService  ) {
     this.searchForm = this.formBuilder.group({
       search_value: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
     });
+    this.DocumentActivityForm = this.formBuilder.group({
+      action: new FormControl('', Validators.compose([Validators.required])),
+      remarks: new FormControl('', Validators.compose([Validators.required])),
+    });
+    this.fetch_permissions();
    }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      responsive: true,
-      retrieve: true,
 
-
-
-    };
 
   }
   filterdocuments() {
@@ -49,39 +60,110 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
         if (res) {
           this.records = res;
           this.loadingService.hideloading();
-          // this.rerenderTable();
-
-          this.dtTrigger.next();
         }
 
       });
 
     } else {
-      this.toastService.showToastNotification('warning','Please correct errors to proceed','');
+      this.toastService.showToastNotification('warning', 'Please correct errors to proceed', '');
     }
   }
 
-   rerenderTable(): void {
-     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-       // Destroy the table first
-       dtInstance.destroy();
-     }, (err) => {
-      this.toastService.showToastNotification('error','No Records Found','');
 
-     });
-   }
 
    ngOnDestroy() {
-  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //     // Destroy the table first
-  //     dtInstance.destroy();
-  //   }
-  // );
 
 }
-   viewdetails(request_id) {
-     this.router.navigate(['validator-view/validator-document-details', request_id]);
+selectTab(tabId: number) {
+  this.staticTabs.tabs[tabId].active = true;
+}
 
-   }
+viewdetails(request_id) {
+  this.selectTab(1);
+  this.fetchRecords(request_id);
+}
+fetchRecords(request_id) {
+  this.request_id = request_id;
+ this.loadingService.showloading();
+ const payload = {
+   'document_id': request_id
+
+ };
+  this.validatorService.getrecords(fetch_document_records_url, payload).subscribe((res) => {
+    this.document_details = res['document_records'];
+    this.comments = res['comments'];
+    this.loadingService.hideloading();
+
+
+  }, (err) => {
+    this.loadingService.hideloading();
+
+  });
+}
+fetch_permissions() {
+  const allowable_approve_roles = 'DATA_ANALYST';
+
+  this.permissionsService.permissions$.subscribe((permissions) => {
+    const assigned_perm = permissions;
+    const keys =  Object.keys(permissions);
+    const permission_key = keys[0];
+    this.user_permissions.push(permission_key);
+});
+const can_approve = this.user_permissions.includes(allowable_approve_roles);
+    if (can_approve) {
+     this.action_list = [
+          {'id': 'approve', 'name': 'Approve'},
+          {'id': 'reject', 'name': 'Reject'},
+        ];
+
+    } else {
+      this.action_list = [
+        {'id': 'reject', 'name': 'Reject'},
+      ];
+
+    }
+
+}
+actiondocument() {
+  if (this.DocumentActivityForm.valid) {
+    const action = this.DocumentActivityForm.value['action'];
+    let endpoint_to_post_url = '';
+    let success_message  = '';
+    let confirmation_message = '';
+    if (action == 'approve') {
+      endpoint_to_post_url = validators_approve_document_url;
+      success_message  = 'Document Approved Successfully';
+      confirmation_message = 'Do you wish to proceed approving the document?';
+
+    } else if (action == 'reject') {
+      endpoint_to_post_url = validators_reject_document_url;
+      success_message  = 'Document Rejected Successfully';
+      confirmation_message = 'Do you wish to proceed rejecting the document?';
+    }
+
+    const payload = {
+      'document_id': this.request_id,
+      'remarks': this.DocumentActivityForm.value['remarks'],
+    };
+    this.sweetalertService.showConfirmation('Confirmation', confirmation_message).then((res) => {
+      if (res) {
+        this.loadingService.showloading();
+        this.validatorService.postrecord(endpoint_to_post_url, payload).subscribe((response) => {
+          if (response) {
+            this.loadingService.hideloading();
+            this.sweetalertService.showAlert('Success', success_message, 'success');
+            this.DocumentActivityForm.reset();
+          }
+        });
+        this.loadingService.hideloading();
+      } else {
+
+      }
+    });
+  } else {
+    this.validatorService.markFormAsDirty(this.DocumentActivityForm);
+    this.toastService.showToastNotification('error', 'Kindly Correct the errors to proceed', '');
+  }
+}
 
 }

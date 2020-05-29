@@ -29,7 +29,7 @@ export class CommonSidebarComponent {
             name: 'Change Password',
             url: '/profile',
             icon: 'fa fa-exclamation-triangle',
-            permission: 'DATA_CLERK'
+            permission: ''
           },
 
      ];

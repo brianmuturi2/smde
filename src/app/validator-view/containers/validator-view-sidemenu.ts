@@ -39,38 +39,38 @@ export const navItems: NavData[] = [
     name: 'Document',
     url: '/',
     icon: 'fa fa-suitcase',
-    permission: 'can_view_device_explorer_menu',
+    permission: 'DATA_ANALYST',
 
     children: [
       {
         name: 'Analytics',
         url: '/validator-view/analytics',
         icon: 'fa fa-line-chart',
-        permission: 'can_add_business_accounts'
+        permission: 'DATA_ANALYST'
       },
       {
         name: 'Validate Document',
         url: '/validator-view/pending-documents',
         icon: 'fa fa-gavel',
-        permission: 'can_add_business_accounts'
+        permission: 'DATA_ANALYST'
       },
       {
         name: 'Approved Docs',
         url: '/validator-view/approved-documents',
         icon: 'fa fa-check-square',
-        permission: 'can_add_business_accounts'
+        permission: 'DATA_ANALYST'
       },
       {
         name: 'Rejected Docs',
         url: '/validator-view/rejected-documents',
         icon: 'fa fa-times',
-        permission: 'can_add_business_accounts'
+        permission: 'DATA_ANALYST'
       },
       // {
       //   name: 'Resubmitted Docs',
       //   url: '/validator-view/rejected-documents',
       //   icon: 'fa fa-reply',
-      //   permission: 'can_add_business_accounts'
+      //   permission: 'DATA_ANALYST'
       // }
     ]
   },

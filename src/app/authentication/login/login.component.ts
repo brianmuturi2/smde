@@ -5,6 +5,7 @@ import { NameValidator, PasswordValidator, OtpValidator } from '../validators/au
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './login.component.html',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   passwordFieldType: boolean;
   loginformstatus: any;
   constructor(private toastService: ToastService, private router: Router,
-     private formBuilder: FormBuilder, public authservice: AuthenticationService) {
+     private formBuilder: FormBuilder, public authservice: AuthenticationService,
+     public loadingService: LoadingService) {
     this.LoginForm = this.formBuilder.group({
       username: new FormControl('',
       Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(40)])),
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     if (this.LoginForm.valid) {
-
+      this.loadingService.showloading();
       const credentials = {
         'username': this.LoginForm.value['username'],
         'password': this.LoginForm.value['password'],
@@ -47,7 +49,7 @@ export class LoginComponent implements OnInit {
           this.toastService.showToastNotification('error', 'Could Not Authenticate you', '');
 
         }
-
+        this.loadingService.hideloading();
 
       });
     } else {

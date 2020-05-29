@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
 
         this.authservice.getrecords(get_user_roles_url, payload).subscribe((res) => {
           const all_roles = res['group_name'];
+          console.log('assinged roles', all_roles);
           this.permissionsService.addPermission(all_roles, (permissionName, permissionsObject) => {
             return !!permissionsObject[permissionName];
         });
