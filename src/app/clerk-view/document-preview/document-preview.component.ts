@@ -138,8 +138,8 @@ deleteRow(index) {
               'metadata_records': this.formInputRecords
             };
             this.surveyService.postrecord(post_document_fields_url, records_passed).subscribe(res => {
-              this.sweetalertsService.showAlert('Success', 'Successfully Submitted for Validation', 'success');
-              // this.toastService.showToastNotification('success','Successfully Submitted for Validation','');
+              // this.sweetalertsService.showAlert('Success', 'Successfully Submitted for Validation', 'success');
+              this.toastService.showToastNotification('success', 'Successfully Submitted for Validation', '');
               this.formInputRecords = [];
               this.inputForm.resetForm();
               this.router.navigate(['clerk-view/my-document']);

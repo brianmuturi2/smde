@@ -4,8 +4,8 @@
 // export let serverurl = 'http://192.168.17.240:5600';
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
-export let serverurl = 'http://127.0.0.1:8000';
-// export let serverurl = 'http://192.168.17.230:5600';
+// export let serverurl = 'http://127.0.0.1:8000';
+export let serverurl = 'http://192.168.17.228:5600';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
 export let fileuploadurl = serverurl + API_VERSION + 'edms/clerk-view/upload-document';
@@ -93,3 +93,7 @@ export let list_input_types_url = serverurl + API_VERSION + 'edms/document-field
 export let revoke_document_url = serverurl + API_VERSION + 'edms/document/revoke-document';
 
 export let cleaner_post_validation_data_url = serverurl + API_VERSION + 'data-cleaning/post-cleaning-dataset-record';
+
+
+export let award_user_role_url = serverurl + API_VERSION + 'ict-support/award-role';
+export let revoke_user_role_url = serverurl + API_VERSION + 'ict-support/revoke-role';

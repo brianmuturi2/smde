@@ -31,8 +31,8 @@ fileData: File = null;
     formData.append('document', this.fileData);
     this.surveyService.uploadFile(formData).subscribe(res => {
 
-      // this.toastService.showToastNotification('success','File Successfully uploaded','')
-      this.sweetalertsService.showAlert('Success', 'File Has Been Successfully Uploaded', 'success');
+      this.toastService.showToastNotification('success', 'Upload Successful', '');
+      // this.sweetalertsService.showAlert('Success', 'File Has Been Successfully Uploaded', 'success');
       this.loadingService.hideloading();
       this.router.navigate(['clerk-view/upload-file']);
 

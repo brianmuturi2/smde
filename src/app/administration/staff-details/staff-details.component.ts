@@ -4,7 +4,8 @@ import { ToastService } from '../../common-module/shared-service/toast.service';
 import {
   list_departments, list_user_roles,
   swap_user_department_url, suspend_user_url, unsuspend_user_url,
-  reset_password_url, get_user_details_url, edit_user_url
+  reset_password_url, get_user_details_url, edit_user_url,
+  award_user_role_url, revoke_user_role_url
 } from '../../app.constants';
 import { AdministrationService } from '../services/administration.service';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
@@ -136,30 +137,74 @@ export class StaffDetailsComponent implements OnInit {
     }
   }
   updatebiodata() {
-   const assigned_roles =  this.AccountDetailsForm.value['role_name'];
-    const assigned_length = assigned_roles.length;
-    if (assigned_length != 1) {
-      this.sweetalertService.showAlert('Error', 'You can only assign the user one role', 'error');
 
-    }
     if (this.AccountDetailsForm.valid) {
       const payload = {
         'account_id': this.AccountDetailsForm.value['id'],
         'id_number': this.AccountDetailsForm.value['id_number'],
         'first_name': this.AccountDetailsForm.value['first_name'],
         'last_name': this.AccountDetailsForm.value['last_name'],
-        'role_id': assigned_roles
 
       };
-      this.loadingService.showloading();
       const success_message = 'Successfully Updated';
       this.sweetalertService.showConfirmation('Confirmation', 'Do you wish to proceed?').then((res) => {
         if (res) {
+          this.loadingService.showloading();
           this.administrationService.postrecord(edit_user_url, payload).subscribe((response) => {
             if (response) {
               this.sweetalertService.showAlert('Success', success_message, 'success');
               this.AccountActivityForm.reset();
               this.loadingService.hideloading();
+              this.fetch_user_details(this.AccountDetailsForm.value['id']);
+            }
+          });
+
+        }
+      });
+
+
+    }
+
+  }
+  awardrole(request_type) {
+    const assigned_roles = this.AccountDetailsForm.value['role_name'];
+    const assigned_length = assigned_roles.length;
+    let confirmation_message = '';
+    let post_data_url = '';
+
+    if (assigned_length != 1) {
+      this.sweetalertService.showAlert('Error', 'You can only assign the user one role', 'error');
+      post_data_url = award_user_role_url;
+
+    } else {
+      if (request_type === 0) {
+        confirmation_message = 'Do you wish to proceed revoking Role(s)';
+        post_data_url = revoke_user_role_url;
+
+      } else if (request_type === 1) {
+        confirmation_message = 'Do you wish to proceed awarding Role(s)';
+      }
+
+    }
+
+
+
+    if (this.AccountDetailsForm.valid) {
+      const payload = {
+        'account_id': this.AccountDetailsForm.value['id'],
+        'role_id': assigned_roles,
+
+      };
+      const success_message = 'Successfully Updated';
+      this.sweetalertService.showConfirmation('Confirmation', confirmation_message).then((res) => {
+        if (res) {
+          this.loadingService.showloading();
+          this.administrationService.postrecord(post_data_url, payload).subscribe((response) => {
+            if (response) {
+              this.sweetalertService.showAlert('Success', success_message, 'success');
+              this.AccountActivityForm.reset();
+              this.loadingService.hideloading();
+              this.fetch_user_details(this.AccountDetailsForm.value['id']);
             }
           });
 

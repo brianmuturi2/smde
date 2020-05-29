@@ -24,10 +24,12 @@ export class ErrorHandler {
         //  logout user
         this.toastService.showToastNotification('error', 'Session Expired.Logging Out', '');
         this.authenticationService.logout();
+        this.loadingService.hideloading();
 
      } else if (err.status == 404) {
       //  logout user
       this.toastService.showToastNotification('error', 'Reference Not Found', '');
+      this.loadingService.hideloading();
 
    } else if (err.status == 403) {
 
@@ -35,6 +37,7 @@ export class ErrorHandler {
 
       this.toastService.showToastNotification('error', 'You do not have permissions to perform action', '');
       this.authenticationService.logout();
+      this.loadingService.hideloading();
 
    } else if (err.status == 400) {
       const error = err.error;
@@ -92,9 +95,11 @@ export class ErrorHandler {
       //    console.log(`${key}: ${value}`);
       //  }
       // this.toastService.showToastNotification('error',errordetail,'')
-
+      this.loadingService.hideloading();
    } else {
+
     this.toastService.showToastNotification('error', err.message, '');
+    this.loadingService.hideloading();
    }
   }
 

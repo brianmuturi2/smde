@@ -4,105 +4,268 @@
         <strong>Document Listing</strong>
       </div>
       <div class="card-body">
-        <form [formGroup]="searchForm" (ngSubmit)="filterdocuments()">
-        <div class="row">
-         
-          <div class="form-group col-sm-6">
-            <label for="country">File Number</label>
-            <input type="text" class="form-control"  formControlName="search_value" placeholder="Enter File Number">
-          </div>
-          <div class="form-group col-sm-3">
-            <label for="country">&nbsp;&nbsp;</label>
-            <button type="submit" class="btn form-control  btn-success btn-md "> <i
-                class="fa fa-search"></i> Search </button>
-          </div>
-       
-        </div>
-      </form>
-        <!-- <br> -->
-        <div class="row">
-          <div class="col-sm-4 col-md-4 col-lg-4 offset-md-8">
-            <div class="input-group">
-              <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
-              <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="searchString">
+        <tabset #staticTabs>
+          <tab heading="Search By File Number">
+            <form [formGroup]="searchForm" (ngSubmit)="filterdocuments()">
+              <div class="row">
+               
+                <div class="form-group col-sm-6">
+                  <label for="country">File Number</label>
+                  <input type="text" class="form-control"  formControlName="search_value" placeholder="Enter File Number">
+                </div>
+                <div class="form-group col-sm-3">
+                  <label for="country">&nbsp;&nbsp;</label>
+                  <button type="submit" class="btn form-control  btn-success btn-md "> <i
+                      class="fa fa-search"></i> Search </button>
+                </div>
+             
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
+                <div class="input-group">
+                  <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                  <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="searchString">
+                </div>
+              </div>
+              </div>
+              <br>
+              <div class="table-responsive">
+      
+            <table [mfData]="records" #mf="mfDataTable"
+            [mfRowsOnPage]="10"
+              class="table table-bordered table-sm table-striped row-border hover" style="width:100%">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>File Number</th>
+                  <th>Document Type</th>
+                  <th> Status</th>
+                  <th> Uploaded By</th>
+                  <th>File Name</th>
+                  <th>Date Uploaded</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="records?.length != 0">
+                <tr *ngFor="let recordinstance of mf.data | filter : searchString ; let i = index"
+                 [ngSwitch]="recordinstance.document_status">
+                  <td>{{i + 1}}</td>
+                  <td>{{ recordinstance.file_no }}</td>
+                  <td>{{ recordinstance.document_keyword | uppercase }}</td>
+                  <td>
+                    <div *ngSwitchCase="'APPROVED'">
+                      <span class="badge badge-success">
+                        APPROVED
+                        </span>
+                    </div>
+                    <div *ngSwitchCase="'REJECTED'">
+                      <span class="badge badge-warning">
+                        REJECTED
+                        </span>
+                    </div>
+                    <div *ngSwitchCase="'REVOKED'">
+                      <span class="badge badge-danger">
+                        REVOKED
+                        </span>
+                    </div>
+                    
+                    <div *ngSwitchDefault>
+                      <span class="badge badge-primary">
+                        {{recordinstance.document_status}}
+                        </span>
+                    </div>
+                 
+                  </td>
+                  <td>{{ recordinstance.uploader }}</td>
+                  <td>{{ recordinstance.original_file_name }}</td>
+                  <td>{{ recordinstance.uploaded_time | date : 'medium' }}</td>
+                  
+                 
+                 <td>
+                    <button type="button" class="btn btn-success  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                        class="fa fa-pencil-square-o"></i> </button>
+                    
+                  </td> 
+      
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="12">
+                    Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,100,250,500,750,1000]"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+              </tfoot>
+              <tbody *ngIf="records?.length == 0">
+                <tr>
+                  <td colspan="9" class="no-data-available">No records to show</td>
+                </tr>
+              <tbody>
+            </table>
             </div>
-          </div>
-          </div>
-          <br>
-          <div class="table-responsive">
-  
-        <table [mfData]="records" #mf="mfDataTable"
-        [mfRowsOnPage]="10"
-          class="table table-bordered table-striped row-border hover" style="width:100%">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>File Number</th>
-              <th>Document Type</th>
-              <th> Status</th>
-              <th> Uploaded By</th>
-              <th>File Name</th>
-              <th>Date Uploaded</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="records?.length != 0">
-            <tr *ngFor="let recordinstance of mf.data | filter : searchString ; let i = index"
-             [ngSwitch]="recordinstance.document_status">
-              <td>{{i + 1}}</td>
-              <td>{{ recordinstance.file_no }}</td>
-              <td>{{ recordinstance.document_keyword | uppercase }}</td>
-              <td>
-                <div *ngSwitchCase="'APPROVED'">
-                  <span class="badge badge-success">
-                    APPROVED
-                    </span>
-                </div>
-                <div *ngSwitchCase="'REJECTED'">
-                  <span class="badge badge-warning">
-                    REJECTED
-                    </span>
-                </div>
-                <div *ngSwitchCase="'REVOKED'">
-                  <span class="badge badge-danger">
-                    REVOKED
-                    </span>
-                </div>
+            </tab>
+            <tab heading="Document Captured Preview">
+         
+                <div class="card">
+                  <div class="card-header">
+                    <strong>Document Details</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
+                        <div class="input-group">
+                          <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                          <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="documentrecordsString">
+                        </div>
+                      </div>
+                      </div>
+                      <br />
+                    <div class="table-responsive">
+                      <table 
+                      [mfData]="document_details" #documentrecordstable="mfDataTable"
+                      [mfRowsOnPage]="10"
+                        class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>File Number</th>
+                            <th>Folio Number</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="document_details?.length != 0">
+                          <tr *ngFor="let recordinstance of  documentrecordstable.data | filter : documentrecordsString ; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{ recordinstance.file_number}}</td>
+                            <td>{{ recordinstance.folio_number }}</td>
+                            
+                           
+                           <td>
+                              <button type="button" class="btn btn-primary  btn-sm " (click)="preview_document(recordinstance.id)"> <i
+                                  class="fa fa-pencil"></i> </button>
+                              
+                            </td> 
                 
-                <div *ngSwitchDefault>
-                  <span class="badge badge-primary">
-                    {{recordinstance.document_status}}
-                    </span>
-                </div>
-             
-              </td>
-              <td>{{ recordinstance.uploader }}</td>
-              <td>{{ recordinstance.original_file_name }}</td>
-              <td>{{ recordinstance.uploaded_time | date : 'medium' }}</td>
+                          </tr>
+                        </tbody>
+                        <tbody *ngIf="document_details?.length == 0">
+                          <tr>
+                            <td colspan="9" class="no-data-available">No records to show</td>
+                          </tr>
+                        <tbody>
+                      </table>
+                    </div>
+                    <hr>
+              <div class="comments_section">
+                <div class="row">
+                  <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
+                    <div class="input-group">
+                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                      <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="commentsearchString">
+                    </div>
+                  </div>
+                  </div>
+                  <br />
+                  <div class="table-responsive">
+                    <table [mfData]="comments" #commentstable="mfDataTable"
+                    [mfRowsOnPage]="10"
+                    class="table table-striped table-bordered table-sm table-hover row-border" style="width:100%">
+                      <thead>
+                        <tr>
+                     
+                          <th style="width: 10%">
+                            #
+                          </th>
+                          <th style="width: 20%">
+                            <mfDefaultSorter by="type_category.name">Comments </mfDefaultSorter>
+                          </th>
+                          <th style="width: 20%">
+                            <mfDefaultSorter by="type_category.name">Commented By </mfDefaultSorter>
+                          </th>
+                          <th style="width: 20%">
+                            <mfDefaultSorter by="type_category.name">Commented Date </mfDefaultSorter>
+                          </th>
+                       
+                          
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="comments?.length != 0">
+                        <tr *ngFor="let recordinstance of commentstable.data | filter : commentsearchString ; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{ recordinstance.comments}}</td>
+                          <td>{{ recordinstance.user }}</td>
+                          <td>{{ recordinstance.action_time | date : 'medium'}}</td>
+                          
+            
               
-             
-             <td>
-                <button type="button" class="btn btn-success  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
-                    class="fa fa-pencil-square-o"></i> </button>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="12">
+                            Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,100,1000]"></mfBootstrapPaginator>
+                          </td>
+                        </tr>
+                      </tfoot>
+                      <tbody *ngIf="comments?.length == 0">
+                        <tr>
+                          <td colspan="9" class="no-data-available">No Comments to show</td>
+                        </tr>
+                      <tbody>
+                    </table>
+                    </div>
+        
+              </div>
+                  </div>
+
+                </div>
+ 
+               
+              
+              <div class="card">
+                <div class="card-header">
+                  <strong>Action</strong>
+                </div>
+                <div class="card-body">
+                 
+          
+             <form [formGroup]="DocumentActivityForm" (ngSubmit)="actiondocument()">
+                                  <div class="row col-md-12">
+          
+                                      <div class="form-group col-sm-6">
+                                          <label for="lastname">Action</label>
+                                          <select class="form-control" formControlName="action">
+                                              <option value="">Select Action to Perfom</option>
+                                              <option *ngFor="let action_passed of action_list" value={{action_passed.id}}>
+                                                  {{action_passed.name}}
+                                              </option>
+                                          </select>
+                                      </div>
+                                      <div class="form-group col-sm-6">
+                                          <label >Remarks</label>
+                                          <textarea formControlName="remarks" class="form-control">
+          
+                                          </textarea>
+                                      </div>
+                                      <div class="form-group col-sm-6">
+                                          <label for="lastname">&nbsp;</label>
+                                          <button type="submit" class="btn btn-success col-sm-12" > Submit</button>
+                                      </div>
+                                  </div>
+                                  </form>
+                  
+               
+            
                 
-              </td> 
-  
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="12">
-                Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,100,250,500,750,1000]"></mfBootstrapPaginator>
-              </td>
-            </tr>
-          </tfoot>
-          <tbody *ngIf="records?.length == 0">
-            <tr>
-              <td colspan="9" class="no-data-available">No records to show</td>
-            </tr>
-          <tbody>
-        </table>
-        </div>
+                </div>
+              </div>
+            </tab>
+            </tabset>
+        
+        <!-- <br> -->
+       
+         
       </div>
     </div>
   </div>
