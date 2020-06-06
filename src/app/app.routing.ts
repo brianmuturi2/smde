@@ -72,6 +72,11 @@ export const routes: Routes = [
     loadChildren: () => import('./cleaner-view/cleaner-view/cleaner-view.module').then(m => m.CleanerViewModule),
     canActivate: [AuthenticationGuard, ChangePasswordGuard],
   },
+  {
+    path: 'auditor-view',
+    loadChildren: () => import('./auditor-view/auditor-view.module').then(m => m.AuditorViewModule),
+    canActivate: [AuthenticationGuard, ChangePasswordGuard],
+  },
   { path: '**', component: P404Component }
 ];
 

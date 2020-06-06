@@ -31,6 +31,27 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
+<div bsModal #startCleaningTaskModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Start Data Cleaning Task</h4>
+        <button type="button" class="close" (click)="startCleaningTaskModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you wish to proceed starting cleaning task on the file</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="startCleaningTaskModal.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="startCleaningTask()">Proceed</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-header">
@@ -56,6 +77,33 @@
 
             </div>
           </form>
+          <div *ngIf="start_task">
+            <ngb-alert type="danger" [dismissible]="false"> <strong>
+              Data Cleaning Has Not Been Started, Kindly Start task to proceed
+              <button type="button" class="btn form-control  btn-warning btn-md col-md-2 col-sm-5 col-lg-6" (click)="startcleaningPrompt()"> <i
+                class="fa fa-search"></i> Start Task </button>
+              
+          </strong> </ngb-alert>
+          </div>
+          <div *ngIf="on_going_task">
+            <ngb-alert type="success" [dismissible]="false"> <strong>
+              Data Cleaning Started, File Status is : 
+          </strong> </ngb-alert>
+            </div>
+        
+            <div *ngIf="task_complete">
+              <ngb-alert type="warning" [dismissible]="false"> <strong>
+                Data Cleaning Exercise is Complete, No Further Action
+             </strong> </ngb-alert>
+              </div>
+   
+
+
+        </tab>
+        <tab heading="File Entry Details">
+
+
+       
           <!-- <br> -->
           <div class="row">
             <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">

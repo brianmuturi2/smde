@@ -22,7 +22,7 @@ const routes: Routes = [
     data: {
       title: 'Validator Analytics',
       permissions: {
-        only: ['DATA_ANALYST'],
+        only: ['DATA_ANALYST', 'DATA_PREVALIDATOR'],
           redirectTo: '/500'
           }
     },
@@ -34,7 +34,7 @@ const routes: Routes = [
     data: {
       title: 'Pending Validation Documents',
       permissions: {
-        only: ['DATA_ANALYST'],
+        only: ['DATA_ANALYST', 'DATA_PREVALIDATOR'],
           redirectTo: '/500'
           }
     },
@@ -46,7 +46,7 @@ const routes: Routes = [
     data: {
       title: 'Rejected Documents',
       permissions: {
-        only: ['DATA_ANALYST'],
+        only: ['DATA_ANALYST', 'DATA_PREVALIDATOR'],
           redirectTo: '/500'
           }
     },
@@ -58,7 +58,7 @@ const routes: Routes = [
     data: {
       title: 'Approved Documents',
       permissions: {
-        only: ['DATA_ANALYST'],
+        only: ['DATA_ANALYST', 'DATA_PREVALIDATOR'],
           redirectTo: '/500'
           }
     },
@@ -70,7 +70,7 @@ const routes: Routes = [
     data: {
       title: 'Document Details',
       permissions: {
-        only: ['DATA_ANALYST'],
+        only: ['DATA_ANALYST', 'DATA_PREVALIDATOR'],
           redirectTo: '/500'
           }
     },

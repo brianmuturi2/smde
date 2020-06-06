@@ -60,14 +60,20 @@ export const navItems: INavData[] = [
   {
     name: 'Clerk Menu',
     url: '/clerk-view/clerk-dashboard',
-    icon: 'fa fa-users',
+    icon: 'fa fa-user-plus',
     permission: 'DATA_CLERK'
   },
   {
     name: 'Validator Menu',
     url: '/validator-view/analytics',
-    icon: 'fa fa-users',
+    icon: 'fa fa-check',
     permission: 'DATA_ANALYST'
+  },
+  {
+    name: 'Pre Validator Menu',
+    url: '/validator-view/analytics',
+    icon: 'fa fa-users',
+    permission: 'DATA_PREVALIDATOR'
   },
   {
     name: 'ADMIN',
@@ -78,16 +84,24 @@ export const navItems: INavData[] = [
   {
     name: 'ANALYTICS',
     url: '/analyst-view/data-clerk-analytics',
-    icon: 'fa fa-users',
+    icon: 'fa fa-bar-chart',
     permission: 'BUSINESS_ANALYST',
   },
   {
     name: 'CLEANER',
     url: '/cleaner-view/capture-data',
-    icon: 'fa fa-credit-card-alt',
+    icon: 'fa fa-paint-brush',
     // permission: '',
      permission: 'DATA_CLEANER',
   },
+  {
+    name: 'AUDITOR',
+    url: '/auditor-view/validate-document',
+    icon: 'fa fa-certificate',
+    permission: '',
+    //  permission: 'DATA_AUDITOR',
+  },
+
 
 
 

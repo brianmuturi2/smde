@@ -4,7 +4,7 @@ import { ValidatorService } from '../services/validator.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { filter_document_by_file_url, fetch_document_records_url,
-  validators_approve_document_url,
+  validators_approve_document_url, fetch_document_record_details_url,
   validators_reject_document_url } from '../../app.constants';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { DocumentsList } from '../interfaces/validator';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 import { NgxPermissionsService } from 'ngx-permissions';
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 @Component({
   selector: 'app-validator-pending-validation-documents',
   templateUrl: './validator-pending-validation-documents.component.html',
@@ -19,6 +21,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 })
 export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnDestroy {
   public DocumentActivityForm: FormGroup;
+  @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
   public searchForm: FormGroup;
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   records: DocumentsList[] = [];
@@ -30,7 +33,10 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
   action_list = [];
   documentrecordsString: string;
   user_permissions = [];
+  doc_keyword: any;
+  doc_url_reference: any;
 
+  @ViewChild('createModal') public createModal: ModalDirective;
   constructor(private router: Router, private loadingService: LoadingService,
     public toastService: ToastService, public validatorService: ValidatorService,
     private formBuilder: FormBuilder,
@@ -122,6 +128,25 @@ const can_approve = this.user_permissions.includes(allowable_approve_roles);
       ];
 
     }
+
+}
+preview_document(record_id) {
+  const payload = {
+    'record_id': record_id,
+    'document_id': this.request_id
+
+  };
+  this.validatorService.getrecords(fetch_document_record_details_url, payload).subscribe((response) => {
+   const preview_form = response['record_form']['fields'];
+   const formcontrol_values =  response['record_values'];
+   this.doc_keyword = response['document_details']['document_keyword'];
+ this.doc_url_reference = response['document_details']['document'];
+   this.inputForm.initialize_form(preview_form);
+   this.inputForm.setControlValue(formcontrol_values);
+
+
+  });
+  this.createModal.show();
 
 }
 actiondocument() {
