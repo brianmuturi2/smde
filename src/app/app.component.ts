@@ -11,6 +11,7 @@ import { get_user_roles_url } from './app.constants';
 export class AppComponent implements OnInit {
   constructor(private router: Router, public authservice: AuthenticationService, private permissionsService: NgxPermissionsService, ) {
     this.checkifAuthenticated();
+
    }
   checkifAuthenticated() {
     this.authservice.authenticationState.subscribe(state => {

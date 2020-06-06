@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -18,7 +18,7 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P403Component } from './views/error/403.component';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './app.interceptor';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -59,7 +59,6 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.modu
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CommonSidebarComponent } from './containers/common-sidebar/common-sidebar.component';
 import { DocumentDetailsComponent } from './administration/document-details/document-details.component';
-
 
 
 @NgModule({
@@ -104,15 +103,17 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
 
 
   ],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  },
+  providers: [
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+  // {
+  //   provide: LocationStrategy,
+  //   useClass: HashLocationStrategy
+  // },
   {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
-  bootstrap: [ AppComponent ]
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

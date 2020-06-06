@@ -4,7 +4,7 @@ import { CleanerService } from '../services/cleaner.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
-import { filter_document_by_file_url, fetch_user_document_types_url,
+import { data_cleaning_file_filter_url, fetch_user_document_types_url,
   fetch_document_records_url, fetch_document_record_details_url, cleaner_post_validation_data_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentList } from '../interfaces/cleaner';
@@ -21,6 +21,8 @@ import {ModalDirective} from 'ngx-bootstrap/modal';
 export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
+
+  @ViewChild('startCleaningTaskModal') public startCleaningTaskModal: ModalDirective;
   @ViewChild('createModal') public createModal: ModalDirective;
   public searchForm: FormGroup;
   public datacleaningForm: FormGroup;
@@ -35,6 +37,9 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   public parcelDetailsForm: FormGroup;
   public parcelOwnershipForm: FormGroup;
   public remarksForm: FormGroup;
+  start_task = true;
+  on_going_task = true;
+  task_complete = true;
 
 
   department_documents = [];
@@ -274,10 +279,21 @@ deleteparcelownerRow(index) {
         'file_no': file_number_input
       };
       this.loadingService.showloading();
-      this.cleanerService.getrecord(filter_document_by_file_url, search_payload).subscribe((res) => {
+      this.cleanerService.getrecord(data_cleaning_file_filter_url, search_payload).subscribe((res) => {
         if (res) {
-          this.records = res;
+          // this.records = res;
+          this.records =  res['file_details'];
           const response_file_number = res['file_no'];
+          const file_cleaning_status =  res['file_cleaning_status'];
+          if (!file_cleaning_status) {
+            this.start_task =  true;
+            this.on_going_task =  false;
+            this.task_complete =  false;
+          } else {
+            this.start_task =  false;
+            this.on_going_task =  true;
+            this.task_complete =  true;
+          }
 
           this.filenumberchange(file_number_input);
           this.loadingService.hideloading();
@@ -416,6 +432,15 @@ fetchdocumenttypes() {
       this.parcelDetailsForm.patchValue(new_form_data);
 
   }
+  startcleaningPrompt() {
+    this.startCleaningTaskModal.show();
+  }
+  startCleaningTask() {
+    const payload = {
+      'file':''
+    };
+  }
+
   saveformData() {}
 
 }

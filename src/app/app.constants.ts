@@ -5,6 +5,11 @@
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
 // export let serverurl = 'http://127.0.0.1:8000';
+// export let serverurl = 'http://192.168.18.89:8000';
+// export let serverurl = 'http://192.168.17.133:8000';
+
+
+// export let serverurl = 'http://192.168.17.228:5600';
 export let serverurl = 'http://192.168.17.228:5600';
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
@@ -97,3 +102,8 @@ export let cleaner_post_validation_data_url = serverurl + API_VERSION + 'data-cl
 
 export let award_user_role_url = serverurl + API_VERSION + 'ict-support/award-role';
 export let revoke_user_role_url = serverurl + API_VERSION + 'ict-support/revoke-role';
+
+export let data_cleaning_file_filter_url = serverurl + API_VERSION + 'data-cleaning/filter-document-by-file-no';
+
+
+// ng serve --host 0.0.0.0
