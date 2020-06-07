@@ -5,7 +5,7 @@ services:
       env_file:
         - .env
       ports:
-        - "8100:8100"
+        - "80:80"
       volumes:
         - .:/src
         - asset-volume:/home
@@ -38,9 +38,9 @@ services:
         - .:/src
       networks: 
         - edms_main_network
-  networks: 
-    edms_main_network:
-        driver: overlay
+networks: 
+  edms_main_network:
+      driver: overlay
 volumes:
     asset-volume:
     
