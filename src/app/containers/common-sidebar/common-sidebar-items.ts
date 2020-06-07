@@ -98,7 +98,7 @@ export const navItems: INavData[] = [
     name: 'AUDITOR',
     url: '/auditor-view/validate-document',
     icon: 'fa fa-certificate',
-    permission: '',
+    permission: 'DATA_AUDITOR',
     //  permission: 'DATA_AUDITOR',
   },
 
