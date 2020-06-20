@@ -14,8 +14,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PendingDocumentsComponent } from '../pending-documents/pending-documents.component';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
-import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view-base.component';
-import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/clerk-view-sidemenu.component';
 import { DynamicFormModule } from '../../dynamic-form/dynamic-form/dynamic-form.module';
 import { SharedModule } from '../../common-module/common-module/common-module.module';
 import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
@@ -30,8 +28,6 @@ import { ResubmittedDocumentsComponent } from '../resubmitted-documents/resubmit
     DocumentPreviewComponent,
     PendingDocumentsComponent,
     ClerkDashboardComponent,
-    ClerkViewBaseComponent,
-    ClerkViewSidemenuComponent,
     ResubmittedDocumentsComponent,
     ClerkDocumentDetailsComponent
 

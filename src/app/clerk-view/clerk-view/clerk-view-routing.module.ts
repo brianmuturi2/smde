@@ -12,19 +12,11 @@ import { AuthenticationGuard } from '../../authentication/guards/authguard.guard
 import { ChangePasswordGuard } from '../../authentication/guards/change-password.guard';
 import { ClerkGuard } from '../../authentication/guards/clerk.guard';
 import { ClerkDashboardComponent } from '../data-clerks/clerk-dashboard/clerk-dashboard.component';
-import { ClerkViewBaseComponent } from '../containers/clerk-view-base/clerk-view-base.component';
 import { ClerkDocumentDetailsComponent } from '../clerk-document-details/clerk-document-details.component';
-import { ClerkViewSidemenuComponent } from '../containers/clerk-view-sidemenu/clerk-view-sidemenu.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { ResubmittedDocumentsComponent } from '../resubmitted-documents/resubmitted-documents.component';
 const routes: Routes = [
-  {
-    path: '',
-    component: ClerkViewBaseComponent,
-    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
-
-    children: [
   {
     path: 'clerk-dashboard',
     component: ClerkDashboardComponent,
@@ -38,6 +30,8 @@ const routes: Routes = [
     },
    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
+
+
   {
     path: 'upload-file',
     component: UploadFileComponent,
@@ -134,8 +128,6 @@ const routes: Routes = [
             }
     },
    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
-  },
-    ]
   }
 ];
 

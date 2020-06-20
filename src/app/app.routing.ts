@@ -27,7 +27,7 @@ export const routes: Routes = [
   {
     path: 'authentication',
     loadChildren: () => import('./authentication/authentication/authentication.module').then(m => m.AuthenticationModule
-      )
+    )
   },
   {
     path: '',
@@ -42,46 +42,51 @@ export const routes: Routes = [
         data: {
           title: 'Profile Details'
         }
-      }
+      },
+      {
+        path: 'clerk-view',
+        loadChildren:
+        () => import('./clerk-view/clerk-view/clerk-view.module').then(m => m.ClerkViewModule),
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'administration',
+        loadChildren:
+        () => import('./administration/administration/administration/administration.module').then(m => m.AdministrationModule),
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'validator-view',
+        loadChildren: () => import('./validator-view/validator/validator/validator.module').then(m => m.ValidatorModule),
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'analyst-view',
+        loadChildren: () => import('./businessanalyst/businessanalyst/businessanalyst.module').then(m => m.BusinessanalystModule),
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'cleaner-view',
+        loadChildren: () => import('./cleaner-view/cleaner-view/cleaner-view.module').then(m => m.CleanerViewModule),
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'auditor-view',
+        loadChildren: () => import('./auditor-view/auditor-view.module').then(m => m.AuditorViewModule),
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
     ]
   },
 
-  {
-    path: 'administration',
-    loadChildren: () => import('./administration/administration/administration/administration.module').then(m => m.AdministrationModule),
-    canActivate: [AuthenticationGuard, ChangePasswordGuard],
-  },
 
-  {
-    path: 'clerk-view',
-    loadChildren: () => import('./clerk-view/clerk-view/clerk-view.module').then(m => m.ClerkViewModule),
-    canActivate: [AuthenticationGuard, ChangePasswordGuard],
-  },
-  {
-    path: 'validator-view',
-    loadChildren: () => import('./validator-view/validator/validator/validator.module').then(m => m.ValidatorModule),
-    canActivate: [AuthenticationGuard, ChangePasswordGuard],
-  },
-  {
-    path: 'analyst-view',
-    loadChildren: () => import('./businessanalyst/businessanalyst/businessanalyst.module').then(m => m.BusinessanalystModule),
-    canActivate: [AuthenticationGuard, ChangePasswordGuard],
-  },
-  {
-    path: 'cleaner-view',
-    loadChildren: () => import('./cleaner-view/cleaner-view/cleaner-view.module').then(m => m.CleanerViewModule),
-    canActivate: [AuthenticationGuard, ChangePasswordGuard],
-  },
-  {
-    path: 'auditor-view',
-    loadChildren: () => import('./auditor-view/auditor-view.module').then(m => m.AuditorViewModule),
-    canActivate: [AuthenticationGuard, ChangePasswordGuard],
-  },
+
+
+
   { path: '**', component: P404Component }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

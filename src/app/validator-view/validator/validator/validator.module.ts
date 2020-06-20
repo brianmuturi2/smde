@@ -8,13 +8,14 @@ import { ValidatorApprovedDocumentsComponent } from '../../validator-approved-do
 import { ValidatorAnalyticsComponent } from '../../validator-analytics/validator-analytics.component';
 import { ValidatorDocumentDetailsComponent } from '../../validator-document-details/validator-document-details.component';
 import { SharedModule } from '../../../common-module/common-module/common-module.module';
-import { ValidatorViewBaseComponent } from '../../containers/validator-view-base/validator-view-base.component';
-import { ValidatorViewSidemenuComponent } from '../../containers/validator-view-sidemenu/validator-view-sidemenu.component';
 import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-form.module';
 
 @NgModule({
-  declarations: [ValidatorViewBaseComponent, ValidatorViewSidemenuComponent,
-    ValidatorRejectedDocumentsComponent, ValidatorPendingValidationDocumentsComponent, ValidatorApprovedDocumentsComponent, ValidatorAnalyticsComponent, ValidatorDocumentDetailsComponent],
+  declarations: [
+    ValidatorRejectedDocumentsComponent,
+     ValidatorPendingValidationDocumentsComponent,
+     ValidatorApprovedDocumentsComponent,
+      ValidatorAnalyticsComponent, ValidatorDocumentDetailsComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -18,14 +18,14 @@ services:
         placement:
           constraints: [node.role == manager]
       networks: 
-        - edms_main_network
+        - edms_main_front_network
       depends_on:
         - web
     web:
       env_file:
         - .env
       build: .
-      image: edms_image:latest
+      image: edms_front_image:latest
       deploy:
         restart_policy:
           max_attempts: 4
@@ -37,9 +37,9 @@ services:
         - asset-volume:/home
         - .:/src
       networks: 
-        - edms_main_network
+        - edms_main_front_network
 networks: 
-  edms_main_network:
+  edms_main_front_network:
       driver: overlay
 volumes:
     asset-volume:

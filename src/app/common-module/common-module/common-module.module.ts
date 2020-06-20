@@ -24,7 +24,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AdministrationManagementBaseComponent } from '../../administration/containers/administration-management-base/administration-management-base.component';
+
 import { CommonErrorComponent } from '../../containers/common-error/common-error.component';
 import { CommonHeaderComponent } from '../../containers/common-header/common-header.component';
 import { CommonLoaderComponent } from '../../containers/common-loader/common-loader.component';
@@ -35,6 +35,7 @@ import {DataTableModule} from 'angular2-datatable';
 // import { ToastrModule } from 'ngx-toastr';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { DatePipe } from '@angular/common';
+
 export const MY_CUSTOM_FORMATS = {
   fullPickerInput: 'YYYY-MM-DD HH:mm:ss',
   parseInput: 'YYYY-MM-DD HH:mm:ss',
@@ -47,6 +48,7 @@ export const MY_CUSTOM_FORMATS = {
   import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SafePipe } from '../../safepipe';
 import { FilterPipe } from '../shared-pipes/filter.pipe';
+
 import { DateTimeAdapter, OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-nested-form.module';
 @NgModule({

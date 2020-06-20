@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { CleanerService } from '../services/cleaner.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
@@ -161,7 +161,8 @@ document_details = [];
   constructor(private router: Router, private loadingService: LoadingService,
      public toastService: ToastService, public cleanerService: CleanerService,
      private formBuilder: FormBuilder,
-     public sweetalertService: SweetalertService ) {
+     public sweetalertService: SweetalertService,
+     private cdRef: ChangeDetectorRef ) {
     this.searchForm = this.formBuilder.group({
       search_value: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
@@ -320,7 +321,7 @@ fetchdocumenttypes() {
   });
 }
    viewdetails(request_id) {
-     this.selectTab(1);
+     this.selectTab(2);
      this.fetchRecords(request_id);
    }
    fetchRecords(request_id) {
@@ -342,16 +343,22 @@ fetchdocumenttypes() {
      });
    }
    preview_document(record_id) {
+    this.doc_url_reference = '';
     const payload = {
       'record_id': record_id,
       'document_id': this.request_id
 
     };
     this.cleanerService.getrecord(fetch_document_record_details_url, payload).subscribe((response) => {
+
      const preview_form = response['record_form']['fields'];
      const formcontrol_values =  response['record_values'];
      this.doc_keyword = response['document_details']['document_keyword'];
-   this.doc_url_reference = response['document_details']['document'];
+     const doc_ref_id = response['document_details']['document'];
+
+   this.doc_url_reference = doc_ref_id;
+   this.cdRef.detectChanges();
+
      this.inputForm.initialize_form(preview_form);
      this.inputForm.setControlValue(formcontrol_values);
 
@@ -437,7 +444,7 @@ fetchdocumenttypes() {
   }
   startCleaningTask() {
     const payload = {
-      'file':''
+      'file': ''
     };
   }
 

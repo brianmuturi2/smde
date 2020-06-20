@@ -5,12 +5,16 @@
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
 // export let serverurl = 'http://127.0.0.1:8000';
+export let serverurl = 'http://192.168.1.41:5600';
+
+// export let serverurl = 'http://192.168.17.118:8000';
+
 // export let serverurl = 'http://192.168.18.89:8000';
 // export let serverurl = 'http://192.168.17.133:8000';
 
 
 // export let serverurl = 'http://192.168.17.228:5600';
-export let serverurl = 'http://192.168.17.232:5600';
+// export let serverurl = 'http://192.168.17.232:5600';
 
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';

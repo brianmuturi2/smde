@@ -31,6 +31,17 @@ export class DocumentPreviewComponent implements OnInit {
   document_list_items = [];
   tenant_client: string;
   reference_serial_number: string;
+  exampleJsonObject = {
+    'first_name': 'Jane', 'last_name': 'Doe', 'age': 25, 'is_company': false,
+    'address': {
+      'street_1': '123 Main St.', 'street_2': null,
+      'city': 'Las Vegas', 'state': 'NV', 'zip_code': '89123'
+    },
+    'phone_numbers': [
+      { 'number': '702-123-4567', 'type': 'cell' },
+      { 'number': '702-987-6543', 'type': 'work' }
+    ], 'notes': ''
+  };
   constructor(private router: Router, public sweetalertsService: SweetalertService,
     private loadingService: LoadingService, private formBuilder: FormBuilder,
     public surveyService: SurveyService, private toastService: ToastService, private route: ActivatedRoute, ) {
@@ -63,21 +74,28 @@ export class DocumentPreviewComponent implements OnInit {
     };
     this.surveyService.getrecorddetail(fetch_document_type_fields_url, payload).subscribe((res) => {
       this.formInputRecords = [];
-      const form_values = res['fields'];
-      const save_button_value = {
-        'field_no': '',
-        'field_type': 'button',
-        'input_type': 'button',
-        'is_enforced': true,
-        'is_mandatory': true,
-        'label': 'Add New',
-        'name': 'save',
-        'options': '',
-        'validations': [],
-        'width': 12
-      };
-    form_values.push(save_button_value);
-      this.inputForm.initialize_form(form_values);
+      const form_details = res;
+      const is_main_document = form_details['is_main_document'];
+      if (is_main_document) {
+        alert('woi woit');
+      } else {
+        const form_values = res['fields'];
+        const save_button_value = {
+          'field_no': '',
+          'field_type': 'button',
+          'input_type': 'button',
+          'is_enforced': true,
+          'is_mandatory': true,
+          'label': 'Add New',
+          'name': 'save',
+          'options': '',
+          'validations': [],
+          'width': 12
+        };
+      form_values.push(save_button_value);
+        this.inputForm.initialize_form(form_values);
+      }
+
 
     });
 

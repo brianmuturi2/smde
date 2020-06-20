@@ -1,22 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthenticationGuard } from '../../authentication/guards/authguard.guard';
-
-import { BusinessAnalystBaseComponent} from '../containers/business-analyst-base/business-analyst-base.component';
-
 import { DataClerkAnalyticsComponent } from '../data-clerk-analytics/data-clerk-analytics.component';
 import { DataAnalystAnalyticsComponent } from '../data-analyst-analytics/data-analyst-analytics.component';
 import { DocumentAnalyticsComponent } from '../document-analytics/document-analytics.component';
 import { DepartmentAnalyticsComponent } from '../department-analytics/department-analytics.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 const routes: Routes = [
-  {
-    path: '',
-    component: BusinessAnalystBaseComponent,
-    data: {
-      title: 'Analytics'
-    },
-    children: [
+
       {
         path: 'data-clerk-analytics',
         component: DataClerkAnalyticsComponent,
@@ -64,12 +55,7 @@ const routes: Routes = [
               }
         },
         canActivate: [AuthenticationGuard, NgxPermissionsGuard],
-      },
-
-
-
-    ]
-  },
+      }
 ];
 
 @NgModule({

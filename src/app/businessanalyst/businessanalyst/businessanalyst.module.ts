@@ -7,21 +7,19 @@ import { DataClerkAnalyticsComponent } from '../data-clerk-analytics/data-clerk-
 import { DataAnalystAnalyticsComponent } from '../data-analyst-analytics/data-analyst-analytics.component';
 import { DocumentAnalyticsComponent } from '../document-analytics/document-analytics.component';
 import { DepartmentAnalyticsComponent } from '../department-analytics/department-analytics.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DataTablesModule } from 'angular-datatables';
 import { SharedModule } from '../../common-module/common-module/common-module.module';
-import { BusinessAnalystBaseComponent} from '../containers/business-analyst-base/business-analyst-base.component';
-import { BusinessAnalystSidemenuComponent } from '../containers/business-analyst-sidemenu/business-analyst-sidemenu.component';
 @NgModule({
-  declarations: [BusinessAnalystBaseComponent,DataClerkAnalyticsComponent,DataAnalystAnalyticsComponent,
-    DocumentAnalyticsComponent,DepartmentAnalyticsComponent,BusinessAnalystSidemenuComponent],
+  declarations: [DataClerkAnalyticsComponent, DataAnalystAnalyticsComponent,
+    DocumentAnalyticsComponent, DepartmentAnalyticsComponent],
   imports: [
     SharedModule,
     CommonModule,
     FormsModule,
     BsDatepickerModule,
-    ReactiveFormsModule,DataTablesModule,
+    ReactiveFormsModule, DataTablesModule,
     BusinessanalystRoutingModule
   ]
 })
