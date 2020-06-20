@@ -1,61 +1,49 @@
-
-<!-- <form [formGroup]="skillsForm" >
-  <p>
-    <button type="button" (click)="populateform()">Add</button>
-  </p>
-   
-  <p>
-    <label for="name">Name </label>
-    <input type="text" id="name" name="name" formControlName="template_name">
-  </p>
-  <div formArrayName="skills">
-    <div *ngFor="let skill of skills.controls; let i=index">
-      <div [formGroupName]="i">
-    
-        skill name : {{skill}}
- 
-        <button (click)="removeSkill(i)">Remove</button>
-      </div>
-    </div>
-  </div>
- 
+<!-- <form [formGroup]="filterForm" class="filter-form">
+    <ng-template #recursiveList let-filterFields let-fromGroup="fromGroup">
+        <ng-container *ngFor="let item of filterFields; let i = index">
+            <ng-container *ngIf="item.group; else default;">
+                <p>{{item.title}}</p>
+                <div class="row pb-4" [formGroupName]="item.key">
+                    <div class="row pb-4" [formArrayName]="item.key">
+                    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.group, fromGroup: {name: item.key} }"></ng-container>
+                </div>
+                <button (click)="removeformControl(i,item.key)">Remove</button>
+            </ng-container>
+           
+            <button (click)="removeformControl(i,item.key)">Remove</button>
+            <ng-template #default>       
+                <div class="col-md-12">
+                    <div class="form-group" [formGroupName]="fromGroup.name">
+                        <div class="form-group" [formGroupName]="fromGroup.name">
+                        <input [type]="item.type" [formControlName]="item.key" [placeholder]="item.title" [name]="item.key" />
+                    </div>
+                </div>
+            </ng-template>
+            
+        </ng-container>
+        
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: filterFields }"></ng-container>
 </form>
-{{this.skillsForm.value | json}} -->
+{{filterForm.value | json }} -->
+
+<form [formGroup]="filterForm" class="filter-form">
+
+ <p> {{main_form_name}}</p>
 
 
+<div *ngFor="let item of filterForm.controls | keys; let i = index">
+    <div [formArrayName]="item">
+        <div *ngFor="let todo of filterForm.get(item).controls; index as i">
+            {{todo}}
+            <input type="text" [formControlName]="i">
+          </div>
 
-<form [formGroup]="productionForm">
-    <div *ngFor="let group of prodData.groups; let i = index">
-      <p>
-        {{group.name}}
-        <label for="name">Name </label>
-        <!-- formControlName="{{group.name}}" -->
-        <input type="text" id="name" name="{{group.name}}" >
-      </p>
-  
-      <div formArrayName="production">
-      
-        <div *ngFor="let product of group.products; let j=index" [formGroupName]="i + j">
-          begTally  <input type="number" formControlName="begTally">
-          endTally   <input type="number" formControlName="endTally">
-          <button (click)="addCreds(j)">Add</button>
-          <!-- <td>{{product.name}}</td>
-          {{j.control}}
-          <td>
-            <input type="number" formControlName="begTally">
-          </td>
-  
-          <td>
-            <input type="number" formControlName="endTally">
-          </td>
-  
-          <td>
-            {{ product.begTally + product.endTally }} 
-          </td> -->
-        </div>
-      </div>
-    </div>
-  </form>
-  
-  
-  {{ productionForm.value | json }}
+
+   <!-- <input [formControlName]="item" type="text"/> -->
+    </div>  
+</div>
+    <!-- Chosen name: {{ filterForm.controls.items.controls[i].controls.name.value }} -->
+
+</form>
+{{filterForm.value | json }} 

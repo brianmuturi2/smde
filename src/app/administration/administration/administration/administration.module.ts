@@ -11,8 +11,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DataTablesModule } from 'angular-datatables';
 
 import { SharedModule } from '../../../common-module/common-module/common-module.module';
-import { AdministrationManagementBaseComponent } from '../../containers/administration-management-base/administration-management-base.component';
-import { AdministrationManagementSidemenuComponent } from '../../containers/administration-management-sidemenu/administration-management-sidemenu.component';
+
 import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-form.module';
 import { DepartmentListingComponent } from '../../department-management/department-listing/department-listing.component';
 import { DocumentTypeListingComponent } from '../../department-management/document-type-listing/document-type-listing.component';
@@ -20,8 +19,7 @@ import { DocumentFieldListingComponent } from '../../department-management/docum
 
 @NgModule({
   declarations: [
-    AdministrationManagementBaseComponent,
-    AdministrationManagementSidemenuComponent,
+
     StaffregistrationComponent,
     StafflistingComponent,
     RevokeDocumentComponent,

@@ -5,17 +5,11 @@ import { ValidatorRejectedDocumentsComponent } from '../../validator-rejected-do
 import { ValidatorPendingValidationDocumentsComponent } from '../../validator-pending-validation-documents/validator-pending-validation-documents.component';
 import { ValidatorApprovedDocumentsComponent } from '../../validator-approved-documents/validator-approved-documents.component';
 import { ValidatorAnalyticsComponent } from '../../validator-analytics/validator-analytics.component';
-import { ValidatorViewBaseComponent } from '../../containers/validator-view-base/validator-view-base.component';
 import { ValidatorDocumentDetailsComponent } from '../../validator-document-details/validator-document-details.component';
 import { ChangePasswordGuard } from '../../../authentication/guards/change-password.guard';
 import { AuthenticationGuard } from '../../../authentication/guards/authguard.guard';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 const routes: Routes = [
-  {
-    path: '',
-    component: ValidatorViewBaseComponent,
-    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
-    children: [
   {
     path: 'analytics',
     component: ValidatorAnalyticsComponent,
@@ -76,8 +70,7 @@ const routes: Routes = [
     },
     canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
-]
-  }
+
 ];
 
 @NgModule({
