@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild,ChangeDetectorRef} from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { ValidatorService } from '../services/validator.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
@@ -41,13 +41,15 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
     public toastService: ToastService, public validatorService: ValidatorService,
     private formBuilder: FormBuilder,
     public sweetalertService: SweetalertService,
-    private permissionsService: NgxPermissionsService  ) {
+    private permissionsService: NgxPermissionsService,
+    private cdRef: ChangeDetectorRef   ) {
     this.searchForm = this.formBuilder.group({
       search_value: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
     });
     this.DocumentActivityForm = this.formBuilder.group({
       action: new FormControl('', Validators.compose([Validators.required])),
-      remarks: new FormControl('', Validators.compose([Validators.required])),
+      // remarks: new FormControl('', Validators.compose([Validators.required])),
+      remarks: new FormControl('', ),
     });
     this.fetch_permissions();
    }
@@ -141,6 +143,7 @@ preview_document(record_id) {
    const formcontrol_values =  response['record_values'];
    this.doc_keyword = response['document_details']['document_keyword'];
  this.doc_url_reference = response['document_details']['document'];
+ this.cdRef.detectChanges();
    this.inputForm.initialize_form(preview_form);
    this.inputForm.setControlValue(formcontrol_values);
 

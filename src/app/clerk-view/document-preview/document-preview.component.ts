@@ -77,7 +77,7 @@ export class DocumentPreviewComponent implements OnInit {
       const form_details = res;
       const is_main_document = form_details['is_main_document'];
       if (is_main_document) {
-        alert('woi woit');
+       console.log("main documents")
       } else {
         const form_values = res['fields'];
         const save_button_value = {

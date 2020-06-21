@@ -126,6 +126,19 @@ export class ClerkDocumentDetailsComponent implements OnInit {
       this.inputForm.initialize_form(preview_form);
       this.inputForm.setControlValue(formcontrol_values);
       this.doc_url_reference =  response['document_details']['document'];
+      const save_button_value = {
+        'field_no': '',
+        'field_type': 'button',
+        'input_type': 'button',
+        'is_enforced': true,
+        'is_mandatory': true,
+        'label': 'Update',
+        'name': 'save',
+        'options': '',
+        'validations': [],
+        'width': 12
+      };
+      preview_form.push(save_button_value);
 
 
      });

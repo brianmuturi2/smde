@@ -81,7 +81,7 @@
 
             </div>
           </form>
-          <div *ngIf="start_task">
+          <!-- <div *ngIf="start_task">
             <ngb-alert type="danger" [dismissible]="false"> <strong>
               Data Cleaning Has Not Been Started, Kindly Start task to proceed
               <button type="button" class="btn form-control  btn-warning btn-md col-md-2 col-sm-5 col-lg-6" (click)="startcleaningPrompt()"> <i
@@ -99,7 +99,7 @@
               <ngb-alert type="warning" [dismissible]="false"> <strong>
                 Data Cleaning Exercise is Complete, No Further Action
              </strong> </ngb-alert>
-              </div>
+              </div> -->
    
 
 
@@ -165,10 +165,26 @@
 
 
                   <td>
-                    <button type="button" class="btn btn-success  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                    <div *ngSwitchCase="'APPROVED'">
+                      <button type="button" class="btn btn-success  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
                         class="fa fa-pencil-square-o"></i> </button>
-
-                  </td>
+                      </div>
+                      <div *ngSwitchCase="'REJECTED'">
+                        <button type="button" class="btn btn-danger  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                          class="fa fa-pencil-square-o"></i> </button>
+                        </div>
+                        <div *ngSwitchCase="'REVOKED'">
+                          <button type="button" class="btn btn-danger  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                            class="fa fa-pencil-square-o"></i> </button>
+                          </div>
+                          <div *ngSwitchDefault>
+                            <button type="button" class="btn btn-primary  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                              class="fa fa-pencil-square-o"></i> </button>
+                            </div>
+                        
+                      
+                      
+                    </td> 
 
                 </tr>
               </tbody>
@@ -484,17 +500,18 @@
                     <error-message [control]="parcelDetailsForm.controls.parcel_prefix" *ngIf="parceldetailsformstatus"></error-message>
       
                   </div>
-                  <div class="col-sm-12 col-md-3 col-lg-3">
-                    <label>Parcel Number</label>
-                    <input class="form-control" type="number" formControlName="parcel_number" 
-                    [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.parcel_number.errors }" />
-                    <error-message [control]="parcelDetailsForm.controls.parcel_number" *ngIf="parceldetailsformstatus"></error-message>
-                  </div>
+                  
                   <div class="col-sm-12 col-md-3 col-lg-3">
                     <label>Block Number</label>
                     <input class="form-control" formControlName="block_number" 
                     [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.block_number.errors }" />
                     <error-message [control]="parcelDetailsForm.controls.block_number" *ngIf="parceldetailsformstatus"></error-message>
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-3">
+                    <label>Parcel Number</label>
+                    <input class="form-control" type="number" formControlName="parcel_number" 
+                    [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.parcel_number.errors }" />
+                    <error-message [control]="parcelDetailsForm.controls.parcel_number" *ngIf="parceldetailsformstatus"></error-message>
                   </div>
                 </div>
                 <br />
@@ -558,8 +575,8 @@
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-4">
                   <label>Owner Identification Type</label>
-                  <select class="form-control" formControlName="parcel_owner_identification_type"
-                  [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.parcel_owner_identification_type.errors }">
+                  <select class="form-control" formControlName="owner_identification_type"
+                  [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_identification_type.errors }">
     
                     <option *ngFor="let identification of owner_identification_type" value={{identification.id}}>
                       {{identification.name}}
@@ -570,15 +587,15 @@
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-4">
                   <label>Owner Identification Number </label>
-                  <input class="form-control" formControlName="parcel_owner_identification_number"
-                  [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.parcel_owner_identification_number.errors }" />
-                  <error-message [control]="parcelOwnershipForm.controls.parcel_owner_identification_number" *ngIf="parcelownershipformstatus"></error-message>
+                  <input class="form-control" formControlName="owner_identification_number"
+                  [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_identification_number.errors }" />
+                  <error-message [control]="parcelOwnershipForm.controls.owner_identification_number" *ngIf="parcelownershipformstatus"></error-message>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-4">
                   <label>Parcel Owner Name</label>
-                  <input class="form-control"  formControlName="parcel_owner_name" 
-                  [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.parcel_owner_name.errors }"/>
-                  <error-message [control]="parcelOwnershipForm.controls.parcel_owner_name" *ngIf="parcelownershipformstatus"></error-message>
+                  <input class="form-control"  formControlName="owner_name" 
+                  [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_name.errors }"/>
+                  <error-message [control]="parcelOwnershipForm.controls.owner_name" *ngIf="parcelownershipformstatus"></error-message>
                 </div>
     
     
@@ -634,15 +651,15 @@
   
                         </td>
                       <td>
-                        {{dynamic.parcel_owner_identification_type}}
+                        {{dynamic.owner_identification_type}}
 
                       </td>
                       <td>
-                        {{dynamic.parcel_owner_identification_number}}
+                        {{dynamic.owner_identification_number}}
 
                       </td>
                       <td>
-                        {{dynamic.parcel_owner_name}}
+                        {{dynamic.owner_name}}
 
                       </td>
                       <td>

@@ -27,7 +27,7 @@
 </form>
 {{filterForm.value | json }} -->
 
-<form [formGroup]="filterForm" class="filter-form">
+<!-- <form [formGroup]="filterForm" class="filter-form">
 
  <p> {{main_form_name}}</p>
 
@@ -37,13 +37,79 @@
         <div *ngFor="let todo of filterForm.get(item).controls; index as i">
             {{todo}}
             <input type="text" [formControlName]="i">
-          </div>
-
-
-   <!-- <input [formControlName]="item" type="text"/> -->
     </div>  
 </div>
-    <!-- Chosen name: {{ filterForm.controls.items.controls[i].controls.name.value }} -->
+</form>
+{{filterForm.value | json }}  -->
 
+<form [formGroup]="filterForm" class="filter-form">
+
+ <p> {{main_form_name}}</p>
+
+<div *ngFor="let form_items of form_fields_passed; let i = index">
+    <div *ngIf="form_items.formtype == 'single'">
+      
+ <p> {{form_items.formname}}</p>
+            <div  [formGroupName]="form_items.formname" *ngFor="let form_item_fields of form_items.fields; let j = index">
+            
+                <input type="text" [formControlName]="form_item_fields.field_name">
+        
+        </div>
+
+    </div>
+    <div *ngIf="form_items.formtype == 'array'">
+        <p> {{form_items.formname}}</p>
+        <button (click)="add_control(form_items.formname)">Add Control</button>
+        <div [formArrayName] = "form_items.formname">
+            <div  [formGroupName]="u" *ngFor="let form_item_fields of form_items.fields; let u = index">
+            {{form_items.formname.controls}}
+                <input type="text" [formControlName]="form_item_fields.field_name">
+        
+        </div>
+        </div>
+       
+        <!-- <div [formArrayName] = "form_items.formname">
+            
+           
+            <div [formGroupName]="p" *ngFor="let row of form_items.fields;let p = index"> 
+                {{p}}
+                
+             
+                    <input type="text" [formControlName]="row.field_name" />
+                </div>
+           
+                
+          
+        </div> -->
+        
+         
+            <!-- <div [formGroupName]="k"> 
+             {{row.field_name}}
+                </div> -->
+        
+            <!-- {{row | json}}               -->
+            <!-- <div [formGroupName]="i"> -->
+              <!-- <span *ngFor="let keyvalue of row | keyvalue">
+                  {{keyvalue | json}}
+                <input [formControlName]="keyvalue.key" />
+              </span> -->
+            <!-- </div> -->
+        
+        </div>    
+
+<!-- <input type="text" [formControlName]="creds.field_name"> -->
+
+
+   
+    
+
+
+    <!-- <div [formArrayName]="item">
+        <div *ngFor="let todo of filterForm.get(item).controls; index as i">
+            {{todo}}
+            <input type="text" [formControlName]="i">
+          </div>
+    </div>   -->
+</div>
 </form>
 {{filterForm.value | json }} 

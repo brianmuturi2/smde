@@ -180,7 +180,7 @@ export const navItems: INavData[] = [
         name: 'Staff Listing',
         url: '/administration/staff-listing',
         icon: 'fa fa-users',
-        permission: ['USER_MANAGER', 'TEAM_LEADER']
+        permission: ['USER_MANAGER', 'TEAM_LEADER','ICT_SUPPORT']
       },
       {
         name: 'New Staff',
@@ -247,10 +247,24 @@ export const navItems: INavData[] = [
     url: '/auditor-view/validate-document',
     icon: 'fa fa-certificate',
     permission: ['DATA_AUDITOR', ]
-
-    //  permission: 'DATA_AUDITOR',
   },
+  {
+    name: 'Support',
+    url: '/cleaner-view/capture-data',
+    icon: 'fa fa-phone',
+    // permission: '',
+    permission: ['ICT_SUPPORT'],
+     children: [
+      {
+        name: 'Revoke Requests',
+        url: '/cleaner-view/capture-data',
+        icon: 'fa fa-history',
+        permission: ['ICT_SUPPORT']
+        
+      },
 
+     ]
+  },
 
 
 
