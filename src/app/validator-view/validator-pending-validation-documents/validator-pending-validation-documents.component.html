@@ -72,6 +72,8 @@
                 <tr>
                   <th>#</th>
                   <th>File Number</th>
+                  <th>Folio Number</th>
+                  
                   <th>Document Type</th>
                   <th> Status</th>
                   <th> Uploaded By</th>
@@ -85,6 +87,8 @@
                  [ngSwitch]="recordinstance.document_status">
                   <td>{{i + 1}}</td>
                   <td>{{ recordinstance.file_no }}</td>
+                  <td>{{ recordinstance.folio_number }}</td>
+                  
                   <td>{{ recordinstance.document_keyword | uppercase }}</td>
                   <td>
                     <div *ngSwitchCase="'APPROVED'">
@@ -116,8 +120,24 @@
                   
                  
                  <td>
+                  <div *ngSwitchCase="'APPROVED'">
                     <button type="button" class="btn btn-success  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                      class="fa fa-pencil-square-o"></i> </button>
+                    </div>
+                    <div *ngSwitchCase="'REJECTED'">
+                      <button type="button" class="btn btn-danger  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
                         class="fa fa-pencil-square-o"></i> </button>
+                      </div>
+                      <div *ngSwitchCase="'REVOKED'">
+                        <button type="button" class="btn btn-danger  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                          class="fa fa-pencil-square-o"></i> </button>
+                        </div>
+                        <div *ngSwitchDefault>
+                          <button type="button" class="btn btn-primary  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                            class="fa fa-pencil-square-o"></i> </button>
+                          </div>
+                      
+                    
                     
                   </td> 
       

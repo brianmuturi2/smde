@@ -66,6 +66,10 @@ parcel_numbering_type = [
     'id': 'PARCEL_NUMBER',
     'name': 'PARCEL_NUMBER'
   },
+  {
+    'id': 'LR_NUMBER',
+    'name': 'LR_NUMBER'
+  },
 
 ];
 ownership_type = [
@@ -197,11 +201,11 @@ document_details = [];
     this.parcelOwnershipForm = this.formBuilder.group({
       parcel_system: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-      parcel_owner_identification_type: new FormControl('',
+      owner_identification_type: new FormControl('',
        Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-       parcel_owner_identification_number: new FormControl('',
+       owner_identification_number: new FormControl('',
        Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-       parcel_owner_name: new FormControl('',
+       owner_name: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
     });
     this.remarksForm = this.formBuilder.group({
