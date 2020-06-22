@@ -98,7 +98,9 @@ export class ClerkDocumentDetailsComponent implements OnInit {
         this.clerkService.postrecord(edit_document_record_url, payload).subscribe((response) => {
           if (response) {
             this.loadingService.hideloading();
-            this.sweetalertService.showAlert('Success', 'Successfully Editted', 'success');
+            // this.sweetalertService.showAlert('Success', 'Successfully Editted', 'success');
+            this.toastService.showToastNotification("success","Successfully Updated","")
+            this.fetchRecords(this.request_id);
             this.createModal.hide();
 
           }

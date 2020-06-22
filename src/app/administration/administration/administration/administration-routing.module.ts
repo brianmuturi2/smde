@@ -8,6 +8,7 @@ import { StaffDetailsComponent } from '../../staff-details/staff-details.compone
 import { DepartmentListingComponent } from '../../department-management/department-listing/department-listing.component';
 import { DocumentTypeListingComponent } from '../../department-management/document-type-listing/document-type-listing.component';
 import { DocumentFieldListingComponent } from '../../department-management/document-field-listing/document-field-listing.component';
+import { NotificationsComponent } from '../../communication/notifications/notifications.component';
 
 import { ChangePasswordGuard } from '../../../authentication/guards/change-password.guard';
 import { AuthenticationGuard } from '../../../authentication/guards/authguard.guard';
@@ -91,6 +92,18 @@ const routes: Routes = [
     component: DocumentFieldListingComponent,
     data: {
       title: 'Document Field Listing',
+      permissions: {
+        only: ['DOCUMENT_MANAGER'],
+        redirectTo: '/500'
+      }
+    },
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
+  },
+  {
+    path: 'notification-listing',
+    component: NotificationsComponent,
+    data: {
+      title: 'Notification Management',
       permissions: {
         only: ['DOCUMENT_MANAGER'],
         redirectTo: '/500'

@@ -101,6 +101,7 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     P403Component,
     CommonSidebarComponent,
     DocumentDetailsComponent,
+ 
 
 
   ],

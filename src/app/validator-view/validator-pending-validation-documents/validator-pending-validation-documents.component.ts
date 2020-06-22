@@ -5,7 +5,7 @@ import { LoadingService } from '../../common-module/shared-service/loading.servi
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { filter_document_by_file_url, fetch_document_records_url,
   validators_approve_document_url, fetch_document_record_details_url,
-  validators_reject_document_url } from '../../app.constants';
+  validators_reject_document_url,edit_document_record_url} from '../../app.constants';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { DocumentsList } from '../interfaces/validator';
 import { Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   records: DocumentsList[] = [];
   request_id: any;
+  record_instance_id: any;
   document_details = [];
   comments = [];
   searchString: string;
@@ -35,6 +36,8 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
   user_permissions = [];
   doc_keyword: any;
   doc_url_reference: any;
+  filtered_file_number:any;
+  can_edit_metadata:Boolean = false;
 
   @ViewChild('createModal') public createModal: ModalDirective;
   constructor(private router: Router, private loadingService: LoadingService,
@@ -60,6 +63,7 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
   }
   filterdocuments() {
     if (this.searchForm.valid) {
+      this.filtered_file_number =  this.searchForm.value['search_value'];
       const search_payload = {
         'file_no': this.searchForm.value['search_value']
       };
@@ -110,14 +114,17 @@ fetchRecords(request_id) {
 }
 fetch_permissions() {
   const allowable_approve_roles = 'DATA_ANALYST';
+  const allowable_edit_roles = 'DATA_PREVALIDATOR';
 
   this.permissionsService.permissions$.subscribe((permissions) => {
     const assigned_perm = permissions;
     const keys =  Object.keys(permissions);
     const permission_key = keys[0];
+
     this.user_permissions.push(permission_key);
 });
 const can_approve = this.user_permissions.includes(allowable_approve_roles);
+
     if (can_approve) {
      this.action_list = [
           {'id': 'approve', 'name': 'Approve'},
@@ -130,9 +137,24 @@ const can_approve = this.user_permissions.includes(allowable_approve_roles);
       ];
 
     }
+    const can_edit_clerk_metadata = this.user_permissions.includes(allowable_edit_roles);
+
+    if (can_edit_clerk_metadata) {
+    this.can_edit_metadata = true;
+
+    } else {
+      this.can_edit_metadata = false;
+
+    }
+
+
+
+    
 
 }
 preview_document(record_id) {
+  this.cdRef.detectChanges();
+  this.record_instance_id = record_id;
   const payload = {
     'record_id': record_id,
     'document_id': this.request_id
@@ -143,9 +165,25 @@ preview_document(record_id) {
    const formcontrol_values =  response['record_values'];
    this.doc_keyword = response['document_details']['document_keyword'];
  this.doc_url_reference = response['document_details']['document'];
- this.cdRef.detectChanges();
+
    this.inputForm.initialize_form(preview_form);
    this.inputForm.setControlValue(formcontrol_values);
+   if(this.can_edit_metadata){
+    const save_button_value = {
+      'field_no': '',
+      'field_type': 'button',
+      'input_type': 'button',
+      'is_enforced': true,
+      'is_mandatory': true,
+      'label': 'Update',
+      'name': 'save',
+      'options': '',
+      'validations': [],
+      'width': 12
+    };
+    preview_form.push(save_button_value);
+     
+   }
 
 
   });
@@ -179,8 +217,10 @@ actiondocument() {
         this.validatorService.postrecord(endpoint_to_post_url, payload).subscribe((response) => {
           if (response) {
             this.loadingService.hideloading();
+           this.filterdocuments();
             this.sweetalertService.showAlert('Success', success_message, 'success');
             this.DocumentActivityForm.reset();
+            this.selectTab(0);
           }
         });
         this.loadingService.hideloading();
@@ -192,6 +232,32 @@ actiondocument() {
     this.validatorService.markFormAsDirty(this.DocumentActivityForm);
     this.toastService.showToastNotification('error', 'Kindly Correct the errors to proceed', '');
   }
+}
+editRecord() {
+  const payload = {
+    'document_id': this.request_id,
+    'record_id': this.record_instance_id,
+    'metadata_records': [this.inputForm.value]
+  };
+  this.sweetalertService.showConfirmation('Confirmation', 'Do you wish to edit record?').then((res) => {
+    if (res) {
+      this.loadingService.showloading();
+      this.validatorService.postrecord(edit_document_record_url, payload).subscribe((response) => {
+        if (response) {
+          this.loadingService.hideloading();
+          // this.sweetalertService.showAlert('Success', 'Successfully Editted', 'success');
+          this.createModal.hide();
+          this.toastService.showToastNotification("success","Successfully Updated","")
+            this.fetchRecords(this.request_id);
+
+        }
+      });
+      this.loadingService.hideloading();
+    } else {
+
+    }
+  });
+
 }
 
 }

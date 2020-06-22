@@ -49,6 +49,10 @@
             name = "users"
             [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.users.errors }" 
             >
+            <ng-option value="all">
+                
+              All
+                </ng-option>
             <ng-option [value]="user.id"  *ngFor="let user of all_users">
               
               {{user.username}} -- {{user.first_name}}

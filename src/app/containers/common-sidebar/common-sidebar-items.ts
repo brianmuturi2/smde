@@ -138,13 +138,7 @@ export const navItems: INavData[] = [
         url: '/validator-view/rejected-documents',
         icon: 'fa fa-times',
         permission: ['DATA_ANALYST']
-      },
-      // {
-      //   name: 'Resubmitted Docs',
-      //   url: '/validator-view/rejected-documents',
-      //   icon: 'fa fa-reply',
-      //   permission: 'DATA_ANALYST'
-      // }
+      }
     ]
 
   },
@@ -152,7 +146,33 @@ export const navItems: INavData[] = [
     name: 'Pre Validator Menu',
     url: '/validator-view/analytics',
     icon: 'fa fa-users',
-    permission: ['DATA_PREVALIDATOR']
+    permission: ['DATA_PREVALIDATOR'],
+    children: [
+      {
+        name: 'Analytics',
+        url: '/validator-view/analytics',
+        icon: 'fa fa-line-chart',
+        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+      },
+      {
+        name: 'Validate Document',
+        url: '/validator-view/pending-documents',
+        icon: 'fa fa-gavel',
+        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+      },
+      {
+        name: 'Approved Docs',
+        url: '/validator-view/approved-documents',
+        icon: 'fa fa-check-square',
+        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+      },
+      {
+        name: 'Rejected Docs',
+        url: '/validator-view/rejected-documents',
+        icon: 'fa fa-times',
+        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+      }
+    ]
   },
   {
     name: 'Document Manager',
@@ -167,6 +187,7 @@ export const navItems: INavData[] = [
         icon: 'fa fa-microchip',
         permission: ['DOCUMENT_MANAGER']
       },
+      
     ]
 
   },
@@ -265,7 +286,24 @@ export const navItems: INavData[] = [
 
      ]
   },
+  {
+    name: 'Communication',
+    url: '/cleaner-view/capture-data',
+    icon: 'fa fa-bullhorn',
+    // permission: '',
+    // permission: ['ICT_SUPPORT'],
+     children: [
+      {
+        name: 'Notices',
+        url: '/administration/notification-listing',
+        icon: 'fa fa-video-camera',
+        // permission: ['ICT_SUPPORT']
+        
+      },
 
+     ]
+  },
+  
 
 
   {

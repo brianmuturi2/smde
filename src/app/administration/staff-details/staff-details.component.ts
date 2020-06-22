@@ -172,9 +172,9 @@ export class StaffDetailsComponent implements OnInit {
     let confirmation_message = '';
     let post_data_url = '';
 
-    if (assigned_length != 1) {
-      this.sweetalertService.showAlert('Error', 'You can only assign the user one role', 'error');
-      post_data_url = award_user_role_url;
+    if (assigned_length < 1) {
+      this.sweetalertService.showAlert('Error', 'Kindly Select Roles', 'error');
+     
 
     } else {
       if (request_type === 0) {
@@ -183,6 +183,7 @@ export class StaffDetailsComponent implements OnInit {
 
       } else if (request_type === 1) {
         confirmation_message = 'Do you wish to proceed awarding Role(s)';
+        post_data_url = award_user_role_url;
       }
 
     }
