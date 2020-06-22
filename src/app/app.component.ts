@@ -10,8 +10,13 @@ import { get_user_roles_url } from './app.constants';
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router, public authservice: AuthenticationService, private permissionsService: NgxPermissionsService, ) {
+    this.disable_console();
     this.checkifAuthenticated();
+   
 
+   }
+   disable_console(){
+    console.log = function() {}
    }
   checkifAuthenticated() {
     this.authservice.authenticationState.subscribe(state => {
@@ -26,7 +31,7 @@ export class AppComponent implements OnInit {
           this.permissionsService.addPermission(all_roles, (permissionName, permissionsObject) => {
             return !!permissionsObject[permissionName];
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['/landing/home']);
           // if (all_roles == 'DATA_CLERK') {
           //   this.router.navigate(['/clerk-view/clerk-dashboard']);
 

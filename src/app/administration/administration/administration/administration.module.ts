@@ -16,6 +16,7 @@ import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-fo
 import { DepartmentListingComponent } from '../../department-management/department-listing/department-listing.component';
 import { DocumentTypeListingComponent } from '../../department-management/document-type-listing/document-type-listing.component';
 import { DocumentFieldListingComponent } from '../../department-management/document-field-listing/document-field-listing.component';
+import { NotificationsComponent } from '../../communication/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DocumentFieldListingComponent } from '../../department-management/docum
     StaffDetailsComponent,
     DepartmentListingComponent,
     DocumentTypeListingComponent,
-DocumentFieldListingComponent
+DocumentFieldListingComponent,
+NotificationsComponent
 
 
 

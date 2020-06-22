@@ -191,22 +191,19 @@ document_details = [];
       block_number: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
 
-      parcel_owner_type: new FormControl('',
-      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+      parcel_owner_type: new FormControl('',),
       file_number: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-      parcel_status: new FormControl('',
-      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+      parcel_status: new FormControl('',),
     });
     this.parcelOwnershipForm = this.formBuilder.group({
       parcel_system: new FormControl('',
-      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+      ),
       owner_identification_type: new FormControl('',
-       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+     ),
        owner_identification_number: new FormControl('',
-       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-       owner_name: new FormControl('',
-      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
+      ),
+       owner_name: new FormControl('',),
     });
     this.remarksForm = this.formBuilder.group({
       remarks: new FormControl('',
@@ -291,10 +288,12 @@ deleteparcelownerRow(index) {
           const response_file_number = res['file_no'];
           const file_cleaning_status =  res['file_cleaning_status'];
           if (!file_cleaning_status) {
+            this.toastService.showToastNotification("success","You Can Start Data Cleaning for File","Notification");
             this.start_task =  true;
             this.on_going_task =  false;
             this.task_complete =  false;
           } else {
+            this.toastService.showToastNotification("warning","File Data Cleaning Started","Notification");
             this.start_task =  false;
             this.on_going_task =  true;
             this.task_complete =  true;
@@ -376,20 +375,22 @@ fetchdocumenttypes() {
     const parcel_length = this.parcelInputRecords.length;
     if (doc_type_length <= 0) {
       this.toastService.showToastNotification('error', 'Atleast One Record Is required', '');
-      this.selectTab(2);
+      this.selectTab(3);
       this.documenttypeformstatus = true;
 
-    } else if (parcel_length <= 0) {
-      this.toastService.showToastNotification('error', 'Atleast One Parcel Record Is required', '');
-      this.selectTab(3);
-      this.parcelownershipformstatus = true;
-    } else if (!this.parcelDetailsForm.valid) {
+    }
+    //  else if (parcel_length <= 0) {
+    //   this.toastService.showToastNotification('error', 'Atleast One Parcel Record Is required', '');
+    //   this.selectTab(3);
+    //   this.parcelownershipformstatus = true;
+    // }
+     else if (!this.parcelDetailsForm.valid) {
       this.toastService.showToastNotification('error', 'Kindly Correct the errors highlighted to proceed', '');
-      this.selectTab(3);
+      this.selectTab(4);
       this.parceldetailsformstatus = true;
     } else if (!this.remarksForm.valid) {
       this.toastService.showToastNotification('error', 'Kindly Correct the errors highlighted to proceed', '');
-      this.selectTab(4);
+      this.selectTab(5);
       this.remarkformstatus = true;
     } else {
       const payload = {

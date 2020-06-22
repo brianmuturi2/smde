@@ -44,6 +44,12 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'landing',
+        loadChildren:
+        () => import('./landing/landing/landing.module').then(m => m.LandingModule),
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
         path: 'clerk-view',
         loadChildren:
         () => import('./clerk-view/clerk-view/clerk-view.module').then(m => m.ClerkViewModule),

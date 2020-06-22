@@ -1,0 +1,246 @@
+<div bsModal #createModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Create Notification</h4>
+        <button type="button" class="close" (click)="createModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+        <form [formGroup]="createRecordForm" >
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="input-small">Headline</label>
+            <div class="col-sm-9">
+              <input type="text"  name="headline" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="headline"  >
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="input-small">Message</label>
+            <div class="col-sm-9">
+              <textarea type="text" rows="4" name="message" class="form-control form-control-md"
+               placeholder="" [ngClass]="{'form-submitted': formSubmitted}" 
+               formControlName="message"  >
+               </textarea>
+            </div>
+          </div>
+         
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="input-small">Order</label>
+            <div class="col-sm-9">
+              <input type="number"  name="order" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="order"  >
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" >Is Visible</label>
+            <div class="col-sm-8 col-form-label">
+              <div class="form-check form-check-inline mr-1" id="inline-radios">
+                <input class="form-check-input" type="radio" name="is_visible" value="true"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_visible"  checked>
+                <label class="form-check-label" >Yes</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="radio" name="is_visible" value="false"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_visible" >
+                <label class="form-check-label" >No</label>
+                &nbsp;&nbsp; <div *ngIf="createRecordForm.get('is_visible').invalid " class="error-message">
+                  Select A Value
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!--  -->
+      </div>
+      
+      <div class="modal-footer">
+        <button   class="btn btn-warning col-md-4" (click)="resetForm()">Reset</button>
+        <button  type="submit"  (click)="createRecord()" class="btn btn-success col-md-4">Save</button>
+      
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Notification</h4>
+        <button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editRecordForm" >
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="input-small">Headline</label>
+                <div class="col-sm-9">
+                  <input type="text"  name="headline" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="headline"  >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="input-small">Message</label>
+                <div class="col-sm-9">
+                  <textarea type="text" rows="4" name="message" class="form-control form-control-md"
+                   placeholder="" [ngClass]="{'form-submitted': formSubmitted}" 
+                   formControlName="message"  >
+                   </textarea>
+                </div>
+              </div>
+             
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="input-small">Order</label>
+                <div class="col-sm-9">
+                  <input type="number"  name="order" class="form-control form-control-md" placeholder="" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="order"  >
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label" >Is Visible</label>
+                <div class="col-sm-8 col-form-label">
+                  <div class="form-check form-check-inline mr-1" id="inline-radios">
+                    <input class="form-check-input" type="radio" name="is_visible" value="true"
+                      [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_visible"  checked>
+                    <label class="form-check-label" >Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline mr-1">
+                    <input class="form-check-input" type="radio" name="is_visible" value="false"
+                      [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_visible" >
+                    <label class="form-check-label" >No</label>
+                    &nbsp;&nbsp; <div *ngIf="editRecordForm.get('is_visible').invalid " class="error-message">
+                      Select A Value
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="editModal.hide()">Close</button>
+        <button type="button" class="btn btn-success" (click)="saveEditChanges()">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Notification</h4>
+        <button type="button" class="close" (click)="deleteModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you wish to proceed with deleting the notification?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="deleteModal.hide()">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteInstanceRecord()">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <strong>Document Field Management || Document Type : <span class="text-danger"> {{document_type_name}}</span> ||  Department : <span class="text-success"> {{department_name}}</span>  </strong>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-2">
+          <button type="button" class="btn btn-block btn-success " (click)="createModal.show()"><i
+              class="fa fa-plus"></i>Add New</button>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 offset-md-6">
+          <div class="input-group">
+            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+            <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="searchString">
+          </div>
+        </div>
+      </div>
+        <br />
+        <div class="table-responsive">
+      <table class="table table-striped table-bordered table-sm table-hover row-border" [mfData]="records" #mf="mfDataTable"
+      [mfRowsOnPage]="10">
+        <thead>
+          <tr>
+           
+            <th style="width: 10%">
+               #
+              </th>
+              <th style="width: 30%">
+                <mfDefaultSorter by="name">Headline</mfDefaultSorter>
+              </th>
+              <th style="width: 30%">
+                <mfDefaultSorter by="label">Posted By</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="label">Order</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="label">Visibility Status</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="keyword">Date Posted</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                Action
+              </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="records?.length != 0">
+        
+              <tr *ngFor="let recordinstance of mf.data | filter : searchString; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{ recordinstance.headline }}</td>
+            <td>{{ recordinstance.posted_by.username }}</td>
+            <td>{{ recordinstance.order }}</td>
+            <td>{{ recordinstance.action_time | date : 'medium' }}</td>
+            <td>
+              <div *ngIf="recordinstance.is_visible;">
+                <i class="fa fa-check text-success"></i>
+              </div>
+              <div *ngIf="!recordinstance.is_visible">
+                <i class="fa fa-close text-danger"></i>
+              </div>
+            </td>
+           
+            
+            <td>
+              <button type="button" class="btn btn-primary  btn-sm " (click)="editRecord(recordinstance.id)"> <i
+                  class="fa fa-pencil "></i> </button>
+              <button type="button" class="btn btn-danger  btn-sm " (click)="deleteRecord(recordinstance.id)"> <i
+                  class="fa fa-trash "></i> </button>
+            </td>
+
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[1000,10,25,100,100000]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody *ngIf="records?.length == 0">
+          <tr>
+            <td colspan="9" class="no-data-available">No data available</td>
+          </tr>
+        <tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

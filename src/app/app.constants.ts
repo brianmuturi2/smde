@@ -4,8 +4,8 @@
 // export let serverurl = 'http://192.168.17.240:5600';
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
-// export let serverurl = 'http://127.0.0.1:8000';
-export let serverurl = 'http://192.168.18.65:8000';
+export let serverurl = 'http://127.0.0.1:8000';
+// export let serverurl = 'http://192.168.18.65:8000';
 
 // export let serverurl = 'http://192.168.17.118:8000';
 
@@ -111,4 +111,10 @@ export let revoke_user_role_url = serverurl + API_VERSION + 'ict-support/revoke-
 export let data_cleaning_file_filter_url = serverurl + API_VERSION + 'data-cleaning/filter-document-by-file-no';
 
 
+
+export let create_notifications_url = serverurl + API_VERSION + 'notices/create';
+export let list_notifications_url = serverurl + API_VERSION + 'notices/list-notices';
+export let delete_notifications_url = serverurl + API_VERSION + 'notices/create';
+export let detail_notifications_url = serverurl + API_VERSION + 'notices/detail-view';
+export let edit_notifications_url = serverurl + API_VERSION + 'notices/edit-view';
 // ng serve --host 0.0.0.0
