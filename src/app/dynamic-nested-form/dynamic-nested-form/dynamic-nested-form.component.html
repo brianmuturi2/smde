@@ -1,46 +1,3 @@
-<!-- <form [formGroup]="filterForm" class="filter-form">
-    <ng-template #recursiveList let-filterFields let-fromGroup="fromGroup">
-        <ng-container *ngFor="let item of filterFields; let i = index">
-            <ng-container *ngIf="item.group; else default;">
-                <p>{{item.title}}</p>
-                <div class="row pb-4" [formGroupName]="item.key">
-                    <div class="row pb-4" [formArrayName]="item.key">
-                    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.group, fromGroup: {name: item.key} }"></ng-container>
-                </div>
-                <button (click)="removeformControl(i,item.key)">Remove</button>
-            </ng-container>
-           
-            <button (click)="removeformControl(i,item.key)">Remove</button>
-            <ng-template #default>       
-                <div class="col-md-12">
-                    <div class="form-group" [formGroupName]="fromGroup.name">
-                        <div class="form-group" [formGroupName]="fromGroup.name">
-                        <input [type]="item.type" [formControlName]="item.key" [placeholder]="item.title" [name]="item.key" />
-                    </div>
-                </div>
-            </ng-template>
-            
-        </ng-container>
-        
-    </ng-template>
-    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: filterFields }"></ng-container>
-</form>
-{{filterForm.value | json }} -->
-
-<!-- <form [formGroup]="filterForm" class="filter-form">
-
- <p> {{main_form_name}}</p>
-
-
-<div *ngFor="let item of filterForm.controls | keys; let i = index">
-    <div [formArrayName]="item">
-        <div *ngFor="let todo of filterForm.get(item).controls; index as i">
-            {{todo}}
-            <input type="text" [formControlName]="i">
-    </div>  
-</div>
-</form>
-{{filterForm.value | json }}  -->
 
 <form [formGroup]="filterForm" class="filter-form">
 
@@ -61,55 +18,39 @@
         <p> {{form_items.formname}}</p>
         <button (click)="add_control(form_items.formname)">Add Control</button>
         <div [formArrayName] = "form_items.formname">
-            <div  [formGroupName]="u" *ngFor="let form_item_fields of form_items.fields; let u = index">
-            {{form_items.formname.controls}}
-                <input type="text" [formControlName]="form_item_fields.field_name">
-        
-        </div>
-        </div>
-       
-        <!-- <div [formArrayName] = "form_items.formname">
-            
-           
-            <div [formGroupName]="p" *ngFor="let row of form_items.fields;let p = index"> 
-                {{p}}
+            <!-- <div *ngFor="let form_item_fields of form_items.fields; let u = index">
+
+            </div> -->
+            <div  [formGroupName]="p"  *ngFor="let item of productArray(form_items.formname).controls; index as p">
                 
-             
-                    <input type="text" [formControlName]="row.field_name" />
-                </div>
-           
-                
-          
-        </div> -->
-        
-         
-            <!-- <div [formGroupName]="k"> 
-             {{row.field_name}}
+     
+                <!-- <div *ngFor="let form_item_fields of form_items.fields; let u = index">
                 </div> -->
+
+                <div class="row">
+             
+                   <label>Sections</label>
+                    <input type="text" formControlName="nature_of_encumberance"/> 
+                    <!-- <input type="text" [formControlName]="p"> -->
+                </div>
+            </div>
+                <!-- <div ngFor="let itemsx of item; let u = index">
+                    {{itemsx}}
+                   
+                
+                </div> -->
+
+            <!-- <div  [formGroupName]="u" *ngFor="let form_item_fields of form_items.fields; let u = index">
+          
+    <label>{{form_item_fields.name}}</label>
+        <input type="text" [formControlName]="form_item_fields.name">
+            </div>
+               -->
         
-            <!-- {{row | json}}               -->
-            <!-- <div [formGroupName]="i"> -->
-              <!-- <span *ngFor="let keyvalue of row | keyvalue">
-                  {{keyvalue | json}}
-                <input [formControlName]="keyvalue.key" />
-              </span> -->
-            <!-- </div> -->
-        
-        </div>    
-
-<!-- <input type="text" [formControlName]="creds.field_name"> -->
-
-
-   
-    
-
-
-    <!-- <div [formArrayName]="item">
-        <div *ngFor="let todo of filterForm.get(item).controls; index as i">
-            {{todo}}
-            <input type="text" [formControlName]="i">
-          </div>
-    </div>   -->
+ 
+        </div>
+        <button (click)="remove_control(u,form_items.formname)">Remove Control</button>
+      
 </div>
 </form>
 {{filterForm.value | json }} 
