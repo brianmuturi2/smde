@@ -291,13 +291,13 @@ export const navItems: INavData[] = [
     url: '/cleaner-view/capture-data',
     icon: 'fa fa-bullhorn',
     // permission: '',
-    permission: ['ICT_SUPPORT'],
+    permission: ['COMMUNICATION_MANAGER'],
      children: [
       {
         name: 'Notices',
         url: '/administration/notification-listing',
         icon: 'fa fa-video-camera',
-        permission: ['ICT_SUPPORT']
+        permission: ['COMMUNICATION_MANAGER']
         
       },
 

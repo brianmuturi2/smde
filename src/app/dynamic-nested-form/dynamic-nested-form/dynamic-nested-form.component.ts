@@ -132,6 +132,15 @@ export class DynamicNestedFormComponent implements OnInit {
     const arrLength = selectedformArray.length;
     selectedformArray.removeAt(index);
   }
+  productArray(form_name):FormArray
+{ 
+
+    return this.filterForm.get(form_name) as FormArray;
+}
+
+
+
+
   add_control(index){
     const selectedformArray = this.filterForm.get(index) as FormArray;
     
