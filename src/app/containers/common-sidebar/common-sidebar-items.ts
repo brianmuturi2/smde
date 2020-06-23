@@ -152,25 +152,25 @@ export const navItems: INavData[] = [
         name: 'Analytics',
         url: '/validator-view/analytics',
         icon: 'fa fa-line-chart',
-        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+        permission: ['DATA_PREVALIDATOR']
       },
       {
         name: 'Validate Document',
         url: '/validator-view/pending-documents',
         icon: 'fa fa-gavel',
-        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+        permission: ['DATA_PREVALIDATOR']
       },
       {
         name: 'Approved Docs',
         url: '/validator-view/approved-documents',
         icon: 'fa fa-check-square',
-        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+        permission: ['DATA_PREVALIDATOR']
       },
       {
         name: 'Rejected Docs',
         url: '/validator-view/rejected-documents',
         icon: 'fa fa-times',
-        permission: ['DATA_ANALYST','DATA_PREVALIDATOR']
+        permission: ['DATA_PREVALIDATOR']
       }
     ]
   },
