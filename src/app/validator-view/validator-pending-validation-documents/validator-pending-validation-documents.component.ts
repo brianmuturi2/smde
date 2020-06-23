@@ -5,7 +5,7 @@ import { LoadingService } from '../../common-module/shared-service/loading.servi
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { filter_document_by_file_url, fetch_document_records_url,
   validators_approve_document_url, fetch_document_record_details_url,
-  validators_reject_document_url,edit_document_record_url} from '../../app.constants';
+  validators_reject_document_url,edit_document_record_url,validators_submit_for_approval_document_url} from '../../app.constants';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { DocumentsList } from '../interfaces/validator';
 import { Router } from '@angular/router';
@@ -153,7 +153,8 @@ const can_approve = this.user_permissions.includes(allowable_approve_roles);
 
 }
 preview_document(record_id) {
-  this.cdRef.detectChanges();
+  this.doc_url_reference = '';
+  // this.cdRef.detectChanges();
   this.record_instance_id = record_id;
   const payload = {
     'record_id': record_id,
@@ -165,6 +166,7 @@ preview_document(record_id) {
    const formcontrol_values =  response['record_values'];
    this.doc_keyword = response['document_details']['document_keyword'];
  this.doc_url_reference = response['document_details']['document'];
+ this.cdRef.detectChanges();
 
    this.inputForm.initialize_form(preview_form);
    this.inputForm.setControlValue(formcontrol_values);
@@ -249,6 +251,32 @@ editRecord() {
           this.createModal.hide();
           this.toastService.showToastNotification("success","Successfully Updated","")
             this.fetchRecords(this.request_id);
+
+        }
+      });
+      this.loadingService.hideloading();
+    } else {
+
+    }
+  });
+
+}
+submitforapproval(){
+  const payload = {
+    'document_id': this.request_id,
+    'record_id': this.record_instance_id
+  };
+  this.sweetalertService.showConfirmation('Confirmation', 'Do you wish to submit the document for approval?').then((res) => {
+    if (res) {
+      this.loadingService.showloading();
+      this.validatorService.postrecord(validators_submit_for_approval_document_url, payload).subscribe((response) => {
+        if (response) {
+          this.loadingService.hideloading();
+          // this.sweetalertService.showAlert('Success', 'Successfully Editted', 'success');
+          this.createModal.hide();
+          this.filterdocuments();
+          this.toastService.showToastNotification("success","Successfully Submitted","")
+          this.selectTab(0);
 
         }
       });
