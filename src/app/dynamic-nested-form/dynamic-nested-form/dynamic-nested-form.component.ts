@@ -30,23 +30,23 @@ export class DynamicNestedFormComponent implements OnInit {
 
         ]
       },
-      {
-        'formname': 'proprietorship_section',
-        'formtype': 'array',
-        'fields': [
+      // {
+      //   'formname': 'proprietorship_section',
+      //   'formtype': 'array',
+      //   'fields': [
 
-          {
-            'field_name': 'entry_no',
-            'field_type': 'text'
-          },
+      //     {
+      //       'field_name': 'entry_no',
+      //       'field_type': 'text'
+      //     },
 
-          {
-            'field_name': 'entry_no_x',
-            'field_type': 'text'
-          }
+      //     {
+      //       'field_name': 'entry_no_x',
+      //       'field_type': 'text'
+      //     }
 
-        ]
-      },
+      //   ]
+      // },
       {
         'formname': 'encumberance_section',
         'formtype': 'array',
@@ -134,7 +134,8 @@ export class DynamicNestedFormComponent implements OnInit {
   }
   productArray(form_name):FormArray
 { 
-
+  const form_array = this.filterForm.get(form_name) as FormArray;
+  console.log(form_array.controls)
     return this.filterForm.get(form_name) as FormArray;
 }
 

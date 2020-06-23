@@ -283,7 +283,7 @@
                 <div class="card-body">
                  
           
-             <form [formGroup]="DocumentActivityForm" (ngSubmit)="actiondocument()">
+             <form [formGroup]="DocumentActivityForm">
                                   <div class="row col-md-12">
           
                                       <div class="form-group col-sm-6">
@@ -302,9 +302,14 @@
                                           </textarea>
                                       </div>
                                       <div class="form-group col-sm-6">
+                                        <label for="lastname">&nbsp;</label>
+                                        <button type="submit" class="btn btn-danger col-sm-12" (click)="submitforapproval()"> Submit Corrections for Approval</button>
+                                    </div>
+                                      <div class="form-group col-sm-6">
                                           <label for="lastname">&nbsp;</label>
-                                          <button type="submit" class="btn btn-success col-sm-12" > Submit</button>
+                                          <button type="submit" class="btn btn-success col-sm-12" (click)="actiondocument()"> Submit</button>
                                       </div>
+                                    
                                   </div>
                                   </form>
                   

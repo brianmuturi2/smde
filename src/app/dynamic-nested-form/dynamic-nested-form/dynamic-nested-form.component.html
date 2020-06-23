@@ -1,56 +1,56 @@
-
 <form [formGroup]="filterForm" class="filter-form">
 
- <p> {{main_form_name}}</p>
-
-<div *ngFor="let form_items of form_fields_passed; let i = index">
-    <div *ngIf="form_items.formtype == 'single'">
-      
- <p> {{form_items.formname}}</p>
-            <div  [formGroupName]="form_items.formname" *ngFor="let form_item_fields of form_items.fields; let j = index">
-            
-                <input type="text" [formControlName]="form_item_fields.field_name">
-        
-        </div>
-
-    </div>
-    <div *ngIf="form_items.formtype == 'array'">
-        <p> {{form_items.formname}}</p>
-        <button (click)="add_control(form_items.formname)">Add Control</button>
-        <div [formArrayName] = "form_items.formname">
-            <!-- <div *ngFor="let form_item_fields of form_items.fields; let u = index">
-
-            </div> -->
-            <div  [formGroupName]="p"  *ngFor="let item of productArray(form_items.formname).controls; index as p">
-                
-     
-                <!-- <div *ngFor="let form_item_fields of form_items.fields; let u = index">
-                </div> -->
-
-                <div class="row">
-             
-                   <label>Sections</label>
-                    <input type="text" formControlName="nature_of_encumberance"/> 
-                    <!-- <input type="text" [formControlName]="p"> -->
-                </div>
-            </div>
-                <!-- <div ngFor="let itemsx of item; let u = index">
-                    {{itemsx}}
+    <p> {{main_form_name}}</p>
+   
+   <div *ngFor="let form_items of form_fields_passed; let i = index">
+       <div *ngIf="form_items.formtype == 'single'">
+         
+    <p> {{form_items.formname}}</p>
+               <div  [formGroupName]="form_items.formname" *ngFor="let form_item_fields of form_items.fields; let j = index">
+               
+                   <input type="text" [formControlName]="form_item_fields.field_name">
+           
+           </div>
+   
+       </div>
+       <div *ngIf="form_items.formtype == 'array'">
+           <p> {{form_items.formname}}</p>
+           <button (click)="add_control(form_items.formname)">Add Control</button>
+           <div [formArrayName] = "form_items.formname">
+               <!-- <div *ngFor="let form_item_fields of form_items.fields; let u = index">
+   
+               </div> -->
+               <div  [formGroupName]="p"  *ngFor="let item of productArray(form_items.formname).controls; index as p">
                    
-                
-                </div> -->
-
-            <!-- <div  [formGroupName]="u" *ngFor="let form_item_fields of form_items.fields; let u = index">
-          
-    <label>{{form_item_fields.name}}</label>
-        <input type="text" [formControlName]="form_item_fields.name">
-            </div>
-               -->
         
- 
-        </div>
-        <button (click)="remove_control(u,form_items.formname)">Remove Control</button>
-      
-</div>
-</form>
-{{filterForm.value | json }} 
+                   <!-- <div *ngFor="let form_item_fields of form_items.fields; let u = index">
+                   </div> -->
+   
+                   <div class="row">
+                
+                      <label>{{item.name}}</label>
+                       <input type="text" formControlName="nature_of_encumberance"/> 
+                       <!-- <input type="text" [formControlName]="p"> -->
+                   </div>
+               </div>
+                   <!-- <div ngFor="let itemsx of item; let u = index">
+                       {{itemsx}}
+                      
+                   
+                   </div> -->
+   
+               <!-- <div  [formGroupName]="u" *ngFor="let form_item_fields of form_items.fields; let u = index">
+             
+       <label>{{form_item_fields.name}}</label>
+           <input type="text" [formControlName]="form_item_fields.name">
+               </div>
+                  -->
+           </div>
+    
+           </div>
+           <button (click)="remove_control(u,form_items.formname)">Remove Control</button>
+         
+   </div>
+   </form>
+   {{filterForm.value | json }}
+   

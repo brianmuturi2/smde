@@ -52,7 +52,7 @@ export let validators_pending_validation_documents_url = serverurl + API_VERSION
 export let validators_dashboard_url = serverurl + API_VERSION + 'edms/validator-view/analytics';
 export let validators_approve_document_url = serverurl + API_VERSION + 'edms/validator-view/approve-document';
 export let validators_reject_document_url = serverurl + API_VERSION + 'edms/validator-view/reject-document';
-
+export let validators_submit_for_approval_document_url = serverurl + API_VERSION + 'edms/validator-view/submit-for-approval-document';
 
 
 export let filter_document_by_file_url = serverurl + API_VERSION + 'edms/document/filter-document-by-file-no';
