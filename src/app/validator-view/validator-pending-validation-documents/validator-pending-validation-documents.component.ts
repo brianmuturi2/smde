@@ -165,7 +165,8 @@ preview_document(record_id) {
    const preview_form = response['record_form']['fields'];
    const formcontrol_values =  response['record_values'];
    this.doc_keyword = response['document_details']['document_keyword'];
- this.doc_url_reference = response['document_details']['document'];
+   const doc_ref_id = response['document_details']['document'];
+   this.doc_url_reference = doc_ref_id;
  this.cdRef.detectChanges();
 
    this.inputForm.initialize_form(preview_form);
