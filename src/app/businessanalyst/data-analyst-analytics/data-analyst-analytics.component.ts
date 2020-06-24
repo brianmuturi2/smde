@@ -123,7 +123,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
       this.loadingService.showloading();
 
       this.analyticsService.getrecords(data_validators_analytics_url, payload).subscribe((res) => {
-        // this.rerenderTable();
+        
         this.destroy_chart();
         let approved_documents: any = 0;
         let rejected_documents: any = 0;
@@ -138,7 +138,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
 
         this.allfieldsstatus.length = 0;
         if (total_count > 0) {
-          // this.rerenderTable();
+         
           this.records = returned_records;
 
           for (const records of returned_records) {
@@ -150,7 +150,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
             metadata_captured_documents += parseInt(records['metadata_captured_documents'], 10);
             resubmitted_documents += parseInt(records['resubmitted_documents'], 10);
           }
-          this.redrawTable();
+         
           this.allfieldsstatus.push({
             'name': 'Approved',
             'y': parseInt(approved_documents, 10)
@@ -183,7 +183,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
 
         } else {
           this.records = [];
-          this.redrawTable();
+    
           this.allfieldsstatus.length = 0;
 
           // this.dtTrigger.next();
@@ -210,22 +210,7 @@ export class DataAnalystAnalyticsComponent implements OnInit, AfterViewInit {
 
   }
 
-  rerenderTable(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      // dtInstance.draw();
-      dtInstance.clear().draw();
-      // dtInstance.draw();
-    });
-  }
-  redrawTable(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      // dtInstance.draw();
-      dtInstance.draw();
-      // dtInstance.draw();
-    });
-  }
+
   destroy_chart() {
     const chart = Highcharts.chart('analyticscontainer', {});
     chart.destroy();

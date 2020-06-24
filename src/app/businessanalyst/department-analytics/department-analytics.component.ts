@@ -135,8 +135,6 @@ export class DepartmentAnalyticsComponent implements OnInit, AfterViewInit {
         if (total_count > 0) {
           // this.rerenderTable();
           this.records = returned_records;
-
-          this.redrawTable();
           this.allfieldsstatus.push({
             'name': 'Approved',
             'y': parseInt(approved_documents, 10)
@@ -171,7 +169,7 @@ export class DepartmentAnalyticsComponent implements OnInit, AfterViewInit {
 
           this.allfieldsstatus.length = 0;
           this.records = [];
-          this.redrawTable();
+         
           // this.dtTrigger.next();
           this.toastService.showToastNotification('warning', 'No Records Found Within the Search Criteria', '');
           // this.drawpiechartanalytics([]);
@@ -196,22 +194,8 @@ export class DepartmentAnalyticsComponent implements OnInit, AfterViewInit {
 
   }
 
-  rerenderTable(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      // dtInstance.draw();
-      dtInstance.clear().draw();
-      // dtInstance.draw();
-    });
-  }
-  redrawTable(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      // dtInstance.draw();
-      dtInstance.draw();
-      // dtInstance.draw();
-    });
-  }
+ 
+
   destroy_chart() {
     const chart = Highcharts.chart('analyticscontainer', {});
     chart.destroy();
