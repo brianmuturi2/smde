@@ -4,8 +4,8 @@
 // export let serverurl = 'http://192.168.17.240:5600';
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
-// export let serverurl = 'http://127.0.0.1:8000';
-export let serverurl = 'http://192.168.18.65:5600';
+export let serverurl = 'http://127.0.0.1:5600';
+// export let serverurl = 'http://192.168.18.65:5600';
 
 // export let serverurl = 'http://192.168.17.118:8000';
 
