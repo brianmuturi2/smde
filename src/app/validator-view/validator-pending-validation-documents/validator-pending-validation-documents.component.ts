@@ -171,7 +171,7 @@ preview_document(record_id) {
 
    this.inputForm.initialize_form(preview_form);
    this.inputForm.setControlValue(formcontrol_values);
-   if(this.can_edit_metadata){
+  //  if(this.can_edit_metadata){
     const save_button_value = {
       'field_no': '',
       'field_type': 'button',
@@ -186,7 +186,7 @@ preview_document(record_id) {
     };
     preview_form.push(save_button_value);
      
-   }
+  //  }
 
 
   });
