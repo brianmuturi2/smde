@@ -5,7 +5,9 @@ import { LoadingService } from '../../common-module/shared-service/loading.servi
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { filter_document_by_file_url, fetch_document_records_url,
   validators_approve_document_url, fetch_document_record_details_url,
-  validators_reject_document_url,edit_document_record_url,validators_submit_for_approval_document_url} from '../../app.constants';
+  validators_reject_document_url,
+  edit_document_record_url,validators_submit_for_approval_document_url,
+  edit_main_document_record_url} from '../../app.constants';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { DocumentsList } from '../interfaces/validator';
 import { Router } from '@angular/router';
@@ -14,6 +16,7 @@ import { SweetalertService } from '../../common-module/shared-service/sweetalert
 import { NgxPermissionsService } from 'ngx-permissions';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
+import { DynamicNestedFormComponent } from '../../dynamic-nested-form/dynamic-nested-form/dynamic-nested-form.component';
 @Component({
   selector: 'app-validator-pending-validation-documents',
   templateUrl: './validator-pending-validation-documents.component.html',
@@ -21,7 +24,9 @@ import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-fo
 })
 export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnDestroy {
   public DocumentActivityForm: FormGroup;
+  @ViewChild(DynamicNestedFormComponent, {static: false}) mainDocumentForm: DynamicNestedFormComponent;
   @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
+  public is_main_document_field = false;
   public searchForm: FormGroup;
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   records: DocumentsList[] = [];
@@ -168,23 +173,42 @@ preview_document(record_id) {
    const doc_ref_id = response['document_details']['document'];
    this.doc_url_reference = doc_ref_id;
  this.cdRef.detectChanges();
+ const is_main_document = response['record_form']['is_main_document'];
+ if (is_main_document) {
+  this.is_main_document_field = true;
 
-   this.inputForm.initialize_form(preview_form);
-   this.inputForm.setControlValue(formcontrol_values);
-  //  if(this.can_edit_metadata){
-    const save_button_value = {
-      'field_no': '',
-      'field_type': 'button',
-      'input_type': 'button',
-      'is_enforced': true,
-      'is_mandatory': true,
-      'label': 'Update',
-      'name': 'save',
-      'options': '',
-      'validations': [],
-      'width': 12
-    };
-    preview_form.push(save_button_value);
+  const main_document_fields = response['record_form']['main_document_fields'];
+  const main_forsm_name = main_document_fields['formgroup'];
+  const patchvalues = response['record_values']
+ 
+  // this.mainDocumentForm.main_form_name = main_forsm_name;
+
+  this.mainDocumentForm.showform(main_document_fields);
+  this.mainDocumentForm.update_form_values(patchvalues);
+  // this.update_values();
+}
+else{
+  this.is_main_document_field = false;
+  this.inputForm.initialize_form(preview_form);
+  this.inputForm.setControlValue(formcontrol_values);
+ //  if(this.can_edit_metadata){
+   const save_button_value = {
+     'field_no': '',
+     'field_type': 'button',
+     'input_type': 'button',
+     'is_enforced': true,
+     'is_mandatory': true,
+     'label': 'Update',
+     'name': 'save',
+     'options': '',
+     'validations': [],
+     'width': 12
+   };
+   preview_form.push(save_button_value);
+}
+
+
+ 
      
   //  }
 
@@ -262,6 +286,39 @@ editRecord() {
   });
 
 }
+editMainForm() {
+  
+
+    const form_data = this.mainDocumentForm.filterForm.value;
+    const payload = {
+      'document_id': this.request_id,
+      'record_id': this.record_instance_id,
+      'metadata_records': form_data
+    };
+    this.sweetalertService.showConfirmation('Data Submission', 'Do you to posting the records?').then((res) => {
+      if (res) {
+        
+        this.validatorService.postrecord(edit_main_document_record_url, payload).subscribe(res => {
+          // this.sweetalertsService.showAlert('Success', 'Successfully Submitted for Validation', 'success');
+          this.toastService.showToastNotification('success', 'Successfully Updated', '');
+          this.fetchRecords(this.request_id);
+          
+
+        });
+
+      }
+    });
+   
+
+
+
+}
+
+
+
+
+
+edit_main_document_record_url
 submitforapproval(){
   const payload = {
     'document_id': this.request_id,

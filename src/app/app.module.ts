@@ -55,11 +55,12 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { DynamicFormModule } from './dynamic-form/dynamic-form/dynamic-form.module';
 
-
+import { DynamicNestedFormModule } from './dynamic-nested-form/dynamic-nested-form.module';
 
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CommonSidebarComponent } from './containers/common-sidebar/common-sidebar.component';
 import { DocumentDetailsComponent } from './administration/document-details/document-details.component';
+
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     AppSidebarModule,
     FormsModule,
     DynamicFormModule,
+    DynamicNestedFormModule,
     ReactiveFormsModule,
     PerfectScrollbarModule,
     HttpClientModule,
@@ -101,6 +103,7 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     P403Component,
     CommonSidebarComponent,
     DocumentDetailsComponent,
+  
  
 
 

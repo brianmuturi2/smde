@@ -76,7 +76,7 @@ import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-neste
     DataTableModule,
     NgbModule,
     NgSelectModule,
-    DynamicNestedFormModule,
+    // DynamicNestedFormModule,
 
   ],
   exports: [
@@ -108,7 +108,7 @@ import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-neste
     CommonProfileComponent,
 SafePipe,
 FilterPipe,
-DynamicNestedFormModule
+// DynamicNestedFormModule
 
 
   ],

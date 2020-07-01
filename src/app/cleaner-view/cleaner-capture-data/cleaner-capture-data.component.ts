@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 import {ModalDirective} from 'ngx-bootstrap/modal';
+import { DynamicNestedFormComponent } from '../../dynamic-nested-form/dynamic-nested-form/dynamic-nested-form.component';
 @Component({
   selector: 'app-cleaner-capture-data',
   templateUrl: './cleaner-capture-data.component.html',
@@ -20,8 +21,9 @@ import {ModalDirective} from 'ngx-bootstrap/modal';
 })
 export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+  @ViewChild(DynamicNestedFormComponent, {static: false}) mainDocumentForm: DynamicNestedFormComponent;
   @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
-
+  public is_main_document_field = false;
   @ViewChild('startCleaningTaskModal') public startCleaningTaskModal: ModalDirective;
   @ViewChild('createModal') public createModal: ModalDirective;
   public searchForm: FormGroup;
@@ -361,9 +363,41 @@ fetchdocumenttypes() {
 
    this.doc_url_reference = doc_ref_id;
    this.cdRef.detectChanges();
+   const is_main_document = response['record_form']['is_main_document'];
+   if (is_main_document) {
+    this.is_main_document_field = true;
+  
+    const main_document_fields = response['record_form']['main_document_fields'];
+    const main_forsm_name = main_document_fields['formgroup'];
+    const patchvalues = response['record_values']
+   
+    // this.mainDocumentForm.main_form_name = main_forsm_name;
+  
+    this.mainDocumentForm.showform(main_document_fields);
+    this.mainDocumentForm.update_form_values(patchvalues);
+    // this.update_values();
+  }
 
-     this.inputForm.initialize_form(preview_form);
-     this.inputForm.setControlValue(formcontrol_values);
+  else {
+    this.is_main_document_field = false;
+    this.inputForm.initialize_form(preview_form);
+    this.inputForm.setControlValue(formcontrol_values);
+   //  if(this.can_edit_metadata){
+    //  const save_button_value = {
+    //    'field_no': '',
+    //    'field_type': 'button',
+    //    'input_type': 'button',
+    //    'is_enforced': true,
+    //    'is_mandatory': true,
+    //    'label': 'Update',
+    //    'name': 'save',
+    //    'options': '',
+    //    'validations': [],
+    //    'width': 12
+    //  };
+    //  preview_form.push(save_button_value);
+  }
+  
 
 
     });

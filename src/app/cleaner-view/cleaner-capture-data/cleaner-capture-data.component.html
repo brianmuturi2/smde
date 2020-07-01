@@ -19,8 +19,24 @@
               
               </div>
               <div class="col-md-6">
-                <app-dynamic-form>
-                </app-dynamic-form>
+                <div class="scroll">
+                  <div [hidden]="is_main_document_field">
+                <!-- <app-dynamic-form (submit)="editRecord()">      
+                </app-dynamic-form>  -->
+                <app-dynamic-form>      
+                </app-dynamic-form> 
+                </div> 
+                <div [hidden]="!is_main_document_field"> 
+                <dynamic-nested-form></dynamic-nested-form>
+                </div>
+                  <!-- <app-dynamic-form (submit)="addRow()">      
+                  </app-dynamic-form>  -->
+                
+                  <!-- <div *ngIf="is_main_document_field">
+                    <button type="button" class="btn form-control  btn-success btn-md " (click)="editMainForm()" > <i
+                        class="fa fa-save"></i> Update </button>
+                        </div> -->
+                </div>
             </div>
             
 

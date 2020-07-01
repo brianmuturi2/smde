@@ -47,6 +47,8 @@ export class DocumentTypeListingComponent implements OnInit {
       keyword: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
       model: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
       is_visible: new FormControl('', Validators.compose([Validators.required])),
+      is_main_document: new FormControl('', Validators.compose([Validators.required])),
+      main_document_fields: new FormControl('', ),
     });
     this.editRecordForm = this.formBuilder.group({
       id: new FormControl('', Validators.compose([Validators.required])),
@@ -55,6 +57,8 @@ export class DocumentTypeListingComponent implements OnInit {
       model: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
       is_visible: new FormControl('', Validators.compose([Validators.required])),
       department_id: new FormControl('', Validators.compose([Validators.required])),
+      is_main_document: new FormControl('', Validators.compose([Validators.required])),
+      main_document_fields: new FormControl('', ),
     });
     this.department_id = this.active_router.snapshot.paramMap.get('department_id');
   }
@@ -143,7 +147,10 @@ export class DocumentTypeListingComponent implements OnInit {
         'keyword': res['keyword'],
         'model': res['model'],
         'is_visible': this.administrationService.getreverseBoolean(res['is_visible']),
+        'is_main_document': this.administrationService.getreverseBoolean(res['is_main_document']),
         'department_id': res['department']['id'],
+        'main_document_fields': JSON.stringify(res['main_document_fields']),
+        
 
 
       };
@@ -188,7 +195,12 @@ export class DocumentTypeListingComponent implements OnInit {
             'keyword': this.createRecordForm.get('keyword').value,
             'model': this.createRecordForm.get('model').value,
             'department': this.department_id,
-            'is_visible': this.administrationService.getBoolean(this.createRecordForm.get('is_visible').value)
+            'is_visible': this.administrationService.getBoolean(this.createRecordForm.get('is_visible').value),
+            'is_main_document': this.administrationService.getBoolean(this.createRecordForm.get('is_main_document').value),
+            'main_document_fields': this.createRecordForm.get('main_document_fields').value,
+
+
+            
           };
 
           this.administrationService.postrecord(create_document_types_url, payload).subscribe((data) => {
@@ -226,7 +238,11 @@ export class DocumentTypeListingComponent implements OnInit {
             'keyword': this.editRecordForm.get('keyword').value,
             'model': this.editRecordForm.get('model').value,
             'department': this.editRecordForm.get('department_id').value,
-            'is_visible': this.administrationService.getBoolean(this.editRecordForm.get('is_visible').value)
+            'is_visible': this.administrationService.getBoolean(this.editRecordForm.get('is_visible').value),
+            'is_main_document': this.administrationService.getBoolean(this.editRecordForm.get('is_main_document').value),
+            'main_document_fields': this.editRecordForm.get('main_document_fields').value,
+
+            
           };
 
           this.administrationService.updaterecord(edit_document_types_url, payload).subscribe((data) => {

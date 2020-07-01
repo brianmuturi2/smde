@@ -48,6 +48,32 @@
               </div>
             </div>
           </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="is_visible">Is Main Document Type</label>
+            <div class="col-sm-8 col-form-label">
+              <div class="form-check form-check-inline mr-1" id="inline-radios">
+                <input class="form-check-input" type="radio" name="is_main_document" value="true"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_main_document" required checked>
+                <label class="form-check-label" for="is_main_document">Yes</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="radio" name="is_main_document" value="false"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_main_document" required>
+                <label class="form-check-label" for="is_main_document">No</label>
+                &nbsp;&nbsp; <div *ngIf="createRecordForm.get('is_main_document').invalid " class="error-message">
+                  Select A Value
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="input-small">Main Document Fields</label>
+            <div class="col-sm-9">
+              <textarea class="form-control form-control-md" rows="4" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="main_document_fields">
+
+              </textarea>
+            </div>
+          </div>
         </form>
         <!--  -->
       </div>
@@ -128,7 +154,32 @@
               </div>
             </div>
           </div>
-        
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="is_visible">Is Main Document Type</label>
+            <div class="col-sm-8 col-form-label">
+              <div class="form-check form-check-inline mr-1" id="inline-radios">
+                <input class="form-check-input" type="radio" name="is_main_document" value="true"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_main_document" required checked>
+                <label class="form-check-label" for="is_main_document">Yes</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="radio" name="is_main_document" value="false"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_main_document" required>
+                <label class="form-check-label" for="is_main_document">No</label>
+                &nbsp;&nbsp; <div *ngIf="editRecordForm.get('is_main_document').invalid " class="error-message">
+                  Select A Value
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="input-small">Main Document Fields</label>
+            <div class="col-sm-9">
+              <textarea class="form-control form-control-md" rows="4" [ngClass]="{'form-submitted': formSubmitted}"  formControlName="main_document_fields">
+
+              </textarea>
+            </div>
+          </div>
         
         </form>
       </div>

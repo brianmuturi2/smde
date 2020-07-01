@@ -1,0 +1,49 @@
+<div class="animated fadeIn">
+    <div class="card">
+      <div class="card-header">
+        <strong>Receive A File</strong>
+      </div>
+      <div class="card-body">
+        
+
+
+            <form [formGroup]="receiveFileForm" >
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Department *</label>
+    
+                  <ng-select
+                  [searchable]="true" 
+                  [clearable]="true"
+                  name = "document_type"
+                  [ngClass]="{ 'is-invalid': formstatus &amp;&amp; receiveFileForm.controls.department.errors }" 
+                
+                  formControlName="department">
+                  <ng-option value="{{departments.id}}"  *ngFor="let departments of all_departments">
+                    
+                      {{departments.name}}
+                  </ng-option>
+      </ng-select>
+    </div>
+    <div class="col-md-6">
+        <label for="lastname">File Number</label>
+        <input type="text" class="form-control" formControlName="file_number" >
+    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <!-- <div *ngxPermissionsOnly="['USER_MANAGER', 'TEAM_LEADER']"> -->
+                    <label for="lastname">&nbsp;</label>
+                    <button type="button" class="form-control btn btn-success" (click)="receivefile()">
+                        Submit</button>
+                    <!-- </div> -->
+                </div>
+
+            </form>
+       
+          
+       
+        
+      </div>
+
+      </div>
+</div>

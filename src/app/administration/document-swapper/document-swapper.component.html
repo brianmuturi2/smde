@@ -1,0 +1,89 @@
+<div class="animated fadeIn">
+    <div class="card">
+      <div class="card-header">
+        <strong>Document Console</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="filterForm" >
+        <div class="form-group row">
+          
+            <div class="form-group col-sm-6">
+                <label for="country">Department Name</label>
+                
+                <ng-select
+                [searchable]="true" 
+                [clearable]="true"
+                formControlName="department_name"
+                (change)="fetchDepartmentRecords($event)"
+                [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.users.errors }" 
+                >
+                <ng-option value="all">
+                    
+                  All
+                    </ng-option>
+                <ng-option [value]="department_details.id"  *ngFor="let department_details of department_records">
+                  
+                    {{department_details.name}}
+                </ng-option>
+      </ng-select>
+               
+                
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="country">Document Type</label>
+                   
+                    <ng-select
+                    [searchable]="true" 
+                    [clearable]="true"
+                    formControlName="document_type"
+                   
+                    name = "users"
+                    [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.users.errors }" 
+                    >
+                    <ng-option value="">
+                        
+                      All
+                        </ng-option>
+                    <ng-option [value]="doc_type.id"  *ngFor="let doc_type of document_types">
+                      
+                     
+                      {{doc_type.name}} -- Visibility Status : {{doc_type.is_visible}}
+                    </ng-option>
+          </ng-select>
+                   
+                    
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="country">New Document Status</label>
+                        <ng-select
+                        [searchable]="true" 
+                        [clearable]="true"
+                        formControlName="new_document_status"
+                       
+                        name = "users"
+                        [ngClass]="{ 'is-invalid': filterformstatus &amp;&amp; filterForm.controls.users.errors }" 
+                        >
+                        <ng-option value="">
+                            
+                          -- Select Status
+                            </ng-option>
+                        <ng-option [value]="doc_status.id"  *ngFor="let doc_status of document_status">
+                          
+                          {{doc_status.name}}
+                        </ng-option>
+              </ng-select>
+                      
+                        
+                        </div>
+          </div>
+          </form>
+         
+      
+        
+
+          </div>
+          <div class="card-footer">
+            <button  type="submit"  (click)="swapDocument()" class="btn btn-danger col-md-4">Swap</button>
+              </div>
+          </div>
+</div>
