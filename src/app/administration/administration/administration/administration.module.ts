@@ -17,6 +17,7 @@ import { DepartmentListingComponent } from '../../department-management/departme
 import { DocumentTypeListingComponent } from '../../department-management/document-type-listing/document-type-listing.component';
 import { DocumentFieldListingComponent } from '../../department-management/document-field-listing/document-field-listing.component';
 import { NotificationsComponent } from '../../communication/notifications/notifications.component';
+import { DocumentSwapperComponent } from '../../document-swapper/document-swapper.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NotificationsComponent } from '../../communication/notifications/notifi
     DepartmentListingComponent,
     DocumentTypeListingComponent,
 DocumentFieldListingComponent,
-NotificationsComponent
+NotificationsComponent,
+DocumentSwapperComponent
 
 
 

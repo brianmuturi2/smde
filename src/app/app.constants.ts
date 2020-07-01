@@ -4,8 +4,12 @@
 // export let serverurl = 'http://192.168.17.240:5600';
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
-export let serverurl = 'http://127.0.0.1:5600';
-// export let serverurl = 'http://192.168.18.65:5600';
+// export let serverurl = 'http://127.0.0.1:5600';
+
+export let serverurl = 'http://192.168.19.253:5600';
+// export let serverurl = 'http://192.168.18.253:5600';
+// export let serverurl = 'http://192.168.17.253:5600';
+
 
 // export let serverurl = 'http://192.168.17.118:8000';
 
@@ -61,8 +65,10 @@ export let fetch_document_record_details_url = serverurl + API_VERSION + 'edms/d
 export let fetch_user_document_types_url = serverurl + API_VERSION + 'edms/document-types/user-document-types';
 export let fetch_document_type_fields_url = serverurl + API_VERSION + 'edms/document-types/get-document-fields';
 export let post_document_fields_url = serverurl + API_VERSION + 'edms/clerk-view/post-document-records';
+export let post_main_document_fields_url = serverurl + API_VERSION + 'edms/clerk-view/post-main-document-records';
 export let get_user_roles_url = serverurl + API_VERSION + 'account-management/list-user-roles';
 export let edit_document_record_url = serverurl + API_VERSION + 'edms/clerk-view/edit-document-record';
+export let edit_main_document_record_url = serverurl + API_VERSION + 'edms/clerk-view/edit-main-document-record';
 
 
 export let document_status_analytics_url = serverurl + API_VERSION + 'analytics/list-document-status';
@@ -118,3 +124,8 @@ export let delete_notifications_url = serverurl + API_VERSION + 'notices/create'
 export let detail_notifications_url = serverurl + API_VERSION + 'notices/detail-view';
 export let edit_notifications_url = serverurl + API_VERSION + 'notices/edit-view';
 // ng serve --host 0.0.0.0
+
+
+export let list_document_pending_revokation_url = serverurl + API_VERSION + 'edms/document-activity-view/pending-revokation-documents';
+
+export let post_document_swap_url = serverurl + API_VERSION + 'edms/document-types-config/swap-document-view';

@@ -9,7 +9,7 @@ import { ValidatorAnalyticsComponent } from '../../validator-analytics/validator
 import { ValidatorDocumentDetailsComponent } from '../../validator-document-details/validator-document-details.component';
 import { SharedModule } from '../../../common-module/common-module/common-module.module';
 import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-form.module';
-
+import { DynamicNestedFormModule } from '../../../dynamic-nested-form/dynamic-nested-form.module';
 @NgModule({
   declarations: [
     ValidatorRejectedDocumentsComponent,
@@ -20,6 +20,7 @@ import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-fo
     CommonModule,
     SharedModule,
     DynamicFormModule,
+    DynamicNestedFormModule,
     ValidatorRoutingModule
   ]
 })

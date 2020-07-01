@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import  { FixedBoundaryCard} from '../interfaces/survey';
 import {SurveyService } from '../services/survey.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
-import { document_detail_url, serverurl,
+import { document_detail_url, serverurl,post_main_document_fields_url,
    fixed_boundary_document_post, fetch_user_document_types_url ,
    fetch_document_type_fields_url, post_document_fields_url} from '../../app.constants';
 import { DocumentsList } from '../interfaces/survey';
@@ -12,13 +12,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
+import { DynamicNestedFormComponent } from '../../dynamic-nested-form/dynamic-nested-form/dynamic-nested-form.component';
 @Component({
   selector: 'app-document-preview',
   templateUrl: './document-preview.component.html',
   styleUrls: ['./document-preview.component.css']
 })
 export class DocumentPreviewComponent implements OnInit {
-  @ViewChild(DynamicFormComponent) inputForm: DynamicFormComponent;
+  @ViewChild(DynamicNestedFormComponent, {static: false}) mainDocumentForm: DynamicNestedFormComponent;
+  @ViewChild(DynamicFormComponent, {static: false}) inputForm: DynamicFormComponent;
+  
   public surveyForm: FormGroup;
   public documentTypeForm: FormGroup;
   formInputRecords = [];
@@ -31,17 +34,8 @@ export class DocumentPreviewComponent implements OnInit {
   document_list_items = [];
   tenant_client: string;
   reference_serial_number: string;
-  exampleJsonObject = {
-    'first_name': 'Jane', 'last_name': 'Doe', 'age': 25, 'is_company': false,
-    'address': {
-      'street_1': '123 Main St.', 'street_2': null,
-      'city': 'Las Vegas', 'state': 'NV', 'zip_code': '89123'
-    },
-    'phone_numbers': [
-      { 'number': '702-123-4567', 'type': 'cell' },
-      { 'number': '702-987-6543', 'type': 'work' }
-    ], 'notes': ''
-  };
+  public is_main_document_field = false;
+
   constructor(private router: Router, public sweetalertsService: SweetalertService,
     private loadingService: LoadingService, private formBuilder: FormBuilder,
     public surveyService: SurveyService, private toastService: ToastService, private route: ActivatedRoute, ) {
@@ -49,6 +43,27 @@ export class DocumentPreviewComponent implements OnInit {
       document_type: new FormControl('', Validators.compose([Validators.required])),
     });
 
+  }
+  update_values (){
+    const patchvalues = {
+      "property_section":{
+        "reg_section":"IR",
+        "regd_section":"peterson_test",
+      },
+
+    "proprietorship_section":[
+      {
+        'reg_section':'BLOCK',
+        'reg_sectionW': '10000'
+      },
+      {
+        'reg_section':'IR',
+        'reg_sectionW': '200'
+      }
+    ]
+    }
+    this.mainDocumentForm.update_form_values(patchvalues);
+    
   }
 
   ngOnInit(): void {
@@ -74,11 +89,21 @@ export class DocumentPreviewComponent implements OnInit {
     };
     this.surveyService.getrecorddetail(fetch_document_type_fields_url, payload).subscribe((res) => {
       this.formInputRecords = [];
+      this.is_main_document_field = false;
       const form_details = res;
       const is_main_document = form_details['is_main_document'];
       if (is_main_document) {
-       console.log("main documents")
-      } else {
+        this.is_main_document_field = true;
+
+        const main_document_fields = form_details['main_document_fields'];
+        const main_forsm_name = main_document_fields['formgroup'];
+        // this.mainDocumentForm.main_form_name = main_forsm_name;
+      
+        this.mainDocumentForm.showform(main_document_fields);
+        // this.update_values();
+      }
+      else if(!is_main_document){
+    
         const form_values = res['fields'];
         const save_button_value = {
           'field_no': '',
@@ -94,7 +119,27 @@ export class DocumentPreviewComponent implements OnInit {
         };
       form_values.push(save_button_value);
         this.inputForm.initialize_form(form_values);
+
       }
+      
+      
+      // else {
+      //   const form_values = res['fields'];
+      //   const save_button_value = {
+      //     'field_no': '',
+      //     'field_type': 'button',
+      //     'input_type': 'button',
+      //     'is_enforced': true,
+      //     'is_mandatory': true,
+      //     'label': 'Add New',
+      //     'name': 'save',
+      //     'options': '',
+      //     'validations': [],
+      //     'width': 12
+      //   };
+      // form_values.push(save_button_value);
+      //   this.inputForm.initialize_form(form_values);
+      // }
 
 
     });
@@ -138,6 +183,39 @@ deleteRow(index) {
     this.formInputRecords.splice(matchedIndex, 1);
 
 
+
+  }
+  submitMainForm(){
+  
+      // event.preventDefault();
+      // event.stopPropagation();
+    if (!this.documentTypeForm.valid) {
+      this.toastService.showToastNotification('error', 'Invalid Document Type Selected', '');
+    } 
+    else{
+      const form_data = this.mainDocumentForm.filterForm.value;
+      const payload = {
+        'document_id': this.tenant_client,
+        'document_keyword': this.documentTypeForm.value['document_type'],
+        'metadata_records': form_data
+      };
+      this.sweetalertsService.showConfirmation('Data Submission', 'Do you to posting the records?').then((res) => {
+        if (res) {
+          
+          this.surveyService.postrecord(post_main_document_fields_url, payload).subscribe(res => {
+            // this.sweetalertsService.showAlert('Success', 'Successfully Submitted for Validation', 'success');
+            this.toastService.showToastNotification('success', 'Successfully Submitted for Validation', '');
+            this.formInputRecords = [];
+            this.inputForm.resetForm();
+            this.router.navigate(['clerk-view/my-document']);
+
+          });
+
+        }
+      });
+     
+
+    }
 
   }
   saveformData() {

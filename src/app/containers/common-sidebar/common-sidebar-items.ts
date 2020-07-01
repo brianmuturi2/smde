@@ -187,6 +187,13 @@ export const navItems: INavData[] = [
         icon: 'fa fa-microchip',
         permission: ['DOCUMENT_MANAGER']
       },
+
+      {
+        name: 'Document Console',
+        url: '/administration/document-console',
+        icon: 'fa fa-american-sign-language-interpreting',
+        permission: ['DOCUMENT_MANAGER']
+      },
       
     ]
 
@@ -253,13 +260,23 @@ export const navItems: INavData[] = [
     // permission: '',
     permission: ['DATA_CLEANER'],
      children: [
+      // {
+      //   name: 'Receive File',
+      //   url: '/cleaner-view/receive-file',
+      //   icon: 'fa fa-credit-card-alt',
+      //   // permission: 'DATA_CLEANER'
+      //   permission: ['DATA_CLEANER']
+      // },
       {
         name: 'Check List',
         url: '/cleaner-view/capture-data',
         icon: 'fa fa-credit-card-alt',
         // permission: 'DATA_CLEANER'
-        permission: ['DATA_CLEANER']
+       permission: ['DATA_CLEANER']
       },
+
+
+     
 
      ]
   },
@@ -271,14 +288,14 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Support',
-    url: '/cleaner-view/capture-data',
+    url: '/administration/revoke-document',
     icon: 'fa fa-phone',
     // permission: '',
     permission: ['ICT_SUPPORT'],
      children: [
       {
         name: 'Revoke Requests',
-        url: '/cleaner-view/capture-data',
+        url: '/administration/revoke-document',
         icon: 'fa fa-history',
         permission: ['ICT_SUPPORT']
         
