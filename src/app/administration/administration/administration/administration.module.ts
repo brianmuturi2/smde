@@ -18,7 +18,7 @@ import { DocumentTypeListingComponent } from '../../department-management/docume
 import { DocumentFieldListingComponent } from '../../department-management/document-field-listing/document-field-listing.component';
 import { NotificationsComponent } from '../../communication/notifications/notifications.component';
 import { DocumentSwapperComponent } from '../../document-swapper/document-swapper.component';
-
+import { DynamicNestedFormModule } from '../../../dynamic-nested-form/dynamic-nested-form.module';
 @NgModule({
   declarations: [
 
@@ -40,7 +40,7 @@ DocumentSwapperComponent
     CommonModule,
     FormsModule,
     BsDatepickerModule,
-    DynamicFormModule,
+    DynamicFormModule,DynamicNestedFormModule,
     ReactiveFormsModule, DataTablesModule,
     AdministrationRoutingModule
   ]
