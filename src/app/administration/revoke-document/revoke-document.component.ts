@@ -24,6 +24,8 @@ export class RevokeDocumentComponent implements OnInit {
   request_id: any;
   document_details = [];
   comments = [];
+  documentrecordsString:any;
+  commentsearchString:any;
   constructor(private router: Router,
     private loadingService:LoadingService,
     public toastService:ToastService,
