@@ -4,9 +4,9 @@
 // export let serverurl = 'http://192.168.17.240:5600';
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
-// export let serverurl = 'http://127.0.0.1:5600';
+export let serverurl = 'http://127.0.0.1:5600';
 
-export let serverurl = 'http://192.168.19.253:5600';
+// export let serverurl = 'http://192.168.19.253:5600';
 // export let serverurl = 'http://192.168.18.253:5600';
 // export let serverurl = 'http://192.168.17.253:5600';
 
@@ -129,3 +129,5 @@ export let edit_notifications_url = serverurl + API_VERSION + 'notices/edit-view
 export let list_document_pending_revokation_url = serverurl + API_VERSION + 'edms/document-activity-view/pending-revokation-documents';
 
 export let post_document_swap_url = serverurl + API_VERSION + 'edms/document-types-config/swap-document-view';
+export let document_approve_revoke_url = serverurl + API_VERSION + 'edms/document/approved-revoked-document';
+

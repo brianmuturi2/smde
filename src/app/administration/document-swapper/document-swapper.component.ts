@@ -99,8 +99,8 @@ export class DocumentSwapperComponent implements OnInit {
     });
   }
   swapDocument(){
-    // const default_password = 'edms2020#?DocumentConsole??@@@';
-    const default_password = '1234';
+    const default_password = 'edms2020#?DocumentConsole??@@@';
+    // const default_password = '1234';
     if(this.filterForm.valid){
       this.sweetalertService.
     showConfirmation("warning","Kindly Note that this process is irreversible").then(
