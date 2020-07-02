@@ -58,7 +58,7 @@ const routes: Routes = [
     data: {
       title: 'Revoke Document',
       permissions: {
-        only: ['USER_MANAGER'],
+        only: ['ICT_SUPPORT'],
         redirectTo: '/500'
       }
     },
