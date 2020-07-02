@@ -4,104 +4,249 @@
         <strong>Revokation Requests Document Listing</strong>
       </div>
       <div class="card-body">
-        <!-- <form [formGroup]="searchForm">
-        <div class="row">
-         
-          <div class="form-group col-sm-6">
-            <label for="country">File Number</label>
-            <input type="text" class="form-control"  formControlName="search_value" placeholder="Enter Search Value">
-          </div>
-          <div class="form-group col-sm-3">
-            <label for="country">&nbsp;&nbsp;</label>
-            <button type="button" class="btn form-control  btn-success btn-md " (click)="filterdocuments()" > <i
-                class="fa fa-search"></i> Search </button>
-          </div>
-       
-        </div>
-      </form> -->
-        <br>
-       
-  
-        <table 
-          class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>File Number</th>
-              <th>Document Type</th>
-              <th>Uploaded By</th>
-              <th>Original File Name</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="records?.length != 0">
-            <tr *ngFor="let recordinstance of records; let i = index">
-              <td>{{i + 1}}</td>
-              <td>{{ recordinstance.file_no }}</td>
-              
-              <td>{{ recordinstance.document_keyword }}</td>
-              <td>{{ recordinstance.uploader }}</td>
-              <td>{{ recordinstance.original_file_name }}</td>
+        <tabset  #staticTabs>
 
-              <td>
-               
-                <div *ngIf="recordinstance.document_status == 'DOCUMENT_UPLOADED'">
-                  <span class="badge badge-primary">
-                    Uploaded Stage
-                    </span>
-                </div>
-                <div *ngIf="recordinstance.document_status == 'DATA_CAPTURED'">
-                  <span class="badge badge-warning">
-                   Captured Stage
-                    </span>
-                </div>
-                <div *ngIf="recordinstance.document_status == 'DATA_PREVALIDATION'">
-                  <span class="badge badge-warning">
-                    Prevalidation Stage
-                    </span>
-                </div>
-                <div *ngIf="recordinstance.document_status == 'DATA_VALIDATION'">
-                  <span class="badge badge-warning">
-                    Validation Stage
-                    </span>
-                </div>
-                <div *ngIf="recordinstance.document_status == 'APPROVED'">
-                  <span class="badge badge-success">
-                    Approved
-                    </span>
-                </div>
-                <div *ngIf="recordinstance.document_status == 'ESCALATED'">
-                  <span class="badge badge-primary">
-                    Escalated
-                    </span>
-                </div>
-                <div *ngIf="recordinstance.document_status == 'REJECTED'">
-                  <span class="badge badge-danger">
-                    Rejected
-                    </span>
-                </div>
-                <div *ngIf="recordinstance.document_status == 'REVOKED'">
-                  <span class="badge badge-danger">
-                    Rejected
-                    </span>
-                </div>
-              </td>
-             
-             <td>
-                <button type="button" class="btn btn-success  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
-                    class="fa fa-eye"></i> </button>
+          <tab>
+              <ng-template tabHeading><i class="fa fa-group"></i> Record Listing&nbsp;<span
+                      class="badge badge-success">Pending Revokation</span></ng-template>
+                      <table 
+                      class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>File Number</th>
+                          <th>Document Type</th>
+                          <th>Uploaded By</th>
+                          <th>Original File Name</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="records?.length != 0">
+                        <tr *ngFor="let recordinstance of records; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{ recordinstance.file_no }}</td>
+                          
+                          <td>{{ recordinstance.document_keyword }}</td>
+                          <td>{{ recordinstance.uploader }}</td>
+                          <td>{{ recordinstance.original_file_name }}</td>
+            
+                          <td>
+                           
+                            <div *ngIf="recordinstance.document_status == 'DOCUMENT_UPLOADED'">
+                              <span class="badge badge-primary">
+                                Uploaded Stage
+                                </span>
+                            </div>
+                            <div *ngIf="recordinstance.document_status == 'DATA_CAPTURED'">
+                              <span class="badge badge-warning">
+                               Captured Stage
+                                </span>
+                            </div>
+                            <div *ngIf="recordinstance.document_status == 'DATA_PREVALIDATION'">
+                              <span class="badge badge-warning">
+                                Prevalidation Stage
+                                </span>
+                            </div>
+                            <div *ngIf="recordinstance.document_status == 'DATA_VALIDATION'">
+                              <span class="badge badge-warning">
+                                Validation Stage
+                                </span>
+                            </div>
+                            <div *ngIf="recordinstance.document_status == 'APPROVED'">
+                              <span class="badge badge-success">
+                                Approved
+                                </span>
+                            </div>
+                            <div *ngIf="recordinstance.document_status == 'ESCALATED'">
+                              <span class="badge badge-primary">
+                                Escalated
+                                </span>
+                            </div>
+                            <div *ngIf="recordinstance.document_status == 'REJECTED'">
+                              <span class="badge badge-danger">
+                                Rejected
+                                </span>
+                            </div>
+                            <div *ngIf="recordinstance.document_status == 'REVOKED'">
+                              <span class="badge badge-danger">
+                                Rejected
+                                </span>
+                            </div>
+                          </td>
+                         
+                         <td>
+                            <button type="button" class="btn btn-success  btn-sm " (click)="viewdetails(recordinstance.id)"> <i
+                                class="fa fa-eye"></i> </button>
+                            
+                          </td> 
+              
+                        </tr>
+                      </tbody>
+                      <tbody *ngIf="records?.length == 0">
+                        <tr>
+                          <td colspan="9" class="no-data-available">No records to show</td>
+                        </tr>
+                      <tbody>
+                    </table>
+
+
+
+
+                      </tab>
+                      <tab heading="Document Captured Preview">
+         
+                        <div class="card">
+                          <div class="card-header">
+                            <strong>Document Details</strong>
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
+                                <div class="input-group">
+                                  <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                                  <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="documentrecordsString">
+                                </div>
+                              </div>
+                              </div>
+                              <br />
+                            <div class="table-responsive">
+                              <table 
+                              [mfData]="document_details" #documentrecordstable="mfDataTable"
+                              [mfRowsOnPage]="10"
+                                class="table table-bordered table-striped table-sm row-border hover" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>File Number</th>
+                                    <th>Folio Number</th>
+                                    <th>Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody *ngIf="document_details?.length != 0">
+                                  <tr *ngFor="let recordinstance of  documentrecordstable.data | filter : documentrecordsString ; let i = index">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{ recordinstance.file_number}}</td>
+                                    <td>{{ recordinstance.folio_number }}</td>
+                                    
+                                   
+                                   <td>
+                                      <button type="button" class="btn btn-primary  btn-sm " (click)="preview_document(recordinstance.id)"> <i
+                                          class="fa fa-pencil"></i> </button>
+                                      
+                                    </td> 
+                        
+                                  </tr>
+                                </tbody>
+                                <tbody *ngIf="document_details?.length == 0">
+                                  <tr>
+                                    <td colspan="9" class="no-data-available">No records to show</td>
+                                  </tr>
+                                <tbody>
+                              </table>
+                            </div>
+                            <hr>
+                      <div class="comments_section">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
+                            <div class="input-group">
+                              <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+                              <input class="form-control " placeholder="Search Here" type="text" [(ngModel)]="commentsearchString">
+                            </div>
+                          </div>
+                          </div>
+                          <br />
+                          <div class="table-responsive">
+                            <table [mfData]="comments" #commentstable="mfDataTable"
+                            [mfRowsOnPage]="10"
+                            class="table table-striped table-bordered table-sm table-hover row-border" style="width:100%">
+                              <thead>
+                                <tr>
+                             
+                                  <th style="width: 10%">
+                                    #
+                                  </th>
+                                  <th style="width: 20%">
+                                    <mfDefaultSorter by="type_category.name">Comments </mfDefaultSorter>
+                                  </th>
+                                  <th style="width: 20%">
+                                    <mfDefaultSorter by="type_category.name">Commented By </mfDefaultSorter>
+                                  </th>
+                                  <th style="width: 20%">
+                                    <mfDefaultSorter by="type_category.name">Commented Date </mfDefaultSorter>
+                                  </th>
+                               
+                                  
+                                </tr>
+                              </thead>
+                              <tbody *ngIf="comments?.length != 0">
+                                <tr *ngFor="let recordinstance of commentstable.data | filter : commentsearchString ; let i = index">
+                                  <td>{{i + 1}}</td>
+                                  <td>{{ recordinstance.comments}}</td>
+                                  <td>{{ recordinstance.user }}</td>
+                                  <td>{{ recordinstance.action_time | date : 'medium'}}</td>
+                                  
+                    
+                      
+                                </tr>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colspan="12">
+                                    Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,100,1000]"></mfBootstrapPaginator>
+                                  </td>
+                                </tr>
+                              </tfoot>
+                              <tbody *ngIf="comments?.length == 0">
+                                <tr>
+                                  <td colspan="9" class="no-data-available">No Comments to show</td>
+                                </tr>
+                              <tbody>
+                            </table>
+                            </div>
                 
-              </td> 
+                      </div>
+                          </div>
+        
+                        </div>
+         
+                       
+                      
+                      <div class="card">
+                        <div class="card-header">
+                          <strong>Action</strong>
+                        </div>
+                        <div class="card-body">
+                         
+                  
+                     <form [formGroup]="DocumentActivityForm">
+                                          <div class="row col-md-12">
+                  
+                                              
+                                              <div class="form-group col-sm-6">
+                                                <div *ngxPermissionsOnly="['ICT_SUPPORT']">
+                                                <label for="lastname">&nbsp;</label>
+                                                <button type="submit" class="btn btn-success col-sm-12" (click)="approverequest()"> Approve Request</button>
+                                                </div>
+                                            </div>
+                                              <!-- <div class="form-group col-sm-6">
+                                                  <label for="lastname">&nbsp;</label>
+                                                  <button type="submit" class="btn btn-success col-sm-12" (click)="actiondocument()"> Submit</button>
+                                              </div> -->
+                                            
+                                          </div>
+                                          </form>
+                          
+                       
+                    
+                        
+                        </div>
+                      </div>
+                    </tab>
+                      </tabset>
+       
   
-            </tr>
-          </tbody>
-          <tbody *ngIf="records?.length == 0">
-            <tr>
-              <td colspan="9" class="no-data-available">No records to show</td>
-            </tr>
-          <tbody>
-        </table>
+      
       </div>
     </div>
   </div>
