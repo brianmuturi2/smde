@@ -8,7 +8,6 @@ import { RevokeDocumentComponent } from '../../revoke-document/revoke-document.c
 import { StaffDetailsComponent } from '../../staff-details/staff-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { DataTablesModule } from 'angular-datatables';
 
 import { SharedModule } from '../../../common-module/common-module/common-module.module';
 
@@ -41,7 +40,7 @@ DocumentSwapperComponent
     FormsModule,
     BsDatepickerModule,
     DynamicFormModule,DynamicNestedFormModule,
-    ReactiveFormsModule, DataTablesModule,
+    ReactiveFormsModule,
     AdministrationRoutingModule
   ]
 })

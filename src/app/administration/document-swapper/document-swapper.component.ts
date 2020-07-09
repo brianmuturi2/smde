@@ -68,6 +68,7 @@ export class DocumentSwapperComponent implements OnInit {
         department_name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
         document_type: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
         new_document_status: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
+        file_number:new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
       });
 
     }
@@ -113,6 +114,8 @@ export class DocumentSwapperComponent implements OnInit {
               "department_name":this.filterForm.get('department_name').value,
               "document_type":this.filterForm.get('document_type').value,
               "new_document_status":this.filterForm.get('new_document_status').value,
+              "file_number":this.filterForm.get('file_number').value,
+              
             }
             this.administrationService.postrecord(post_document_swap_url,payload).subscribe((res)=>{
               this.toastService.showToastNotification("success","Document Successfully Swapped",'')

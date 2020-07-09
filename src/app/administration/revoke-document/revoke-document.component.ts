@@ -1,11 +1,11 @@
 import { Component, OnInit,OnDestroy,ViewChild,ChangeDetectorRef } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
 import { AdministrationService } from '../services/administration.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 import { list_document_pending_revokation_url,fetch_document_records_url,
-  document_approve_revoke_url ,fetch_document_record_details_url} from '../../app.constants';
+  document_approve_revoke_url ,fetch_document_record_details_url,
+  filter_revoked_document_by_file_url} from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentList } from '../interfaces/administration';
 import { Router } from '@angular/router';
@@ -54,24 +54,42 @@ export class RevokeDocumentComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.filterdocuments();
-   
-  }
-  filterdocuments(){
     const search_payload = {
 
     };
-    this.loadingService.showloading();
-    this.administrationService.getrecords(list_document_pending_revokation_url,search_payload).subscribe((res)=>{
-      if(res){
-        this.records = res;
-        this.loadingService.hideloading();
-        // this.rerenderTable();
-  
-        
-      }
+   this.filterdocuments(search_payload);
+  }
+  searchfiles(){
+    if (this.searchForm.valid) {
+      
+      const search_payload = {
+        'file_no': this.searchForm.value['search_value']
+      };
+      this.loadingService.showloading();
+      this.administrationService.getrecords(filter_revoked_document_by_file_url, search_payload).subscribe((res) => {
+        if (res) {
+          this.records = res;
+          this.loadingService.hideloading();
+        }
 
-    });
+      });
+
+    } else {
+      this.toastService.showToastNotification('warning', 'Please correct errors to proceed', '');
+    }
+
+  }
+  filterdocuments(search_payload) {
+      this.loadingService.showloading();
+      this.administrationService.getrecords(list_document_pending_revokation_url, search_payload).subscribe((res) => {
+        if (res) {
+          this.records = res;
+          this.loadingService.hideloading();
+        }
+
+      });
+
+  
   }
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;

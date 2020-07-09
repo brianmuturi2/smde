@@ -4,7 +4,7 @@
 // export let serverurl = 'http://192.168.17.240:5600';
 // export let serverurl = 'http://192.168.17.243:5600';
 // export let serverurl = 'http://192.168.214.140:8000';
-export let serverurl = 'http://127.0.0.1:5600';
+export let serverurl = 'http://127.0.0.1:8000';
 
 // export let serverurl = 'http://192.168.19.253:5600';
 // export let serverurl = 'http://192.168.18.253:5600';
@@ -60,6 +60,9 @@ export let validators_submit_for_approval_document_url = serverurl + API_VERSION
 
 
 export let filter_document_by_file_url = serverurl + API_VERSION + 'edms/document/filter-document-by-file-no';
+export let filter_revoked_document_by_file_url = serverurl + API_VERSION + 'edms/document/filter-revoked-document-by-file-no';
+
+
 export let fetch_document_records_url = serverurl + API_VERSION + 'edms/document/fetch-document-records';
 export let fetch_document_record_details_url = serverurl + API_VERSION + 'edms/document/fetch-document-records-details';
 export let fetch_user_document_types_url = serverurl + API_VERSION + 'edms/document-types/user-document-types';
