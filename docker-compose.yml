@@ -1,7 +1,7 @@
 version: "3.5"
 services:
     nginx:
-      image: nginx:latest
+      image: nginx:1.17.9-alpine
       env_file:
         - .env
       ports:
