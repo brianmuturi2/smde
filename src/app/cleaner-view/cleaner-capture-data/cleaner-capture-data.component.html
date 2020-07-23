@@ -525,7 +525,7 @@
                   </div>
                   <div class="col-sm-12 col-md-3 col-lg-3">
                     <label>Parcel Number</label>
-                    <input class="form-control" type="number" formControlName="parcel_number" 
+                    <input class="form-control" type="text" formControlName="parcel_number" 
                     [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.parcel_number.errors }" />
                     <error-message [control]="parcelDetailsForm.controls.parcel_number" *ngIf="parceldetailsformstatus"></error-message>
                   </div>

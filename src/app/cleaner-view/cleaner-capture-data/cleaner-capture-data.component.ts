@@ -102,6 +102,10 @@ owner_identification_type = [
     'id': 'BUSINESS_REGISTRATION_NUMBER',
     'name': 'Business Registration Number'
   },
+  {
+    'id': 'NOT_AVAILABLE',
+    'name': 'NOT AVAILABLE'
+  }
 
 ];
 document_general_status = [
