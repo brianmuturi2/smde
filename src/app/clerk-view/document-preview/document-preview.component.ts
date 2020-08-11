@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import  { FixedBoundaryCard} from '../interfaces/survey';
 import {SurveyService } from '../services/survey.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
-import { document_detail_url, serverurl,post_main_document_fields_url,
+import { document_detail_url, serverurl, post_main_document_fields_url,
    fixed_boundary_document_post, fetch_user_document_types_url ,
    fetch_document_type_fields_url, post_document_fields_url} from '../../app.constants';
 import { DocumentsList } from '../interfaces/survey';
@@ -21,7 +21,7 @@ import { DynamicNestedFormComponent } from '../../dynamic-nested-form/dynamic-ne
 export class DocumentPreviewComponent implements OnInit {
   @ViewChild(DynamicNestedFormComponent, {static: false}) mainDocumentForm: DynamicNestedFormComponent;
   @ViewChild(DynamicFormComponent, {static: false}) inputForm: DynamicFormComponent;
-  
+
   public surveyForm: FormGroup;
   public documentTypeForm: FormGroup;
   formInputRecords = [];
@@ -44,26 +44,26 @@ export class DocumentPreviewComponent implements OnInit {
     });
 
   }
-  update_values (){
+  update_values () {
     const patchvalues = {
-      "property_section":{
-        "reg_section":"IR",
-        "regd_section":"peterson_test",
+      'property_section': {
+        'reg_section': 'IR',
+        'regd_section': 'peterson_test',
       },
 
-    "proprietorship_section":[
+    'proprietorship_section': [
       {
-        'reg_section':'BLOCK',
+        'reg_section': 'BLOCK',
         'reg_sectionW': '10000'
       },
       {
-        'reg_section':'IR',
+        'reg_section': 'IR',
         'reg_sectionW': '200'
       }
     ]
-    }
+    };
     this.mainDocumentForm.update_form_values(patchvalues);
-    
+
   }
 
   ngOnInit(): void {
@@ -98,12 +98,11 @@ export class DocumentPreviewComponent implements OnInit {
         const main_document_fields = form_details['main_document_fields'];
         const main_forsm_name = main_document_fields['formgroup'];
         // this.mainDocumentForm.main_form_name = main_forsm_name;
-      
+
         this.mainDocumentForm.showform(main_document_fields);
         // this.update_values();
-      }
-      else if(!is_main_document){
-    
+      } else if (!is_main_document) {
+
         const form_values = res['fields'];
         const save_button_value = {
           'field_no': '',
@@ -121,8 +120,8 @@ export class DocumentPreviewComponent implements OnInit {
         this.inputForm.initialize_form(form_values);
 
       }
-      
-      
+
+
       // else {
       //   const form_values = res['fields'];
       //   const save_button_value = {
@@ -185,15 +184,15 @@ deleteRow(index) {
 
 
   }
-  submitMainForm(){
-  
+  submitMainForm() {
+
       // event.preventDefault();
       // event.stopPropagation();
     if (!this.documentTypeForm.valid) {
       this.toastService.showToastNotification('error', 'Invalid Document Type Selected', '');
-    } 
-    else{
+    } else {
       const form_data = this.mainDocumentForm.filterForm.value;
+      console.log(form_data);
       const payload = {
         'document_id': this.tenant_client,
         'document_keyword': this.documentTypeForm.value['document_type'],
@@ -201,7 +200,7 @@ deleteRow(index) {
       };
       this.sweetalertsService.showConfirmation('Data Submission', 'Do you to posting the records?').then((res) => {
         if (res) {
-          
+
           this.surveyService.postrecord(post_main_document_fields_url, payload).subscribe(res => {
             // this.sweetalertsService.showAlert('Success', 'Successfully Submitted for Validation', 'success');
             this.toastService.showToastNotification('success', 'Successfully Submitted for Validation', '');
@@ -213,7 +212,7 @@ deleteRow(index) {
 
         }
       });
-     
+
 
     }
 

@@ -34,8 +34,8 @@
                                             <div *ngIf="form_item_fields.input_format == 'select'">
                                              
                                                   
-                                                <select class="form-control" [formControlName]="form_item_fields.field_name" >
-                                                    <option  *ngFor="let select_item of form_item_fields.field_options" [value]="select_item.id">
+                                                <select class="form-control" [formControlName]="form_item_fields.field_name"  >
+                                                    <option [disabled]="form_item_fields?.field_readonly"  *ngFor="let select_item of form_item_fields.field_options" [value]="select_item.id">
                                                         {{select_item.name}}
                                                     </option>
 
@@ -45,7 +45,7 @@
                                             </div>
                                             <div *ngIf="form_item_fields.field_type == 'text'">
                                                 
-                                                <input [type]="form_item_fields.input_format" class="form-control"  [formControlName]="form_item_fields.field_name"/> 
+                                                <input [type]="form_item_fields.input_format" class="form-control"  [readonly]="form_item_fields?.field_readonly" [formControlName]="form_item_fields.field_name"/> 
                                             </div>
                                            
                                            
@@ -68,7 +68,7 @@
                                                         
                                                        
                                                         <select class="form-control" [formControlName]="form_item_fields.field_name" >
-                                                            <option  *ngFor="let select_item of form_item_fields.field_options" [value]="select_item.id">
+                                                            <option [disabled]="form_item_fields?.field_readonly" *ngFor="let select_item of form_item_fields.field_options" [value]="select_item.id">
                                                                 {{select_item.name}}
                                                             </option>
         
@@ -78,7 +78,7 @@
                                                     </div>
                                                     <div *ngIf="form_item_fields.field_type == 'text'">
                                                      
-                                                        <input [type]="form_item_fields.input_format" class="form-control"  [formControlName]="form_item_fields.field_name"/> 
+                                                        <input [type]="form_item_fields.input_format" class="form-control" [readonly]="form_item_fields?.field_readonly"  [formControlName]="form_item_fields.field_name"/> 
                                                     </div>
                                                
                                                    </div>
