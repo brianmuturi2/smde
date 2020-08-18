@@ -134,3 +134,4 @@ export let list_document_pending_revokation_url = serverurl + API_VERSION + 'edm
 export let post_document_swap_url = serverurl + API_VERSION + 'edms/document-types-config/swap-document-view';
 export let document_approve_revoke_url = serverurl + API_VERSION + 'edms/document/approved-revoked-document';
 
+export let create_document_comment_url = serverurl + API_VERSION + 'edms/validator-view/post-document-comment';
