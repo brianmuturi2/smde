@@ -4,8 +4,9 @@ import { CleanerService } from '../services/cleaner.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
-import { data_cleaning_file_filter_url, fetch_user_document_types_url,
-  fetch_document_records_url, fetch_document_record_details_url, cleaner_post_validation_data_url } from '../../app.constants';
+import { data_cleaning_file_filter_url, fetch_user_document_types_url, create_document_comment_url,
+  fetch_document_records_url, fetch_document_record_details_url, cleaner_post_validation_data_url,
+  filter_document_by_file_url } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentList } from '../interfaces/cleaner';
 import { Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   @ViewChild('createModal') public createModal: ModalDirective;
   public searchForm: FormGroup;
   public datacleaningForm: FormGroup;
+  public DocumentCommentForm: FormGroup;
   public isDocumentSearchCollapsed = false;
   public isDocumentTypeCollapsed = false;
   public parceldetailsformstatus  = false;
@@ -39,11 +41,12 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   public parcelDetailsForm: FormGroup;
   public parcelOwnershipForm: FormGroup;
   public remarksForm: FormGroup;
+  requires_parcel_information = true;
   start_task = true;
   on_going_task = true;
   task_complete = true;
-
-
+  file_comment_records = [];
+  filecommentsearchString: string;
   department_documents = [];
 validation_status = [
   {
@@ -197,10 +200,11 @@ document_details = [];
       block_number: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
 
-      parcel_owner_type: new FormControl('',),
+      parcel_owner_type: new FormControl('', ),
       file_number: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
-      parcel_status: new FormControl('',),
+      parcel_status: new FormControl('', ),
+      parcel_id: new FormControl('', ),
     });
     this.parcelOwnershipForm = this.formBuilder.group({
       parcel_system: new FormControl('',
@@ -209,7 +213,7 @@ document_details = [];
      ),
        owner_identification_number: new FormControl('',
       ),
-       owner_name: new FormControl('',),
+       owner_name: new FormControl('', ),
     });
     this.remarksForm = this.formBuilder.group({
       remarks: new FormControl('',
@@ -217,6 +221,10 @@ document_details = [];
       general_status: new FormControl('',
       Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100) ])),
     });
+    this.DocumentCommentForm = this.formBuilder.group({
+      remarks: new FormControl('', ),
+    });
+
    }
 
   ngOnInit(): void {
@@ -282,6 +290,7 @@ deleteparcelownerRow(index) {
   }
   filterdocuments() {
     if (this.searchForm.valid) {
+      this.document_details =  [];
       const file_number_input = this.searchForm.value['search_value'];
       const search_payload = {
         'file_no': file_number_input
@@ -291,15 +300,66 @@ deleteparcelownerRow(index) {
         if (res) {
           // this.records = res;
           this.records =  res['file_details'];
+
           const response_file_number = res['file_no'];
+          const data_cleaning_datasets =  res['data_cleaning_datasets'];
+
+          console.log(data_cleaning_datasets['parcel_ownership_info']);
+
+          const document_status = data_cleaning_datasets['document_status'];
+          const document_id = data_cleaning_datasets['id'];
+          const documents_types_verified =  data_cleaning_datasets['documents_verified'];
+          this.formInputRecords = documents_types_verified;
+          const parcel_ownership_info = data_cleaning_datasets['parcel_ownership_info'];
+          const ownership_id = parcel_ownership_info['id'];
+          const parcel_numbering_type = parcel_ownership_info['parcel_numbering_type'];
+          const parcel_prefix = parcel_ownership_info['parcel_prefix'];
+          const parcel_number = parcel_ownership_info['parcel_number'];
+          const block_number = parcel_ownership_info['block_number'];
+          const parcel_ownership_type = parcel_ownership_info['parcel_ownership_type'];
+          const parcel_status = parcel_ownership_info['parcel_status'];
+          const parcel_date_captured = parcel_ownership_info['date_captured'];
+          const parcel_owners = parcel_ownership_info['parcel_owners'];
+
+          const parcel_details_form_info = {
+            'parcel_numbering_type': parcel_numbering_type,
+            'parcel_prefix': parcel_prefix,
+            'parcel_number': parcel_number,
+            'block_number': block_number,
+            'parcel_owner_type': parcel_ownership_type,
+            'parcel_status': parcel_status,
+            'parcel_id': ownership_id
+            // "file_number":,
+
+
+          };
+          const input_parcel_owners = [];
+          for (const owners of parcel_owners) {
+             const owners_obj = {
+              'id': owners['id'],
+               'parcel_system': owners['parcel_system'],
+               'owner_identification_type': owners['owner_identification_type'],
+               'owner_identification_number': owners['owner_identification_number'],
+               'owner_name': owners['owner_name'],
+
+             };
+             input_parcel_owners.push(owners_obj);
+
+          }
+          this.parcelInputRecords = input_parcel_owners;
+          this.parcelDetailsForm.patchValue(parcel_details_form_info);
+
           const file_cleaning_status =  res['file_cleaning_status'];
+
           if (!file_cleaning_status) {
-            this.toastService.showToastNotification("success","You Can Start Data Cleaning for File","Notification");
+            this.toastService.showToastNotification('success',
+            'You Can Start Data Cleaning for File', 'Notification');
             this.start_task =  true;
             this.on_going_task =  false;
             this.task_complete =  false;
           } else {
-            this.toastService.showToastNotification("warning","File Data Cleaning Started","Notification");
+            this.toastService.showToastNotification('warning',
+            'File Data Cleaning Started', 'Notification');
             this.start_task =  false;
             this.on_going_task =  true;
             this.task_complete =  true;
@@ -370,19 +430,17 @@ fetchdocumenttypes() {
    const is_main_document = response['record_form']['is_main_document'];
    if (is_main_document) {
     this.is_main_document_field = true;
-  
+
     const main_document_fields = response['record_form']['main_document_fields'];
     const main_forsm_name = main_document_fields['formgroup'];
-    const patchvalues = response['record_values']
-   
+    const patchvalues = response['record_values'];
+
     // this.mainDocumentForm.main_form_name = main_forsm_name;
-  
+
     this.mainDocumentForm.showform(main_document_fields);
     this.mainDocumentForm.update_form_values(patchvalues);
     // this.update_values();
-  }
-
-  else {
+  } else {
     this.is_main_document_field = false;
     this.inputForm.initialize_form(preview_form);
     this.inputForm.setControlValue(formcontrol_values);
@@ -401,7 +459,7 @@ fetchdocumenttypes() {
     //  };
     //  preview_form.push(save_button_value);
   }
-  
+
 
 
     });
@@ -416,13 +474,7 @@ fetchdocumenttypes() {
       this.selectTab(3);
       this.documenttypeformstatus = true;
 
-    }
-    //  else if (parcel_length <= 0) {
-    //   this.toastService.showToastNotification('error', 'Atleast One Parcel Record Is required', '');
-    //   this.selectTab(3);
-    //   this.parcelownershipformstatus = true;
-    // }
-     else if (!this.parcelDetailsForm.valid) {
+    } else if (!this.parcelDetailsForm.valid) {
       this.toastService.showToastNotification('error', 'Kindly Correct the errors highlighted to proceed', '');
       this.selectTab(4);
       this.parceldetailsformstatus = true;
@@ -473,6 +525,40 @@ fetchdocumenttypes() {
 
 
   }
+  createcomment() {
+    if (this.DocumentCommentForm.valid) {
+      const action = this.DocumentCommentForm.value['action'];
+      const success_message = '';
+      const confirmation_message = 'Comment on Document?';
+
+      const payload = {
+        'document_id': this.request_id,
+        'remarks': this.DocumentCommentForm.value['remarks'],
+      };
+      this.sweetalertService.showConfirmation('Confirmation', confirmation_message).then((res) => {
+        if (res) {
+          this.loadingService.showloading();
+          this.cleanerService.postrecord(create_document_comment_url, payload).subscribe((response) => {
+            if (response) {
+              this.loadingService.hideloading();
+              this.viewdetails(this.request_id);
+              this.toastService.showToastNotification('success', 'Success', '');
+              this.DocumentCommentForm.reset();
+
+              // this.selectTab(0);
+            }
+          });
+          this.loadingService.hideloading();
+        } else {
+
+        }
+      });
+    } else {
+      this.cleanerService.markFormAsDirty(this.DocumentCommentForm);
+      this.toastService.showToastNotification('error', 'Kindly Correct the errors to proceed', '');
+    }
+  }
+
   filenumberchange(file_number) {
 
       const new_form_data = {
@@ -482,15 +568,25 @@ fetchdocumenttypes() {
       this.parcelDetailsForm.patchValue(new_form_data);
 
   }
-  startcleaningPrompt() {
-    this.startCleaningTaskModal.show();
-  }
-  startCleaningTask() {
-    const payload = {
-      'file': ''
-    };
-  }
 
-  saveformData() {}
+  fetchfilerecords() {
+    if (this.searchForm.valid) {
+      const file_number_input = this.searchForm.value['search_value'];
+      const search_payload = {
+        'file_no': file_number_input
+      };
+      this.loadingService.showloading();
+      this.cleanerService.getrecord(filter_document_by_file_url, search_payload).subscribe((res) => {
+        if (res) {
+          this.records = res;
+          this.loadingService.hideloading();
+        }
+
+      });
+
+    } else {
+      this.toastService.showToastNotification('warning', 'Please correct errors to proceed', '');
+    }
+  }
 
 }
