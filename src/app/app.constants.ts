@@ -1,24 +1,7 @@
-
-// export let serverurl = 'http://192.168.17.232:5600';
-// export let serverurl = 'http://192.168.18.52:8000';
-// export let serverurl = 'http://192.168.17.240:5600';
-// export let serverurl = 'http://192.168.17.243:5600';
-// export let serverurl = 'http://192.168.214.140:8000';
 export let serverurl = 'http://127.0.0.1:8000';
-
 // export let serverurl = 'http://192.168.19.253:5600';
 // export let serverurl = 'http://192.168.18.253:5600';
 // export let serverurl = 'http://192.168.17.253:5600';
-
-
-// export let serverurl = 'http://192.168.17.118:8000';
-
-// export let serverurl = 'http://192.168.18.89:8000';
-// export let serverurl = 'http://192.168.17.133:8000';
-
-
-// export let serverurl = 'http://192.168.17.228:5600';
-// export let serverurl = 'http://192.168.17.232:5600';
 
 export let API_VERSION = '/api/v1/';
 export let loginurl = serverurl + API_VERSION + 'authentication/login';
@@ -135,3 +118,29 @@ export let post_document_swap_url = serverurl + API_VERSION + 'edms/document-typ
 export let document_approve_revoke_url = serverurl + API_VERSION + 'edms/document/approved-revoked-document';
 
 export let create_document_comment_url = serverurl + API_VERSION + 'edms/validator-view/post-document-comment';
+
+
+export let cleaning_create_document_types_url = serverurl + API_VERSION + 'data-cleaning/create-file-document-type-verified';
+export let cleaning_update_document_types_url = serverurl + API_VERSION + 'data-cleaning/edit-file-document-type-verified';
+export let cleaning_delete_document_types_url = serverurl + API_VERSION + 'data-cleaning/delete-file-document-type-verified';
+
+
+
+export let cleaning_create_parcel_information_url = serverurl + API_VERSION + 'data-cleaning/create-parcel-information';
+export let cleaning_edit_parcel_information_url = serverurl + API_VERSION + 'data-cleaning/edit-parcel-information';
+
+
+export let cleaning_create_parcel_owner_url = serverurl + API_VERSION + 'data-cleaning/create-parcel-owner-information';
+export let cleaning_edit_parcel_owner_url = serverurl + API_VERSION + 'data-cleaning/edit-parcel-owner-information';
+export let cleaning_delete_parcel_owner_url = serverurl + API_VERSION + 'data-cleaning/delete-parcel-owner-information';
+
+export let list_entity_types_url = serverurl + API_VERSION + 'data-cleaning/list-entity-types';
+export let start_data_cleaning_url = serverurl + API_VERSION + 'data-cleaning/start-data-cleaning';
+
+export let change_data_cleaning_file_status_url = serverurl + API_VERSION + 'data-cleaning/post-file-status';
+export let data_cleaning_file_comments_url = serverurl + API_VERSION + 'data-cleaning/file-comments';
+
+
+export let data_cleaning_fetch_file_parcel_information_url = serverurl + API_VERSION + 'data-cleaning/file-parcel-information';
+
+export let data_cleaning_fetch_document_type_verification_information_url = serverurl + API_VERSION + 'data-cleaning/file-document-type-verification-information';

@@ -4,6 +4,7 @@ WORKDIR /src
 COPY package.json ./
 COPY . /src/
 RUN npm install
+RUN npm install ng-pick-datetime@7.0.0
 RUN npm run build
 FROM nginx:1.17.9-alpine as prod-stage
 RUN rm -rf /home/*

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { SurveyService } from '../services/survey.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
@@ -104,7 +104,7 @@ export class ClerkDocumentDetailsComponent implements OnInit {
           if (response) {
             this.loadingService.hideloading();
             // this.sweetalertService.showAlert('Success', 'Successfully Editted', 'success');
-            this.toastService.showToastNotification("success","Successfully Updated","")
+            this.toastService.showToastNotification('success', 'Successfully Updated', '');
             this.fetchRecords(this.request_id);
             this.createModal.hide();
 
@@ -118,7 +118,7 @@ export class ClerkDocumentDetailsComponent implements OnInit {
 
   }
   editMainForm() {
-  
+
 
     const form_data = this.mainDocumentForm.filterForm.value;
     const payload = {
@@ -128,23 +128,24 @@ export class ClerkDocumentDetailsComponent implements OnInit {
     };
     this.sweetalertService.showConfirmation('Data Submission', 'Do you to posting the records?').then((res) => {
       if (res) {
-        
+
         this.clerkService.postrecord(edit_main_document_record_url, payload).subscribe(res => {
           // this.sweetalertsService.showAlert('Success', 'Successfully Submitted for Validation', 'success');
           this.toastService.showToastNotification('success', 'Successfully Updated', '');
           this.fetchRecords(this.request_id);
-          
+
 
         });
 
       }
     });
-   
+
 
 
 
 }
    preview_document(record_id) {
+    this.doc_url_reference = '';
      this.record_instance_id = record_id;
      const payload = {
        'record_id': record_id,
@@ -159,17 +160,17 @@ export class ClerkDocumentDetailsComponent implements OnInit {
       this.cdRef.detectChanges();
       if (is_main_document) {
        this.is_main_document_field = true;
-     
+
        const main_document_fields = response['record_form']['main_document_fields'];
        const main_forsm_name = main_document_fields['formgroup'];
-       const patchvalues = response['record_values']
-      
+       const patchvalues = response['record_values'];
+
        // this.mainDocumentForm.main_form_name = main_forsm_name;
-     
+
        this.mainDocumentForm.showform(main_document_fields);
        this.mainDocumentForm.update_form_values(patchvalues);
        // this.update_values();
-     }else{
+     } else {
       this.inputForm.initialize_form(preview_form);
       this.inputForm.setControlValue(formcontrol_values);
       this.doc_url_reference =  response['document_details']['document'];
@@ -189,7 +190,7 @@ export class ClerkDocumentDetailsComponent implements OnInit {
 
      }
       // this.doc_url_reference = response['document_details']['document']
-    
+
 
 
      });
