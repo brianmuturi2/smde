@@ -194,7 +194,7 @@ export const navItems: INavData[] = [
         icon: 'fa fa-american-sign-language-interpreting',
         permission: ['DOCUMENT_MANAGER']
       },
-      
+
     ]
 
   },
@@ -208,7 +208,7 @@ export const navItems: INavData[] = [
         name: 'Staff Listing',
         url: '/administration/staff-listing',
         icon: 'fa fa-users',
-        permission: ['USER_MANAGER', 'TEAM_LEADER','ICT_SUPPORT']
+        permission: ['USER_MANAGER', 'TEAM_LEADER', 'ICT_SUPPORT']
       },
       {
         name: 'New Staff',
@@ -254,7 +254,7 @@ export const navItems: INavData[] = [
     ]
   },
   {
-    name: 'CLEANER',
+    name: 'CLEANING',
     url: '/cleaner-view/capture-data',
     icon: 'fa fa-paint-brush',
     // permission: '',
@@ -268,7 +268,7 @@ export const navItems: INavData[] = [
       //   permission: ['DATA_CLEANER']
       // },
       {
-        name: 'Check List',
+        name: 'Data Cleaning',
         url: '/cleaner-view/capture-data',
         icon: 'fa fa-credit-card-alt',
         // permission: 'DATA_CLEANER'
@@ -276,15 +276,15 @@ export const navItems: INavData[] = [
       },
 
 
-     
+
 
      ]
   },
   {
     name: 'AUDITOR',
-    url: '/auditor-view/validate-document',
+    url: '/cleaner-view/capture-data',
     icon: 'fa fa-certificate',
-    permission: ['DATA_AUDITOR', ]
+    permission: ['DATA_AUDITOR']
   },
   {
     name: 'Support',
@@ -298,7 +298,7 @@ export const navItems: INavData[] = [
         url: '/administration/revoke-document',
         icon: 'fa fa-history',
         permission: ['ICT_SUPPORT']
-        
+
       },
 
      ]
@@ -315,12 +315,12 @@ export const navItems: INavData[] = [
         url: '/administration/notification-listing',
         icon: 'fa fa-video-camera',
         permission: ['COMMUNICATION_MANAGER']
-        
+
       },
 
      ]
   },
-  
+
 
 
   {
