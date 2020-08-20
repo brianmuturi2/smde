@@ -60,6 +60,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   ownership_type_option = false;
   datacleaningstartformstatus = false;
   show_parcel_details_create = true;
+  show_ir_field =  false;
   department_list = [];
   validation_status = [
     {
@@ -88,6 +89,10 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       'id': 'LR_NUMBER',
       'name': 'LR_NUMBER'
     },
+    {
+      'id': 'IR',
+      'name': 'IR'
+    }
 
   ];
   ownership_type = [
@@ -239,6 +244,29 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       'name': 'AGENCIES'
     }
   ];
+  ownership_rights_list = [
+    {
+      'id': 'ADMINISTRATOR',
+      'name': 'ADMINISTRATOR'
+    },
+    {
+      'id': 'BENEFICIARY',
+      'name': 'BENEFICIARY'
+    },
+    {
+      'id': 'PROPRIETORSHIP',
+      'name': 'PROPRIETORSHIP'
+    },
+    {
+      'id': 'TRUSTEE',
+      'name': 'TRUSTEE'
+    },
+    {
+      'id': 'LIQUIDATOR',
+      'name': 'LIQUIDATOR'
+    }
+  ];
+
 
   document_details = [];
   formInputRecords = [];
@@ -287,14 +315,11 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
 
       parcel_numbering_type: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
-      parcel_prefix: new FormControl('',
-        Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
-      parcel_number: new FormControl('',
-        Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100)])),
-      block_number: new FormControl('',
-        Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100)])),
-
+      parcel_prefix: new FormControl('', ),
+       parcel_number: new FormControl('', ),
+       block_number: new FormControl('', ),
       parcel_owner_type: new FormControl('', ),
+      ir_number: new FormControl('', ),
       file_number: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100)])),
       parcel_status: new FormControl('', ),
@@ -310,11 +335,11 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       ),
       share_numerator: new FormControl('',
       ),
-      owner_identification_type: new FormControl('',
-      ),
+      owner_identification_type: new FormControl('', ),
       owner_identification_number: new FormControl('',
       ),
       owner_name: new FormControl('', ),
+      ownership_rights: new FormControl('', ),
     });
     this.remarksForm = this.formBuilder.group({
       remarks: new FormControl('',
@@ -526,6 +551,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
             const block_number = parcel_ownership_info['block_number'];
             const parcel_ownership_type = parcel_ownership_info['parcel_ownership_type'];
             const parcel_status = parcel_ownership_info['parcel_status'];
+            const ir_number = parcel_ownership_info['ir_number'];
+
             const parcel_date_captured = parcel_ownership_info['date_captured'];
             const parcel_owners = parcel_ownership_info['parcel_owners'];
             // this.show_parcel_details_create = false;
@@ -543,6 +570,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
               'block_number': block_number,
               'parcel_owner_type': parcel_ownership_type,
               'parcel_status': parcel_status,
+              'ir_number': ir_number,
+
               'parcel_id': ownership_id,
               'id': ownership_id
             };
@@ -570,6 +599,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
             this.parcelInputRecords = input_parcel_owners;
             this.parcelDetailsForm.patchValue(parcel_details_form_info);
             this.ownership_type_change();
+            this.parcel_type_change();
           }
 
 
@@ -889,6 +919,20 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
 
 
   }
+  parcel_type_change() {
+    const parcel_type = this.parcelDetailsForm.value['parcel_numbering_type'];
+    if (parcel_type === 'IR') {
+      this.show_ir_field = true;
+
+    } else {
+
+      this.show_ir_field = false;
+    }
+
+
+  }
+
+
 
   startdatacleaningTask() {
     if (!this.startDataCleaningForm.valid) {
@@ -988,6 +1032,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         const block_number = res['block_number'];
         const parcel_ownership_type = res['parcel_ownership_type'];
         const parcel_status = res['parcel_status'];
+        const ir_number = res['ir_number'];
         const parcel_owners = res['parcel_owners'];
         const parcel_ownership_details = {
           'parcel_numbering_type': parcel_numbering_type,
@@ -996,6 +1041,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
           'block_number': block_number,
           'parcel_owner_type': parcel_ownership_type,
           'parcel_status': parcel_status,
+          'ir_number': ir_number,
           'parcel_id': parcel_info_id,
           'id': parcel_info_id
         };
@@ -1023,6 +1069,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         this.parcelInputRecords = input_parcel_owners;
         this.parcelDetailsForm.patchValue(parcel_ownership_details);
         this.ownership_type_change();
+        this.parcel_type_change();
         this.loadingService.hideloading();
 
 
@@ -1063,6 +1110,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         'parcel_ownership_type': this.parcelDetailsForm.value['parcel_owner_type'],
         'parcel_status': this.parcelDetailsForm.value['parcel_status'],
         'parcel_id': this.parcelDetailsForm.value['parcel_id'],
+        'ir_number': this.parcelDetailsForm.value['ir_number'],
         'request_id': this.request_id
 
 
@@ -1099,6 +1147,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         'parcel_ownership_type': this.parcelDetailsForm.value['parcel_owner_type'],
         'parcel_status': this.parcelDetailsForm.value['parcel_status'],
         'parcel_id': this.parcelDetailsForm.value['parcel_id'],
+        'ir_number': this.parcelDetailsForm.value['ir_number'],
         'request_id': this.parcelDetailsForm.value['parcel_id']
 
 
