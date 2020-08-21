@@ -140,6 +140,10 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       'name': 'Rejected'
     },
     {
+      'id': 'PENDING',
+      'name': 'PENDING'
+    },
+    {
       'id': 'AWAITING_CONFIRMATION',
       'name': 'Awaiting Confirmation'
     },
@@ -185,6 +189,10 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     {
       'id': 'REJECTED',
       'name': 'REJECTED'
+    },
+    {
+      'id': 'PENDING',
+      'name': 'PENDING'
     }
 
   ];
