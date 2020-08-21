@@ -133,11 +133,11 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   cleaner_general_status = [
     {
       'id': 'FINAL_APPROVAL',
-      'name': 'Approved'
+      'name': 'APPROVED'
     },
     {
       'id': 'REJECTED',
-      'name': 'Rejected'
+      'name': 'REJECTED'
     },
     {
       'id': 'PENDING',
@@ -145,11 +145,11 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     },
     {
       'id': 'AWAITING_CONFIRMATION',
-      'name': 'Awaiting Confirmation'
+      'name': 'AWAITING CONFIRMATION'
     },
     {
       'id': 'PENDING_LIMS_CONFIRMATION',
-      'name': 'Pending LIMS Confirmation'
+      'name': 'PENDING LIMS CONFIRMATION'
     },
 
   ];
@@ -161,6 +161,10 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     {
       'id': 'DATA_CLEANING_METADATA_CAPTURE',
       'name': 'DATA_CLEANING_METADATA_CAPTURE'
+    },
+    {
+      'id': 'PENDING',
+      'name': 'PENDING'
     },
     {
       'id': 'PENDING_LIMS_CONFIRMATION',
@@ -179,8 +183,12 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       'name': 'AWAITING_MEETING_APPROVAL'
     },
     {
+      'id': 'APPROVED',
+      'name': 'APPROVED'
+    },
+    {
       'id': 'FINAL_APPROVAL',
-      'name': 'Approved'
+      'name': 'FINAL APPROVAL'
     },
     {
       'id': 'FILE_REOPENED',
@@ -189,11 +197,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     {
       'id': 'REJECTED',
       'name': 'REJECTED'
-    },
-    {
-      'id': 'PENDING',
-      'name': 'PENDING'
     }
+
 
   ];
   parcel_status = [
