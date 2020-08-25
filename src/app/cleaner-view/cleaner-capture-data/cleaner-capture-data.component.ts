@@ -292,6 +292,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   parcelrecordsString: string;
   doc_keyword: any;
   doc_url_reference: any;
+  data_cleaning_request_id: any;
   request_id: any;
   parcel_ownership_request_id: any;
   reference_file_number: any;
@@ -392,13 +393,13 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     if (this.DocumentTypeForm.valid) {
       this.documenttypeformstatus = false;
       const payload = this.DocumentTypeForm.value;
-      payload['request_id'] = this.request_id;
+      payload['request_id'] = this.data_cleaning_request_id;
       this.create_verified_document_types(payload).then((response) => {
         const saved_id = response;
         payload['id'] = saved_id;
         this.formInputRecords.push(payload);
         this.DocumentTypeForm.reset();
-        this.fetch_document_type_information(this.request_id);
+        this.fetch_document_type_information(this.data_cleaning_request_id);
       });
 
     } else {
@@ -413,7 +414,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     this.delete_verified_document_types(delete_payload).then((response) => {
       const matchedIndex = this.formInputRecords.map(function (obj) { return obj.id; }).indexOf(selected_obj);
       this.formInputRecords.splice(matchedIndex, 1);
-      this.fetch_document_type_information(this.request_id);
+      this.fetch_document_type_information(this.data_cleaning_request_id);
     });
   }
   editDocumenttypeRow(index) {
@@ -438,7 +439,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         this.formInputRecords.push(response);
         this.DocumentTypeForm.reset();
         this.show_document_type_create = true;
-        this.fetch_document_type_information(this.request_id);
+        this.fetch_document_type_information(this.data_cleaning_request_id);
       });
 
     } else {
@@ -457,7 +458,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         this.parcelInputRecords.push(payload);
 
         this.parcelOwnershipForm.reset();
-        this.fetch_parcel_information(this.request_id);
+        this.fetch_parcel_information(this.data_cleaning_request_id);
       });
 
     } else {
@@ -500,7 +501,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         payload['id'] = saved_id;
         this.parcelInputRecords.push(response);
         this.parcelOwnershipForm.reset();
-        this.fetch_parcel_information(this.request_id);
+        this.fetch_parcel_information(this.data_cleaning_request_id);
         this.show_parcel_owners_create = true;
       });
 
@@ -510,6 +511,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   }
   filterdocuments() {
     this.request_id = '';
+    this.data_cleaning_request_id = '';
+
     if (this.searchForm.valid) {
       this.document_details = [];
       const file_number_input = this.searchForm.value['search_value'];
@@ -552,8 +555,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
 
             this.reference_file_status = document_status;
             const document_id = data_cleaning_datasets['id'];
-            this.request_id = document_id;
-            this.fetchfilecomments(this.request_id);
+            this.data_cleaning_request_id = document_id;
+            this.fetchfilecomments(this.data_cleaning_request_id);
             const documents_types_verified = data_cleaning_datasets['documents_verified'];
             this.formInputRecords = documents_types_verified;
             const parcel_ownership_info = data_cleaning_datasets['parcel_ownership_info'];
@@ -694,7 +697,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       const doc_ref_id = response['document_details']['document'];
 
       this.doc_url_reference = doc_ref_id;
-      this.cdRef.detectChanges();
+      // this.cdRef.detectChanges();
       const is_main_document = response['record_form']['is_main_document'];
       if (is_main_document) {
         this.is_main_document_field = true;
@@ -987,7 +990,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       const payload = {
         'remarks': this.remarksForm.value['remarks'],
         'general_status': this.remarksForm.value['general_status'],
-        'request_id': this.request_id
+        'request_id': this.data_cleaning_request_id
 
 
       };
@@ -1124,7 +1127,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         'parcel_status': this.parcelDetailsForm.value['parcel_status'],
         'parcel_id': this.parcelDetailsForm.value['parcel_id'],
         'ir_number': this.parcelDetailsForm.value['ir_number'],
-        'request_id': this.request_id
+        'request_id': this.data_cleaning_request_id
 
 
       };
@@ -1136,7 +1139,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
                 this.toastService.showToastNotification('success',
                   'Successfully Saved', '');
                 this.parcelDetailsForm.reset();
-                this.fetch_parcel_information(this.request_id);
+                this.fetch_parcel_information(this.data_cleaning_request_id);
 
               }
             });
@@ -1173,7 +1176,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
                 this.toastService.showToastNotification('success',
                   'Successfully Saved', '');
                 this.parcelDetailsForm.reset();
-                this.fetch_parcel_information(this.request_id);
+                this.fetch_parcel_information(this.data_cleaning_request_id);
 
               }
             });
