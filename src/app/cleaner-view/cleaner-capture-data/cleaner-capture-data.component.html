@@ -549,7 +549,7 @@
                     <select class="form-control" formControlName="parcel_numbering_type" (change)="parcel_type_change()"
                       [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.parcel_numbering_type.errors }">
                       <option value="">--Select Parcel Numbering Type--</option>
-                      <option *ngFor="let parcel_type of parcel_numbering_type" value={{parcel_type.id}}>
+                      <option *ngFor="let parcel_type of parcel_numbering_type" value={{parcel_type.code}}>
                         {{parcel_type.name}}
                       </option>
 
@@ -566,6 +566,14 @@
                         <input class="form-control"formControlName="ir_number"
                           [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.ir_number.errors }" />
                         <error-message [control]="parcelDetailsForm.controls.ir_number" *ngIf="parceldetailsformstatus">
+                        </error-message>
+    
+                      </div>
+                      <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label>LR NUMBER</label>
+                        <input class="form-control"formControlName="lr_number"
+                          [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.lr_number.errors }" />
+                        <error-message [control]="parcelDetailsForm.controls.lr_number" *ngIf="parceldetailsformstatus">
                         </error-message>
     
                       </div>
@@ -618,7 +626,7 @@
                     <select class="form-control" formControlName="parcel_owner_type" (change)="ownership_type_change()"
                       [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.parcel_owner_type.errors }">
 
-                      <option *ngFor="let ownertype of ownership_type" value={{ownertype.id}}>
+                      <option *ngFor="let ownertype of ownership_type" value={{ownertype.code}}>
                         {{ownertype.name}}
                       </option>
                     </select>
@@ -633,7 +641,7 @@
                       <select class="form-control" formControlName="parcel_status"
                         [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.parcel_status.errors }">
 
-                        <option *ngFor="let parcel_info of parcel_status" value={{parcel_info.id}}>
+                        <option *ngFor="let parcel_info of parcel_status" value={{parcel_info.code}}>
                           {{parcel_info.name}}
                         </option>
                       </select>
@@ -683,7 +691,7 @@
                       <select class="form-control" formControlName="parcel_system"
                         [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.parcel_system.errors }">
 
-                        <option *ngFor="let platform of system" value={{platform.id}}>
+                        <option *ngFor="let platform of system" value={{platform.code}}>
                           {{platform.name}}
                         </option>
                       </select>
@@ -697,7 +705,7 @@
                       <select class="form-control" formControlName="entity_type" 
                         [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.entity_type.errors }">
                         <option value="">-- Entity Type--</option>
-                        <option *ngFor="let entity_type_record of entity_type_list" value={{entity_type_record.id}}>
+                        <option *ngFor="let entity_type_record of entity_type_list" value={{entity_type_record.code}}>
                           {{entity_type_record.name}}
                         </option>
   
@@ -712,7 +720,7 @@
                       <select class="form-control" formControlName="ownership_rights" 
                         [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.ownership_rights.errors }">
                         <option value="">-- Select Ownership Rights--</option>
-                        <option *ngFor="let ownershiprights_record of ownership_rights_list" value={{ownershiprights_record.id}}>
+                        <option *ngFor="let ownershiprights_record of ownership_rights_list" value={{ownershiprights_record.code}}>
                           {{ownershiprights_record.name}}
                         </option>
   
@@ -736,7 +744,7 @@
                         <option>
                           Select Owner Identification Type
                         </option>
-                        <option *ngFor="let identification of owner_identification_type" value={{identification.id}}>
+                        <option *ngFor="let identification of owner_identification_type" value={{identification.code}}>
                           {{identification.name}}
                         </option>
                       </select>
@@ -975,7 +983,7 @@
                     <select class="form-control" formControlName="general_status"
                       [ngClass]="{ 'is-invalid': remarkformstatus &amp;&amp; remarksForm.controls.general_status.errors }">
 
-                      <option *ngFor="let doc_status of document_general_status" value={{doc_status.id}}>
+                      <option *ngFor="let doc_status of document_general_status" value={{doc_status.code}}>
                         {{doc_status.name}}
                       </option>
                     </select>

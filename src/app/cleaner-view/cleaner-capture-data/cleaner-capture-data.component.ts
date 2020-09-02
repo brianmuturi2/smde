@@ -13,7 +13,12 @@ import {
   , cleaning_delete_parcel_owner_url, list_department_url, start_data_cleaning_url,
   change_data_cleaning_file_status_url, data_cleaning_file_comments_url,
   cleaning_create_parcel_information_url, cleaning_edit_parcel_information_url,
-  data_cleaning_fetch_file_parcel_information_url, data_cleaning_fetch_document_type_verification_information_url
+  data_cleaning_fetch_file_parcel_information_url, data_cleaning_fetch_document_type_verification_information_url,
+  list_cleaning_entity_types_url, list_cleaning_parcel_numbering_types_url,
+  list_cleaning_parcel_ownership_types_url, list_cleaning_parcel_status_url,
+  list_cleaning_system_types_url, list_cleaning_ownership_rights_url,
+  list_cleaning_ownership_identification_types_url, list_cleaning_file_status_url,
+
 } from '../../app.constants';
 import { Subject } from 'rxjs';
 import { DocumentList } from '../interfaces/cleaner';
@@ -72,63 +77,66 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       'name': 'NO'
     }
   ];
-  parcel_numbering_type = [
-    {
-      'id': 'BLOCK_NUMBER',
-      'name': 'BLOCK_NUMBER'
-    },
-    {
-      'id': 'PLOT_NUMBER',
-      'name': 'PLOT_NUMBER'
-    },
-    {
-      'id': 'PARCEL_NUMBER',
-      'name': 'PARCEL_NUMBER'
-    },
-    {
-      'id': 'LR_NUMBER',
-      'name': 'LR_NUMBER'
-    },
-    {
-      'id': 'IR',
-      'name': 'IR'
-    }
+  // parcel_numbering_type = [
+  //   {
+  //     'id': 'BLOCK_NUMBER',
+  //     'name': 'BLOCK_NUMBER'
+  //   },
+  //   {
+  //     'id': 'PLOT_NUMBER',
+  //     'name': 'PLOT_NUMBER'
+  //   },
+  //   {
+  //     'id': 'PARCEL_NUMBER',
+  //     'name': 'PARCEL_NUMBER'
+  //   },
+  //   {
+  //     'id': 'LR_NUMBER',
+  //     'name': 'LR_NUMBER'
+  //   },
+  //   {
+  //     'id': 'IR',
+  //     'name': 'IR'
+  //   }
 
-  ];
-  ownership_type = [
-    {
-      'id': 'SOLE',
-      'name': 'SOLE'
-    },
-    {
-      'id': 'JOINT',
-      'name': 'JOINT'
-    },
-    {
-      'id': 'COMMON',
-      'name': 'TENANCY IN COMMON'
-    },
+  // ];
+  parcel_numbering_type = [];
+  // ownership_type = [
+  //   {
+  //     'id': 'SOLE',
+  //     'name': 'SOLE'
+  //   },
+  //   {
+  //     'id': 'JOINT',
+  //     'name': 'JOINT'
+  //   },
+  //   {
+  //     'id': 'COMMON',
+  //     'name': 'TENANCY IN COMMON'
+  //   },
 
-  ];
-  owner_identification_type = [
-    {
-      'id': 'NATIONAL_ID',
-      'name': 'National Identification Number'
-    },
-    {
-      'id': 'PASSPORT',
-      'name': 'Passport'
-    },
-    {
-      'id': 'BUSINESS_REGISTRATION_NUMBER',
-      'name': 'Business Registration Number'
-    },
-    {
-      'id': 'NOT_AVAILABLE',
-      'name': 'NOT AVAILABLE'
-    }
+  // ];
+  ownership_type = [];
+  // owner_identification_type = [
+  //   {
+  //     'id': 'NATIONAL_ID',
+  //     'name': 'National Identification Number'
+  //   },
+  //   {
+  //     'id': 'PASSPORT',
+  //     'name': 'Passport'
+  //   },
+  //   {
+  //     'id': 'BUSINESS_REGISTRATION_NUMBER',
+  //     'name': 'Business Registration Number'
+  //   },
+  //   {
+  //     'id': 'NOT_AVAILABLE',
+  //     'name': 'NOT AVAILABLE'
+  //   }
 
-  ];
+  // ];
+  owner_identification_type = [];
   document_general_status = [];
   cleaner_general_status = [
     {
@@ -201,84 +209,89 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
 
 
   ];
-  parcel_status = [
-    {
-      'id': 'ACTIVE',
-      'name': 'Active'
-    },
-    {
-      'id': 'REVOKED',
-      'name': 'Revoked'
-    },
-    {
-      'id': 'CANCELLED',
-      'name': 'Cancelled'
-    }, {
-      'id': 'SUSPENDED',
-      'name': 'Suspended'
-    }
+  // parcel_status = [
+  //   {
+  //     'id': 'ACTIVE',
+  //     'name': 'Active'
+  //   },
+  //   {
+  //     'id': 'REVOKED',
+  //     'name': 'Revoked'
+  //   },
+  //   {
+  //     'id': 'CANCELLED',
+  //     'name': 'Cancelled'
+  //   }, {
+  //     'id': 'SUSPENDED',
+  //     'name': 'Suspended'
+  //   }
 
-  ];
-  system = [
-    {
-      'id': 'EDMS',
-      'name': 'EDMS'
-    },
-    {
-      'id': 'LIMS',
-      'name': 'LIMS'
-    }
+  // ];
+  parcel_status = [];
+  // system = [
+  //   {
+  //     'id': 'EDMS',
+  //     'name': 'EDMS'
+  //   },
+  //   {
+  //     'id': 'LIMS',
+  //     'name': 'LIMS'
+  //   }
 
-  ];
+  // ];
+  system = [];
 
-  entity_type_list = [
-    {
-      'id': 'INDIVIDUAL',
-      'name': 'INDIVIDUAL'
-    },
-    {
-      'id': 'FOUNDATION',
-      'name': 'FOUNDATION'
-    },
-    {
-      'id': 'COMPANY',
-      'name': 'COMPANY'
-    },
-    {
-      'id': 'MINISTRY',
-      'name': 'MINISTRY'
-    },
-    {
-      'id': 'PARASTATAL',
-      'name': 'PARASTATAL'
-    },
-    {
-      'id': 'AGENCIES',
-      'name': 'AGENCIES'
-    }
-  ];
-  ownership_rights_list = [
-    {
-      'id': 'ADMINISTRATOR',
-      'name': 'ADMINISTRATOR'
-    },
-    {
-      'id': 'BENEFICIARY',
-      'name': 'BENEFICIARY'
-    },
-    {
-      'id': 'PROPRIETORSHIP',
-      'name': 'PROPRIETORSHIP'
-    },
-    {
-      'id': 'TRUSTEE',
-      'name': 'TRUSTEE'
-    },
-    {
-      'id': 'LIQUIDATOR',
-      'name': 'LIQUIDATOR'
-    }
-  ];
+  // entity_type_list = [
+  //   {
+  //     'id': 'INDIVIDUAL',
+  //     'name': 'INDIVIDUAL'
+  //   },
+  //   {
+  //     'id': 'FOUNDATION',
+  //     'name': 'FOUNDATION'
+  //   },
+  //   {
+  //     'id': 'COMPANY',
+  //     'name': 'COMPANY'
+  //   },
+  //   {
+  //     'id': 'MINISTRY',
+  //     'name': 'MINISTRY'
+  //   },
+  //   {
+  //     'id': 'PARASTATAL',
+  //     'name': 'PARASTATAL'
+  //   },
+  //   {
+  //     'id': 'AGENCIES',
+  //     'name': 'AGENCIES'
+  //   }
+  // ];
+  entity_type_list = [];
+  // ownership_rights_list = [
+  //   {
+  //     'id': 'ADMINISTRATOR',
+  //     'name': 'ADMINISTRATOR'
+  //   },
+  //   {
+  //     'id': 'BENEFICIARY',
+  //     'name': 'BENEFICIARY'
+  //   },
+  //   {
+  //     'id': 'PROPRIETORSHIP',
+  //     'name': 'PROPRIETORSHIP'
+  //   },
+  //   {
+  //     'id': 'TRUSTEE',
+  //     'name': 'TRUSTEE'
+  //   },
+  //   {
+  //     'id': 'LIQUIDATOR',
+  //     'name': 'LIQUIDATOR'
+  //   }
+  // ];
+  ownership_rights_list = [];
+
 
 
   document_details = [];
@@ -334,6 +347,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
        block_number: new FormControl('', ),
       parcel_owner_type: new FormControl('', ),
       ir_number: new FormControl('', ),
+      lr_number: new FormControl('', ),
       file_number: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100)])),
       parcel_status: new FormControl('', ),
@@ -370,7 +384,15 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchdocumenttypes();
     this.fetchDepartments();
-    this.fetchroles();
+    // this.fetchroles();
+    this.fetchEntitytypes();
+    this.fetchParcelNumberingTypes();
+    this.fetchParcelOwnershipTypes();
+    this.fetchParcelStatus();
+    this.fetchCleaningSystems();
+    this.fetchOwnershipRights();
+    this.fetchOwnershipIdentificationTypes();
+    this.fetchFileStatus();
 
 
   }
@@ -389,6 +411,103 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
 
     });
   }
+  fetchFileStatus() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_file_status_url, params).subscribe((res) => {
+      this.document_general_status = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+  fetchEntitytypes() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_entity_types_url, params).subscribe((res) => {
+      this.entity_type_list = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+  fetchParcelNumberingTypes() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_parcel_numbering_types_url, params).subscribe((res) => {
+      this.parcel_numbering_type = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+  fetchParcelOwnershipTypes() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_parcel_ownership_types_url, params).subscribe((res) => {
+      this.ownership_type = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+  fetchParcelStatus() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_parcel_status_url, params).subscribe((res) => {
+      this.parcel_status = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+  fetchCleaningSystems() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_system_types_url, params).subscribe((res) => {
+      this.system = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+  fetchOwnershipRights() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_ownership_rights_url, params).subscribe((res) => {
+      this.ownership_rights_list = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+  fetchOwnershipIdentificationTypes() {
+    this.loadingService.showloading();
+    const params = {
+
+    };
+    this.cleanerService.getrecord(list_cleaning_ownership_identification_types_url, params).subscribe((res) => {
+      this.owner_identification_type = res;
+
+      this.loadingService.hideloading();
+
+    });
+  }
+
   addDocumenttypeRow() {
     if (this.DocumentTypeForm.valid) {
       this.documenttypeformstatus = false;
@@ -568,6 +687,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
             const parcel_ownership_type = parcel_ownership_info['parcel_ownership_type'];
             const parcel_status = parcel_ownership_info['parcel_status'];
             const ir_number = parcel_ownership_info['ir_number'];
+            const lr_number = parcel_ownership_info['lr_number'];
 
             const parcel_date_captured = parcel_ownership_info['date_captured'];
             const parcel_owners = parcel_ownership_info['parcel_owners'];
@@ -940,6 +1060,12 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     if (parcel_type === 'IR') {
       this.show_ir_field = true;
 
+
+    }
+    else if (parcel_type === 'LR_NUMBER') {
+      this.show_ir_field = true;
+
+
     } else {
 
       this.show_ir_field = false;
@@ -1049,6 +1175,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         const parcel_ownership_type = res['parcel_ownership_type'];
         const parcel_status = res['parcel_status'];
         const ir_number = res['ir_number'];
+        const lr_number = res['lr_number'];
         const parcel_owners = res['parcel_owners'];
         const parcel_ownership_details = {
           'parcel_numbering_type': parcel_numbering_type,
@@ -1058,6 +1185,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
           'parcel_owner_type': parcel_ownership_type,
           'parcel_status': parcel_status,
           'ir_number': ir_number,
+          'lr_number': lr_number,
           'parcel_id': parcel_info_id,
           'id': parcel_info_id
         };
@@ -1127,6 +1255,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         'parcel_status': this.parcelDetailsForm.value['parcel_status'],
         'parcel_id': this.parcelDetailsForm.value['parcel_id'],
         'ir_number': this.parcelDetailsForm.value['ir_number'],
+        'lr_number': this.parcelDetailsForm.value['lr_number'],
+
         'request_id': this.data_cleaning_request_id
 
 
@@ -1164,6 +1294,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         'parcel_status': this.parcelDetailsForm.value['parcel_status'],
         'parcel_id': this.parcelDetailsForm.value['parcel_id'],
         'ir_number': this.parcelDetailsForm.value['ir_number'],
+        'lr_number': this.parcelDetailsForm.value['lr_number'],
+
         'request_id': this.parcelDetailsForm.value['parcel_id']
 
 
