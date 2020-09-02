@@ -174,7 +174,7 @@ export class StaffDetailsComponent implements OnInit {
 
     if (assigned_length < 1) {
       this.sweetalertService.showAlert('Error', 'Kindly Select Roles', 'error');
-     
+
 
     } else {
       if (request_type === 0) {
