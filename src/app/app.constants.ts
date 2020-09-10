@@ -153,3 +153,9 @@ export let list_cleaning_system_types_url = serverurl + API_VERSION + 'data-clea
 export let list_cleaning_ownership_rights_url = serverurl + API_VERSION + 'data-cleaning/list-ownership-rights';
 export let list_cleaning_ownership_identification_types_url = serverurl + API_VERSION + 'data-cleaning/list-ownership-identification-types';
 export let list_cleaning_file_status_url = serverurl + API_VERSION + 'data-cleaning/list-file-cleaning-status';
+
+
+export let cleaning_create_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/create-parcel-beneficiary';
+export let cleaning_edit_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/update-parcel-beneficiary';
+
+export let cleaning_list_parcel_owner_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/list-parcel-owner-beneficiaries';
