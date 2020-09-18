@@ -10,7 +10,7 @@ import { get_user_roles_url } from './app.constants';
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router, public authservice: AuthenticationService, private permissionsService: NgxPermissionsService, ) {
-    this.disable_console();
+    // this.disable_console();
     this.checkifAuthenticated();
 
 
