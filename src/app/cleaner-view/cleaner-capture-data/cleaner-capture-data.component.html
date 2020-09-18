@@ -538,9 +538,18 @@
         <tab heading="Parcel Information">
           <div class="card">
             <div class="card-header">
-              Parcel Information
+              <span class="font-weight-bold">    Parcel Information</span>
+              <a (click)="isparcelSectionCollapsed = !isparcelSectionCollapsed">
+                <ng-container *ngIf="isparcelSectionCollapsed">
+                  <span class="badge badge-success"> (click to expand)</span>
+                </ng-container> 
+                <ng-container *ngIf="!isparcelSectionCollapsed">
+                  <span class="badge badge-warning"> (click to collapse)</span>
+                </ng-container> 
+              </a>
+           
             </div>
-            <div class="card-body">
+            <div class="card-body" [ngbCollapse]="isparcelSectionCollapsed">
               <form [formGroup]="parcelDetailsForm">
                 <div class="row">
                   <div class="col-sm-12 col-md-3 col-lg-3">
@@ -680,208 +689,372 @@
           <div *ngIf="requires_parcel_information">
             <div class="card">
               <div class="card-header">
-                Ownership Details
+             
+                 <span class="font-weight-bold"> Ownership Details</span>
+                  <a (click)="isownershipSectionCollapsed = !isownershipSectionCollapsed">
+                    <ng-container *ngIf="isownershipSectionCollapsed">
+                      <span class="badge badge-success"> (click to expand)</span>
+                    </ng-container> 
+                    <ng-container *ngIf="!isownershipSectionCollapsed">
+                      <span class="badge badge-warning"> (click to collapse)</span>
+                    </ng-container> 
+                  </a>
+                 
+                 
+             
               </div>
-              <div class="card-body">
-                <form [formGroup]="parcelOwnershipForm">
-                  <div class="row">
-
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                      <label>System</label>
-                      <select class="form-control" formControlName="parcel_system"
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.parcel_system.errors }">
-
-                        <option *ngFor="let platform of system" value={{platform.code}}>
-                          {{platform.name}}
-                        </option>
-                      </select>
-                      <error-message [control]="parcelOwnershipForm.controls.parcel_system"
-                        *ngIf="parcelownershipformstatus"></error-message>
-
-                    </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-
-                      <label>Entity Type</label>
-                      <select class="form-control" formControlName="entity_type" 
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.entity_type.errors }">
-                        <option value="">-- Entity Type--</option>
-                        <option *ngFor="let entity_type_record of entity_type_list" value={{entity_type_record.code}}>
-                          {{entity_type_record.name}}
-                        </option>
+              <div [ngbCollapse]="isownershipSectionCollapsed">
+                <div class="card-body" >
+                  <form [formGroup]="parcelOwnershipForm" >
+                    <div class="row">
   
-                      </select>
-                      <error-message [control]="parcelOwnershipForm.controls.entity_type" *ngIf="parcelownershipformstatus">
-                      </error-message>
+                      <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label>System</label>
+                        <select class="form-control" formControlName="parcel_system"
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.parcel_system.errors }">
   
-                    </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-
-                      <label>Ownership Rights</label>
-                      <select class="form-control" formControlName="ownership_rights" 
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.ownership_rights.errors }">
-                        <option value="">-- Select Ownership Rights--</option>
-                        <option *ngFor="let ownershiprights_record of ownership_rights_list" value={{ownershiprights_record.code}}>
-                          {{ownershiprights_record.name}}
-                        </option>
+                          <option *ngFor="let platform of system" value={{platform.code}}>
+                            {{platform.name}}
+                          </option>
+                        </select>
+                        <error-message [control]="parcelOwnershipForm.controls.parcel_system"
+                          *ngIf="parcelownershipformstatus"></error-message>
   
-                      </select>
-                      <error-message [control]="parcelOwnershipForm.controls.entity_type" *ngIf="parcelownershipformstatus">
-                      </error-message>
-  
-                    </div>
-                   
-
-
-
-
-
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                      <label>Owner Identification Type</label>
-                      <select class="form-control" formControlName="owner_identification_type"
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_identification_type.errors }">
-                        <option>
-                          Select Owner Identification Type
-                        </option>
-                        <option *ngFor="let identification of owner_identification_type" value={{identification.code}}>
-                          {{identification.name}}
-                        </option>
-                      </select>
-                      <error-message [control]="parcelOwnershipForm.controls.parcel_owner_identification_type"
-                        *ngIf="parcelownershipformstatus"></error-message>
-
-                    </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                      <label>Owner Identification Number </label>
-                      <input class="form-control" formControlName="owner_identification_number"
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_identification_number.errors }" />
-                      <error-message [control]="parcelOwnershipForm.controls.owner_identification_number"
-                        *ngIf="parcelownershipformstatus"></error-message>
-                    </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                      <label>Parcel Owner Name</label>
-                      <input class="form-control" formControlName="owner_name"
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_name.errors }" />
-                      <error-message [control]="parcelOwnershipForm.controls.owner_name"
-                        *ngIf="parcelownershipformstatus"></error-message>
-                    </div>
-
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-4 col-md-2 col-lg-2">
-                      <div *ngIf="ownership_type_option">
-                <label>Share Numerator</label>
-                      <input class="form-control" formControlName="share_numerator" type="number" default="0"
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.share_numerator.errors }" />
-                      <error-message [control]="parcelOwnershipForm.controls.share_numerator"
-                        *ngIf="parcelownershipformstatus"></error-message>
                       </div>
-                   
-                    </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2">
-                      <div *ngIf="ownership_type_option">
-                <label>Share Denominator</label>
-                      <input class="form-control" formControlName="share_denominator" type="number" default="0"
-                        [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.share_denominator.errors }" />
-                      <error-message [control]="parcelOwnershipForm.controls.share_denominator"
-                        *ngIf="parcelownershipformstatus"></error-message>
+                      <div class="col-sm-12 col-md-4 col-lg-4">
+  
+                        <label>Entity Type</label>
+                        <select class="form-control" formControlName="entity_type" 
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.entity_type.errors }">
+                          <option value="">-- Entity Type--</option>
+                          <option *ngFor="let entity_type_record of entity_type_list" value={{entity_type_record.code}}>
+                            {{entity_type_record.name}}
+                          </option>
+    
+                        </select>
+                        <error-message [control]="parcelOwnershipForm.controls.entity_type" *ngIf="parcelownershipformstatus">
+                        </error-message>
+    
                       </div>
-                   
+                      <div class="col-sm-12 col-md-4 col-lg-4">
+  
+                        <label>Ownership Rights</label>
+                        <select class="form-control" formControlName="ownership_rights" 
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.ownership_rights.errors }">
+                          <option value="">-- Select Ownership Rights--</option>
+                          <option *ngFor="let ownershiprights_record of ownership_rights_list" value={{ownershiprights_record.code}}>
+                            {{ownershiprights_record.name}}
+                          </option>
+    
+                        </select>
+                        <error-message [control]="parcelOwnershipForm.controls.entity_type" *ngIf="parcelownershipformstatus">
+                        </error-message>
+    
+                      </div>
+                     
+  
+  
+  
+  
+  
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label>Owner Identification Type</label>
+                        <select class="form-control" formControlName="owner_identification_type"
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_identification_type.errors }">
+                          <option>
+                            Select Owner Identification Type
+                          </option>
+                          <option *ngFor="let identification of owner_identification_type" value={{identification.code}}>
+                            {{identification.name}}
+                          </option>
+                        </select>
+                        <error-message [control]="parcelOwnershipForm.controls.parcel_owner_identification_type"
+                          *ngIf="parcelownershipformstatus"></error-message>
+  
+                      </div>
+                      <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label>Owner Identification Number </label>
+                        <input class="form-control" formControlName="owner_identification_number"
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_identification_number.errors }" />
+                        <error-message [control]="parcelOwnershipForm.controls.owner_identification_number"
+                          *ngIf="parcelownershipformstatus"></error-message>
+                      </div>
+                      <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label>Parcel Owner Name</label>
+                        <input class="form-control" formControlName="owner_name"
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.owner_name.errors }" />
+                        <error-message [control]="parcelOwnershipForm.controls.owner_name"
+                          *ngIf="parcelownershipformstatus"></error-message>
+                      </div>
+  
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4 col-md-2 col-lg-2">
+                        <div *ngIf="ownership_type_option">
+                  <label>Share Numerator</label>
+                        <input class="form-control" formControlName="share_numerator" type="number" default="0"
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.share_numerator.errors }" />
+                        <error-message [control]="parcelOwnershipForm.controls.share_numerator"
+                          *ngIf="parcelownershipformstatus"></error-message>
+                        </div>
+                     
+                      </div>
+                      <div class="col-sm-4 col-md-2 col-lg-2">
+                        <div *ngIf="ownership_type_option">
+                  <label>Share Denominator</label>
+                        <input class="form-control" formControlName="share_denominator" type="number" default="0"
+                          [ngClass]="{ 'is-invalid': parcelownershipformstatus &amp;&amp; parcelOwnershipForm.controls.share_denominator.errors }" />
+                        <error-message [control]="parcelOwnershipForm.controls.share_denominator"
+                          *ngIf="parcelownershipformstatus"></error-message>
+                        </div>
+                     
+                      </div>
+                  
+                  </div>
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <label>&nbsp;</label>
+                    <div *ngIf="show_parcel_owners_create">
+                      <button type="button" class="btn btn-primary col-md-12" (click)="addparcelownerRow()">
+                        <i class="fa fa-plus fa-1x"></i>
+                        Add Record</button>
+                    </div>
+                    <div *ngIf="!show_parcel_owners_create">
+                      <button type="button" class="btn btn-success col-md-12" (click)="updateparcelownerRow()">
+                        <i class="fa fa-plus fa-1x"></i>
+                        Update Record</button>
+                    </div>
+                  </div>
+                    
+                  </form>
+  
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
+                    <div class="input-group">
+                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
+                      </div>
+                      <input class="form-control " placeholder="Search Here" type="text"
+                        [(ngModel)]="parcelrecordsString">
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="table-responsive">
+                  <table [mfData]="parcelInputRecords" #parceltable="mfDataTable" [mfRowsOnPage]="10"
+                    class="table table-striped table-bordered  table-sm table-hover">
+                    <thead>
+                      <tr>
+  
+                        <th>#</th>
+                        <th>Parcel System</th>
+                        <th>Identification Type</th>
+                        <th>Identification Number</th>
+                        <th>Owner's Name</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="parcelInputRecords?.length != 0">
+  
+                      <tr *ngFor="let dynamic of parceltable.data | filter : docsearchString ; let i = index;">
+  
+                        <td>
+                          {{i + 1}}
+                        </td>
+                        <td>
+                          {{dynamic.parcel_system}}
+  
+                        </td>
+                        <td>
+                          {{dynamic.owner_identification_type}}
+  
+                        </td>
+                        <td>
+                          {{dynamic.owner_identification_number}}
+  
+                        </td>
+                        <td>
+                          {{dynamic.owner_name}}
+  
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-primary  btn-sm " (click)="editparcelownerRow(dynamic)"> <i
+                              class="fa fa-pencil "></i> </button>
+                          <button type="button" class="btn btn-danger  btn-sm " (click)="deleteparcelownerRow(dynamic)">
+                            <i class="fa fa-trash "></i> </button>
+                        </td>
+  
+                      </tr>
+  
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="12">
+                          Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]">
+                          </mfBootstrapPaginator>
+                        </td>
+                      </tr>
+                    </tfoot>
+                    <tbody *ngIf="parcelInputRecords?.length == 0">
+                      <tr>
+                        <td colspan="9" class="no-data-available">No records to show</td>
+                      </tr>
+                    <tbody>
+                  </table>
+                </div>
+              </div>
+           
+
+            </div>
+
+          </div>
+          <div class="card"  >
+            <div class="card-header">
+              Beneficiary Details
+              <a (click)="isbeneficiarySectionCollapsed = !isbeneficiarySectionCollapsed">
+                <ng-container *ngIf="isbeneficiarySectionCollapsed">
+                  <span class="badge badge-success"> (click to expand)</span>
+                </ng-container> 
+                <ng-container *ngIf="!isbeneficiarySectionCollapsed">
+                  <span class="badge badge-warning"> (click to collapse)</span>
+                </ng-container> 
+              </a>
+             
+             
+            </div>
+            <div class="card-body" [ngbCollapse]="isbeneficiarySectionCollapsed">
+              <ng-container *ngIf="show_beneficiary_field">
+              <form [formGroup]="beneficiaryForm">
+                <div class="row">
+                  <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Parcel Owner - Trustee for Minor</label>
+                    <select class="form-control" formControlName="parcel_owner" (change)="filterparcelbeneficiaries($event)"
+                      [ngClass]="{ 'is-invalid': beneficiaryformstatus &amp;&amp; beneficiaryForm.controls.parcel_owner.errors }">
+                      <option>Select Parcel Owner</option>
+                      <option *ngFor="let parcel_owner_beneficiary of all_minor_trustees" value={{parcel_owner_beneficiary.id}}>
+                      {{parcel_owner_beneficiary.owner_name}} -- Identification Number : - {{parcel_owner_beneficiary.owner_identification_number}}
+                     
+                      </option>
+                    </select>
+                    <error-message [control]="beneficiaryForm.controls.parcel_owner"
+                      *ngIf="beneficiaryformstatus"></error-message>
                     </div>
                 
-                </div>
-                <div class="col-sm-12 col-md-4 col-lg-4">
-                  <label>&nbsp;</label>
-                  <div *ngIf="show_parcel_owners_create">
-                    <button type="button" class="btn btn-primary col-md-12" (click)="addparcelownerRow()">
-                      <i class="fa fa-plus fa-1x"></i>
-                      Add Record</button>
+                  <div class="col-sm-3 col-md-3 col-lg-3">
+                    <label>Name</label>
+                    <input class="form-control" formControlName="name"
+                      [ngClass]="{ 'is-invalid': beneficiaryformstatus &amp;&amp; beneficiaryForm.controls.name.errors }" />
+                    <error-message [control]="beneficiaryForm.controls.name"
+                      *ngIf="beneficiaryformstatus"></error-message>
                   </div>
-                  <div *ngIf="!show_parcel_owners_create">
-                    <button type="button" class="btn btn-success col-md-12" (click)="updateparcelownerRow()">
-                      <i class="fa fa-plus fa-1x"></i>
-                      Update Record</button>
-                  </div>
-                </div>
-                  
-                </form>
-
-              </div>
-              <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
-                  <div class="input-group">
-                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
+                  <div class="col-sm-3 col-md-3 col-lg-3">
+                   
+              <label>Share Numerator</label>
+                    <input class="form-control" formControlName="share_numerator" type="number" default="0"
+                      [ngClass]="{ 'is-invalid': beneficiaryformstatus &amp;&amp; beneficiaryForm.controls.share_numerator.errors }" />
+                    <error-message [control]="beneficiaryForm.controls.share_numerator"
+                      *ngIf="beneficiaryformstatus"></error-message>
                     </div>
-                    <input class="form-control " placeholder="Search Here" type="text"
-                      [(ngModel)]="parcelrecordsString">
-                  </div>
+                 
+              
+                  <div class="col-sm-3 col-md-3 col-lg-3">
+                  
+              <label>Share Denominator</label>
+                    <input class="form-control" formControlName="share_denominator" type="number" default="0"
+                      [ngClass]="{ 'is-invalid': beneficiaryformstatus &amp;&amp; beneficiaryForm.controls.share_denominator.errors }" />
+                    <error-message [control]="beneficiaryForm.controls.share_denominator"
+                      *ngIf="beneficiaryformstatus"></error-message>
+                    </div>
+                 
+           
+
+                </div>
+                
+              <div class="col-sm-12 col-md-4 col-lg-4">
+                <label>&nbsp;</label>
+                <div *ngIf="show_beneficiary_create">
+                  <button type="button" class="btn btn-primary col-md-12" (click)="addparcelbeneficiaryRow()">
+                    <i class="fa fa-plus fa-1x"></i>
+                    Add Record</button>
+                </div>
+                <div *ngIf="!show_beneficiary_create">
+                  <button type="button" class="btn btn-success col-md-12" (click)="updateparcelBeneficiaryRow()">
+                    <i class="fa fa-plus fa-1x"></i>
+                    Update Record</button>
                 </div>
               </div>
-              <br>
-              <div class="table-responsive">
-                <table [mfData]="parcelInputRecords" #parceltable="mfDataTable" [mfRowsOnPage]="10"
-                  class="table table-striped table-bordered  table-sm table-hover">
-                  <thead>
-                    <tr>
-
-                      <th>#</th>
-                      <th>Parcel System</th>
-                      <th>Identification Type</th>
-                      <th>Identification Number</th>
-                      <th>Owner's Name</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody *ngIf="parcelInputRecords?.length != 0">
-
-                    <tr *ngFor="let dynamic of parceltable.data | filter : docsearchString ; let i = index;">
-
-                      <td>
-                        {{i + 1}}
-                      </td>
-                      <td>
-                        {{dynamic.parcel_system}}
-
-                      </td>
-                      <td>
-                        {{dynamic.owner_identification_type}}
-
-                      </td>
-                      <td>
-                        {{dynamic.owner_identification_number}}
-
-                      </td>
-                      <td>
-                        {{dynamic.owner_name}}
-
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-primary  btn-sm " (click)="editparcelownerRow(dynamic)"> <i
-                            class="fa fa-pencil "></i> </button>
-                        <button type="button" class="btn btn-danger  btn-sm " (click)="deleteparcelownerRow(dynamic)">
-                          <i class="fa fa-trash "></i> </button>
-                      </td>
-
-                    </tr>
-
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td colspan="12">
-                        Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]">
-                        </mfBootstrapPaginator>
-                      </td>
-                    </tr>
-                  </tfoot>
-                  <tbody *ngIf="parcelInputRecords?.length == 0">
-                    <tr>
-                      <td colspan="9" class="no-data-available">No records to show</td>
-                    </tr>
-                  <tbody>
-                </table>
+                
+              </form>
+</ng-container>
+            </div>
+            <div class="row" [ngbCollapse]="isbeneficiarySectionCollapsed">
+              <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
+                <div class="input-group">  
+                  <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
+                  </div>
+                  <input class="form-control " placeholder="Search Here" type="text"
+                    [(ngModel)]="parcelrecordsString">
+                </div>
               </div>
+            </div>
+            <br>
+            <div class="table-responsive" [ngbCollapse]="isbeneficiarySectionCollapsed">
+              <table [mfData]="beneficiaryInputRecords" #parceltable="mfDataTable" [mfRowsOnPage]="10"
+                class="table table-striped table-bordered  table-sm table-hover">
+                <thead>
+                  <tr>
 
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Share Numerator</th>
+                    <th>Share Denominator</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="beneficiaryInputRecords?.length != 0">
+
+                  <tr *ngFor="let dynamic of parceltable.data | filter : docsearchString ; let i = index;">
+
+                    <td>
+                      {{i + 1}}
+                    </td>
+                    <td>
+                      {{dynamic.name}}
+
+                    </td>
+                    <td>
+                      {{dynamic.share_numerator}}
+
+                    </td>
+                    <td>
+                      {{dynamic.share_denominator}}
+
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-primary  btn-sm " (click)="editparcelBeneficiaryRow(dynamic)"> <i
+                          class="fa fa-pencil "></i> </button>
+                      <button type="button" class="btn btn-danger  btn-sm " (click)="deleteparcelBeneficiaryRow(dynamic)">
+                        <i class="fa fa-trash "></i> </button>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="12">
+                      Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]">
+                      </mfBootstrapPaginator>
+                    </td>
+                  </tr>
+                </tfoot>
+                <tbody *ngIf="beneficiaryInputRecords?.length == 0">
+                  <tr>
+                    <td colspan="9" class="no-data-available">No records to show</td>
+                  </tr>
+                <tbody>
+              </table>
             </div>
 
           </div>
@@ -892,6 +1065,10 @@
 
 
 
+
+
+
+          
         </tab>
 
         <tab heading="Document Submission">

@@ -158,4 +158,8 @@ export let list_cleaning_file_status_url = serverurl + API_VERSION + 'data-clean
 export let cleaning_create_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/create-parcel-beneficiary';
 export let cleaning_edit_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/update-parcel-beneficiary';
 
-export let cleaning_list_parcel_owner_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/list-parcel-owner-beneficiaries';
+export let cleaning_filter_parcel_owners_url = serverurl + API_VERSION + 'data-cleaning/filter-parcel-owners';
+export let cleaning_filter_parcel_owners_beneficiaries_url = serverurl + API_VERSION + 'data-cleaning/filter-parcel-owners-beneficiaries';
+export let cleaning_delete_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/delete-parcel-owner-beneficiary';
+
+
