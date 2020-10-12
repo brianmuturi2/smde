@@ -27,12 +27,18 @@ services:
       build: .
       image: edms_front_image:latest
       deploy:
+        update_config:
+          parallelism: 1
+          max_failure_ratio: 0
+          delay: 3s
+          failure_action: rollback
         restart_policy:
-          max_attempts: 4
+          max_attempts: 3
           condition: on-failure
-        replicas: 3
+        replicas: 5
         placement:
           constraints: [node.role == manager]
+  
       volumes:
         - asset-volume:/home
         - .:/src
