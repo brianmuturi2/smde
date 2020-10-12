@@ -144,3 +144,22 @@ export let data_cleaning_file_comments_url = serverurl + API_VERSION + 'data-cle
 export let data_cleaning_fetch_file_parcel_information_url = serverurl + API_VERSION + 'data-cleaning/file-parcel-information';
 
 export let data_cleaning_fetch_document_type_verification_information_url = serverurl + API_VERSION + 'data-cleaning/file-document-type-verification-information';
+
+export let list_cleaning_entity_types_url = serverurl + API_VERSION + 'data-cleaning/list-entity-types';
+export let list_cleaning_parcel_numbering_types_url = serverurl + API_VERSION + 'data-cleaning/list-parcel-numbering-types';
+export let list_cleaning_parcel_ownership_types_url = serverurl + API_VERSION + 'data-cleaning/list-parcel-ownership-types';
+export let list_cleaning_parcel_status_url = serverurl + API_VERSION + 'data-cleaning/list-parcel-status';
+export let list_cleaning_system_types_url = serverurl + API_VERSION + 'data-cleaning/list-cleaning-systems';
+export let list_cleaning_ownership_rights_url = serverurl + API_VERSION + 'data-cleaning/list-ownership-rights';
+export let list_cleaning_ownership_identification_types_url = serverurl + API_VERSION + 'data-cleaning/list-ownership-identification-types';
+export let list_cleaning_file_status_url = serverurl + API_VERSION + 'data-cleaning/list-file-cleaning-status';
+
+
+export let cleaning_create_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/create-parcel-beneficiary';
+export let cleaning_edit_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/update-parcel-beneficiary';
+
+export let cleaning_filter_parcel_owners_url = serverurl + API_VERSION + 'data-cleaning/filter-parcel-owners';
+export let cleaning_filter_parcel_owners_beneficiaries_url = serverurl + API_VERSION + 'data-cleaning/filter-parcel-owners-beneficiaries';
+export let cleaning_delete_parcel_beneficiary_url = serverurl + API_VERSION + 'data-cleaning/delete-parcel-owner-beneficiary';
+
+
