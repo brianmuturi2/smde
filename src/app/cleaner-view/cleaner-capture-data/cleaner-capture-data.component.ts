@@ -74,7 +74,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   ownership_type_option = false;
   datacleaningstartformstatus = false;
   show_parcel_details_create = true;
-  show_ir_field =  false;
+  show_ir_field = false;
   department_list = [];
   beneficiaryInputRecords = [];
   all_minor_trustees = [];
@@ -123,7 +123,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     public sweetalertService: SweetalertService,
     private cdRef: ChangeDetectorRef,
-    private permissionsService: NgxPermissionsService, ) {
+    private permissionsService: NgxPermissionsService,) {
     this.searchForm = this.formBuilder.group({
       search_value: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
@@ -138,7 +138,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
     });
     this.DocumentTypeForm = this.formBuilder.group({
-      id: new FormControl('', ),
+      id: new FormControl('',),
       document_type: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
       validity_status: new FormControl('',
@@ -148,19 +148,19 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
 
       parcel_numbering_type: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
-      parcel_prefix: new FormControl('', ),
-       parcel_number: new FormControl('', ),
-       block_number: new FormControl('', ),
-      parcel_owner_type: new FormControl('', ),
-      ir_number: new FormControl('', ),
-      lr_number: new FormControl('', ),
+      parcel_prefix: new FormControl('',),
+      parcel_number: new FormControl('',),
+      block_number: new FormControl('',),
+      parcel_owner_type: new FormControl('',),
+      ir_number: new FormControl('',),
+      lr_number: new FormControl('',),
       file_number: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100)])),
-      parcel_status: new FormControl('', ),
-      parcel_id: new FormControl('', ),
+      parcel_status: new FormControl('',),
+      parcel_id: new FormControl('',),
     });
     this.parcelOwnershipForm = this.formBuilder.group({
-      id: new FormControl('', ),
+      id: new FormControl('',),
       parcel_system: new FormControl('',
       ),
       entity_type: new FormControl('',
@@ -169,11 +169,11 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       ),
       share_numerator: new FormControl('',
       ),
-      owner_identification_type: new FormControl('', ),
+      owner_identification_type: new FormControl('',),
       owner_identification_number: new FormControl('',
       ),
-      owner_name: new FormControl('', ),
-      ownership_rights: new FormControl('', ),
+      owner_name: new FormControl('',),
+      ownership_rights: new FormControl('',),
     });
     this.remarksForm = this.formBuilder.group({
       remarks: new FormControl('',
@@ -182,10 +182,10 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100)])),
     });
     this.DocumentCommentForm = this.formBuilder.group({
-      remarks: new FormControl('', ),
+      remarks: new FormControl('',),
     });
-this.beneficiaryForm = this.formBuilder.group({
-      id: new FormControl('', ),
+    this.beneficiaryForm = this.formBuilder.group({
+      id: new FormControl('',),
       parcel_owner: new FormControl('',
       ),
       name: new FormControl('',
@@ -572,6 +572,7 @@ this.beneficiaryForm = this.formBuilder.group({
               'parcel_owner_type': parcel_ownership_type,
               'parcel_status': parcel_status,
               'ir_number': ir_number,
+              'lr_number': lr_number,
 
               'parcel_id': ownership_id,
               'id': ownership_id
@@ -1096,7 +1097,7 @@ this.beneficiaryForm = this.formBuilder.group({
     };
     this.loadingService.showloading();
     this.cleanerService.getrecord(data_cleaning_fetch_document_type_verification_information_url, search_payload).subscribe((res) => {
-      this.formInputRecords  = res;
+      this.formInputRecords = res;
       this.loadingService.hideloading();
     });
   }
@@ -1195,7 +1196,7 @@ this.beneficiaryForm = this.formBuilder.group({
         payload['id'] = saved_id;
         this.beneficiaryInputRecords.push(response);
         this.beneficiaryForm.reset();
-       this.fetch_parcel_information(this.data_cleaning_request_id);
+        this.fetch_parcel_information(this.data_cleaning_request_id);
       });
 
     } else {
