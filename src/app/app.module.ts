@@ -44,7 +44,7 @@ import {
 } from '@coreui/angular';
 
 // Import routing module
-import { AppRoutingModule } from './app.routing';
+import { AppRoutingModule, routingComponents } from './app.routing';
 
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -60,7 +60,7 @@ import { DynamicNestedFormModule } from './dynamic-nested-form/dynamic-nested-fo
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CommonSidebarComponent } from './containers/common-sidebar/common-sidebar.component';
 import { DocumentDetailsComponent } from './administration/document-details/document-details.component';
-
+// import { TrustComponent} from './trust/app.component';
 
 
 @NgModule({
@@ -103,7 +103,8 @@ import { DocumentDetailsComponent } from './administration/document-details/docu
     P403Component,
     CommonSidebarComponent,
     DocumentDetailsComponent,
-  
+    // TrustComponent,
+    routingComponents,
  
 
 

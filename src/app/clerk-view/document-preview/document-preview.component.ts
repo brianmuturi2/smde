@@ -225,7 +225,7 @@ deleteRow(index) {
       if (item_length <= 0 ) {
         this.toastService.showToastNotification('error', 'Atleast One Record Is required', '');
       } else {
-        this.sweetalertsService.showConfirmation('Data Submission', 'Do you to proceed saving the records?').then((res) => {
+        this.sweetalertsService.showConfirmation('Data Submission', 'Do you want to proceed saving the records?').then((res) => {
           if (res) {
             const records_passed = {
               'document_id': this.tenant_client,

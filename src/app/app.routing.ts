@@ -8,8 +8,9 @@ import { P403Component } from './views/error/403.component';
 import { CommonProfileComponent } from './containers/common-profile/common-profile.component';
 import { AuthenticationGuard } from './authentication/guards/authguard.guard';
 import { ChangePasswordGuard } from './authentication/guards/change-password.guard';
+import { TrustComponent} from './validator-view/perpetual-succession-register/app.component';
+import { SpecialComponent} from './validator-view/land-special/app.component';
 export const routes: Routes = [
-
   {
     path: '404',
     component: P404Component,
@@ -42,6 +43,22 @@ export const routes: Routes = [
         data: {
           title: 'Profile Details'
         }
+      },
+      {
+        path: 'perpetual-succession-register',
+        component: TrustComponent,
+        data: {
+          title: 'perpetual-succession-register'
+        },
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'land-special',
+        component: SpecialComponent,
+        data: {
+          title: 'land-special'
+        },
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
       },
       {
         path: 'landing',
@@ -96,3 +113,4 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+export const routingComponents = [TrustComponent,SpecialComponent];

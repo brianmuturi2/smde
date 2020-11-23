@@ -138,7 +138,21 @@ export const navItems: INavData[] = [
         url: '/validator-view/rejected-documents',
         icon: 'fa fa-times',
         permission: ['DATA_ANALYST']
-      }
+      },
+      {
+        name: 'Register',
+        url: '/perpetual-succession-register',
+        icon: 'fa fa-book',
+        permission: ['DATA_ANALYST']
+
+      },
+      {
+        name: 'Land Special',
+        url: '/land-special',
+        icon: 'fa fa-book',
+        permission: ['DATA_ANALYST']
+
+      },
     ]
 
   },
@@ -171,7 +185,7 @@ export const navItems: INavData[] = [
         url: '/validator-view/rejected-documents',
         icon: 'fa fa-times',
         permission: ['DATA_PREVALIDATOR']
-      }
+      },
     ]
   },
   {
@@ -300,6 +314,13 @@ export const navItems: INavData[] = [
         permission: ['ICT_SUPPORT']
 
       },
+      // {
+      //   name: 'Test',
+      //   url: '/trust',
+      //   icon: 'fa fa-history',
+      //   permission: ['ICT_SUPPORT']
+
+      // },
 
      ]
   },
@@ -329,9 +350,6 @@ export const navItems: INavData[] = [
     icon: 'fa fa-street-view',
     permission: []
   }
-
-
-
 
 
 

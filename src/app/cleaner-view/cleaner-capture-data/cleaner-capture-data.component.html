@@ -631,7 +631,7 @@
                     <div class="col-sm-12 col-md-4 col-lg-4">
                       <label>Parcel Status</label>
                       <select class="form-control" formControlName="parcel_status"
-                        [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.parcel_status.errors }">
+                        [ngClass]="{ 'is-invalid': parceldetailsformstatus &amp;&amp; parcelDetailsForm.controls.parcel_status.errors }"required>
 
                         <option *ngFor="let parcel_info of parcel_status" value={{parcel_info.id}}>
                           {{parcel_info.name}}

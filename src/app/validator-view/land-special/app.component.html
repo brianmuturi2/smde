@@ -1,0 +1,78 @@
+
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm">
+         <ngb-tabset [destroyOnHide]="false">
+            <ngb-tab title="Compare Documents">
+               <ng-template ngbTabContent class="create-register">                  
+                  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                     <ngb-panel title="Add Documents">
+                       <ng-template ngbPanelContent>
+                           <form #compareForm="ngForm"  enctype="multipart/form-data" novalidate (ngSubmit)="saveformData()">
+                              <div class="form-group">
+                                 <label for="document1">Original Document</label>
+                                 <input type="file" class="form-control" name="document1" [(ngModel)]="documentName1" (change)="handleFileupload($event)" required>
+                              </div>
+                              <div class="form-group">
+                                 <label for="document2">Copy Document</label>
+                                 <input type="file" class="form-control" name="document2" [(ngModel)]="documentName2" (change)="handleFileupload2($event)" required>
+                              </div>
+                              <div class="form-group">
+                                 <label for="document_type">Document Type</label>
+                                 <ng-select [searchable]="true" [clearable]="true" name="document_type" [(ngModel)]="documentType">
+                                    <ng-option value="Data">Test(Data)</ng-option>
+                                    <ng-option value="Charge">Charge</ng-option>
+                                    <ng-option value="Caution">Caution</ng-option>
+                                    <ng-option value="LongTermLease">LongTermLease</ng-option>
+                                    <ng-option value="ShortTermLease">ShortTermLease</ng-option>
+                                    <ng-option value="DischargeOfCharge">DischargeOfCharge</ng-option>
+                                    <ng-option value="RemovalOfCaution">RemovalOfCaution</ng-option>
+                                    <ng-option value="CourtOrder">CourtOrder</ng-option>
+                                    <ng-option value="PartialDischargeOfCharge">PartialDischargeOfCharge</ng-option>
+                                    <ng-option value="TransferOfCharge">TransferOfCharge</ng-option>
+                                    <ng-option value="VariationOfCharge">VariationOfCharge</ng-option>
+                                    <ng-option value="CancellationOfCharge">CancellationOfCharge</ng-option>
+                                    <ng-option value="LeaseDocument">LeaseDocument</ng-option>
+                                 </ng-select>
+                              </div>
+                              <button [disabled]="compareForm.form.invalid" type="submit" class="btn btn-primary">Create</button>
+                           </form>
+                           <br><br><br>
+                       </ng-template>
+                     </ngb-panel> 
+                   </ngb-accordion>
+               </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+               <ng-template ngbTabTitle>Reports</ng-template>
+               <ng-template ngbTabContent>
+                  <div class="card">
+                     <div class="card-header">
+                        Download Reports
+                     </div>
+                     <div class="card-body">
+                        <table class="table">
+                           <thead>
+                             <tr>
+                               <th scope="col">Report</th>
+                               <th scope="col">Date</th>
+                               <th scope="col">Action</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             <tr *ngFor="let report of reports">
+                               <td><a href={{report.url}} target="_target" download>{{report.url}}</a></td>
+                               <td>{{report.date_created|date}}</td>
+                               <td></td>
+                             </tr>
+                           </tbody>
+                         </table>                        
+                     </div>
+                  </div> <!--end card-->
+               </ng-template>
+            </ngb-tab>
+         </ngb-tabset>
+      </div>
+   </div>
+</div>
+
