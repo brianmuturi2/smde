@@ -14,7 +14,7 @@
                                  <input type="file" class="form-control" name="document1" [(ngModel)]="documentName1" (change)="handleFileupload($event)" required>
                               </div>
                               <div class="form-group">
-                                 <label for="document2">Copy Document</label>
+                                 <label for="document2">Signed Document</label>
                                  <input type="file" class="form-control" name="document2" [(ngModel)]="documentName2" (change)="handleFileupload2($event)" required>
                               </div>
                               <div class="form-group">
@@ -46,6 +46,37 @@
             <ngb-tab>
                <ng-template ngbTabTitle>Reports</ng-template>
                <ng-template ngbTabContent>
+
+                  <div class="card" *ngIf="reportData && reportData.length">
+                     <div class="card-header">
+                        Report Details
+                     </div>
+                     <div class="card-body">
+                        <table class="table">
+                           <thead>
+                             <tr>
+                               <th scope="col">Document ID</th>
+                               <th scope="col">Field Status</th>
+                               <th scope="col">Incorrect File Number</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             <tr *ngFor="let data of reportData">
+                               <td>{{data.report.id}}</td>
+                               <td class="text-danger">
+                                 {{data.field_status}}
+                              </td>
+                               <td> 
+                                  <span *ngIf="data.file_number">{{data.file_number}}</span>
+                              </td>
+                               
+                             </tr>
+                           </tbody>
+                         </table>                        
+                     </div>
+                  </div> 
+
+
                   <div class="card">
                      <div class="card-header">
                         Download Reports
@@ -61,14 +92,18 @@
                            </thead>
                            <tbody>
                              <tr *ngFor="let report of reports">
-                               <td><a href={{report.url}} target="_target" download>{{report.url}}</a></td>
+                               <td><a href={{report.url}} target="_target" download='{{report.report.original_file_name}}'>{{report.report.original_file_name}}</a></td>
                                <td>{{report.date_created|date}}</td>
-                               <td></td>
+                               <td>
+                                 <a class="text-info" (click)="reportClicked(report.report.id)"><i class="fa fa-info-circle" aria-hidden="false"></i></a>
+                               </td>
                              </tr>
                            </tbody>
                          </table>                        
                      </div>
                   </div> <!--end card-->
+
+                  
                </ng-template>
             </ngb-tab>
          </ngb-tabset>

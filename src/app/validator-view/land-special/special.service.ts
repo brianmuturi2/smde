@@ -27,6 +27,20 @@ export class SpecialService {
   getReports(): Observable<any>  {
     return this.http.get(this.baseurl +  this.dept + 'reports', {headers: this.httpHeaders});
   }
+  
+  getDocumentTypes(): Observable<any>  {
+    return this.http.get(this.baseurl +  this.dept + 'user-document-types', {headers: this.httpHeaders});
+  }
+
+  getDocumentTypesFields(id): Observable<any>  {
+    console.log(id);
+    return this.http.get(this.baseurl +  this.dept + 'list-document-fields/' + id, {headers: this.httpHeaders});
+  }
+
+  reportClicked(id): Observable<any>  {
+    console.log(id);
+    return this.http.get(this.baseurl +  this.dept + 'report-data/' + id, {headers: this.httpHeaders});
+  }
 
 
   errorHandler(error: HttpErrorResponse) {

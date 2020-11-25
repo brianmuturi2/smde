@@ -28,12 +28,16 @@ export class SpecialComponent {
   documentName2: string;
   reports
   documentType
+  documentTypes
+  departmentId = null
+  reportData
 
 
   
 
   constructor(private api: SpecialService, public toastService: ToastService, private modalService: NgbModal, public loadingService: LoadingService, private router: Router,) {
     this.getReports();
+    // this.getDocumentTypes();
   }
 
 
@@ -67,8 +71,49 @@ export class SpecialComponent {
   getReports = () => {
     this.api.getReports().subscribe(
       data => {
-        console.log(data)
         this.reports = data
+        console.log(data)
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getDocumentTypes = () => {
+    this.api.getDocumentTypes().subscribe(
+      data => {
+        console.log(data)
+        this.documentTypes = data
+        this.departmentId = data[0]['id']
+        console.log(this.departmentId)
+        this.getDocumentTypesFields(this.departmentId);
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  getDocumentTypesFields = (departmentId) => {
+    this.api.getDocumentTypesFields(departmentId ).subscribe(
+      data => {
+        console.log(data)
+        
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  reportClicked = (reportId) => {
+    this.api.reportClicked(reportId).subscribe(
+      data => {
+        console.log(data)
+        this.reportData = data;
       },
       error => {
         console.log(error);
