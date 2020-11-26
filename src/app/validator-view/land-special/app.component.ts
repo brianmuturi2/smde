@@ -37,7 +37,7 @@ export class SpecialComponent {
 
   constructor(private api: SpecialService, public toastService: ToastService, private modalService: NgbModal, public loadingService: LoadingService, private router: Router,) {
     this.getReports();
-    // this.getDocumentTypes();
+    this.getDocumentTypes();
   }
 
 
@@ -72,7 +72,7 @@ export class SpecialComponent {
     this.api.getReports().subscribe(
       data => {
         this.reports = data
-        console.log(data)
+        // console.log(data)
       },
       error => {
         console.log(error);
@@ -83,11 +83,11 @@ export class SpecialComponent {
   getDocumentTypes = () => {
     this.api.getDocumentTypes().subscribe(
       data => {
-        console.log(data)
+        // console.log(data)
         this.documentTypes = data
         this.departmentId = data[0]['id']
-        console.log(this.departmentId)
-        this.getDocumentTypesFields(this.departmentId);
+        // console.log(this.departmentId)
+        // this.getDocumentTypesFields(this.departmentId);
 
       },
       error => {

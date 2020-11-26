@@ -157,6 +157,22 @@ export const navItems: INavData[] = [
 
   },
   {
+    name: 'Special Menu',
+    url: '#',
+    icon: 'fa fa-gavel',
+    permission: ['SPECIAL_ENTRY'],
+    children: [
+      {
+        name: 'Upload File',
+        url: '/land-special',
+        icon: 'fa fa-cloud-upload',
+        permission: ['SPECIAL_ENTRY']
+
+      },
+    ]
+
+  },
+  {
     name: 'Pre Validator Menu',
     url: '/validator-view/analytics',
     icon: 'fa fa-users',

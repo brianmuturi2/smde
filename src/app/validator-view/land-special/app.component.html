@@ -20,19 +20,9 @@
                               <div class="form-group">
                                  <label for="document_type">Document Type</label>
                                  <ng-select [searchable]="true" [clearable]="true" name="document_type" [(ngModel)]="documentType">
-                                    <ng-option value="Data">Test(Data)</ng-option>
-                                    <ng-option value="Charge">Charge</ng-option>
-                                    <ng-option value="Caution">Caution</ng-option>
-                                    <ng-option value="LongTermLease">LongTermLease</ng-option>
-                                    <ng-option value="ShortTermLease">ShortTermLease</ng-option>
-                                    <ng-option value="DischargeOfCharge">DischargeOfCharge</ng-option>
-                                    <ng-option value="RemovalOfCaution">RemovalOfCaution</ng-option>
-                                    <ng-option value="CourtOrder">CourtOrder</ng-option>
-                                    <ng-option value="PartialDischargeOfCharge">PartialDischargeOfCharge</ng-option>
-                                    <ng-option value="TransferOfCharge">TransferOfCharge</ng-option>
-                                    <ng-option value="VariationOfCharge">VariationOfCharge</ng-option>
-                                    <ng-option value="CancellationOfCharge">CancellationOfCharge</ng-option>
-                                    <ng-option value="LeaseDocument">LeaseDocument</ng-option>
+                                    <ng-option [value]="document.name" *ngFor="let document of documentTypes">
+                                       {{ document.name }}
+                                    </ng-option>
                                  </ng-select>
                               </div>
                               <button [disabled]="compareForm.form.invalid" type="submit" class="btn btn-primary">Create</button>
