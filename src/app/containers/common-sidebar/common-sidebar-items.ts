@@ -139,20 +139,13 @@ export const navItems: INavData[] = [
         icon: 'fa fa-times',
         permission: ['DATA_ANALYST']
       },
-      {
-        name: 'Register',
-        url: '/perpetual-succession-register',
-        icon: 'fa fa-book',
-        permission: ['DATA_ANALYST']
+      // {
+      //   name: 'Register',
+      //   url: '/perpetual-succession-register',
+      //   icon: 'fa fa-book',
+      //   permission: ['DATA_ANALYST']
 
-      },
-      {
-        name: 'Land Special',
-        url: '/land-special',
-        icon: 'fa fa-book',
-        permission: ['DATA_ANALYST']
-
-      },
+      // },
     ]
 
   },
