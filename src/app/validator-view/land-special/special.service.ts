@@ -16,12 +16,17 @@ export class SpecialService {
 
   constructor(private http: HttpClient) { }
 
-  uploadFile(payload){
+  uploadFile(payload, type, signatories){
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
+    if (type !== null)
+    {
+      const body = {'payload': payload,'signatories': signatories};
+      return this.http.post(this.baseurl + this.dept + 'upload-excel', body);
+    }
 
-    return this.http.post(this.baseurl + this.dept + 'upload-file', payload);
+    return this.http.post(this.baseurl + this.dept + 'upload-pdf', payload);
   }
 
   getReports(): Observable<any>  {
