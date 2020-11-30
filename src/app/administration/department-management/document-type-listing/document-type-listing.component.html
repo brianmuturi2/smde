@@ -49,6 +49,24 @@
             </div>
           </div>
           <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="is_register">Is Register</label>
+            <div class="col-sm-8 col-form-label">
+              <div class="form-check form-check-inline mr-1" id="inline-radios">
+                <input class="form-check-input" type="radio" name="is_register" value="true"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_register" required checked>
+                <label class="form-check-label" for="is_register">Yes</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="radio" name="is_register" value="false"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_register" required>
+                <label class="form-check-label" for="is_register">No</label>
+                &nbsp;&nbsp; <div *ngIf="createRecordForm.get('is_register').invalid " class="error-message">
+                  Select A Value
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="is_visible">Is Main Document Type</label>
             <div class="col-sm-8 col-form-label">
               <div class="form-check form-check-inline mr-1" id="inline-radios">
@@ -149,6 +167,24 @@
                   [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_visible" required>
                 <label class="form-check-label" for="is_visible">No</label>
                 &nbsp;&nbsp; <div *ngIf="editRecordForm.get('is_visible').invalid " class="error-message">
+                  Select A Value
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="is_register">Is register</label>
+            <div class="col-sm-8 col-form-label">
+              <div class="form-check form-check-inline mr-1" id="inline-radios">
+                <input class="form-check-input" type="radio" name="is_register" value="true"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_register" required checked>
+                <label class="form-check-label" for="is_register">Yes</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="radio" name="is_register" value="false"
+                  [ngClass]="{'form-submitted': formSubmitted}" formControlName="is_register" required>
+                <label class="form-check-label" for="is_register">No</label>
+                &nbsp;&nbsp; <div *ngIf="editRecordForm.get('is_register').invalid " class="error-message">
                   Select A Value
                 </div>
               </div>

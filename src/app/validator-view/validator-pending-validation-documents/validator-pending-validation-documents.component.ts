@@ -17,6 +17,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 import { DynamicNestedFormComponent } from '../../dynamic-nested-form/dynamic-nested-form/dynamic-nested-form.component';
+import { is_register } from '../perpetual-succession-register/app.component'
 @Component({
   selector: 'app-validator-pending-validation-documents',
   templateUrl: './validator-pending-validation-documents.component.html',
@@ -176,6 +177,12 @@ preview_document(record_id) {
  const is_main_document = response['record_form']['is_main_document'];
  if (is_main_document) {
   this.is_main_document_field = true;
+
+
+
+//   const is_main_document = response['record_form']['is_main_document'];
+//  if (is_main_document) {
+//   this.is_main_document_field = true;
 
   const main_document_fields = response['record_form']['main_document_fields'];
   const main_forsm_name = main_document_fields['formgroup'];

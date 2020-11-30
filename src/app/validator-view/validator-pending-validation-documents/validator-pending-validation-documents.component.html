@@ -214,9 +214,12 @@
                            <td>
                               <button type="button" class="btn btn-primary  btn-sm " (click)="preview_document(recordinstance.id)"> <i
                                   class="fa fa-pencil"></i> </button>
+                                  <a class="btn" routerLink="/perpetual-succession-register">Check votes</a>
+
                               
                             </td> 
-                
+
+                {{recordinstance | json}}
                           </tr>
                         </tbody>
                         <tbody *ngIf="document_details?.length == 0">
