@@ -13,12 +13,12 @@
                               Upload Document
                            </div>
                            <div class="card-body">
-                              <form #compareForm="ngForm"  enctype="multipart/form-data" novalidate (ngSubmit)="saveformData()">
+                              <form #compareForm1="ngForm"  enctype="multipart/form-data" novalidate (ngSubmit)="saveformData()">
                                  <div class="form-group">
                                     <label for="document2">PDF File</label>
                                     <input type="file" class="form-control" name="document" [(ngModel)]="documentName2" (change)="handleFileupload($event)" required>
                                  </div>
-                                 <button [disabled]="compareForm.form.invalid" type="submit" class="btn btn-primary">
+                                 <button [disabled]="compareForm1.form.invalid" type="submit" class="btn btn-primary">
                                     <i class="fa fa-upload" aria-hidden="true"></i>
                                     Upload
                                  </button>

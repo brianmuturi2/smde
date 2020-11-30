@@ -41,6 +41,7 @@ export class SpecialComponent {
   sigDate = null;
   sigDesignation = null;
   counter = 0;
+  instanceId = null;
   
 
 
@@ -93,9 +94,7 @@ export class SpecialComponent {
   handleFileupload(e) {
     this.fileData = e.target.files[0];
   }
-  handleFileupload2(e) {
-    this.fileData2 = e.target.files[0];
-  }
+
 
   saveformData() {
     console.log(this.documentType);
@@ -104,20 +103,27 @@ export class SpecialComponent {
 
     formData.append('document', this.fileData);
 
+
     if (this.documentType !== null) {
       formData.append('documentType', this.documentType);
     }  
-    
-    if (this.signatories.length > 0) {
-      formData.append('documentType', this.documentType);
+    if (this.uploadedPdfId !== null) {
+      formData.append('pdfId', this.uploadedPdfId);
     }  
+    
+    const signatories = {'signatories': this.signatories}
+    console.log(signatories);
 
-    this.api.uploadFile(formData, this.documentType, this.signatories).subscribe(res => {
-      console.log(res);
+    this.api.uploadFile(formData,this.documentType).subscribe(res => {
 
       if (res['uploaded_pdf_id']) {
         this.uploadedPdfId = res['uploaded_pdf_id'];
         this.uploadedPdfUrl = res['uploaded_pdf_url'];
+      }
+
+      if (res['instanceId']) {
+        const instanceId = res['instanceId'];
+        this.saveSignatories(signatories,instanceId)
       }
       
       this.toastService.showToastNotification('success', 'Upload Successful', '');
@@ -126,6 +132,20 @@ export class SpecialComponent {
     });
   }
 
+
+  saveSignatories = (signatories,instanceId) => {
+    console.log(signatories);
+    console.log(instanceId);
+    // var signatoriesJson = JSON.stringify(signatories);
+    this.api.saveSignatories(signatories,instanceId).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
   getReports = () => {
     this.api.getReports().subscribe(
