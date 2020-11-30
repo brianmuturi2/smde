@@ -3,36 +3,174 @@
    <div class="row">
       <div class="col-sm">
          <ngb-tabset [destroyOnHide]="false">
-            <ngb-tab title="Compare Documents">
+            <ngb-tab title="Step 1">
                <ng-template ngbTabContent class="create-register">                  
-                  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-                     <ngb-panel title="Add Documents">
-                       <ng-template ngbPanelContent>
-                           <form #compareForm="ngForm"  enctype="multipart/form-data" novalidate (ngSubmit)="saveformData()">
-                              <div class="form-group">
-                                 <label for="document1">Original Document</label>
-                                 <input type="file" class="form-control" name="document1" [(ngModel)]="documentName1" (change)="handleFileupload($event)" required>
-                              </div>
-                              <div class="form-group">
-                                 <label for="document2">Signed Document</label>
-                                 <input type="file" class="form-control" name="document2" [(ngModel)]="documentName2" (change)="handleFileupload2($event)" required>
-                              </div>
-                              <div class="form-group">
-                                 <label for="document_type">Document Type</label>
-                                 <ng-select [searchable]="true" [clearable]="true" name="document_type" [(ngModel)]="documentType">
-                                    <ng-option [value]="document.name" *ngFor="let document of documentTypes">
-                                       {{ document.name }}
-                                    </ng-option>
-                                 </ng-select>
-                              </div>
-                              <button [disabled]="compareForm.form.invalid" type="submit" class="btn btn-primary">Create</button>
-                           </form>
-                           <br><br><br>
-                       </ng-template>
+                  <!-- <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                     <ngb-panel title="Upload Document">
+                       <ng-template ngbPanelContent> -->
+                        <div class="card">
+                           <div class="card-header">
+                              Upload Document
+                           </div>
+                           <div class="card-body">
+                              <form #compareForm1="ngForm"  enctype="multipart/form-data" novalidate (ngSubmit)="saveformData()">
+                                 <div class="form-group">
+                                    <label for="document2">PDF File</label>
+                                    <input type="file" class="form-control" name="document" [(ngModel)]="documentName2" (change)="handleFileupload($event)" required>
+                                 </div>
+                                 <button [disabled]="compareForm1.form.invalid" type="submit" class="btn btn-primary">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                    Upload
+                                 </button>
+                              </form>
+                           </div>
+                        </div>
+                       <!-- </ng-template>
                      </ngb-panel> 
-                   </ngb-accordion>
+                   </ngb-accordion> -->
                </ng-template>
             </ngb-tab>
+            <ngb-tab>
+               <ng-template ngbTabTitle>Step 2</ng-template>
+               <ng-template ngbTabContent>
+
+                  <div class="row">
+                     <!-- 1st column -->
+                     <div class="col-sm">
+                        <form #compareForm="ngForm"  enctype="multipart/form-data" novalidate (ngSubmit)="saveformData()">
+                           <div class="card">
+                              <div class="card-header">
+                                 Upload Excel file
+                              </div>
+                              <div class="card-body">
+                                 <div class="form-group">
+                                    <label for="document1">Excel File</label>
+                                    <input type="file" class="form-control" name="document" [(ngModel)]="documentName1" (change)="handleFileupload($event)" required>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="document_type">Document Type</label>
+                                    <ng-select [searchable]="true" [clearable]="true" name="document_type" [(ngModel)]="documentType">
+                                       <ng-option [value]="document.name" *ngFor="let document of documentTypes">
+                                          {{ document.name }}
+                                       </ng-option>
+                                    </ng-select>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- end card 1 -->
+                           <!-- start card 2 -->
+                           <div class="card">
+                              <div class="card-header">
+                                 Signatories
+                              </div>
+                              <div class="card-body">
+                                 <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="signame" [(ngModel)]="sigName">
+                                 </div>
+                                 <div class="form-group">
+                                    <label>Signed</label>
+                                    <ng-select [searchable]="true" [clearable]="true" name="signed" [(ngModel)]="signed">
+                                       <ng-option value="Yes">Yes</ng-option>
+                                       <ng-option value="No">No</ng-option>
+                                    </ng-select>
+                                 </div>
+                                 <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="date" class="form-control" name="date" [(ngModel)]="sigDate">
+                                 </div>
+                                 <div class="form-group">
+                                    <label>Designation</label>
+                                    <input type="text" class="form-control" name="designation" [(ngModel)]="sigDesignation">
+                                 </div>
+                                 <a class="btn btn-primary" (click)="addSignatories()">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    Add
+                                 </a>
+                                 <br><br>
+                                 <!-- entered members table-->
+                                 <table class="table table-bordered" *ngIf="signatories && signatories.length">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Signed</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Designation</th>
+                                        <!-- <th scope="col">Action</th> -->
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr *ngFor="let signatory of signatories" >
+                                          <!-- <th scope="row">1</th> -->
+                                          <td>{{signatory.name}}</td>
+                                          <td>{{signatory.signed}}</td>
+                                          <td>{{signatory.date}}</td>
+                                          <td>{{signatory.designation}}</td>
+                                          <!-- <td class="text-center" (change)="incrementCounter()">
+                                             <span class="text-danger" (click)="deleteSignatory(counter + 1);">
+                                                <i class="fa fa-times" aria-hidden="false"></i>
+                                             </span>  
+                                          </td> -->
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                              </div>
+                           </div>
+                           <!-- end card 2 -->
+                           <!-- start card 2 -->
+                           <div class="card">
+                              <div class="card-body">
+                                 <input type="hidden" name="pdf_document_id" value="{{ uploadedPdfId }}" [(ngModel)]="uploadedPdfId">
+                                 <button [disabled]="compareForm.form.invalid" type="submit" class="btn btn-success">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Submit
+                                 </button>
+                              </div>
+                           </div>
+                           <!-- end card 2 -->
+                        </form>
+                     </div>
+                     <!-- 2nd column -->
+                     <div class="col-sm">
+                        <div class="card">
+                           <div class="card-header">
+                              Document Preview
+                           </div>
+                           <div class="card-body">
+                              <div class="col-md-12" *ngIf="uploadedPdfUrl != null"> 
+                                 <iframe [src]="uploadedPdfUrl | safe" frameborder="0" width="100%" height="660px" allowfullscreen></iframe>
+                              </div>
+                              <div class="col-md-12 text-center" *ngIf="uploadedPdfUrl == null"> 
+                                 <small class="text-primary">Waiting for document...</small>
+                                 <p></p>
+                                 <p class="loader"></p> 
+                                 <style>
+                                    .loader {
+                                       border: 16px solid #f3f3f3; /* Light grey */
+                                       border-top: 16px solid #3498db; /* Blue */
+                                       border-radius: 50%;
+                                       width: 120px;
+                                       height: 120px;
+                                       animation: spin 30s linear infinite;
+                                       margin-left: auto;
+                                       margin-right: auto;
+                                    }
+         
+                                    @keyframes spin {
+                                       0% { transform: rotate(0deg); }
+                                       100% { transform: rotate(360deg); }
+                                    }
+                                 </style>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </ng-template>
+            </ngb-tab>
+
+            <!-- column three -->
             <ngb-tab>
                <ng-template ngbTabTitle>Reports</ng-template>
                <ng-template ngbTabContent>

@@ -26,11 +26,23 @@ export class SpecialComponent {
   fileData2: File = null;
   documentName1: string;
   documentName2: string;
-  reports
-  documentType
-  documentTypes
+  reports;
+  documentType = null;
+  documentTypes;
   departmentId = null
-  reportData
+  reportData;
+  uploadedPdfId = null;
+  uploadedPdfUrl = null;
+  // step 2 variables
+  signatories = [];
+  addSignatory = [];
+  signed = null;
+  sigName = null;
+  sigDate = null;
+  sigDesignation = null;
+  counter = 0;
+  instanceId = null;
+  
 
 
   
@@ -40,33 +52,100 @@ export class SpecialComponent {
     this.getDocumentTypes();
   }
 
+  resetSignatory() {
+    this.signed = null;
+    this.sigName = null;
+    this.sigDate = null;
+    this.sigDesignation = null;
+  }
 
+  incrementCounter() {
+    this.counter += 1;
+    console.log(this.counter);
+  }
+
+  deleteSignatory(counter) {
+    console.log(counter);
+  }
+
+  addSignatories = () => {
+    console.log(this.signatories);
+    this.addSignatory = [this.sigName,this.signed,this.sigDate,this.sigDesignation]
+    let status = true;
+    for(var data of this.addSignatory)
+    { 
+        console.log(data);  
+        if (data === null)
+        {
+          this.toastService.showToastNotification('error', 'Fill All Signatory Detatils', '');
+          status = false;
+          break;
+        } 
+    }
+    if (status === true) 
+    {
+      let addSignatory = {'name':this.sigName, 'signed':this.signed, 'date':this.sigDate, 'designation': this.sigDesignation}
+      this.signatories.push(addSignatory);
+      this.resetSignatory();
+    }
+    console.log(this.signatories);
+  }
 
   handleFileupload(e) {
     this.fileData = e.target.files[0];
   }
-  handleFileupload2(e) {
-    this.fileData2 = e.target.files[0];
-  }
+
 
   saveformData() {
     console.log(this.documentType);
     this.loadingService.showloading();
     const formData  =  new FormData();
-    formData.append('document1', this.fileData);
-    formData.append('document2', this.fileData2);
-    formData.append('documentType', this.documentType);
 
-    this.api.uploadFile(formData).subscribe(res => {
+    formData.append('document', this.fileData);
 
+
+    if (this.documentType !== null) {
+      formData.append('documentType', this.documentType);
+    }  
+    if (this.uploadedPdfId !== null) {
+      formData.append('pdfId', this.uploadedPdfId);
+    }  
+    
+    const signatories = {'signatories': this.signatories}
+    console.log(signatories);
+
+    this.api.uploadFile(formData,this.documentType).subscribe(res => {
+
+      if (res['uploaded_pdf_id']) {
+        this.uploadedPdfId = res['uploaded_pdf_id'];
+        this.uploadedPdfUrl = res['uploaded_pdf_url'];
+      }
+
+      if (res['instanceId']) {
+        const instanceId = res['instanceId'];
+        this.saveSignatories(signatories,instanceId)
+      }
+      
       this.toastService.showToastNotification('success', 'Upload Successful', '');
       this.getReports();
-      // this.sweetalertsService.showAlert('Success', 'File Has Been Successfully Uploaded', 'success');
       this.loadingService.hideloading();
-      // this.router.navigate(['/land-special']);
     });
   }
 
+
+  saveSignatories = (signatories,instanceId) => {
+    console.log(signatories);
+    console.log(instanceId);
+    // var signatoriesJson = JSON.stringify(signatories);
+    this.api.saveSignatories(signatories,instanceId).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
   getReports = () => {
     this.api.getReports().subscribe(

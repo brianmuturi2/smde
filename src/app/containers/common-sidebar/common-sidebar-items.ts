@@ -153,13 +153,13 @@ export const navItems: INavData[] = [
     name: 'Special Menu',
     url: '#',
     icon: 'fa fa-gavel',
-    permission: ['SPECIAL_ENTRY'],
+    permission: ['DATA_ANALYST'],
     children: [
       {
         name: 'Upload File',
         url: '/land-special',
         icon: 'fa fa-cloud-upload',
-        permission: ['SPECIAL_ENTRY']
+        permission: ['DATA_ANALYST']
 
       },
     ]
