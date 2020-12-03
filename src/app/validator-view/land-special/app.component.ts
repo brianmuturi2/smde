@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { SpecialService } from './special.service';
 import { AddDocument } from './add-Document';
-import { ITrust } from './trust';
+import { IReport } from './IReport';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
@@ -19,8 +19,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class SpecialComponent {
 
-  leveloneData: ITrust[] = [];
-
   addDocumentModel = new AddDocument(null,null);
   fileData: File = null;
   fileData2: File = null;
@@ -33,6 +31,7 @@ export class SpecialComponent {
   reportData;
   uploadedPdfId = null;
   uploadedPdfUrl = null;
+  urlError = false;
   // step 2 variables
   signatories = [];
   addSignatory = [];
@@ -42,14 +41,35 @@ export class SpecialComponent {
   sigDesignation = null;
   counter = 0;
   instanceId = null;
-  
+  // search
+  // reportFilter
 
+  _reportFilter: string;
 
-  
+  get reportFilter(): string {
+    return this._reportFilter;
+  }
+  set reportFilter(value:string) {
+    this._reportFilter = value;
+    this.filteredReports=this.reportFilter ? this.performFilter(this.reportFilter) : this.reports;
+  }
+
+  filteredReports:IReport[];
+
+ 
 
   constructor(private api: SpecialService, public toastService: ToastService, private modalService: NgbModal, public loadingService: LoadingService, private router: Router,) {
     this.getReports();
     this.getDocumentTypes();
+  }
+
+  performFilter(filterBy: string): IReport[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    console.log(this.reports);
+    console.log(filterBy);
+    console.log(this.filteredReports);
+    return this.reports.filter((data: IReport) =>
+      data.file_number.toLocaleLowerCase().indexOf(filterBy) !== -1); 
   }
 
   resetSignatory() {
@@ -69,12 +89,12 @@ export class SpecialComponent {
   }
 
   addSignatories = () => {
-    console.log(this.signatories);
+    // console.log(this.signatories);
     this.addSignatory = [this.sigName,this.signed,this.sigDate,this.sigDesignation]
     let status = true;
     for(var data of this.addSignatory)
     { 
-        console.log(data);  
+        // console.log(data);  
         if (data === null)
         {
           this.toastService.showToastNotification('error', 'Fill All Signatory Detatils', '');
@@ -88,8 +108,15 @@ export class SpecialComponent {
       this.signatories.push(addSignatory);
       this.resetSignatory();
     }
-    console.log(this.signatories);
+    // console.log(this.signatories);
   }
+
+  reloadComponent() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/land-special']);
+  }
+
 
   handleFileupload(e) {
     this.fileData = e.target.files[0];
@@ -97,7 +124,7 @@ export class SpecialComponent {
 
 
   saveformData() {
-    console.log(this.documentType);
+    // console.log(this.documentType);
     this.loadingService.showloading();
     const formData  =  new FormData();
 
@@ -112,34 +139,47 @@ export class SpecialComponent {
     }  
     
     const signatories = {'signatories': this.signatories}
-    console.log(signatories);
+    // console.log(signatories);
 
     this.api.uploadFile(formData,this.documentType).subscribe(res => {
 
       if (res['uploaded_pdf_id']) {
         this.uploadedPdfId = res['uploaded_pdf_id'];
         this.uploadedPdfUrl = res['uploaded_pdf_url'];
+        this.toastService.showToastNotification('success', 'Upload Successful', '');
       }
 
       if (res['instanceId']) {
         const instanceId = res['instanceId'];
         this.saveSignatories(signatories,instanceId)
-      }
+        this.uploadedPdfUrl = null;
+        this.signatories = [];
+        this.toastService.showToastNotification('success', 'Document successfully submitted for processing...', '');
+        this.reloadComponent();
+      }      
       
-      this.toastService.showToastNotification('success', 'Upload Successful', '');
       this.getReports();
       this.loadingService.hideloading();
-    });
+    },
+      error => {
+        if (error) 
+        {
+          this.uploadedPdfUrl = null;
+          this.signatories = null;
+          this.urlError = true;
+        }      
+      }
+    );
   }
 
 
   saveSignatories = (signatories,instanceId) => {
-    console.log(signatories);
-    console.log(instanceId);
+    // console.log(signatories);
+    // console.log(instanceId);
     // var signatoriesJson = JSON.stringify(signatories);
     this.api.saveSignatories(signatories,instanceId).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
       },
       error => {
         console.log(error);

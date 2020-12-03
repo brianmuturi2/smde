@@ -21,10 +21,9 @@ export class SpecialService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
-    console.log(type);
+
     if (type !== null)
     {
-      console.log(type);
       return this.http.post(this.baseurl + this.dept + 'upload-excel', payload);
     }
 
