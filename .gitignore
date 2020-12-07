@@ -4,6 +4,7 @@
 /tmp
 /out-tsc
 .vscode
+.vscode/settings.json
 
 # dependencies
 /node_modules

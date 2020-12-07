@@ -76,6 +76,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   show_parcel_details_create = true;
   show_ir_field = false;
   show_gla_field = false;
+  show_block_field = true;
   department_list = [];
   beneficiaryInputRecords = [];
   all_minor_trustees = [];
@@ -929,22 +930,25 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   }
   parcel_type_change() {
     const parcel_type = this.parcelDetailsForm.value['parcel_numbering_type'];
-    if (parcel_type === 'IR') {
-      this.show_ir_field = true;
 
-
-    } else if (parcel_type === 'LR_NUMBER') {
+    if (parcel_type === 'IR' || parcel_type === 'LR_NUMBER') {
       this.show_ir_field = true;
+      this.show_gla_field = false;
+      this.show_block_field = false;
+    }
+    else if (parcel_type === 'PARCEL_NUMBER' || parcel_type === 'BLOCK_NUMBER' || parcel_type === 'PLOT_NUMBER') {
+      this.show_block_field = true;
+      this.show_gla_field = false;
+      this.show_ir_field = false;
 
 
     }
     else if (parcel_type === 'GLA_NUMBER') {
+
       this.show_gla_field = true;
-    }
-
-    else {
-
+      this.show_block_field = false;
       this.show_ir_field = false;
+
     }
 
 
