@@ -29,6 +29,7 @@ export class SpecialComponent {
   documentTypes;
   departmentId = null
   reportData;
+  reportsData: IReport[] = [];
   uploadedPdfId = null;
   uploadedPdfUrl = null;
   urlError = false;
@@ -41,8 +42,6 @@ export class SpecialComponent {
   sigDesignation = null;
   counter = 0;
   instanceId = null;
-  // search
-  // reportFilter
 
   _reportFilter: string;
 
@@ -51,13 +50,15 @@ export class SpecialComponent {
   }
   set reportFilter(value:string) {
     this._reportFilter = value;
-    this.filteredReports=this.reportFilter ? this.performFilter(this.reportFilter) : this.reports;
+    if (value === "" || value === null) {
+      this.filteredReports = this.reports
+    } else {
+      this.filteredReports = this.reportFilter ? this.performFilter(this.reportFilter) : this.reportsData;
+    }   
   }
 
   filteredReports:IReport[];
-
  
-
   constructor(private api: SpecialService, public toastService: ToastService, private modalService: NgbModal, public loadingService: LoadingService, private router: Router,) {
     this.getReports();
     this.getDocumentTypes();
@@ -65,11 +66,8 @@ export class SpecialComponent {
 
   performFilter(filterBy: string): IReport[] {
     filterBy = filterBy.toLocaleLowerCase();
-    console.log(this.reports);
-    console.log(filterBy);
-    console.log(this.filteredReports);
     return this.reports.filter((data: IReport) =>
-      data.file_number.toLocaleLowerCase().indexOf(filterBy) !== -1); 
+      data.report.original_file_name.toLocaleLowerCase().indexOf(filterBy) !== -1); 
   }
 
   resetSignatory() {
@@ -89,12 +87,10 @@ export class SpecialComponent {
   }
 
   addSignatories = () => {
-    // console.log(this.signatories);
     this.addSignatory = [this.sigName,this.signed,this.sigDate,this.sigDesignation]
     let status = true;
     for(var data of this.addSignatory)
     { 
-        // console.log(data);  
         if (data === null)
         {
           this.toastService.showToastNotification('error', 'Fill All Signatory Detatils', '');
@@ -108,7 +104,6 @@ export class SpecialComponent {
       this.signatories.push(addSignatory);
       this.resetSignatory();
     }
-    // console.log(this.signatories);
   }
 
   reloadComponent() {
@@ -124,7 +119,6 @@ export class SpecialComponent {
 
 
   saveformData() {
-    // console.log(this.documentType);
     this.loadingService.showloading();
     const formData  =  new FormData();
 
@@ -139,7 +133,6 @@ export class SpecialComponent {
     }  
     
     const signatories = {'signatories': this.signatories}
-    // console.log(signatories);
 
     this.api.uploadFile(formData,this.documentType).subscribe(res => {
 
@@ -174,12 +167,8 @@ export class SpecialComponent {
 
 
   saveSignatories = (signatories,instanceId) => {
-    // console.log(signatories);
-    // console.log(instanceId);
-    // var signatoriesJson = JSON.stringify(signatories);
     this.api.saveSignatories(signatories,instanceId).subscribe(
       data => {
-        // console.log(data);
       },
       error => {
         console.log(error);
@@ -190,8 +179,8 @@ export class SpecialComponent {
   getReports = () => {
     this.api.getReports().subscribe(
       data => {
-        this.reports = data
-        // console.log(data)
+        this.reports = data;
+        this.filteredReports = data
       },
       error => {
         console.log(error);
@@ -202,12 +191,8 @@ export class SpecialComponent {
   getDocumentTypes = () => {
     this.api.getDocumentTypes().subscribe(
       data => {
-        // console.log(data)
         this.documentTypes = data
         this.departmentId = data[0]['id']
-        // console.log(this.departmentId)
-        // this.getDocumentTypesFields(this.departmentId);
-
       },
       error => {
         console.log(error);
@@ -229,6 +214,7 @@ export class SpecialComponent {
   }
 
   reportClicked = (reportId) => {
+    // console.log(reportId);
     this.api.reportClicked(reportId).subscribe(
       data => {
         console.log(data)

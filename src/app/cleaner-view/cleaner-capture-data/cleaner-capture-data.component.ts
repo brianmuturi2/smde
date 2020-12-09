@@ -937,6 +937,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   }
   parcel_type_change() {
     const parcel_type = this.parcelDetailsForm.value['parcel_numbering_type'];
+    alert(parcel_type)
     if (parcel_type === 'IR') {
       this.show_ir_field = true;
 
