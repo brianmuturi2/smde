@@ -69,7 +69,7 @@ export class SpecialComponent {
   }
 
   addSignatories = () => {
-    console.log(this.signatories);
+    // console.log(this.signatories);
     this.addSignatory = [this.sigName,this.signed,this.sigDate,this.sigDesignation]
     let status = true;
     for(var data of this.addSignatory)
@@ -134,8 +134,8 @@ export class SpecialComponent {
 
 
   saveSignatories = (signatories,instanceId) => {
-    console.log(signatories);
-    console.log(instanceId);
+    // console.log(signatories);
+    // console.log(instanceId);
     // var signatoriesJson = JSON.stringify(signatories);
     this.api.saveSignatories(signatories,instanceId).subscribe(
       data => {

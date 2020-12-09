@@ -11,6 +11,7 @@ import { throwError } from 'rxjs';
 export class TrustService {
   dept = 'land-registration/';
   baseurl = 'http://127.0.0.1:8000/api/v1/';
+  // baseurl = 'http://192.168.17.253:5600';
   // baseurl = 'http://192.168.214.157:8000/api/v1/';
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -78,7 +79,6 @@ export class TrustService {
 
   deleteMember(id): Observable<any> {
     const body = {id: id};
-    console.log(body)
     return this.http.post(this.baseurl + this.dept + 'delete-member', body,  {headers: this.httpHeaders});
   }
 
@@ -89,8 +89,6 @@ export class TrustService {
 
   updateLevelthree(incomingTrustee,id): Observable<any> {
     const body = {trustee_id: id, trustee_name: incomingTrustee.trustee_name, date_registered: incomingTrustee.date_registered, endorsement_date: incomingTrustee.endorsement_date,status: incomingTrustee.status, trust:incomingTrustee.trust};
-    console.log(body);
-    console.log(id);
     return this.http.post(this.baseurl + this.dept + 'incoming-trustee-update', body,  {headers: this.httpHeaders});
   }
 

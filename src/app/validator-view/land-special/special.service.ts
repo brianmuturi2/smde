@@ -11,6 +11,7 @@ import { data } from 'jquery';
 })
 export class SpecialService {
   dept = 'land-special/';
+  // baseurl = 'http://192.168.17.253:5600';
   baseurl = 'http://127.0.0.1:8000/api/v1/';
   // baseurl = 'http://192.168.214.157:8000/api/v1/';
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
