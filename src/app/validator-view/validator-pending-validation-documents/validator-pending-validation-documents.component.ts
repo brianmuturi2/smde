@@ -54,6 +54,7 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
     private cdRef: ChangeDetectorRef   ) {
     this.searchForm = this.formBuilder.group({
       search_value: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100) ])),
+      search_by: new FormControl('', Validators.compose([Validators.required])),
     });
     this.DocumentActivityForm = this.formBuilder.group({
       action: new FormControl('', Validators.compose([Validators.required])),
@@ -71,7 +72,8 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
     if (this.searchForm.valid) {
       this.filtered_file_number =  this.searchForm.value['search_value'];
       const search_payload = {
-        'file_no': this.searchForm.value['search_value']
+        'search_value': this.searchForm.value['search_value'],
+        'search_by': this.searchForm.value['search_by']
       };
       this.loadingService.showloading();
       this.validatorService.getrecords(filter_document_by_file_url, search_payload).subscribe((res) => {

@@ -58,9 +58,15 @@
             <form [formGroup]="searchForm" (ngSubmit)="filterdocuments()">
               <div class="row">
                
+                <div class="form-group col-sm-3">
+                  <label for="searchby">Search by</label>
+                  <select class="form-control" id="searchby" formControlName="search_by" required>
+                    <option value="file_number">File Number</option>
+                  </select>
+                </div>
                 <div class="form-group col-sm-6">
-                  <label for="country">File Number</label>
-                  <input type="text" class="form-control"  formControlName="search_value" placeholder="Enter File Number">
+                  <label for="country">Search Value</label>
+                  <input type="text" class="form-control"  formControlName="search_value" placeholder="Enter search value">
                 </div>
                 <div class="form-group col-sm-3">
                   <label for="country">&nbsp;&nbsp;</label>
