@@ -75,6 +75,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   datacleaningstartformstatus = false;
   show_parcel_details_create = true;
   show_ir_field = false;
+  show_gla_field = false;
+  show_block_field = true;
   department_list = [];
   beneficiaryInputRecords = [];
   all_minor_trustees = [];
@@ -154,6 +156,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
       parcel_owner_type: new FormControl('',),
       ir_number: new FormControl('',),
       lr_number: new FormControl('',),
+      gla_number: new FormControl('',),
       file_number: new FormControl('',
         Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(100)])),
       parcel_status: new FormControl('',),
@@ -553,6 +556,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
             const parcel_status = parcel_ownership_info['parcel_status'];
             const ir_number = parcel_ownership_info['ir_number'];
             const lr_number = parcel_ownership_info['lr_number'];
+            const gla_number = parcel_ownership_info['gla_number'];
 
             const parcel_date_captured = parcel_ownership_info['date_captured'];
             const parcel_owners = parcel_ownership_info['parcel_owners'];
@@ -573,6 +577,8 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
               'parcel_status': parcel_status,
               'ir_number': ir_number,
               'lr_number': lr_number,
+              'gla_number': gla_number,
+
 
               'parcel_id': ownership_id,
               'id': ownership_id
@@ -924,17 +930,25 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
   }
   parcel_type_change() {
     const parcel_type = this.parcelDetailsForm.value['parcel_numbering_type'];
-    if (parcel_type === 'IR') {
+
+    if (parcel_type === 'IR' || parcel_type === 'LR_NUMBER') {
       this.show_ir_field = true;
-
-
-    } else if (parcel_type === 'LR_NUMBER') {
-      this.show_ir_field = true;
-
-
-    } else {
-
+      this.show_gla_field = false;
+      this.show_block_field = false;
+    }
+    else if (parcel_type === 'PARCEL_NUMBER' || parcel_type === 'BLOCK_NUMBER' || parcel_type === 'PLOT_NUMBER') {
+      this.show_block_field = true;
+      this.show_gla_field = false;
       this.show_ir_field = false;
+
+
+    }
+    else if (parcel_type === 'GLA_NUMBER') {
+
+      this.show_gla_field = true;
+      this.show_block_field = false;
+      this.show_ir_field = false;
+
     }
 
 
@@ -1042,6 +1056,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         const parcel_status = res['parcel_status'];
         const ir_number = res['ir_number'];
         const lr_number = res['lr_number'];
+        const gla_number = res['gla_number'];
         const parcel_owners = res['parcel_owners'];
         const parcel_ownership_details = {
           'parcel_numbering_type': parcel_numbering_type,
@@ -1052,6 +1067,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
           'parcel_status': parcel_status,
           'ir_number': ir_number,
           'lr_number': lr_number,
+          'gla_number': gla_number,
           'parcel_id': parcel_info_id,
           'id': parcel_info_id
         };
@@ -1124,6 +1140,7 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         'parcel_id': this.parcelDetailsForm.value['parcel_id'],
         'ir_number': this.parcelDetailsForm.value['ir_number'],
         'lr_number': this.parcelDetailsForm.value['lr_number'],
+        'gla_number': this.parcelDetailsForm.value['gla_number'],
 
         'request_id': this.data_cleaning_request_id
 
@@ -1163,6 +1180,9 @@ export class CleanerCaptureDataComponent implements OnInit, OnDestroy {
         'parcel_id': this.parcelDetailsForm.value['parcel_id'],
         'ir_number': this.parcelDetailsForm.value['ir_number'],
         'lr_number': this.parcelDetailsForm.value['lr_number'],
+        'gla_number': this.parcelDetailsForm.value['gla_number'],
+
+
 
         'request_id': this.parcelDetailsForm.value['parcel_id']
 

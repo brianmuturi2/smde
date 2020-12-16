@@ -1,7 +1,7 @@
 
 <div class="container-fluid">
    <div class="row">
-      <div class="col-sm">
+      <div class="col-sm" >
          <ngb-tabset [destroyOnHide]="false">
             <ngb-tab title="Step 1">
                <ng-template ngbTabContent class="create-register">                  
@@ -42,7 +42,7 @@
                               <div class="card-header">
                                  Upload Excel file
                               </div>
-                              <div class="card-body">
+                              <div class="card-body" *ngIf="uploadedPdfUrl">
                                  <div class="form-group">
                                     <label for="document1">Excel File</label>
                                     <input type="file" class="form-control" name="document" [(ngModel)]="documentName1" (change)="handleFileupload($event)" required>
@@ -63,7 +63,7 @@
                               <div class="card-header">
                                  Signatories
                               </div>
-                              <div class="card-body">
+                              <div class="card-body" *ngIf="uploadedPdfUrl">
                                  <div class="form-group">
                                     <label>Name</label>
                                     <input type="text" class="form-control" name="signame" [(ngModel)]="sigName">
@@ -122,7 +122,11 @@
                            <div class="card">
                               <div class="card-body">
                                  <input type="hidden" name="pdf_document_id" value="{{ uploadedPdfId }}" [(ngModel)]="uploadedPdfId">
-                                 <button [disabled]="compareForm.form.invalid" type="submit" class="btn btn-success">
+                                 <button  type="submit" class="btn btn-success btn-block" *ngIf="!uploadedPdfUrl" disabled>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    Submit
+                                 </button>
+                                 <button [disabled]="compareForm.form.invalid" type="submit" class="btn btn-success btn-block" *ngIf="uploadedPdfUrl" disabled>
                                     <i class="fa fa-check" aria-hidden="true"></i>
                                     Submit
                                  </button>
