@@ -50,7 +50,7 @@
                                  <div class="form-group">
                                     <label for="document_type">Document Type</label>
                                     <ng-select [searchable]="true" [clearable]="true" name="document_type" [(ngModel)]="documentType">
-                                       <ng-option [value]="document.name" *ngFor="let document of documentTypes">
+                                       <ng-option [value]="document.model" *ngFor="let document of documentTypes">
                                           {{ document.name }}
                                        </ng-option>
                                     </ng-select>
