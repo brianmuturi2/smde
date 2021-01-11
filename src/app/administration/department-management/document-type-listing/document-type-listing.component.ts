@@ -48,6 +48,7 @@ export class DocumentTypeListingComponent implements OnInit {
       model: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
       is_visible: new FormControl('', Validators.compose([Validators.required])),
       is_register: new FormControl('', Validators.compose([Validators.required])),
+      is_placeholder: new FormControl('', Validators.compose([Validators.required])),
       is_main_document: new FormControl('', Validators.compose([Validators.required])),
       main_document_fields: new FormControl('', ),
     });
@@ -58,6 +59,7 @@ export class DocumentTypeListingComponent implements OnInit {
       model: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
       is_visible: new FormControl('', Validators.compose([Validators.required])),
       is_register: new FormControl('', Validators.compose([Validators.required])),
+      is_placeholder: new FormControl('', Validators.compose([Validators.required])),
       department_id: new FormControl('', Validators.compose([Validators.required])),
       is_main_document: new FormControl('', Validators.compose([Validators.required])),
       main_document_fields: new FormControl('', ),
@@ -150,6 +152,7 @@ export class DocumentTypeListingComponent implements OnInit {
         'model': res['model'],
         'is_visible': this.administrationService.getreverseBoolean(res['is_visible']),
         'is_register': this.administrationService.getreverseBoolean(res['is_register']),
+        'is_placeholder': this.administrationService.getreverseBoolean(res['is_placeholder']),
         'is_main_document': this.administrationService.getreverseBoolean(res['is_main_document']),
         'department_id': res['department']['id'],
         'main_document_fields': JSON.stringify(res['main_document_fields']),
@@ -200,6 +203,7 @@ export class DocumentTypeListingComponent implements OnInit {
             'department': this.department_id,
             'is_visible': this.administrationService.getBoolean(this.createRecordForm.get('is_visible').value),
             'is_register': this.administrationService.getBoolean(this.createRecordForm.get('is_register').value),
+            'is_placeholder': this.administrationService.getBoolean(this.createRecordForm.get('is_placeholder').value),
             'is_main_document': this.administrationService.getBoolean(this.createRecordForm.get('is_main_document').value),
             'main_document_fields': this.createRecordForm.get('main_document_fields').value,
 
@@ -244,6 +248,7 @@ export class DocumentTypeListingComponent implements OnInit {
             'department': this.editRecordForm.get('department_id').value,
             'is_visible': this.administrationService.getBoolean(this.editRecordForm.get('is_visible').value),
             'is_register': this.administrationService.getBoolean(this.editRecordForm.get('is_register').value),
+            'is_placeholder': this.administrationService.getBoolean(this.editRecordForm.get('is_placeholder').value),
             'is_main_document': this.administrationService.getBoolean(this.editRecordForm.get('is_main_document').value),
             'main_document_fields': this.editRecordForm.get('main_document_fields').value,
 
