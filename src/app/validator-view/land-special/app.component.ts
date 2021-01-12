@@ -64,10 +64,11 @@ export class SpecialComponent {
     this.getDocumentTypes();
   }
 
+  
   performFilter(filterBy: string): IReport[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.reports.filter((data: IReport) =>
-      data.report.original_file_name.toLocaleLowerCase().indexOf(filterBy) !== -1); 
+      data.report.original_file_name.toLocaleLowerCase().indexOf(filterBy) !== -1);    
   }
 
   resetSignatory() {
@@ -217,7 +218,7 @@ export class SpecialComponent {
     // console.log(reportId);
     this.api.reportClicked(reportId).subscribe(
       data => {
-        console.log(data)
+        // console.log(data)
         this.reportData = data;
       },
       error => {
