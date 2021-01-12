@@ -82,7 +82,11 @@ export class TrustComponent {
     if (this.addCommentModel.document_id !== '') {
       this.getFileComment();
     }
-    // this.listFilter = 'trust';
+    if (GlobalVars.document_id !== null) {
+      this.file_no = GlobalVars.document_id;
+      this.searchFileNumber();
+
+    }
   }
 
   performFilter(filterBy: string): ITrust[] {
@@ -143,7 +147,6 @@ export class TrustComponent {
   getFileStatus = () => {
     this.api.getFileCleaningStatus().subscribe(
       data => {
-        console.log(data);
         this.fileStatus = data;
       },
       error => {
@@ -229,11 +232,8 @@ export class TrustComponent {
 
 
   TrustData = () => {
-    // gets all members of a specific trust
-    // console.log(this.trustDataId);
     this.api.getOneTrustData(this.trustDataId).subscribe(
       data => {
-        // console.log(data);
         this.trustSelected = data;
       },
       error => {
@@ -257,14 +257,6 @@ export class TrustComponent {
         console.log(error);
       }
     );
-    // this.api.getOneActiveTrust(this.addTrustModel.ps_number).subscribe(
-    //   data => {
-    //     this.trustActiveSelected = data;
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
     this.TrustActiveMembers();
   }
 
@@ -282,14 +274,6 @@ export class TrustComponent {
         console.log(error);
       }
     );
-    // this.api.getOneActiveTrust(this.addIncomingTrusteeModel.trust).subscribe(
-    //   data => {
-    //     this.trustActiveSelected = data;
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
   }
 
   // gets current members of a trust
@@ -306,17 +290,16 @@ export class TrustComponent {
 
 
   searchFileNumber = () => {
-    this.api.getFile(this.file_no).subscribe(
+    this.api.getFile(this.file_no).subscribe(      
       data => {
-        // console.log(data);
-        // this.documentInfo = data;
+        console.log(data);
         try {
           this.addTrustModel.register = data.id;
-          // this.document_id = data[0].document;
           this.addCommentModel.document_id = data.document;
           this.document_url = data.doc_url;
-          // console.log(this.addCommentModel);
           this.getFileComment();
+          // this.file_no = null;
+          GlobalVars.document_id = null;
           this.toastService.showToastNotification('success', 'Document Found', '');
         } catch (Error) {
             this.notification = 'error';
@@ -510,4 +493,6 @@ export class TrustComponent {
 
 
 }
-export let  is_register = null;
+export class GlobalVars {
+  public static document_id: any = null;
+}
