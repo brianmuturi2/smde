@@ -191,13 +191,13 @@
                <ng-template ngbTabTitle>Reports</ng-template>
                <ng-template ngbTabContent>
 
-                  <div class="card" *ngIf="reportData && reportData.length">
+                  <div class="card" *ngIf="reportData && reportData.length || reportDataErrors && reportDataErrors.length">
                      <div class="card-header">
                         Report Details
                      </div>
                      <div class="card-body row">
                         <div class="col-sm-6">
-                           <table class="table">
+                           <table class="table table-striped table-bordered  table-sm table-hover">
                               <thead>
                               <tr>
                                  <!-- <th scope="col">Document ID</th> -->
@@ -215,7 +215,7 @@
                            </table>  
                         </div>   
                         <div class="col-sm-6">
-                           <table class="table">
+                           <table class="table table-striped table-bordered  table-sm table-hover">
                               <thead>
                               <tr>
                                  <th scope="col">Field Status</th>
@@ -230,6 +230,33 @@
                               </tbody>
                            </table>  
                         </div>                   
+                     </div>
+                     <div class="col-sm-12">
+                        <table class="table table-striped table-bordered  table-sm table-hover">
+                           <thead>
+                           <tr>
+                              <th scope="col" colspan="3">Errors</th>
+                           </tr>
+                           <tr>
+                              <th scope="col">Field Name</th>
+                              <th scope="col">Field Value</th>
+                              <th scope="col">Remarks</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           <tr *ngFor="let data of reportDataErrors">
+                              <td> 
+                                 <span >{{data.field_name}}</span>
+                              </td>  
+                              <td> 
+                                 <span >{{data.field_value}}</span>
+                              </td>  
+                              <td> 
+                                 <span >{{data.remarks}}</span>
+                              </td>                              
+                           </tr>
+                           </tbody>
+                        </table>  
                      </div>
                   </div> 
 
@@ -261,7 +288,7 @@
                            <tbody>
                              <tr *ngFor="let report of filteredReports; let i = index;">
                                <td>{{i + 1}}</td>
-                               <td><a href={{report.url}} target="_target" download='{{report.report.original_file_name}}'>{{report.report.original_file_name}}</a></td>
+                               <td><a href={{report.url}} target="_target" download='{{report.report.original_file_name}}'>{{report.file_name}}</a></td>
                                <td>{{report.date_created|date}}</td>
                                <td>
                                  <a class="text-info" (click)="reportClicked(report.report.id)"><i class="fa fa-info-circle" aria-hidden="false"></i></a>

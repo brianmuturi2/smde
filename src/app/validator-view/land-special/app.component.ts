@@ -29,6 +29,7 @@ export class SpecialComponent {
   documentTypes;
   departmentId = null
   reportData;
+  reportDataErrors;
   reportsData: IReport[] = [];
   uploadedPdfId = null;
   uploadedPdfUrl = null;
@@ -182,6 +183,7 @@ export class SpecialComponent {
       data => {
         this.reports = data;
         this.filteredReports = data
+        console.log(data);
       },
       error => {
         console.log(error);
@@ -218,8 +220,9 @@ export class SpecialComponent {
     // console.log(reportId);
     this.api.reportClicked(reportId).subscribe(
       data => {
-        // console.log(data)
-        this.reportData = data;
+        console.log(data)
+        this.reportData = data['record'];
+        this.reportDataErrors = data['errors'];
       },
       error => {
         console.log(error);
