@@ -17,7 +17,8 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { DynamicFormComponent } from '../../dynamic-form/dynamic-form/dynamic-form.component';
 import { DynamicNestedFormComponent } from '../../dynamic-nested-form/dynamic-nested-form/dynamic-nested-form.component';
-import { is_register } from '../perpetual-succession-register/app.component'
+import { GlobalVars } from '../perpetual-succession-register/app.component'
+
 @Component({
   selector: 'app-validator-pending-validation-documents',
   templateUrl: './validator-pending-validation-documents.component.html',
@@ -44,6 +45,7 @@ export class ValidatorPendingValidationDocumentsComponent implements OnInit, OnD
   doc_url_reference: any;
   filtered_file_number:any;
   can_edit_metadata:Boolean = false;
+  is_register = false;
 
   @ViewChild('createModal') public createModal: ModalDirective;
   constructor(private router: Router, private loadingService: LoadingService,
@@ -102,6 +104,12 @@ viewdetails(request_id) {
   this.selectTab(1);
   this.fetchRecords(request_id);
 }
+
+loadRegister() {
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  this.router.navigate(['/perpetual-succession-register']);
+}
+
 fetchRecords(request_id) {
   this.request_id = request_id;
  this.loadingService.showloading();
@@ -112,6 +120,12 @@ fetchRecords(request_id) {
   this.validatorService.getrecords(fetch_document_records_url, payload).subscribe((res) => {
     this.document_details = res['document_records'];
     this.comments = res['comments'];
+
+    this.is_register = res['is_register'];
+    if (this.is_register) {
+      GlobalVars.document_id = res['document_records'][0]['file_number'];
+    }
+    
     this.loadingService.hideloading();
 
 

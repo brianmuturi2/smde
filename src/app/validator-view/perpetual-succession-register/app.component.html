@@ -169,7 +169,8 @@
                                           <th scope="col">Action</th>
                                        </tr>
                                     </thead>
-                                    <td colspan=6 *ngIf='filteredleveloneData && !filteredleveloneData.length' class="text-danger">No register data available!</td>
+                                    <td colspan=6 *ngIf='filteredleveloneData && !filteredleveloneData.length' class="text-danger"> No register data available!
+                                    </td>
                                     <tbody>
                                        <tr *ngFor="let trust of filteredleveloneData">
                                           <td>{{trust.ps_number}}</td>
