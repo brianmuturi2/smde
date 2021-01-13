@@ -183,7 +183,7 @@ export class SpecialComponent {
       data => {
         this.reports = data;
         this.filteredReports = data
-        console.log(data);
+        // console.log(data);
       },
       error => {
         console.log(error);
@@ -207,7 +207,7 @@ export class SpecialComponent {
   getDocumentTypesFields = (departmentId) => {
     this.api.getDocumentTypesFields(departmentId ).subscribe(
       data => {
-        console.log(data)
+        // console.log(data)
         
       },
       error => {
@@ -220,7 +220,7 @@ export class SpecialComponent {
     // console.log(reportId);
     this.api.reportClicked(reportId).subscribe(
       data => {
-        console.log(data)
+        // console.log(data)
         this.reportData = data['record'];
         this.reportDataErrors = data['errors'];
       },
