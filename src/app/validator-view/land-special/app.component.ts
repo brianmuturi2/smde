@@ -26,6 +26,7 @@ export class SpecialComponent {
   documentName2: string;
   reports;
   documentType = null;
+  department = null;
   documentTypes;
   departmentId = null
   reportData;
@@ -129,6 +130,8 @@ export class SpecialComponent {
 
     if (this.documentType !== null) {
       formData.append('documentType', this.documentType);
+      formData.append('department', this.department);
+      console.log(formData);
     }  
     if (this.uploadedPdfId !== null) {
       formData.append('pdfId', this.uploadedPdfId);
