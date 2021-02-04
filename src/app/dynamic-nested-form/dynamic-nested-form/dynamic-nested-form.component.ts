@@ -33,28 +33,33 @@ export class DynamicNestedFormComponent implements OnInit {
 
 
     for (const xitem in patchvalues) {
-      const object_key = xitem;
+      try {
+        const object_key = xitem;
 
-      const object_type = patchvalues[xitem];
-      const is_array = Array.isArray(object_type);
-      if (is_array) {
-        const form_array_items = [];
+        const object_type = patchvalues[xitem];
+        const is_array = Array.isArray(object_type);
+        if (is_array) {
+          const form_array_items = [];
 
-        for (const arrayitems in object_type) {
-          this.add_control(object_key);
-          const selecteditems = object_type[arrayitems];
-          form_array_items.push(selecteditems);
+          for (const arrayitems in object_type) {
+            this.add_control(object_key);
+            const selecteditems = object_type[arrayitems];
+            form_array_items.push(selecteditems);
+
+          }
+          const form_data = { [object_key]: form_array_items };
+
+          this.filterForm.patchValue(form_data);
+        } else {
+          const form_data = { [object_key]: object_type };
+          this.filterForm.patchValue(form_data);
 
         }
-        const form_data = { [object_key]: form_array_items };
 
-        this.filterForm.patchValue(form_data);
-      } else {
-        const form_data = { [object_key]: object_type };
-        this.filterForm.patchValue(form_data);
-
+      } catch (error) {
+        console.log(error);
       }
-
+      
     }
 
   }
