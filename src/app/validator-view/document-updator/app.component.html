@@ -1,0 +1,58 @@
+
+<style>
+   body { background:#fff !important}
+</style>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm" >
+         <ngb-tabset [destroyOnHide]="false">
+            <ngb-tab title="Updator">
+               <ng-template ngbTabContent class="create-register ">                  
+
+                  <div class="card">
+                     <div class="card-header">
+                        Select Documents
+                     </div>
+                     <div class="card-body">
+                        <!-- <div class="card-body"> -->
+                        <form #updatorForm="ngForm"  novalidate (ngSubmit)="updatorForm.form.reset()">
+                           <div class="row">
+
+                              <div class="form-group col-sm-6">
+                                 <label>Old Document:</label>
+                                 <ng-select [searchable]="true" [clearable]="true" name="document_type" [(ngModel)]="keyword1">
+                                    <ng-option [value]="document.keyword" *ngFor="let document of documentTypes">
+                                       {{ document.keyword }}
+                                    </ng-option>
+                                 </ng-select>
+                              </div>
+
+                              <div class="form-group col-sm-6">
+                                 <label>Target Document:</label>
+                                 <ng-select [searchable]="true" [clearable]="true" name="document_type" [(ngModel)]="keyword2">
+                                    <ng-option [value]="document.keyword" *ngFor="let document of documentTypes">
+                                       {{ document.keyword }}
+                                    </ng-option>
+                                 </ng-select>
+                              </div>
+                           </div>
+                           <br>
+                           <div class="text-center">
+                              <button [disabled]="updatorForm.form.invalid" type="submit" class="btn btn-success" (click)="updator()">Update</button>
+                           </div>
+                        </form>
+                  
+                           
+                        
+                       
+
+                     </div>
+                  </div>
+
+               </ng-template>
+            </ngb-tab>
+         </ngb-tabset>
+      </div>
+   </div>
+</div>
+

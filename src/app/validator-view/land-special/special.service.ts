@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { data } from 'jquery';
+import { serverurl,API_VERSION } from '../../app.constants';
 
 
 @Injectable({
@@ -11,7 +12,8 @@ import { data } from 'jquery';
 })
 export class SpecialService {
   dept = 'land-special/';
-  baseurl = 'http://127.0.0.1:8000/api/v1/';
+  baseurl = serverurl + API_VERSION;
+  // baseurl = 'http://127.0.0.1:8000/api/v1/';
   // baseurl = 'http://192.168.17.253:5600/api/v1/';
   // baseurl = 'http://192.168.18.253:5600/api/v1/';
   // baseurl = 'http://192.168.19.253:5600/api/v1/';
