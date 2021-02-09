@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { serverurl,API_VERSION } from '../../app.constants';
 
 
 @Injectable({
@@ -10,7 +11,8 @@ import { throwError } from 'rxjs';
 })
 export class TrustService {
   dept = 'land-registration/';
-  baseurl = 'http://127.0.0.1:8000/api/v1/';
+  baseurl = serverurl + API_VERSION;
+  // baseurl = 'http://127.0.0.1:8000/api/v1/';
   // baseurl = 'http://192.168.17.253:5600';
   // baseurl = 'http://192.168.214.157:8000/api/v1/';
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});

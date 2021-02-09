@@ -144,10 +144,24 @@ export const navItems: INavData[] = [
         url: '/perpetual-succession-register',
         icon: 'fa fa-book',
         permission: ['DATA_ANALYST']
-
       },
     ]
 
+  },
+  {
+    name: 'Document Updator',
+    url: '#',
+    icon: 'fa fa-briefcase',
+    permission: ['DATA_ANALYST'],
+    children: [
+      {
+        name: 'Updator',
+        url: '/document-updator',
+        icon: 'fa fa-pencil',
+        permission: ['DATA_ANALYST']
+
+      },
+    ]
   },
   {
     name: 'Special Menu',
@@ -163,7 +177,6 @@ export const navItems: INavData[] = [
 
       },
     ]
-
   },
   {
     name: 'Pre Validator Menu',

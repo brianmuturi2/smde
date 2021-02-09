@@ -221,7 +221,7 @@
                         Add Incoming Trustees
                      </div>
                      <div class="card-body">
-                        <form #incomingTrusteeForm="ngForm" novalidate (ngSubmit)="incomingTrusteeForm.controls['trustee_name'].reset(); incomingTrusteeForm.controls['date_registered'].reset(); incomingTrusteeForm.controls['endorsement_date'].reset()">
+                        <form #incomingTrusteeForm="ngForm" novalidate (ngSubmit)="incomingTrusteeForm.controls['trustee_name'].reset();">
                         <div class="form-group">
                            <label>Trust</label>
                            <ng-select [searchable]="true" [clearable]="true" name="trust" [(ngModel)]="addIncomingTrusteeModel.trust"

@@ -10,6 +10,7 @@ import { AuthenticationGuard } from './authentication/guards/authguard.guard';
 import { ChangePasswordGuard } from './authentication/guards/change-password.guard';
 import { TrustComponent} from './validator-view/perpetual-succession-register/app.component';
 import { SpecialComponent} from './validator-view/land-special/app.component';
+import { UpdatorComponent} from './validator-view/document-updator/app.component';
 export const routes: Routes = [
   {
     path: '404',
@@ -57,6 +58,14 @@ export const routes: Routes = [
         component: SpecialComponent,
         data: {
           title: 'land-special'
+        },
+        canActivate: [AuthenticationGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'document-updator',
+        component: UpdatorComponent,
+        data: {
+          title: 'document-updator'
         },
         canActivate: [AuthenticationGuard, ChangePasswordGuard],
       },
@@ -113,4 +122,4 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [TrustComponent,SpecialComponent];
+export const routingComponents = [TrustComponent,SpecialComponent,UpdatorComponent];

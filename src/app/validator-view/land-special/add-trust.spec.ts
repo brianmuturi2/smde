@@ -1,7 +1,7 @@
-import { AddTrust } from './add-Document';
+import { AddDocument } from './add-Document';
 
-describe('AddTrust', () => {
+describe('AddDocument', () => {
   it('should create an instance', () => {
-    expect(new AddTrust()).toBeTruthy();
+    expect(new AddDocument()).toBeTruthy();
   });
 });

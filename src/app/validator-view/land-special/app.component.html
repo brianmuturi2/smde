@@ -58,6 +58,13 @@
                                        </ng-option>
                                     </ng-select>
                                  </div>
+                                 <div class="form-group">
+                                    <label for="department">Department</label>
+                                    <ng-select [searchable]="true" [clearable]="true" name="department" [(ngModel)]="department">
+                                       <ng-option value="reg">Land Registration</ng-option>
+                                       <ng-option value="admin">Land Administration</ng-option>
+                                    </ng-select>
+                                 </div>
                               </div>
                            </div>
                            <!-- end card 1 -->
@@ -192,7 +199,7 @@
                <ng-template ngbTabContent>
 
                   <div class="card" *ngIf="reportData && reportData.length || reportDataErrors && reportDataErrors.length">
-                     <div class="card-header">
+                     <!-- <div class="card-header">
                         Report Details
                      </div>
                      <div class="card-body row">
@@ -200,7 +207,6 @@
                            <table class="table table-striped table-bordered  table-sm table-hover">
                               <thead>
                               <tr>
-                                 <!-- <th scope="col">Document ID</th> -->
                                  <th scope="col">Incorrect File Number</th>
                               </tr>
                               </thead>
@@ -230,7 +236,7 @@
                               </tbody>
                            </table>  
                         </div>                   
-                     </div>
+                     </div> -->
                      <div class="col-sm-12">
                         <table class="table table-striped table-bordered  table-sm table-hover">
                            <thead>
