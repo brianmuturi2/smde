@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { TrustService } from './trust.service';
-import { AddTrust, UpdateTrust } from './add-trust';
+import { AddTrust, UpdateTrust, AddTrustDetails } from './add-trust';
 import { ITrust } from './trust';
 import { AddIncomingTrustee } from './add-incoming-trustee';
 import { AddOutgoingTrustee } from './add-outgoing-trustee';
@@ -35,13 +35,17 @@ export class TrustComponent {
   activeTrustId;
   clickedTrustId;
   addCommentModel = new AddComments(null, null, null);
-  addTrustModel = new AddTrust('', '', '', '', '', true);
+  addTrustModel = new AddTrust( '', '', '', true);
   updateTrustModel = new UpdateTrust('', '', '', '', '', '', null);
-  addIncomingTrusteeModel = new AddIncomingTrustee(null, '', '', '', true);
+  addIncomingTrusteeModel = new AddIncomingTrustee(null,  '', '', '', '', true);
   addOutgoingTrusteeModel = new AddOutgoingTrustee(null, null, '');
+  addTrustDetailsModel = new AddTrustDetails(null, null, '');
   allTrusts;
   trustDataId;
   trustName;
+  createdTrustName = null;
+  createdPsno = null;
+  ps_no: string;
   notification;
   incomingNotification;
   outgoingNotification;
@@ -229,6 +233,15 @@ export class TrustComponent {
     this.updateTrustModel.date_of_registration = trust.date_of_registration;
   }
 
+  TrustDetails = (data) => {
+    // adds values to trust form
+    this.addIncomingTrusteeModel.trust = data.trust_name;
+    this.addIncomingTrusteeModel.trust_id = data.id;
+    this.addTrustDetailsModel.trust_id = data.id;
+    this.addOutgoingTrusteeModel.trust_id = data.id;
+    // console.log(this.addIncomingTrusteeModel);
+  }
+
 
 
   TrustData = () => {
@@ -311,6 +324,30 @@ export class TrustComponent {
     );
   }
 
+  searchPsNumber = () => {
+    const search_payload = {
+      'ps_no': this.ps_no
+    };
+    this.api.getPsno(search_payload).subscribe(      
+      data => {
+        console.log(data);
+        try {
+          this.file_no = data.file_number
+          this.createdPsno = data.ps_number;
+          this.createdTrustName = data.trust_name;
+          this.TrustDetails(data);
+          this.searchFileNumber();
+          this.toastService.showToastNotification('success', 'Trust Found', '');
+        } catch (Error) {
+            this.notification = 'error';
+          }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   getFileComment = () => {
     this.api.getFileComments(this.addCommentModel.document_id).subscribe(
       data => {
@@ -359,7 +396,10 @@ export class TrustComponent {
   createLevelone = () => {
     this.api.createLevelone(this.addTrustModel).subscribe(
       data => {
-        if (data === 'Success') {
+        console.log(data);
+        if (data.status === 'Success') {          
+          this.createdPsno = data.ps_number;
+          this.createdTrustName = data.trust_name;
           this.getLevelOne(); // fetches all trusts
           this.toastService.showToastNotification('success', 'Created successfully', '');
         }
@@ -419,6 +459,22 @@ export class TrustComponent {
     );
   }
 
+  createTrustDetails = () => {
+    console.log(this.addTrustDetailsModel);
+    this.api.createTrustDetails(this.addTrustDetailsModel).subscribe(
+      data => {
+        console.log(data);
+        if (data.status === 'Success') {          
+          this.toastService.showToastNotification('success', 'Updated successfully', '');
+        }
+        this.levelone.push(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
 
   createLevelthree = () => {
     this.api.createLevelthree(this.addIncomingTrusteeModel).subscribe(
@@ -441,6 +497,7 @@ export class TrustComponent {
         // console.log(data);
         if (data === 'Success') {
           this.TrustClickedGetData(); // re-fetches all trust members
+          this.trustee_id = null;
           this.toastService.showToastNotification('success', 'Updated successfully', '');
         }
         this.levelone.push(data);
@@ -449,6 +506,10 @@ export class TrustComponent {
         console.log(error);
       }
     );
+  }
+
+  cancelUpdateLevelthree = () => {
+    this.trustee_id = null;
   }
 
 

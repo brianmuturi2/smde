@@ -52,6 +52,14 @@ export class TrustService {
     return this.http.get(this.baseurl + this.dept + 'document-info/' + file_no,  {headers: this.httpHeaders});
   }
 
+  getPsno(search_payload) {
+    const endpointurl = this.baseurl + this.dept + 'ps-number'
+    const options = {
+      params : search_payload
+    };
+    return this.http.get<any>(endpointurl, options);
+  }
+
   getFileComments(file_no): Observable<any> {
     return this.http.get(this.baseurl + this.dept + 'get-comments/' + file_no,  {headers: this.httpHeaders});
   }
@@ -67,6 +75,11 @@ export class TrustService {
   createLevelone(levelone): Observable<any> {
     const body = {ps_number: levelone.ps_number, trust_name: levelone.trust_name, status: levelone.status, date_of_incorporation: levelone.date_of_incorporation, date_of_registration: levelone.date_of_registration, register: levelone.register };
     return this.http.post(this.baseurl + this.dept + 'level-one', body,  {headers: this.httpHeaders});
+  }
+
+  createTrustDetails(payload): Observable<any> {
+    console.log(payload);
+    return this.http.post(this.baseurl + this.dept + 'level-onec',  {headers: this.httpHeaders});
   }
 
   updateLevelone(levelone): Observable<any> {

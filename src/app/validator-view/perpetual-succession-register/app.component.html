@@ -41,8 +41,8 @@
                               <div class="form-group">
                                  <label for="active">Active?</label>
                                  <select class="custom-select" name="active" [(ngModel)]="addTrustModel.status" id="active">
-                                 <option value="">Choose...</option>
-                                 <option *ngFor="let status of statuses">{{ status }}</option>
+                                    <option value="True">Yes</option>
+                                    <option value="False">No</option>
                                  </select>
                               </div>
                               <div class="form-group">
@@ -112,7 +112,7 @@
                                           </div>
                                           <div class="form-group">
                                              <label for="trust_name">Trust name</label>
-                                             <input type="text" class="form-control" name="trust_name" [(ngModel)]="updateTrustModel.trust_name" id="trust_name" placeholder="Trust name" #trust_name="ngModel" [class.is-invalid]="trust_name.invalid && trust_name.touched"  [(ngModel)]="updateTrustModel.trust_name" required>
+                                             <input type="text" class="form-control" name="trust_name" [(ngModel)]="updateTrustModel.trust_name" id="trust_name" placeholder="Trust name" #trust_name="ngModel" [class.is-invalid]="trust_name.invalid && trust_name.touched" required>
                                           </div>
                                           <div class="form-group">
                                              <label for="date_of_incorporation">Date of incorporation</label>
@@ -125,8 +125,8 @@
                                           <div class="form-group">
                                              <label for="active">Active?</label>
                                              <select class="custom-select" name="active" [(ngModel)]="updateTrustModel.status" id="active">
-                                             <option value="">Choose...</option>
-                                             <option *ngFor="let status of statuses">{{ status }}</option>
+                                                <option value="True">Yes</option>
+                                                <option value="False">No</option>
                                              </select>
                                           </div>
                                           <div class="form-group">
@@ -213,6 +213,48 @@
                   </div>
                </ng-template>
             </div>
+            <!-- tab 2 -->
+            <ngb-tab>
+               <ng-template ngbTabTitle>Register Details</ng-template>
+                  <ng-template ngbTabContent>
+                     <form #searchPsno="ngForm" novalidate (ngSubmit)="searchPsNumber()">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-8 col-lg-8 offset-md-4">
+                              <div class="input-group">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                       <i class="fa fa-search"></i>
+                                    </span>
+                                 </div>
+                                 <input class="form-control" placeholder="Search Ps Number" type="text" [(ngModel)]='ps_no' name="ps_no" required>
+                                 <button [disabled]="searchPsno.form.invalid" class="btn btn-sm btn-success" type="submit">Search</button>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                     <br>
+                     <form #registerDetailsForm="ngForm"  novalidate (ngSubmit)="registerDetailsForm.form.reset()">
+                        <div class="form-group">
+                           <label for="trust_name">Trust name</label>
+                           <input type="text" class="form-control" name="trust_name" [(ngModel)]="createdTrustName" id="trust_name" placeholder="Trust name" #trust_name="ngModel" [class.is-invalid]="trust_name.invalid && trust_name.touched" readonly>
+                           <input type="hidden" class="form-control" name="trust_id" #trust_id="ngModel" [(ngModel)]="addTrustDetailsModel.trust_id" id="trust_id" required readonly>
+                        </div>
+                        <div class="form-group">
+                           <label for="date_of_incorporation">Date of incorporation</label>
+                           <input type="date" class="form-control" name="date_of_incorporation" [(ngModel)]="addTrustModel.date_of_incorporation" id="date_of_incorporation" placeholder="Date of incorporation" #date_of_incorporation="ngModel" [class.is-invalid]="date_of_incorporation.invalid && date_of_incorporation.touched"  [(ngModel)]="addTrustDetailsModel.date_of_incorporation" required>
+                        </div>
+                        <div class="form-group">
+                           <label for="date_of_registration">Date of registration</label>
+                           <input type="date" class="form-control" name="date_of_registration" [(ngModel)]="addTrustModel.date_of_registration" id="date_of_registration" placeholder="Date of registration" #date_of_registration="ngModel" [class.is-invalid]="date_of_registration.invalid && date_of_registration.touched"  [(ngModel)]="addTrustDetailsModel.date_of_registration" required>
+                        </div>
+                        <div class="form-group">
+                           <input type="hidden" class="form-control" name="register" [(ngModel)]="addTrustModel.register" placeholder="File id" #register="ngModel" required readonly>
+                        </div>
+                        <button [disabled]="registerDetailsForm.form.invalid" type="submit" class="btn btn-primary" (click)="createTrustDetails()">Create</button>
+                     </form>
+               </ng-template>
+            </ngb-tab>
+            <!-- tab 3 -->
             <ngb-tab>
                <ng-template ngbTabTitle>Incoming Trustees</ng-template>
                <ng-template ngbTabContent>
@@ -221,39 +263,61 @@
                         Add Incoming Trustees
                      </div>
                      <div class="card-body">
+                        <form #searchPsno="ngForm" novalidate (ngSubmit)="searchPsNumber()">
+                           <div class="row">
+                              <div class="col-sm-12 col-md-8 col-lg-8 offset-md-4">
+                                 <div class="input-group">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text">
+                                          <i class="fa fa-search"></i>
+                                       </span>
+                                    </div>
+                                    <input class="form-control" placeholder="Search Ps Number" type="text" [(ngModel)]='ps_no' name="ps_no" required>
+                                    <button [disabled]="searchPsno.form.invalid" class="btn btn-sm btn-success" type="submit">Search</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </form>
+                        <br>
                         <form #incomingTrusteeForm="ngForm" novalidate (ngSubmit)="incomingTrusteeForm.controls['trustee_name'].reset();">
-                        <div class="form-group">
-                           <label>Trust</label>
-                           <ng-select [searchable]="true" [clearable]="true" name="trust" [(ngModel)]="addIncomingTrusteeModel.trust"
-                           [ngClass]="{ 'is-invalid': documenttypeformstatus &amp;&amp; incomingTrusteeForm.controls.trust.errors }" (change)="TrustClickedGetOne()">
-                              <ng-option [value]="trust.id" *ngFor="let trust of levelone">
-                              {{ trust.trust_name }}
-                              </ng-option>
-                           </ng-select>
-                           <error-message [control]="incomingTrusteeForm.controls.trust" *ngIf="documenttypeformstatus">
-                           </error-message>
-                        </div>
-                        <div class="form-group">
-                           <label for="ps_number">Trustee name</label>
-                           <input type="text" class="form-control" name="trustee_name" #trustee_name="ngModel" [class.is-invalid]="trustee_name.invalid && trustee_name.touched"  [(ngModel)]="addIncomingTrusteeModel.trustee_name" id="trustee_name" required placeholder="trustee_name">
-                        </div>
-                        <div class="form-group">
-                           <label for="date_registered">Date registered</label>
-                           <input type="date" class="form-control" name="date_registered" [(ngModel)]="addIncomingTrusteeModel.date_registered" id="date_registered" placeholder="Date of incorporation" #date_registered="ngModel" [class.is-invalid]="date_registered.invalid && date_registered.touched"  [(ngModel)]="addTrustModel.date_registered" required>
-                        </div>
-                        <div class="form-group">
-                           <label for="endorsement_date">Endorsement date</label>
-                           <input type="date" class="form-control" name="endorsement_date" [(ngModel)]="addIncomingTrusteeModel.endorsement_date" id="endorsement_date" placeholder="Endorsement Date" #endorsement_date="ngModel" [class.is-invalid]="endorsement_date.invalid && endorsement_date.touched"  [(ngModel)]="addIncomingTrusteeModel.endorsement_date" required>
-                        </div>
-                        <div class="form-group">
-                           <label for="active">Active?</label>
-                           <select class="custom-select" name="active" [(ngModel)]="addIncomingTrusteeModel.status" id="active" required>
-                           <option value="">Choose...</option>
-                           <option *ngFor="let status of statuses">{{ status }}</option>
-                           </select>
-                        </div>
-                        <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelthree()" *ngIf="!trustee_id">Create</button>
-                        <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-success" (click)="updateLevelthree()" *ngIf="trustee_id">Update</button>
+                           <!-- <div class="form-group">
+                              <label>Trust</label>
+                              <ng-select [searchable]="true" [clearable]="true" name="trust" [(ngModel)]="addIncomingTrusteeModel.trust"
+                              [ngClass]="{ 'is-invalid': documenttypeformstatus &amp;&amp; incomingTrusteeForm.controls.trust.errors }" (change)="TrustClickedGetOne()">
+                                 <ng-option [value]="trust.id" *ngFor="let trust of levelone">
+                                 {{ trust.trust_name }}
+                                 </ng-option>
+                              </ng-select>
+                              <error-message [control]="incomingTrusteeForm.controls.trust" *ngIf="documenttypeformstatus">
+                              </error-message>
+                           </div> -->
+                           <div class="form-group">
+                              <label for="trust">Trust</label>
+                              <input type="text" class="form-control" name="trust" #trust="ngModel" [class.is-invalid]="trust.invalid && trust.touched"  [(ngModel)]="addIncomingTrusteeModel.trust" id="trust" required placeholder="trust" readonly>
+                              <input type="hidden" class="form-control" name="trust_id" #trust_id="ngModel" [(ngModel)]="addIncomingTrusteeModel.trust_id" id="trust_id" required readonly>
+                           </div>
+                           <div class="form-group">
+                              <label for="ps_number">Trustee name</label>
+                              <input type="text" class="form-control" name="trustee_name" #trustee_name="ngModel" [class.is-invalid]="trustee_name.invalid && trustee_name.touched"  [(ngModel)]="addIncomingTrusteeModel.trustee_name" id="trustee_name" required placeholder="trustee_name">
+                           </div>
+                           <div class="form-group">
+                              <label for="date_registered">Date registered</label>
+                              <input type="date" class="form-control" name="date_registered" [(ngModel)]="addIncomingTrusteeModel.date_registered" id="date_registered" placeholder="Date of incorporation" #date_registered="ngModel" [class.is-invalid]="date_registered.invalid && date_registered.touched"  [(ngModel)]="addTrustModel.date_registered" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="endorsement_date">Endorsement date</label>
+                              <input type="date" class="form-control" name="endorsement_date" [(ngModel)]="addIncomingTrusteeModel.endorsement_date" id="endorsement_date" placeholder="Endorsement Date" #endorsement_date="ngModel" [class.is-invalid]="endorsement_date.invalid && endorsement_date.touched"  [(ngModel)]="addIncomingTrusteeModel.endorsement_date" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="active">Active?</label>
+                              <select class="custom-select" name="active" [(ngModel)]="addIncomingTrusteeModel.status" id="active" required>
+                                 <option value="True">Yes</option>
+                                 <option value="False">No</option>
+                              </select>
+                           </div>
+                           <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelthree()" *ngIf="!trustee_id">Create</button>
+                           <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-success" (click)="updateLevelthree()" *ngIf="trustee_id">Update</button>
+                           <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-warning" (click)="cancelUpdateLevelthree();incomingTrusteeForm.controls['endorsement_date'].reset();incomingTrusteeForm.controls['date_registered'].reset();incomingTrusteeForm.controls['trustee_name'].reset()" *ngIf="trustee_id">Cancel</button>
                         </form>
                      </div>
                   </div> <!--end card-->
@@ -305,9 +369,9 @@
                               <label>Select Trust</label>
                               <ng-select [searchable]="true" [clearable]="true" name="ps_number" [(ngModel)]="addTrustModel.ps_number"
                               [ngClass]="{ 'is-invalid': documenttypeformstatus &amp;&amp; incomingTrusteeForm.controls.trust.errors }" (change)="TrustClickedGet()">
-                              <ng-option [value]="trust.id" *ngFor="let trust of levelone" >
-                              {{ trust.trust_name }}
-                              </ng-option>
+                                 <ng-option [value]="trust.id" *ngFor="let trust of levelone" >
+                                    {{ trust.trust_name }}
+                                 </ng-option>
                               </ng-select>
                               <error-message [control]="outgoingGetForm.controls.ps_number" *ngIf="documenttypeformstatus">
                               </error-message>
@@ -315,33 +379,38 @@
                         </form>
                         <br>
                         <form #outgoingTrusteeForm="ngForm" novalidate (ngSubmit)="outgoingTrusteeForm.controls['trustee_name'].reset(); outgoingTrusteeForm.controls['replaced_by'].reset(); outgoingTrusteeForm.controls['date_deregistered'].reset()">
-                        <div class="form-group">
-                           <label for="active">Outgoing Trustee</label>
-                           <ng-select [searchable]="true" [clearable]="true" name="trustee_name" [(ngModel)]="addOutgoingTrusteeModel.trustee_name"
-                           [ngClass]="{ 'is-invalid': documenttypeformtrustee_name &amp;&amp; outgoingTrusteeForm.controls.trustee_name.errors }">
-                           <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
-                           {{ trustee.trustee_name }}
-                           </ng-option>
-                           </ng-select>
-                           <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
-                           </error-message>
-                        </div>
-                        <div class="form-group">
-                           <label for="active">Incoming Trustee</label>
-                           <ng-select [searchable]="true" [clearable]="true" name="replaced_by" [(ngModel)]="addOutgoingTrusteeModel.replaced_by"
-                           [ngClass]="{ 'is-invalid': documenttypeformreplaced_by &amp;&amp; outgoingTrusteeForm.controls.replaced_by.errors }">
-                           <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
-                           {{ trustee.trustee_name }}
-                           </ng-option>
-                           </ng-select>
-                           <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
-                           </error-message>
-                        </div>
-                        <div class="form-group">
-                           <label for="date_registered">Date deregistered</label>
-                           <input type="date" class="form-control" name="date_deregistered" [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" id="date_deregistered" placeholder="Date deregistered" #date_deregistered="ngModel" [class.is-invalid]="date_deregistered.invalid && date_deregistered.touched"  [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" required>
-                        </div>
-                        <button [disabled]="outgoingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelfour()">Create</button>
+                           <div class="form-group">
+                              <label for="trust">Trust</label>
+                              <input type="text" class="form-control" name="trust" #trust="ngModel" [class.is-invalid]="trust.invalid && trust.touched"  [(ngModel)]="createdTrustName" id="trust" required placeholder="trust" readonly>
+                              <input type="hidden" class="form-control" name="trust_id" #trust_id="ngModel" [(ngModel)]="addOutgoingTrusteeModel.trust_id" id="trust_id" required readonly>
+                           </div>
+                           <div class="form-group">
+                              <label for="active">Outgoing Trustee</label>
+                              <ng-select [searchable]="true" [clearable]="true" name="trustee_name" [(ngModel)]="addOutgoingTrusteeModel.trustee_name"
+                              [ngClass]="{ 'is-invalid': documenttypeformtrustee_name &amp;&amp; outgoingTrusteeForm.controls.trustee_name.errors }">
+                                 <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
+                                    {{ trustee.trustee_name }}
+                                 </ng-option>
+                              </ng-select>
+                              <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
+                              </error-message>
+                           </div>
+                           <!-- <div class="form-group">
+                              <label for="active">Incoming Trustee</label>
+                              <ng-select [searchable]="true" [clearable]="true" name="replaced_by" [(ngModel)]="addOutgoingTrusteeModel.replaced_by"
+                              [ngClass]="{ 'is-invalid': documenttypeformreplaced_by &amp;&amp; outgoingTrusteeForm.controls.replaced_by.errors }">
+                              <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
+                              {{ trustee.trustee_name }}
+                              </ng-option>
+                              </ng-select>
+                              <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
+                              </error-message>
+                           </div> -->
+                           <div class="form-group">
+                              <label for="date_registered">Date deregistered</label>
+                              <input type="date" class="form-control" name="date_deregistered" [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" id="date_deregistered" placeholder="Date deregistered" #date_deregistered="ngModel" [class.is-invalid]="date_deregistered.invalid && date_deregistered.touched"  [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" required>
+                           </div>
+                           <button [disabled]="outgoingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelfour()">Create</button>
                         </form>
                      </div>
                   </div>
