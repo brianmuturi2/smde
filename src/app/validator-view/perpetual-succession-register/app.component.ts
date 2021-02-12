@@ -7,6 +7,7 @@ import { AddOutgoingTrustee } from './add-outgoing-trustee';
 import { AddComments } from './add-comments';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class TrustComponent {
   // levelone = [{ps_number: 'Level one Test'}];
   levelone;
   leveloneData: ITrust[] = [];
+  fileData: File = null;
   incomingTrustee = [{trustee_name: 'Incomming Test'}];
   outgoingTrustee = [{trustee_name: 'Outgoing Test'}];
   trust = [{id: -1}];
@@ -60,6 +62,9 @@ export class TrustComponent {
   document_url = null;
   trustee_id = null;
   is_register = null;
+  register_id:string;
+  uploaded_file_id = null;
+  uploaded_file_url = null;
   
   // levelonedata
 
@@ -74,7 +79,7 @@ export class TrustComponent {
 
   filteredleveloneData:ITrust[];
 
-  constructor(private api: TrustService, public toastService: ToastService, private modalService: NgbModal) {
+  constructor(private api: TrustService, public toastService: ToastService, private modalService: NgbModal,public loadingService: LoadingService,) {
     this.getFileStatus();
     this.getLevelOne();
     this.getIncomingTrustee();
@@ -87,8 +92,9 @@ export class TrustComponent {
       this.getFileComment();
     }
     if (GlobalVars.document_id !== null) {
-      this.file_no = GlobalVars.document_id;
-      this.searchFileNumber();
+      this.ps_no = GlobalVars.document_id;
+      // this.searchFileNumber();
+      this.searchPsNumber();
 
     }
   }
@@ -235,10 +241,17 @@ export class TrustComponent {
 
   TrustDetails = (data) => {
     // adds values to trust form
+    // console.log(data);
     this.addIncomingTrusteeModel.trust = data.trust_name;
     this.addIncomingTrusteeModel.trust_id = data.id;
     this.addTrustDetailsModel.trust_id = data.id;
     this.addOutgoingTrusteeModel.trust_id = data.id;
+    this.activeTrustId = data.id;
+    this.register_id = data.register_id;
+    this.uploaded_file_url = data.uploaded_file_url;
+    this.TrustClickedGetData();
+    this.TrustActiveMembers();
+    // this.TrustClickedGet();
     // console.log(this.addIncomingTrusteeModel);
   }
 
@@ -264,7 +277,7 @@ export class TrustComponent {
       data => {
         this.trustSelected = data;
         this.showOutgoing = 'outgoing';
-        console.log(this.showOutgoing);
+        // console.log(this.showOutgoing);
       },
       error => {
         console.log(error);
@@ -293,6 +306,7 @@ export class TrustComponent {
   TrustClickedGetData = () => {
     this.api.getOneTrust(this.activeTrustId).subscribe(
       data => {
+        // console.log(data);
         this.trustSelected = data;
       },
       error => {
@@ -305,12 +319,14 @@ export class TrustComponent {
   searchFileNumber = () => {
     this.api.getFile(this.file_no).subscribe(      
       data => {
-        console.log(data);
+        // console.log(data);
         try {
+          this.register_id = data.id;
           this.addTrustModel.register = data.id;
           this.addCommentModel.document_id = data.document;
           this.document_url = data.doc_url;
           this.getFileComment();
+          
           // this.file_no = null;
           GlobalVars.document_id = null;
           this.toastService.showToastNotification('success', 'Document Found', '');
@@ -330,9 +346,9 @@ export class TrustComponent {
     };
     this.api.getPsno(search_payload).subscribe(      
       data => {
-        console.log(data);
+        // console.log(data);
         try {
-          this.file_no = data.file_number
+          this.file_no = data.volume_number
           this.createdPsno = data.ps_number;
           this.createdTrustName = data.trust_name;
           this.TrustDetails(data);
@@ -344,6 +360,58 @@ export class TrustComponent {
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  createdPsNumber = (psno) => {
+    const search_payload = {
+      'ps_no': psno
+    };
+    this.api.getPsno(search_payload).subscribe(      
+      data => {
+        // console.log(data);
+        try {
+          this.file_no = data.file_number
+          this.createdPsno = data.ps_number;
+          this.createdTrustName = data.trust_name;
+          this.TrustDetails(data);
+          // this.searchFileNumber();
+          // this.toastService.showToastNotification('success', 'Trust Found', '');
+        } catch (Error) {
+            this.notification = 'error';
+          }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  handleFileupload(e) {
+    this.fileData = e.target.files[0];
+  }
+
+  saveformData() {
+    this.loadingService.showloading();
+    const formData  =  new FormData();
+
+    formData.append('document', this.fileData);
+    formData.append('register_id', this.register_id);
+
+    this.api.uploadFile(formData).subscribe(
+      res => {
+        if (res) {
+          console.log(res);
+          this.uploaded_file_url = res['uploaded_file_url'];
+          this.uploaded_file_id = res['uploaded_file_id'];
+          this.toastService.showToastNotification('success', 'Upload Successful', '');
+        }     
+        
+        this.loadingService.hideloading();
+    },
+      error => {
+          
       }
     );
   }
@@ -400,7 +468,9 @@ export class TrustComponent {
         if (data.status === 'Success') {          
           this.createdPsno = data.ps_number;
           this.createdTrustName = data.trust_name;
+          this.addTrustDetailsModel.trust_id = data.id
           this.getLevelOne(); // fetches all trusts
+          this.createdPsNumber(this.createdPsno);
           this.toastService.showToastNotification('success', 'Created successfully', '');
         }
         this.levelone.push(data);
@@ -464,7 +534,8 @@ export class TrustComponent {
     this.api.createTrustDetails(this.addTrustDetailsModel).subscribe(
       data => {
         console.log(data);
-        if (data.status === 'Success') {          
+        if (data.status === 'Success') {     
+          this.getLevelOne();     
           this.toastService.showToastNotification('success', 'Updated successfully', '');
         }
         this.levelone.push(data);
@@ -481,6 +552,7 @@ export class TrustComponent {
       data => {
         if (data.status === 'Success') {
           this.TrustClickedGetData(); // gets current members of a trust
+          this.TrustActiveMembers(); // gets current active members of a trust
           this.toastService.showToastNotification('success', 'Created successfully', '');
         }
         this.incomingTrustee.push(data);
@@ -492,7 +564,8 @@ export class TrustComponent {
   }
 
   updateLevelthree = () => {
-    this.api.updateLevelthree(this.addIncomingTrusteeModel,this.trustee_id).subscribe(
+    const data = {"trustee_id":this.trustee_id, "trust_id":this.activeTrustId}
+    this.api.updateLevelthree(this.addIncomingTrusteeModel,data).subscribe(
       data => {
         // console.log(data);
         if (data === 'Success') {
@@ -515,6 +588,7 @@ export class TrustComponent {
 
 
   createLevelfour = () => {
+    console.log(this.addOutgoingTrusteeModel);
     this.api.createLevelfour(this.addOutgoingTrusteeModel).subscribe(
       data => {
         // console.log(data);

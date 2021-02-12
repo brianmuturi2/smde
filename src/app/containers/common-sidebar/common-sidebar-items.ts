@@ -140,7 +140,7 @@ export const navItems: INavData[] = [
         permission: ['DATA_ANALYST']
       },
       {
-        name: 'Register',
+        name: 'Ps Register',
         url: '/perpetual-succession-register',
         icon: 'fa fa-book',
         permission: ['DATA_ANALYST']

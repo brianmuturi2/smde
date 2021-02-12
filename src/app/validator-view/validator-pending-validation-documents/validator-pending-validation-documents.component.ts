@@ -123,7 +123,7 @@ fetchRecords(request_id) {
 
     this.is_register = res['is_register'];
     if (this.is_register) {
-      GlobalVars.document_id = res['document_records'][0]['file_number'];
+      GlobalVars.document_id = res['document_records'][0]['volume_number'];
     }
     
     this.loadingService.hideloading();
