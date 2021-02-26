@@ -52,6 +52,14 @@ export class TrustService {
     return this.http.get(this.baseurl + this.dept + 'document-info/' + file_no,  {headers: this.httpHeaders});
   }
 
+  getPsno(search_payload) {
+    const endpointurl = this.baseurl + this.dept + 'ps-number'
+    const options = {
+      params : search_payload
+    };
+    return this.http.get<any>(endpointurl, options);
+  }
+
   getFileComments(file_no): Observable<any> {
     return this.http.get(this.baseurl + this.dept + 'get-comments/' + file_no,  {headers: this.httpHeaders});
   }
@@ -69,6 +77,10 @@ export class TrustService {
     return this.http.post(this.baseurl + this.dept + 'level-one', body,  {headers: this.httpHeaders});
   }
 
+  createTrustDetails(payload): Observable<any> {
+    return this.http.post(this.baseurl + this.dept + 'level-one-details',  payload);
+  }
+
   updateLevelone(levelone): Observable<any> {
     const body = {id: levelone.id, ps_number: levelone.ps_number, trust_name: levelone.trust_name, status: levelone.status, date_of_incorporation: levelone.date_of_incorporation, date_of_registration: levelone.date_of_registration };
     return this.http.post(this.baseurl + this.dept + 'level-one-update', body,  {headers: this.httpHeaders});
@@ -84,25 +96,30 @@ export class TrustService {
     return this.http.post(this.baseurl + this.dept + 'delete-member', body,  {headers: this.httpHeaders});
   }
 
-  createLevelthree(incomingTrustee): Observable<any> {
-    const body = {trustee_name: incomingTrustee.trustee_name, date_registered: incomingTrustee.date_registered, endorsement_date: incomingTrustee.endorsement_date,status: incomingTrustee.status, trust:incomingTrustee.trust};
-    return this.http.post(this.baseurl + this.dept + 'incoming-trustee', body,  {headers: this.httpHeaders});
+  createLevelthree(payload): Observable<any> {
+    return this.http.post(this.baseurl + this.dept + 'incoming-trustee', payload,  {headers: this.httpHeaders});
   }
 
-  updateLevelthree(incomingTrustee,id): Observable<any> {
-    const body = {trustee_id: id, trustee_name: incomingTrustee.trustee_name, date_registered: incomingTrustee.date_registered, endorsement_date: incomingTrustee.endorsement_date,status: incomingTrustee.status, trust:incomingTrustee.trust};
+  updateLevelthree(incomingTrustee,data): Observable<any> {
+    const body = {"data":incomingTrustee,"ids":data};
     return this.http.post(this.baseurl + this.dept + 'incoming-trustee-update', body,  {headers: this.httpHeaders});
   }
 
-  createLevelfour(outgoingTrustee): Observable<any> {
-    const body = {trustee_name: outgoingTrustee.trustee_name, replaced_by: outgoingTrustee.replaced_by, date_deregistered: outgoingTrustee.date_deregistered};
-    return this.http.post(this.baseurl + this.dept + 'outgoing-trustee', body,  {headers: this.httpHeaders}).pipe(catchError(this.errorHandler));
+  createLevelfour(payload): Observable<any> {
+    return this.http.post(this.baseurl + this.dept + 'outgoing-trustee', payload,  {headers: this.httpHeaders}).pipe(catchError(this.errorHandler));
   }
 
   addComments(postComments): Observable<any> {
     const body = {document: postComments.document_id, comments: postComments.remarks, general_status: postComments.general_status};
     const submiturl = 'comments';
     return this.http.post(this.baseurl + this.dept + submiturl, body,  {headers: this.httpHeaders}).pipe(catchError(this.errorHandler));
+  }
+
+  uploadFile(payload){
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post(this.baseurl + this.dept + 'upload-trust-file', payload);
   }
 
   errorHandler(error: HttpErrorResponse) {

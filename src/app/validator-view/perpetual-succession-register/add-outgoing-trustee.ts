@@ -1,7 +1,7 @@
 export class AddOutgoingTrustee {
     constructor(
-        public trustee_name: number,
-        public replaced_by: number,
+        public trust_id: string,
+        public trustee_name: string,
         public date_deregistered: string,
     ) {}
 }

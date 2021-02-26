@@ -140,7 +140,7 @@ export const navItems: INavData[] = [
         permission: ['DATA_ANALYST']
       },
       {
-        name: 'Register',
+        name: 'Ps Register',
         url: '/perpetual-succession-register',
         icon: 'fa fa-book',
         permission: ['DATA_ANALYST']
@@ -148,21 +148,21 @@ export const navItems: INavData[] = [
     ]
 
   },
-  {
-    name: 'Document Updator',
-    url: '#',
-    icon: 'fa fa-briefcase',
-    permission: ['DATA_ANALYST'],
-    children: [
-      {
-        name: 'Updator',
-        url: '/document-updator',
-        icon: 'fa fa-pencil',
-        permission: ['DATA_ANALYST']
+  // {
+  //   name: 'Document Updator',
+  //   url: '#',
+  //   icon: 'fa fa-briefcase',
+  //   permission: ['DATA_ANALYST'],
+  //   children: [
+  //     {
+  //       name: 'Updator',
+  //       url: '/document-updator',
+  //       icon: 'fa fa-pencil',
+  //       permission: ['DATA_ANALYST']
 
-      },
-    ]
-  },
+  //     },
+  //   ]
+  // },
   {
     name: 'Special Menu',
     url: '#',

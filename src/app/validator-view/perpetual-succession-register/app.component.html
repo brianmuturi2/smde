@@ -7,14 +7,14 @@
                <ng-template ngbTabContent class="create-register">                  
                   <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
                      <ngb-panel title="Add Trust">
-                       <ng-template ngbPanelContent>
+                        <ng-template ngbPanelContent>
                            <form #searchFile="ngForm" novalidate>
                               <div class="row">
                                  <div class="col-sm-12 col-md-8 col-lg-8 offset-md-4">
                                     <div class="input-group">
                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
                                        </div>
-                                       <input class="form-control" placeholder="Search File Number" type="text" [(ngModel)]='file_no' name="file_no" required>
+                                       <input class="form-control" placeholder="Search Volume Number" type="text" [(ngModel)]='file_no' name="file_no" required>
                                        <button [disabled]="searchFile.form.invalid" class="btn btn-sm btn-success" (click)="searchFileNumber()">Search</button>
                                     </div>
                                  </div>
@@ -31,24 +31,19 @@
                                  <input type="text" class="form-control" name="trust_name" [(ngModel)]="addTrustModel.trust_name" id="trust_name" placeholder="Trust name" #trust_name="ngModel" [class.is-invalid]="trust_name.invalid && trust_name.touched"  [(ngModel)]="addTrustModel.trust_name" required>
                               </div>
                               <div class="form-group">
-                                 <label for="date_of_incorporation">Date of incorporation</label>
-                                 <input type="text" class="form-control" name="date_of_incorporation" [(ngModel)]="addTrustModel.date_of_incorporation" id="date_of_incorporation" placeholder="Date of incorporation" #date_of_incorporation="ngModel" [class.is-invalid]="date_of_incorporation.invalid && date_of_incorporation.touched"  [(ngModel)]="addTrustModel.date_of_incorporation" required>
-                              </div>
-                              <div class="form-group">
-                                 <label for="date_of_registration">Date of registration</label>
-                                 <input type="text" class="form-control" name="date_of_registration" [(ngModel)]="addTrustModel.date_of_registration" id="date_of_registration" placeholder="Date of registration" #date_of_registration="ngModel" [class.is-invalid]="date_of_registration.invalid && date_of_registration.touched"  [(ngModel)]="addTrustModel.date_of_registration" required>
-                              </div>
-                              <div class="form-group">
                                  <label for="active">Active?</label>
                                  <select class="custom-select" name="active" [(ngModel)]="addTrustModel.status" id="active">
-                                 <option value="">Choose...</option>
-                                 <option *ngFor="let status of statuses">{{ status }}</option>
+                                    <option value="True">Yes</option>
+                                    <option value="False">No</option>
                                  </select>
                               </div>
                               <div class="form-group">
                                  <input type="hidden" class="form-control" name="register" [(ngModel)]="addTrustModel.register" placeholder="File id" #register="ngModel" required readonly>
                               </div>
-                              <button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelone()">Create</button>
+                              <button [disabled]="userForm.form.invalid" type="submit" class="btn btn-success" (click)="createLevelone()">
+                                 <i class="fa fa-bolt" aria-hidden="true"></i>
+                                 Create
+                              </button>
                            </form>
                        </ng-template>
                      </ngb-panel>
@@ -112,7 +107,7 @@
                                           </div>
                                           <div class="form-group">
                                              <label for="trust_name">Trust name</label>
-                                             <input type="text" class="form-control" name="trust_name" [(ngModel)]="updateTrustModel.trust_name" id="trust_name" placeholder="Trust name" #trust_name="ngModel" [class.is-invalid]="trust_name.invalid && trust_name.touched"  [(ngModel)]="updateTrustModel.trust_name" required>
+                                             <input type="text" class="form-control" name="trust_name" [(ngModel)]="updateTrustModel.trust_name" id="trust_name" placeholder="Trust name" #trust_name="ngModel" [class.is-invalid]="trust_name.invalid && trust_name.touched" required>
                                           </div>
                                           <div class="form-group">
                                              <label for="date_of_incorporation">Date of incorporation</label>
@@ -125,8 +120,8 @@
                                           <div class="form-group">
                                              <label for="active">Active?</label>
                                              <select class="custom-select" name="active" [(ngModel)]="updateTrustModel.status" id="active">
-                                             <option value="">Choose...</option>
-                                             <option *ngFor="let status of statuses">{{ status }}</option>
+                                                <option value="True">Yes</option>
+                                                <option value="False">No</option>
                                              </select>
                                           </div>
                                           <div class="form-group">
@@ -213,6 +208,98 @@
                   </div>
                </ng-template>
             </div>
+            <!-- tab 2 -->
+            <ngb-tab>
+               <ng-template ngbTabTitle>Register Details</ng-template>
+                  <ng-template ngbTabContent>
+                     <div class="card">
+                        <div class="card-header">
+                           Update Register Details
+                        </div>
+                        <div class="card-body">
+                           <div class="content">
+                              <form #searchPsno="ngForm" novalidate (ngSubmit)="searchPsNumber()">
+                                 <div class="row">
+                                    <div class="col-sm-12 col-md-8 col-lg-8 offset-md-4">
+                                       <div class="input-group">
+                                          <div class="input-group-prepend">
+                                             <span class="input-group-text">
+                                                <i class="fa fa-search"></i>
+                                             </span>
+                                          </div>
+                                          <input class="form-control" placeholder="Search Ps Number" type="text" [(ngModel)]='ps_no' name="ps_no" required>
+                                          <button [disabled]="searchPsno.form.invalid" class="btn btn-sm btn-success" type="submit">Search</button>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </form>
+                              <br>
+                              <form #registerDetailsForm="ngForm"  novalidate (ngSubmit)="registerDetailsForm.controls['date_of_incorporation'].reset();registerDetailsForm.controls['date_of_registration'].reset()">
+                                 <div class="form-group">
+                                    <label for="trust_name">Trust name</label>
+                                    <input type="text" class="form-control" name="trust_name" [(ngModel)]="createdTrustName" id="trust_name" placeholder="Trust name" #trust_name="ngModel" readonly>
+                                    <input type="hidden" class="form-control" name="trust_id" #trust_id="ngModel" [(ngModel)]="addTrustDetailsModel.trust_id" id="trust_id" required readonly>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="date_of_incorporation">Date of incorporation</label>
+                                    <input type="date" class="form-control" name="date_of_incorporation" [(ngModel)]="addTrustDetailsModel.date_of_incorporation" id="date_of_incorporation" placeholder="Date of incorporation" #date_of_incorporation="ngModel" [class.is-invalid]="date_of_incorporation.invalid && date_of_incorporation.touched" required>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="date_of_registration">Date of registration</label>
+                                    <input type="date" class="form-control" name="date_of_registration" [(ngModel)]="addTrustDetailsModel.date_of_registration" id="date_of_registration" placeholder="Date of registration" #date_of_registration="ngModel" [class.is-invalid]="date_of_registration.invalid && date_of_registration.touched" required>
+                                 </div>
+                                 <button [disabled]="registerDetailsForm.form.invalid" type="submit" class="btn btn-success" (click)="createTrustDetails()">
+                                    <i class="fa fa-bolt" aria-hidden="true"></i>
+                                    Save
+                                 </button>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+               </ng-template>
+            </ngb-tab>
+            <!-- tab 3 -->
+            <ngb-tab>
+               <ng-template ngbTabTitle>Upload File</ng-template>
+                  <ng-template ngbTabContent>
+                     <div class="card">
+                        <div class="card-header">
+                           Upload Trust File
+                        </div>
+                        <div class="card-body">
+                           <div class="content">
+                              <form #searchPsno="ngForm" novalidate (ngSubmit)="searchPsNumber()">
+                                 <div class="row">
+                                    <div class="col-sm-12 col-md-8 col-lg-8 offset-md-4">
+                                       <div class="input-group">
+                                          <div class="input-group-prepend">
+                                             <span class="input-group-text">
+                                                <i class="fa fa-search"></i>
+                                             </span>
+                                          </div>
+                                          <input class="form-control" placeholder="Search Ps Number" type="text" [(ngModel)]='ps_no' name="ps_no" required>
+                                          <button [disabled]="searchPsno.form.invalid" class="btn btn-sm btn-success" type="submit">Search</button>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </form>
+                              <br>
+                              <form #compareForm1="ngForm"  enctype="multipart/form-data" novalidate (ngSubmit)="saveformData()">
+                                 <div class="form-group">
+                                    <label for="document2">File</label>
+                                    <input type="file" class="form-control" name="document" [(ngModel)]="document" (change)="handleFileupload($event)" required>
+                                 </div>
+                                 <button [disabled]="compareForm1.form.invalid" type="submit" class="btn btn-primary">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                    Upload
+                                 </button>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+               </ng-template>
+            </ngb-tab>
+            <!-- tab 4 -->
             <ngb-tab>
                <ng-template ngbTabTitle>Incoming Trustees</ng-template>
                <ng-template ngbTabContent>
@@ -221,44 +308,67 @@
                         Add Incoming Trustees
                      </div>
                      <div class="card-body">
+                        <form #searchPsno="ngForm" novalidate (ngSubmit)="searchPsNumber()">
+                           <div class="row">
+                              <div class="col-sm-12 col-md-8 col-lg-8 offset-md-4">
+                                 <div class="input-group">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text">
+                                          <i class="fa fa-search"></i>
+                                       </span>
+                                    </div>
+                                    <input class="form-control" placeholder="Search Ps Number" type="text" [(ngModel)]='ps_no' name="ps_no" required>
+                                    <button [disabled]="searchPsno.form.invalid" class="btn btn-sm btn-success" type="submit">Search</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </form>
+                        <br>
                         <form #incomingTrusteeForm="ngForm" novalidate (ngSubmit)="incomingTrusteeForm.controls['trustee_name'].reset();">
-                        <div class="form-group">
-                           <label>Trust</label>
-                           <ng-select [searchable]="true" [clearable]="true" name="trust" [(ngModel)]="addIncomingTrusteeModel.trust"
-                           [ngClass]="{ 'is-invalid': documenttypeformstatus &amp;&amp; incomingTrusteeForm.controls.trust.errors }" (change)="TrustClickedGetOne()">
-                              <ng-option [value]="trust.id" *ngFor="let trust of levelone">
-                              {{ trust.trust_name }}
-                              </ng-option>
-                           </ng-select>
-                           <error-message [control]="incomingTrusteeForm.controls.trust" *ngIf="documenttypeformstatus">
-                           </error-message>
-                        </div>
-                        <div class="form-group">
-                           <label for="ps_number">Trustee name</label>
-                           <input type="text" class="form-control" name="trustee_name" #trustee_name="ngModel" [class.is-invalid]="trustee_name.invalid && trustee_name.touched"  [(ngModel)]="addIncomingTrusteeModel.trustee_name" id="trustee_name" required placeholder="trustee_name">
-                        </div>
-                        <div class="form-group">
-                           <label for="date_registered">Date registered</label>
-                           <input type="date" class="form-control" name="date_registered" [(ngModel)]="addIncomingTrusteeModel.date_registered" id="date_registered" placeholder="Date of incorporation" #date_registered="ngModel" [class.is-invalid]="date_registered.invalid && date_registered.touched"  [(ngModel)]="addTrustModel.date_registered" required>
-                        </div>
-                        <div class="form-group">
-                           <label for="endorsement_date">Endorsement date</label>
-                           <input type="date" class="form-control" name="endorsement_date" [(ngModel)]="addIncomingTrusteeModel.endorsement_date" id="endorsement_date" placeholder="Endorsement Date" #endorsement_date="ngModel" [class.is-invalid]="endorsement_date.invalid && endorsement_date.touched"  [(ngModel)]="addIncomingTrusteeModel.endorsement_date" required>
-                        </div>
-                        <div class="form-group">
-                           <label for="active">Active?</label>
-                           <select class="custom-select" name="active" [(ngModel)]="addIncomingTrusteeModel.status" id="active" required>
-                           <option value="">Choose...</option>
-                           <option *ngFor="let status of statuses">{{ status }}</option>
-                           </select>
-                        </div>
-                        <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelthree()" *ngIf="!trustee_id">Create</button>
-                        <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-success" (click)="updateLevelthree()" *ngIf="trustee_id">Update</button>
+                           <!-- <div class="form-group">
+                              <label>Trust</label>
+                              <ng-select [searchable]="true" [clearable]="true" name="trust" [(ngModel)]="addIncomingTrusteeModel.trust"
+                              [ngClass]="{ 'is-invalid': documenttypeformstatus &amp;&amp; incomingTrusteeForm.controls.trust.errors }" (change)="TrustClickedGetOne()">
+                                 <ng-option [value]="trust.id" *ngFor="let trust of levelone">
+                                 {{ trust.trust_name }}
+                                 </ng-option>
+                              </ng-select>
+                              <error-message [control]="incomingTrusteeForm.controls.trust" *ngIf="documenttypeformstatus">
+                              </error-message>
+                           </div> -->
+                           <div class="form-group">
+                              <label for="trust">Trust</label>
+                              <input type="text" class="form-control" name="trust" #trust="ngModel" [class.is-invalid]="trust.invalid && trust.touched"  [(ngModel)]="addIncomingTrusteeModel.trust" id="trust" required placeholder="trust" readonly>
+                              <input type="hidden" class="form-control" name="trust_id" #trust_id="ngModel" [(ngModel)]="addIncomingTrusteeModel.trust_id" id="trust_id" required readonly>
+                           </div>
+                           <div class="form-group">
+                              <label for="ps_number">Trustee name</label>
+                              <input type="text" class="form-control" name="trustee_name" #trustee_name="ngModel" [class.is-invalid]="trustee_name.invalid && trustee_name.touched"  [(ngModel)]="addIncomingTrusteeModel.trustee_name" id="trustee_name" required placeholder="trustee_name">
+                           </div>
+                           <div class="form-group">
+                              <label for="endorsement_date">Endorsement date</label>
+                              <input type="date" class="form-control" name="endorsement_date" [(ngModel)]="addIncomingTrusteeModel.endorsement_date" id="endorsement_date" placeholder="Endorsement Date" #endorsement_date="ngModel" [class.is-invalid]="endorsement_date.invalid && endorsement_date.touched"  [(ngModel)]="addIncomingTrusteeModel.endorsement_date" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="date_registered">Date registered</label>
+                              <input type="date" class="form-control" name="date_registered" [(ngModel)]="addIncomingTrusteeModel.date_registered" id="date_registered" placeholder="Date of incorporation" #date_registered="ngModel" [class.is-invalid]="date_registered.invalid && date_registered.touched"  [(ngModel)]="addTrustModel.date_registered" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="active">Active?</label>
+                              <select class="custom-select" name="active" [(ngModel)]="addIncomingTrusteeModel.status" id="active" required>
+                                 <option value="True">Yes</option>
+                                 <option value="False">No</option>
+                              </select>
+                           </div>
+                           <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelthree()" *ngIf="!trustee_id"><i class="fa fa-bolt" aria-hidden="true"></i> Save</button>
+                           <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-success" (click)="updateLevelthree()" *ngIf="trustee_id"><i class="fa fa-bolt" aria-hidden="true"></i> Update</button>
+                           <button [disabled]="incomingTrusteeForm.form.invalid" type="submit" class="btn btn-warning" (click)="cancelUpdateLevelthree();incomingTrusteeForm.controls['endorsement_date'].reset();incomingTrusteeForm.controls['date_registered'].reset();incomingTrusteeForm.controls['trustee_name'].reset()" *ngIf="trustee_id"><i class="fa fa-bolt" aria-hidden="true"></i> Cancel</button>
                         </form>
                      </div>
                   </div> <!--end card-->
                   <!-- Incoming members -->
-                  <div class="card" *ngIf="trustSelected && trustSelected.length && showOutgoing == 'incoming'">
+                  <!-- <div class="card" *ngIf="trustSelected && trustSelected.length && showOutgoing == 'incoming'"> -->
+                  <div class="card" *ngIf="trustSelected && trustSelected.length">
                      <div class="card-header">
                         <span *ngIf='trustName'>{{trustName}} | </span> Current Members 
                      </div>
@@ -300,48 +410,72 @@
                         Add Outgoing Trustees
                      </div>
                      <div class="card-body">
-                        <form #outgoingGetForm="ngForm" novalidate >
+                        <form #searchPsno="ngForm" novalidate (ngSubmit)="searchPsNumber()">
+                           <div class="row">
+                              <div class="col-sm-12 col-md-8 col-lg-8 offset-md-4">
+                                 <div class="input-group">
+                                    <div class="input-group-prepend">
+                                       <span class="input-group-text">
+                                          <i class="fa fa-search"></i>
+                                       </span>
+                                    </div>
+                                    <input class="form-control" placeholder="Search Ps Number" type="text" [(ngModel)]='ps_no' name="ps_no" required>
+                                    <button [disabled]="searchPsno.form.invalid" class="btn btn-sm btn-success" type="submit">Search</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </form>
+                        <br>
+                        <!-- <form #outgoingGetForm="ngForm" novalidate >
                            <div class="form-group">
                               <label>Select Trust</label>
                               <ng-select [searchable]="true" [clearable]="true" name="ps_number" [(ngModel)]="addTrustModel.ps_number"
                               [ngClass]="{ 'is-invalid': documenttypeformstatus &amp;&amp; incomingTrusteeForm.controls.trust.errors }" (change)="TrustClickedGet()">
-                              <ng-option [value]="trust.id" *ngFor="let trust of levelone" >
-                              {{ trust.trust_name }}
-                              </ng-option>
+                                 <ng-option [value]="trust.id" *ngFor="let trust of levelone" >
+                                    {{ trust.trust_name }}
+                                 </ng-option>
                               </ng-select>
                               <error-message [control]="outgoingGetForm.controls.ps_number" *ngIf="documenttypeformstatus">
                               </error-message>
                            </div>
                         </form>
-                        <br>
-                        <form #outgoingTrusteeForm="ngForm" novalidate (ngSubmit)="outgoingTrusteeForm.controls['trustee_name'].reset(); outgoingTrusteeForm.controls['replaced_by'].reset(); outgoingTrusteeForm.controls['date_deregistered'].reset()">
-                        <div class="form-group">
-                           <label for="active">Outgoing Trustee</label>
-                           <ng-select [searchable]="true" [clearable]="true" name="trustee_name" [(ngModel)]="addOutgoingTrusteeModel.trustee_name"
-                           [ngClass]="{ 'is-invalid': documenttypeformtrustee_name &amp;&amp; outgoingTrusteeForm.controls.trustee_name.errors }">
-                           <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
-                           {{ trustee.trustee_name }}
-                           </ng-option>
-                           </ng-select>
-                           <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
-                           </error-message>
-                        </div>
-                        <div class="form-group">
-                           <label for="active">Incoming Trustee</label>
-                           <ng-select [searchable]="true" [clearable]="true" name="replaced_by" [(ngModel)]="addOutgoingTrusteeModel.replaced_by"
-                           [ngClass]="{ 'is-invalid': documenttypeformreplaced_by &amp;&amp; outgoingTrusteeForm.controls.replaced_by.errors }">
-                           <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
-                           {{ trustee.trustee_name }}
-                           </ng-option>
-                           </ng-select>
-                           <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
-                           </error-message>
-                        </div>
-                        <div class="form-group">
-                           <label for="date_registered">Date deregistered</label>
-                           <input type="date" class="form-control" name="date_deregistered" [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" id="date_deregistered" placeholder="Date deregistered" #date_deregistered="ngModel" [class.is-invalid]="date_deregistered.invalid && date_deregistered.touched"  [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" required>
-                        </div>
-                        <button [disabled]="outgoingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelfour()">Create</button>
+                        <br> -->
+                        <form #outgoingTrusteeForm="ngForm" novalidate (ngSubmit)="outgoingTrusteeForm.controls['trustee_name'].reset();outgoingTrusteeForm.controls['date_deregistered'].reset()">
+                           <div class="form-group">
+                              <label for="trust">Trust</label>
+                              <input type="text" class="form-control" name="trust" #trust="ngModel" [class.is-invalid]="trust.invalid && trust.touched"  [(ngModel)]="createdTrustName" id="trust" required placeholder="trust" readonly>
+                              <input type="hidden" class="form-control" name="trust_id" #trust_id="ngModel" [(ngModel)]="addOutgoingTrusteeModel.trust_id" id="trust_id" required readonly>
+                           </div>
+                           <div class="form-group">
+                              <label for="active">Outgoing Trustee</label>
+                              <ng-select [searchable]="true" [clearable]="true" name="trustee_name" [(ngModel)]="addOutgoingTrusteeModel.trustee_name"
+                              [ngClass]="{ 'is-invalid': documenttypeformtrustee_name &amp;&amp; outgoingTrusteeForm.controls.trustee_name.errors }">
+                                 <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
+                                    {{ trustee.trustee_name }}
+                                 </ng-option>
+                              </ng-select>
+                              <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
+                              </error-message>
+                           </div>
+                           <!-- <div class="form-group">
+                              <label for="active">Incoming Trustee</label>
+                              <ng-select [searchable]="true" [clearable]="true" name="replaced_by" [(ngModel)]="addOutgoingTrusteeModel.replaced_by"
+                              [ngClass]="{ 'is-invalid': documenttypeformreplaced_by &amp;&amp; outgoingTrusteeForm.controls.replaced_by.errors }">
+                              <ng-option [value]="trustee.id" *ngFor="let trustee of trustActiveSelected" >
+                              {{ trustee.trustee_name }}
+                              </ng-option>
+                              </ng-select>
+                              <error-message [control]="outgoingTrusteeForm.controls.replaced_by" *ngIf="documenttypeformreplaced_by">
+                              </error-message>
+                           </div> -->
+                           <div class="form-group">
+                              <label for="date_registered">Date deregistered</label>
+                              <input type="date" class="form-control" name="date_deregistered" [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" id="date_deregistered" placeholder="Date deregistered" #date_deregistered="ngModel" [class.is-invalid]="date_deregistered.invalid && date_deregistered.touched"  [(ngModel)]="addOutgoingTrusteeModel.date_deregistered" required>
+                           </div>
+                           <button [disabled]="outgoingTrusteeForm.form.invalid" type="submit" class="btn btn-primary" (click)="createLevelfour()">
+                              <i class="fa fa-bolt" aria-hidden="true"></i> 
+                              Save
+                           </button>
                         </form>
                      </div>
                   </div>
@@ -465,7 +599,7 @@
                               <div class="col-sm-12 col-md-6 col-lg-6" >
                                  <button type="submit" class="btn btn-success col-md-12" (click)="createComments()" [disabled]="remarksForm.form.invalid">
                                  <i class="fa fa-check fa-1x"></i>
-                                 Submit</button>
+                                 <i class="fa fa-bolt" aria-hidden="true"></i> Submit</button>
                               </div>
                            </div>
                         </form>
@@ -477,763 +611,82 @@
       </div>
       <!-- 2nd column -->
       <div class="col-sm">
-         <div class="card">
-            <div class="card-header">
-               Document Preview
-            </div>
-            <div class="card-body">
-               <div class="content">
-                  <div class="body">
-                     <div class="col-md-12" *ngIf="document_url != null"> 
-                        <iframe [src]="document_url | safe" frameborder="0" width="100%" height="660px" allowfullscreen></iframe>
-                     </div>
-                     <div class="col-md-12 text-center" *ngIf="document_url == null"> 
-                        <small class="text-primary">Waiting for document...</small>
-                        <p></p>
-                        <p class="loader"></p> 
-                        <style>
-                           .loader {
-                              border: 16px solid #f3f3f3; /* Light grey */
-                              border-top: 16px solid #3498db; /* Blue */
-                              border-radius: 50%;
-                              width: 120px;
-                              height: 120px;
-                              animation: spin 30s linear infinite;
-                              margin-left: auto;
-                              margin-right: auto;
-                           }
-
-                           @keyframes spin {
-                              0% { transform: rotate(0deg); }
-                              100% { transform: rotate(360deg); }
-                           }
-                        </style>
-                     </div>
-                  </div>
-               </div>
-
-
-
-
-
-
-
-
-
-
-
-               <!-- 
-                  <span>
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" bsmodal="" class="modal fade" role="dialog" tabindex="-1">
-                        <div class="modal-dialog modal-success  modal-lg" role="document">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                <h4 class="modal-title">Document Preview</h4>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <h4 class="modal-title">Document Type: <span style="color: red;"></span> </h4>
-                                <button aria-label="Close" class="close" type="button">
-                                <span aria-hidden="true">×</span>
-                                </button>
+         <ngb-tabset [destroyOnHide]="false">
+            <ngb-tab title="Register Index Preview">
+                <ng-template ngbTabContent class="create-register">                  
+                   <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                        <ngb-panel title="Index Preview">
+                           <ng-template ngbPanelContent>
+                              
+                              <div class="col-md-12" *ngIf="document_url != null"> 
+                                 <iframe [src]="document_url | safe" frameborder="0" width="100%" height="660px" allowfullscreen></iframe>
                               </div>
-                              <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                      <iframe allowfullscreen="" frameborder="0" height="600px" width="100%" src="undefined"></iframe>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="scroll">
-                                          <div>
-                                            <app-dynamic-form>
-                                                <form class="dynamic-form" novalidate="" >
-                                                </form>
-                                            </app-dynamic-form>
-                                          </div>
-                                          <div hidden="">
-                                            <dynamic-nested-form>
-                                                <div class="overflow-auto">
-                                                  <form class="filter-form" novalidate="">
-                                                      <div class="card">
-                                                        <div class="card-header">
-                                                            Document Type Name :           
-                                                        </div>
-                                                        <div class="card-body">
-                                                        </div>
-                                                      </div>
-                                                  </form>
-                                                </div>
-                                            </dynamic-nested-form>
-                                          </div>
-                                      </div>
-                                    </div>
-                                </div>
+                              <div class="col-md-12 text-center" *ngIf="document_url == null"> 
+                                 <small class="text-primary">Waiting for document...</small>
+                                 <p></p>
+                                 <p class="loader"></p> 
+                                 <style>
+                                    .loader {
+                                       border: 16px solid #f3f3f3; /* Light grey */
+                                       border-top: 16px solid #3498db; /* Blue */
+                                       border-radius: 50%;
+                                       width: 120px;
+                                       height: 120px;
+                                       animation: spin 30s linear infinite;
+                                       margin-left: auto;
+                                       margin-right: auto;
+                                    }
+
+                                    @keyframes spin {
+                                       0% { transform: rotate(0deg); }
+                                       100% { transform: rotate(360deg); }
+                                    }
+                                 </style>
                               </div>
-                              <div class="modal-footer">
+                                    
+                           </ng-template>
+                        </ngb-panel>                        
+                        <!-- end card 1 -->
+                        <!-- start card 2 -->
+                        <ngb-panel>
+                           <ng-template ngbPanelTitle>
+                              Trust Document Preview
+                           </ng-template>
+                           <ng-template ngbPanelContent>
+                              
+                              <div class="col-md-12" *ngIf="uploaded_file_url != null"> 
+                                 <iframe [src]="uploaded_file_url | safe" frameborder="0" width="100%" height="660px" allowfullscreen></iframe>
                               </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="animated fadeIn">
-                        <div class="card">
-                          <div class="card-header">
-                              <strong>Data Cleaning Check List</strong>
-                          </div>
-                          <div class="card-body">
-                              <tabset class="tab-container">
-                                <div  class="tab-content">
-                                    <tab heading="Search By File Number" ng-reflect-heading="Search By File Number" class="active tab-pane" role="tabpanel" aria-labelledby="">
-                                      <form novalidate="">
-                                          <div class="row">
-                                            <div class="form-group col-sm-12 col-md-4 col-lg-4">
-                                                <label for="country">File Number</label>
-                                                <input class="form-control" formcontrolname="search_value" placeholder="Enter File Number" type="text" ng-reflect-name="search_value">
-                                            </div>
-                                            <div class="form-group col-sm-12 col-md-4 col-lg-4">
-                                                <label for="country">&nbsp;&nbsp;</label>
-                                                <button class="btn form-control  btn-success btn-md " type="button"> <i class="fa fa-search"></i> Search </button>
-                                            </div>
-                                          </div>
-                                      </form>
-                                      <div>
-                                          <ngb-alert class="alert alert-warning" role="alert" type="warning" ng-reflect-dismissible="false" ng-reflect-type="warning">
-                                            <strong>
-                                                <p>
-                                                  File Number :
-                                                  <strong>
-                                                  </strong>
-                                                </p>
-                                                <p>
-                                                  Cleaning File Status :
-                                                  <strong>
-                                                  </strong>
-                                                </p>
-                                            </strong>
-                                          </ngb-alert>
-                                      </div>
-                                    </tab>
-                                    <tab heading="File Entry Details" ng-reflect-heading="File Entry Details" class="tab-pane" role="tabpanel" aria-labelledby="">
-                                      <div class="row">
-                                          <div class="col-sm-4 col-md-4 col-lg-4">
-                                            <label>&nbsp;</label>
-                                            <button class="btn btn-primary col-md-12" type="button">
-                                            <i class="fa fa-cog fa-1x"></i>
-                                            Fetch File records</button>
-                                          </div>
-                                          <div class="col-sm-4 col-md-4 col-lg-4 offset-md-4">
-                                            <label>&nbsp;</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                </div>
-                                                <input class="form-control" placeholder="Search Here" type="text">
-                                            </div>
-                                          </div>
-                                      </div>
-                                      <br>
-                                      <div class="table-responsive">
-                                          <table class="table table-bordered table-striped table-sm row-border hover" style="width:100%" ng-reflect-input-data="" ng-reflect-rows-on-page="10">
-                                            <thead>
-                                                <tr>
-                                                  <th>#</th>
-                                                  <th>File Number</th>
-                                                  <th>Document Type</th>
-                                                  <th> Status</th>
-                                                  <th> Uploaded By</th>
-                                                  <th>File Name</th>
-                                                  <th>Validated By</th>
-                                                  <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                  <td colspan="12">
-                                                      Select Records in a page : 
-                                                      <span ng-reflect-rows-on-page-set="5,10,25,100,1000,10000">
-                                                        <p>
-                                                        </p>
-                                                      </span>
-                                                  </td>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                <tr>
-                                                  <td class="no-data-available" colspan="9">No records to show</td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody>
-                                            </tbody>
-                                          </table>
-                                      </div>
-                                    </tab>
-                                    <tab heading="Document Captured Preview" ng-reflect-heading="Document Captured Preview" class="tab-pane" role="tabpanel" aria-labelledby="">
-                                      <div class="card-body">
-                                          <div class="row">
-                                            <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
-                                                <div class="input-group">
-                                                  <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                  </div>
-                                                  <input class="form-control" placeholder="Search Here" type="text">
-                                                </div>
-                                            </div>
-                                          </div>
-                                          <div class="table-responsive">
-                                            <table class="table table-bordered table-sm  table-striped row-border hover" style="width:100%" ng-reflect-input-data="" ng-reflect-rows-on-page="10">
-                                                <thead>
-                                                  <tr>
-                                                      <th>#</th>
-                                                      <th>File Number</th>
-                                                      <th>Folio Number</th>
-                                                      <th>Action</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                      <td class="no-data-available" colspan="9">No records to show</td>
-                                                  </tr>
-                                                </tbody>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                          </div>
-                                          <hr>
-                                          <div class="comments_section">
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
-                                                  <div class="input-group">
-                                                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                      </div>
-                                                      <input class="form-control" placeholder="Search Here" type="text">
-                                                  </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-sm table-hover row-border" style="width:100%" ng-reflect-input-data="" ng-reflect-rows-on-page="10">
-                                                  <thead>
-                                                      <tr>
-                                                        <th style="width: 10%">
-                                                            #
-                                                        </th>
-                                                        <th style="width: 20%">
-                                                            <span by="type_category.name" ng-reflect-sort-by="type_category.name">
-                                                            <a class="text-nowrap" style="cursor: pointer">
-                                                            Comments 
-                                                            </a></span>
-                                                        </th>
-                                                        <th style="width: 20%">
-                                                            <span by="type_category.name" ng-reflect-sort-by="type_category.name">
-                                                            <a class="text-nowrap" style="cursor: pointer">
-                                                            Commented By 
-                                                            </a></span>
-                                                        </th>
-                                                        <th style="width: 20%">
-                                                            <span by="type_category.name" ng-reflect-sort-by="type_category.name">
-                                                            <a class="text-nowrap" style="cursor: pointer">
-                                                            Commented Date 
-                                                            </a></span>
-                                                        </th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tfoot>
-                                                      <tr>
-                                                        <td colspan="12">
-                                                            Select Records in a page : 
-                                                            <span ng-reflect-rows-on-page-set="5,10,25,100,1000">
-                                                              <p>
-                                                              </p>
-                                                            </span>
-                                                        </td>
-                                                      </tr>
-                                                  </tfoot>
-                                                  <tbody>
-                                                      <tr>
-                                                        <td class="no-data-available" colspan="9">No Comments to show</td>
-                                                      </tr>
-                                                  </tbody>
-                                                  <tbody>
-                                                  </tbody>
-                                                </table>
-                                            </div>
-                                          </div>
-                                          <div class="card">
-                                            <div class="card-header">
-                                                <strong>New Comment Section</strong>
-                                            </div>
-                                            <div class="card-body">
-                                                <form novalidate="">
-                                                  <div class="row col-md-12">
-                                                      <div class="form-group col-sm-6">
-                                                        <label>Remarks</label>
-                                                        <textarea class="form-control" formcontrolname="remarks" ng-reflect-name="remarks">
-                                                        </textarea>
-                                                      </div>
-                                                      <div class="form-group col-sm-6">
-                                                        <label for="lastname">&nbsp;</label>
-                                                        <button class="btn btn-success col-sm-12" type="submit"> Submit</button>
-                                                      </div>
-                                                  </div>
-                                                </form>
-                                            </div>
-                                          </div>
-                                      </div>
-                                    </tab>
-                                    <tab heading="Document Types Data Capture" ng-reflect-heading="Document Types Data Capture" class="tab-pane" role="tabpanel" aria-labelledby="">
-                                      <form novalidate="">
-                                          <div class="row">
-                                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                                <label>Document Type</label>
-                                                <ng-select formcontrolname="document_type" name="document_type" role="listbox" ng-reflect-ng-class="[object Object]" ng-reflect-searchable="true" ng-reflect-clearable="true" ng-reflect-name="document_type" class="ng-select ng-select-single ng-select-searchable ng-select-clearable">
-                                                  <div class="ng-select-container ng-has-value">
-                                                      <div class="ng-value-container">
-                                                        <div class="ng-placeholder"></div>
-                                                        <div class="ng-value">
-                                                            <span aria-hidden="true" class="ng-value-icon left">×</span>
-                                                            <span class="ng-value-label" ng-reflect-ng-item-label="" ng-reflect-escape="false"></span>
-                                                        </div>
-                                                        <div class="ng-input">
-                                                            <input role="combobox" type="text" autocorrect="off" autocapitalize="off" autocomplete="ad2bae12fa31" aria-expanded="false">
-                                                        </div>
-                                                      </div>
-                                                      <span class="ng-clear-wrapper" title="Clear all">
-                                                      <span aria-hidden="true" class="ng-clear">×</span>
-                                                      </span>
-                                                      <span class="ng-arrow-wrapper">
-                                                      <span class="ng-arrow"></span>
-                                                      </span>
-                                                  </div>
-                                                </ng-select>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                                <label>Is Validated</label>
-                                                <select class="form-control" formcontrolname="validity_status" ng-reflect-klass="form-control" ng-reflect-ng-class="[object Object]" ng-reflect-name="validity_status">
-                                                  <option value="YES" ng-reflect-value="YES">
-                                                      YES
-                                                  </option>
-                                                  <option value="NO" ng-reflect-value="NO">
-                                                      NO
-                                                  </option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                                <label>&nbsp;</label>
-                                                <div>
-                                                  <button class="btn btn-primary col-md-12" type="button">
-                                                  <i class="fa fa-plus fa-1x"></i>
-                                                  Add Record</button>
-                                                </div>
-                                            </div>
-                                          </div>
-                                      </form>
-                                      <div class="row">
-                                          <div class="container" style="margin-top: 5%">
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
-                                                  <div class="input-group">
-                                                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                      </div>
-                                                      <input class="form-control" placeholder="Search Here" type="text">
-                                                  </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                          </div>
-                                      </div>
-                                      <br>
-                                      <div class="table-responsive">
-                                          <table class="table table-striped table-bordered  table-sm table-hover row-border" ng-reflect-input-data="" ng-reflect-rows-on-page="10">
-                                            <thead>
-                                                <tr>
-                                                  <th>#</th>
-                                                  <th>Document Type</th>
-                                                  <th>Document Status</th>
-                                                  <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                  <td colspan="12">
-                                                      Select Records in a page : 
-                                                      <span ng-reflect-rows-on-page-set="5,10,25">
-                                                        <p>
-                                                        </p>
-                                                      </span>
-                                                  </td>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                <tr>
-                                                  <td class="no-data-available" colspan="9">No records to show</td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody>
-                                            </tbody>
-                                          </table>
-                                      </div>
-                                    </tab>
-                                    <tab heading="Parcel Information" class="tab-pane" role="tabpanel" aria-labelledby="">
-                                      <div class="card">
-                                          <div class="card-header">
-                                            Parcel Information
-                                          </div>
-                                          <div class="card-body">
-                                            <form novalidate="">
-                                                <div class="row">
-                                                  <div class="col-sm-12 col-md-3 col-lg-3">
-                                                      <label>Parcel Numbering Type</label>
-                                                      <select class="form-control" formcontrolname="parcel_numbering_type">
-                                                        <option value="">--Select Parcel Numbering Type--</option>
-                                                        <option value="BLOCK_NUMBER">
-                                                            BLOCK_NUMBER
-                                                        </option>
-                                                        <option value="PLOT_NUMBER">
-                                                            PLOT_NUMBER
-                                                        </option>
-                                                        <option value="PARCEL_NUMBER">
-                                                            PARCEL_NUMBER
-                                                        </option>
-                                                        <option value="LR_NUMBER">
-                                                            LR_NUMBER
-                                                        </option>
-                                                        <option value="IR">
-                                                            IR
-                                                        </option>
-                                                      </select>
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-3 col-lg-3">
-                                                      <label>Parcel Prefix</label>
-                                                      <input class="form-control" formcontrolname="parcel_prefix">
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-3 col-lg-3">
-                                                      <label>Block Number</label>
-                                                      <input class="form-control" formcontrolname="block_number">
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-3 col-lg-3">
-                                                      <label>Parcel Number</label>
-                                                      <input class="form-control" formcontrolname="parcel_number" type="text">
-                                                  </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                  <div class="col-sm-12 col-md-4 col-lg-4">
-                                                      <label>File Number</label>
-                                                      <input class="form-control" formcontrolname="file_number" readonly="">
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-4 col-lg-4">
-                                                      <label>Parcel Ownership Type</label>
-                                                      <select class="form-control" formcontrolname="parcel_owner_type">
-                                                        <option value="SOLE">
-                                                            SOLE
-                                                        </option>
-                                                        <option value="JOINT">
-                                                            JOINT
-                                                        </option>
-                                                        <option value="COMMON">
-                                                            TENANCY IN COMMON
-                                                        </option>
-                                                      </select>
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-4 col-lg-4">
-                                                      <label>Parcel Status</label>
-                                                      <select class="form-control" formcontrolname="parcel_status">
-                                                        <option value="ACTIVE">
-                                                            Active
-                                                        </option>
-                                                        <option value="REVOKED">
-                                                            Revoked
-                                                        </option>
-                                                        <option value="CANCELLED">
-                                                            Cancelled
-                                                        </option>
-                                                        <option value="SUSPENDED">
-                                                            Suspended
-                                                        </option>
-                                                      </select>
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-4 col-lg-4">
-                                                      <label>&nbsp;</label>
-                                                      <div>
-                                                        <button class="btn btn-primary col-md-12" type="button">
-                                                        <i class="fa fa-plus fa-1x"></i>
-                                                        Create </button>
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                            </form>
-                                          </div>
-                                      </div>
-                                      <div>
-                                          <div class="card">
-                                            <div class="card-header">
-                                                Ownership Details
-                                            </div>
-                                            <div class="card-body">
-                                                <form novalidate="">
-                                                  <div class="row">
-                                                      <div class="col-sm-12 col-md-4 col-lg-4">
-                                                        <label>System</label>
-                                                        <select class="form-control" formcontrolname="parcel_system">
-                                                            <option value="EDMS">
-                                                              EDMS
-                                                            </option>
-                                                            <option value="LIMS">
-                                                              LIMS
-                                                            </option>
-                                                        </select>
-                                                      </div>
-                                                      <div class="col-sm-12 col-md-4 col-lg-4">
-                                                        <label>Entity Type</label>
-                                                        <select class="form-control" formcontrolname="entity_type">
-                                                            <option value="" ng-reflect-value="">-- Entity Type--</option>
-                                                            <option value="INDIVIDUAL">
-                                                              INDIVIDUAL
-                                                            </option>
-                                                            <option value="FOUNDATION">
-                                                              FOUNDATION
-                                                            </option>
-                                                            <option value="COMPANY">
-                                                              COMPANY
-                                                            </option>
-                                                            <option value="MINISTRY">
-                                                              MINISTRY
-                                                            </option>
-                                                            <option value="PARASTATAL">
-                                                              PARASTATAL
-                                                            </option>
-                                                            <option value="AGENCIES">
-                                                              AGENCIES
-                                                            </option>
-                                                        </select>
-                                                      </div>
-                                                      <div class="col-sm-12 col-md-4 col-lg-4">
-                                                        <label>Ownership Rights</label>
-                                                        <select class="form-control" formcontrolname="ownership_rights">
-                                                            <option value="" ng-reflect-value="">-- Select Ownership Rights--</option>
-                                                            <option value="ADMINISTRATOR">
-                                                              ADMINISTRATOR
-                                                            </option>
-                                                            <option value="BENEFICIARY">
-                                                              BENEFICIARY
-                                                            </option>
-                                                            <option value="PROPRIETORSHIP">
-                                                              PROPRIETORSHIP
-                                                            </option>
-                                                            <option value="TRUSTEE">
-                                                              TRUSTEE
-                                                            </option>
-                                                            <option value="LIQUIDATOR">
-                                                              LIQUIDATOR
-                                                            </option>
-                                                        </select>
-                                                      </div>
-                                                  </div>
-                                                  <div class="row">
-                                                      <div class="col-sm-12 col-md-4 col-lg-4">
-                                                        <label>Owner Identification Type</label>
-                                                        <select class="form-control" formcontrolname="owner_identification_type" >
-                                                            <option>
-                                                              Select Owner Identification Type
-                                                            </option>
-                                                            <option value="NATIONAL_ID">
-                                                              National Identification Number
-                                                            </option>
-                                                            <option value="PASSPORT">
-                                                              Passport
-                                                            </option>
-                                                            <option value="BUSINESS_REGISTRATION_NUMBER">
-                                                              Business Registration Number
-                                                            </option>
-                                                            <option value="NOT_AVAILABLE">
-                                                              NOT AVAILABLE
-                                                            </option>
-                                                        </select>
-                                                      </div>
-                                                      <div class="col-sm-12 col-md-4 col-lg-4">
-                                                        <label>Owner Identification Number </label>
-                                                        <input class="form-control" formcontrolname="owner_identification_number">     
-                                                      </div>
-                                                      <div class="col-sm-12 col-md-4 col-lg-4">
-                                                        <label>Parcel Owner Name</label>
-                                                        <input class="form-control" formcontrolname="owner_name">       
-                                                      </div>
-                                                  </div>
-                                                  <div class="row">
-                                                      <div class="col-sm-4 col-md-2 col-lg-2">
-                                                      </div>
-                                                      <div class="col-sm-4 col-md-2 col-lg-2">
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-4 col-lg-4">
-                                                      <label>&nbsp;</label>
-                                                      <div>
-                                                        <button class="btn btn-primary col-md-12" type="button">
-                                                        <i class="fa fa-plus fa-1x"></i>
-                                                        Add Record</button>
-                                                      </div>
-                                                  </div>
-                                                </form>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
-                                                  <div class="input-group">
-                                                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                      </div>
-                                                      <input class="form-control" placeholder="Search Here" type="text">
-                                                  </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered  table-sm table-hover">
-                                                  <thead>
-                                                      <tr>
-                                                        <th>#</th>
-                                                        <th>Parcel System</th>
-                                                        <th>Identification Type</th>
-                                                        <th>Identification Number</th>
-                                                        <th>Owner's Name</th>
-                                                        <th>Action</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tfoot>
-                                                      <tr>
-                                                        <td colspan="12">
-                                                            Select Records in a page : 
-                                                            <span ng-reflect-rows-on-page-set="5,10,25">
-                                                              <p>
-                                                              </p>
-                                                            </span>
-                                                        </td>
-                                                      </tr>
-                                                  </tfoot>
-                                                  <tbody>
-                                                      <tr>
-                                                        <td class="no-data-available" colspan="9">No records to show</td>
-                                                      </tr>
-                                                  </tbody>
-                                                  <tbody>
-                                                  </tbody>
-                                                </table>
-                                            </div>
-                                          </div>
-                                      </div>
-                                    </tab>
-                                    <tab heading="Document Submission" class="tab-pane" role="tabpanel" aria-labelledby="">
-                                      <div class="card">
-                                          <div class="card-header">
-                                            File Comments
-                                          </div>
-                                          <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-4 col-lg-4 offset-md-8">
-                                                  <div class="input-group">
-                                                      <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                      </div>
-                                                      <input class="form-control" placeholder="Search Here" type="text">
-                                                  </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered  table-sm table-hover">
-                                                  <thead>
-                                                      <tr>
-                                                        <th>#</th>
-                                                        <th>Comment</th>
-                                                        <th>Username</th>
-                                                        <th>Full Names</th>
-                                                        <th>Comment Date</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tfoot>
-                                                      <tr>
-                                                        <td colspan="12">
-                                                            Select Records in a page : 
-                                                            <span ng-reflect-rows-on-page-set="5,10,25,100,500,1000,1000,1000">
-                                                              <p>
-                                                              </p>
-                                                            </span>
-                                                        </td>
-                                                      </tr>
-                                                  </tfoot>
-                                                  <tbody>
-                                                      <tr>
-                                                        <td class="no-data-available" colspan="9">No records to show</td>
-                                                      </tr>
-                                                  </tbody>
-                                                  <tbody>
-                                                  </tbody>
-                                                </table>
-                                            </div>
-                                          </div>
-                                      </div>
-                                      <div class="card">
-                                          <div class="card-header">
-                                            Document Action
-                                          </div>
-                                          <div class="card-body">
-                                            <form novalidate="">
-                                                <div class="row">
-                                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                                      <label>Status</label>
-                                                      <select class="form-control" formcontrolname="general_status">
-                                                        <option value="DATA_CLEANING">
-                                                            DATA_CLEANING
-                                                        </option>
-                                                        <option value="DATA_CLEANING_METADATA_CAPTURE">
-                                                            DATA_CLEANING_METADATA_CAPTURE
-                                                        </option>
-                                                        <option value="PENDING">
-                                                            PENDING
-                                                        </option>
-                                                        <option value="PENDING_LIMS_CONFIRMATION">
-                                                            PENDING_LIMS_CONFIRMATION
-                                                        </option>
-                                                        <option value="AWAITING_CONFIRMATION">
-                                                            AWAITING_CONFIRMATION
-                                                        </option>
-                                                        <option value="DATA_AUDIT">
-                                                            DATA_AUDIT
-                                                        </option>
-                                                        <option value="AWAITING_MEETING_APPROVAL">
-                                                            AWAITING_MEETING_APPROVAL
-                                                        </option>
-                                                        <option value="APPROVED">
-                                                            APPROVED
-                                                        </option>
-                                                        <option value="FINAL_APPROVAL">
-                                                            FINAL APPROVAL
-                                                        </option>
-                                                        <option value="FILE_REOPENED">
-                                                            FILE_REOPENED
-                                                        </option>
-                                                        <option value="REJECTED">
-                                                            REJECTED
-                                                        </option>
-                                                      </select>
-                                                  </div>
-                                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                                      <label>General Remarks</label>
-                                                      <textarea class="form-control" formcontrolname="remarks"> </textarea>
-                                                  </div>
-                                                </div>
-                                                <br>
-                                                <div class="row">
-                                                  <div class="col-sm-12 col-md-6 col-lg-6">
-                                                      <button class="btn btn-success col-md-12" type="submit">
-                                                      <i class="fa fa-check fa-1x"></i>
-                                                      Submit</button>
-                                                  </div>
-                                                </div>
-                                            </form>
-                                          </div>
-                                      </div>
-                                    </tab>
-                                </div>
-                              </tabset>
-                          </div>
-                        </div>
-                    </div>
-                  </span> -->
-            </div>
-         </div>
+                              <div class="col-md-12 text-center" *ngIf="uploaded_file_url == null"> 
+                                 <small class="text-primary">Waiting for document...</small>
+                                 <p></p>
+                                 <p class="loader"></p> 
+                                 <style>
+                                    .loader {
+                                       border: 16px solid #f3f3f3; /* Light grey */
+                                       border-top: 16px solid #3498db; /* Blue */
+                                       border-radius: 50%;
+                                       width: 120px;
+                                       height: 120px;
+                                       animation: spin 30s linear infinite;
+                                       margin-left: auto;
+                                       margin-right: auto;
+                                    }
+
+                                    @keyframes spin {
+                                       0% { transform: rotate(0deg); }
+                                       100% { transform: rotate(360deg); }
+                                    }
+                                 </style>
+                              </div>
+                                     
+                              <!-- end card 2 -->
+                           </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
       </div>
    </div>
 </div>
