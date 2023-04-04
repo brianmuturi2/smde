@@ -1,10 +1,8 @@
 
-## EDMS-UI
+## SMDE-UI
 
-EDMS is built ontop of Angular9 and bootstrap4 framework.
-The Application Provides an Interface to an easy Electronic Document Management System
-* 💪Dubbed as the chariot
-* 💪Digitization Steroid
+SMDE is built ontop of Angular9 and bootstrap4 framework.
+The Application Provides an Interface to an easy Management System
 
 
 ## Installation
@@ -13,7 +11,6 @@ The Application Provides an Interface to an easy Electronic Document Management 
 
 ``` bash
 # clone the repo
-$ git clone https://gitlab.com/africancoder/chariot.git my-project
 
 # go into app's directory
 $ cd my-project
@@ -41,6 +38,6 @@ $ touch .env
 
 ## Creators
 
-**Geo Project**
+
 
 
